@@ -7,6 +7,7 @@ type Props = {
   name: string;
   onChange: (e: any) => void;
   style?: React.CSSProperties;
+  requireStyle?: React.CSSProperties;
 };
 
 const CheckBox = ({
@@ -16,6 +17,7 @@ const CheckBox = ({
   name,
   onChange,
   style,
+  requireStyle,
 }: Props) => {
   return (
     <Container>
@@ -27,7 +29,9 @@ const CheckBox = ({
         style={style}
       />
       <StyledLabel>{text}</StyledLabel>
-      <StyledRequire>{requireText}</StyledRequire>
+      {requireText && (
+        <StyledRequire style={requireStyle}>{requireText}</StyledRequire>
+      )}
     </Container>
   );
 };

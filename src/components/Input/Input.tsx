@@ -100,7 +100,7 @@ const StyledInput = styled.input<any>`
   box-sizing: border-box;
 `;
 
-const ErrorText = styled.div<{ errorText?: string }>`
+const ErrorText = styled.div`
   color: #ff4e4e;
   font-size: 12px;
 

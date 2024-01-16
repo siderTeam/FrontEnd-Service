@@ -11,35 +11,19 @@ import SelectBox from "@/components/SelectBox/SelectBox";
 
 import styled from "@emotion/styled";
 
-type InputProps = {
-  name: string;
-  password: string;
-};
-
-type CheckBoxProps = {
-  first: boolean;
-  second: boolean;
-};
-
-type SelectProps = {
-  first: string;
-  second: string;
-  third: string;
-};
-
 export default function Home() {
   const [visible, setVisible] = useState(false);
-  const [inputValue, setInputValue] = useState<InputProps>({
+  const [inputValue, setInputValue] = useState({
     name: "",
     password: "",
   });
 
-  const [isChecked, setIsChecked] = useState<CheckBoxProps>({
+  const [isChecked, setIsChecked] = useState({
     first: false,
     second: false,
   });
 
-  const [selectedOption, setSelectedOption] = useState<SelectProps>({
+  const [selected, setSelected] = useState({
     first: "미승인",
     second: "승인",
     third: "반려",
@@ -66,8 +50,8 @@ export default function Home() {
   const handleSelectChange = (e: any) => {
     const { value, name } = e.target;
 
-    setSelectedOption({
-      ...selectedOption,
+    setSelected({
+      ...selected,
       [name]: value,
     });
   };
@@ -100,42 +84,18 @@ export default function Home() {
           <TextArea />
         </Label>
       </div> */}
-      <div>
-        <Button size='small-box' mode={"primary-box"}>
+      {/* <div>
+        <Button size='small' mode={"primary"}>
           중복 확인
         </Button>
-        <Button size='medium-box' mode={"primary-box"}>
+        <Button size='medium' mode={"primary"}>
           미디움 프라이머리
         </Button>
-        <Button size='large-box' mode={"error-box"}>
+        <Button size='large' mode={"error"}>
           라지 에러
         </Button>
-
-        <Button size='small-text' mode='primary-text'>
-          글자 버튼 스몰
-        </Button>
-
-        <Button size='medium-text' mode='disabled-text'>
-          글자 버튼 미디움 비활성화
-        </Button>
-
-        <Button
-          onClick={() => setVisible(true)}
-          size='large-text'
-          mode={"point-text"}
-        >
-          글자 버튼 라지 포인트
-        </Button>
-
-        <Button size='round-box' mode='point-box'>
-          +
-        </Button>
-
-        <Button size='large-box' mode='error-box' isDisabled>
-          dd
-        </Button>
-      </div>
-      <div>
+      </div> */}
+      {/* <div>
         <Input
           value={inputValue.password}
           onChange={handleinputChange}
@@ -160,7 +120,7 @@ export default function Home() {
           size='large'
           mode='primary'
         />
-      </div>
+      </div> */}
       <Modal
         onClose={() => setVisible(false)}
         style={{ width: 300, height: 200 }}
@@ -168,21 +128,14 @@ export default function Home() {
       >
         내가 모달이야!
       </Modal>
-      <Input
-        value={inputValue.name}
-        onChange={handleinputChange}
-        name='name'
-        placeholder='이름을 입력해주세요.'
-        size='large'
-        mode='primary'
-      />
-      <div>
+      {/* <div>
         <CheckBox
           text='이용 약관'
           isChecked={isChecked.first}
           name='first'
           onChange={handleCheckBoxChange}
           requireText='(필수)'
+          requireStyle={{ fontSize: 20 }}
         />
         <CheckBox
           text='알림 수신 동의'
@@ -190,12 +143,12 @@ export default function Home() {
           name='second'
           onChange={handleCheckBoxChange}
         />
-      </div>
+      </div> */}
       <SelectContainer>
         <Label label='승인 유무 small' style={{ marginRight: 5 }}>
           <SelectBox
             options={["미승인", "승인", "반려"]}
-            value={selectedOption.first}
+            value={selected.first}
             name='first'
             onChange={handleSelectChange}
             size='small'
@@ -205,22 +158,21 @@ export default function Home() {
         <Label label='승인 유무 medium' style={{ marginRight: 5 }}>
           <SelectBox
             options={["미승인", "승인", "반려"]}
-            value={selectedOption.second}
+            value={selected.second}
             name='second'
             onChange={handleSelectChange}
           ></SelectBox>
         </Label>
-        <div className='row'>
-          <Label label='승인 유무 large' style={{ marginRight: 5 }}>
-            <SelectBox
-              options={["미승인", "승인", "반려"]}
-              value={selectedOption.third}
-              name='third'
-              onChange={handleSelectChange}
-              size='large'
-            ></SelectBox>
-          </Label>
-        </div>
+
+        <Label label='승인 유무 large' style={{ marginRight: 5 }}>
+          <SelectBox
+            options={["미승인", "승인", "반려"]}
+            value={selected.third}
+            name='third'
+            onChange={handleSelectChange}
+            size='large'
+          ></SelectBox>
+        </Label>
       </SelectContainer>
     </main>
   );
@@ -229,8 +181,4 @@ export default function Home() {
 const SelectContainer = styled.div`
   display: flex;
   flex-direction: column;
-
-  .row {
-    display: flex;
-  }
 `;
