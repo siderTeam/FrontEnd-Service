@@ -47,9 +47,7 @@ export default function Home() {
     });
   };
 
-  const handleSelectChange = (e: any) => {
-    const { value, name } = e.target;
-
+  const handleSelectChange = (value: string, name: string) => {
     setSelected({
       ...selected,
       [name]: value,
@@ -145,32 +143,32 @@ export default function Home() {
         />
       </div> */}
       <SelectContainer>
-        <Label label='승인 유무 small' style={{ marginRight: 5 }}>
+        <Label label="승인 유무 small" style={{ marginRight: 5 }}>
           <SelectBox
             options={["미승인", "승인", "반려"]}
             value={selected.first}
-            name='first'
+            name="first"
             onChange={handleSelectChange}
-            size='small'
+            size="small"
           />
         </Label>
 
-        <Label label='승인 유무 medium' style={{ marginRight: 5 }}>
+        <Label label="승인 유무 medium" style={{ marginRight: 5 }}>
           <SelectBox
             options={["미승인", "승인", "반려"]}
             value={selected.second}
-            name='second'
+            name="second"
             onChange={handleSelectChange}
           ></SelectBox>
         </Label>
 
-        <Label label='승인 유무 large' style={{ marginRight: 5 }}>
+        <Label label="승인 유무 large" style={{ marginRight: 5 }}>
           <SelectBox
             options={["미승인", "승인", "반려"]}
             value={selected.third}
-            name='third'
+            name="third"
             onChange={handleSelectChange}
-            size='large'
+            size="large"
           ></SelectBox>
         </Label>
       </SelectContainer>
