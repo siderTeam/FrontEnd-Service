@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
+import { IoClose } from "react-icons/io5";
 
 type Props = {
   visible: boolean;
@@ -13,8 +14,8 @@ const Modal = ({ visible, onClose, children, style }: Props) => {
   return (
     <Container visible={visible} onClick={onClose}>
       <Content style={style} onClick={(e) => e.stopPropagation()}>
-        <div onClick={onClose} className="close">
-          X
+        <div onClick={onClose} className='close'>
+          <IoClose />
         </div>
         {children}
       </Content>

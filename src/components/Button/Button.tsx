@@ -5,13 +5,15 @@ import { ButtonHTMLAttributes } from "react";
 
 type STYLE_PROPS = {
   size?: "small" | "medium" | "large";
-  mode?: "primary" | "error" | "success";
+  mode?: "primary" | "error";
 };
 
 type Props = STYLE_PROPS &
   ButtonHTMLAttributes<HTMLButtonElement> & {
     children: any;
     style?: React.CSSProperties;
+    onClick?: () => void;
+    isDisabled?: boolean;
   };
 
 const Button = ({
@@ -19,10 +21,19 @@ const Button = ({
   size = "medium",
   mode = "primary",
   style,
+  onClick,
+  isDisabled = false,
   ...rest
 }: Props) => {
   return (
-    <StyledButton size={size} mode={mode} style={style} {...rest}>
+    <StyledButton
+      size={size}
+      mode={mode}
+      style={style}
+      disabled={isDisabled}
+      onClick={onClick}
+      {...rest}
+    >
       {children}
     </StyledButton>
   );
@@ -31,42 +42,45 @@ export default Button;
 
 const BUTTON_TYPE = {
   ["small"]: {
-    width: 100,
-    height: 50,
+    width: "70px",
+    height: "40px",
+    borderRadius: "8px",
+    fontSize: 12,
   },
   ["medium"]: {
-    width: 125,
-    height: 50,
+    width: "140px",
+    height: "40px",
+    borderRadius: "8px",
+    fontSize: 12,
   },
   ["large"]: {
-    width: 150,
-    height: 75,
+    width: "400px",
+    height: "40px",
+    borderRadius: "8px",
+    fontSize: 12,
   },
 };
 
 const COLOR_TYPE = {
   ["primary"]: {
-    background: "blue",
+    background: "#3574F2",
     color: "white",
-    borderColor: "black",
   },
   ["error"]: {
-    background: "red",
-    color: "black",
-    borderColor: "black",
-  },
-  ["success"]: {
-    background: "green",
+    background: "#FF4E4E",
     color: "white",
-    borderColor: "black",
   },
 };
 
-const StyledButton = styled.button<STYLE_PROPS>`
-  width: ${({ size }) => `${BUTTON_TYPE[size as "small"].width}px`};
-  height: ${({ size }) => `${BUTTON_TYPE[size as "small"].height}px`};
-  background: ${({ mode }) => `${COLOR_TYPE[mode as "primary"].background}`};
-  color: ${({ mode }) => `${COLOR_TYPE[mode as "primary"].color}`};
-  border: ${({ mode }) =>
-    `1px solid ${COLOR_TYPE[mode as "primary"].borderColor}`};
+const StyledButton = styled.button<Props>`
+  ${({ size }) => BUTTON_TYPE[size as "medium"]};
+  ${({ mode }) => COLOR_TYPE[mode as "primary"]};
+
+  display: ${(props) => (props.disabled ? "none" : "flex")};
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
 `;
