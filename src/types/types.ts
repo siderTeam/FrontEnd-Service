@@ -26,7 +26,11 @@ export type InputProps = INPUT_STYLE_PROPS &
 
 //Label
 
-export type LabelProps = {
+export type LABEL_STYLE_PROPS = {
+  location: "left" | "top";
+};
+
+export type LabelProps = LABEL_STYLE_PROPS & {
   label: string;
   require?: string;
   subText?: string;

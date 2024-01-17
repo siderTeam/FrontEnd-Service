@@ -29,6 +29,7 @@ const LabelInput = ({
   return (
     <Container location={location} style={style}>
       <Label
+        location={location}
         label={label}
         style={labelStyle}
         require={require}
