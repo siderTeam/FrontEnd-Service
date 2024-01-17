@@ -129,17 +129,17 @@ export default function Home() {
       </Modal>
       <div>
         <CheckBox
-          text='이용 약관'
+          text="이용 약관"
           isChecked={isChecked.first}
-          name='first'
+          name="first"
           onChange={handleCheckBoxChange}
-          requireText='(필수)'
+          requireText="(필수)"
           requireStyle={{ fontSize: 20 }}
         />
         <CheckBox
-          text='알림 수신 동의'
+          text="알림 수신 동의"
           isChecked={isChecked.second}
-          name='second'
+          name="second"
           onChange={handleCheckBoxChange}
         />
       </div>
@@ -178,15 +178,32 @@ export default function Home() {
         </Label>
       </SelectContainer> */}
       <LabelInput
-        location='left'
-        label='dd'
-        name='dd'
-        require='*'
-        subText='서브'
-        labelStyle={{ color: "red" }}
-        inputStyle={{ border: "1px solid red" }}
-        size='small'
-        mode='disabled'
+        location="left"
+        labelOption={{
+          label: "dd",
+          require: "*",
+          subText: "서브",
+        }}
+        inputOption={{
+          name: "dd",
+          style: { border: "1px solid red" },
+          size: "small",
+          mode: "disabled",
+        }}
+      />
+      <LabelInput
+        location="top"
+        labelOption={{
+          label: "dd",
+          require: "*",
+          subText: "서브",
+        }}
+        inputOption={{
+          name: "dd",
+          style: { border: "1px solid red" },
+          size: "small",
+          mode: "disabled",
+        }}
       />
     </main>
   );

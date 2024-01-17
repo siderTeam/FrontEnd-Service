@@ -26,11 +26,7 @@ export type InputProps = INPUT_STYLE_PROPS &
 
 //Label
 
-export type LABEL_STYLE_PROPS = {
-  location: "left" | "top";
-};
-
-export type LabelProps = LABEL_STYLE_PROPS & {
+export type LabelProps = {
   label: string;
   require?: string;
   subText?: string;
@@ -106,9 +102,9 @@ export type LABELINPUT_STYLE_PROPS = {
   location: "left" | "top";
 };
 
-export type LabelInputProps = LabelProps &
-  InputProps &
-  LABELINPUT_STYLE_PROPS & {
-    labelStyle?: React.CSSProperties;
-    inputStyle?: React.CSSProperties;
-  };
+// export type LabelInputProps = LabelProps &
+//   InputProps &
+//   LABELINPUT_STYLE_PROPS & {
+//     labelStyle?: React.CSSProperties;
+//     inputStyle?: React.CSSProperties;
+//   };
