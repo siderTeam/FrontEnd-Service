@@ -11,6 +11,7 @@ import SelectBox from "@/components/SelectBox/SelectBox";
 
 import styled from "@emotion/styled";
 import LabelInput from "@/components/LabelInput/LabelInput";
+import LabelTextArea from "@/components/LabelTextArea/LabelTextArea";
 
 export default function Home() {
   const [visible, setVisible] = useState(false);
@@ -55,10 +56,40 @@ export default function Home() {
     });
   };
 
-  return (
-    <main>
-      내가 메인
-      {/* <div>
+  const [textCount, setTextCount] = useState(0);
+  const [textAreaValue, setTextAreaValue] = useState("");
+
+  const handleTextAreaChange = (e: any) => {
+    if (e.target.maxLength) {
+      handleTextCount(e);
+    }
+    setTextAreaValue(e.target.value);
+  };
+  
+  const handleTextCount = (e: any) => {
+    const { value, maxLength } = e.target;
+
+    if (value.length > maxLength) {
+      e.target.value = value.slice(0, maxLength);
+    }
+    setTextCount(e.target.value.length);
+  };
+
+return (
+  <main>
+    내가 메인
+    <LabelTextArea
+      label="라벨명"
+      location="top"
+      rows={10}
+      value={textAreaValue}
+      name="textarea"
+      onChange={handleTextAreaChange}
+      maxLength={10}
+    />
+    <span>{textCount}</span>
+    <span> / 10</span>
+    {/* <div>
         <Label label='라벨명1' style={{ fontSize: 20 }}>
           <TextArea />
         </Label>
@@ -83,7 +114,7 @@ export default function Home() {
           <TextArea />
         </Label>
       </div> */}
-      {/* <div>
+    {/* <div>
         <Button size='small' mode={"primary"}>
           중복 확인
         </Button>
@@ -94,7 +125,7 @@ export default function Home() {
           라지 에러
         </Button>
       </div> */}
-      {/* <div>
+    {/* <div>
         <Input
           value={inputValue.password}
           onChange={handleinputChange}
@@ -120,30 +151,30 @@ export default function Home() {
           mode='primary'
         />
       </div> */}
-      <Modal
-        onClose={() => setVisible(false)}
-        style={{ width: 300, height: 200 }}
-        visible={visible}
-      >
-        내가 모달이야!
-      </Modal>
-      <div>
-        <CheckBox
-          text='이용 약관'
-          isChecked={isChecked.first}
-          name='first'
-          onChange={handleCheckBoxChange}
-          requireText='(필수)'
-          requireStyle={{ fontSize: 20 }}
-        />
-        <CheckBox
-          text='알림 수신 동의'
-          isChecked={isChecked.second}
-          name='second'
-          onChange={handleCheckBoxChange}
-        />
-      </div>
-      {/* <SelectContainer>
+    <Modal
+      onClose={() => setVisible(false)}
+      style={{ width: 300, height: 200 }}
+      visible={visible}
+    >
+      내가 모달이야!
+    </Modal>
+    <div>
+      <CheckBox
+        text="이용 약관"
+        isChecked={isChecked.first}
+        name="first"
+        onChange={handleCheckBoxChange}
+        requireText="(필수)"
+        requireStyle={{ fontSize: 20 }}
+      />
+      <CheckBox
+        text="알림 수신 동의"
+        isChecked={isChecked.second}
+        name="second"
+        onChange={handleCheckBoxChange}
+      />
+    </div>
+    {/* <SelectContainer>
         <Label label='승인 유무 small' style={{ marginRight: 5 }}>
           <SelectBox
             options={["미승인", "승인", "반려"]}
@@ -177,19 +208,19 @@ export default function Home() {
           ></SelectBox>
         </Label>
       </SelectContainer> */}
-      <LabelInput
-        location='left'
-        label='dd'
-        name='dd'
-        require='*'
-        subText='서브'
-        labelStyle={{ color: "red" }}
-        inputStyle={{ border: "1px solid red" }}
-        size='small'
-        mode='disabled'
-      />
-    </main>
-  );
+    <LabelInput
+      location="left"
+      label="dd"
+      name="dd"
+      require="*"
+      subText="서브"
+      labelStyle={{ color: "red" }}
+      inputStyle={{ border: "1px solid red" }}
+      size="small"
+      mode="disabled"
+    />
+  </main>
+);
 }
 
 const SelectContainer = styled.div`
