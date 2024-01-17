@@ -102,21 +102,9 @@ export type LABELINPUT_STYLE_PROPS = {
   location: "left" | "top";
 };
 
-export type LabelInputProps = LabelProps &
-  InputProps &
-  LABELINPUT_STYLE_PROPS & {
-    labelStyle?: React.CSSProperties;
-    inputStyle?: React.CSSProperties;
-  };
-
-
-//LabelTextArea
-
-export type LABELTEXTAREA_STYLE_PROPS = {
-  location?: "left" | "top";
-};
-
-export type LabelTextAreaProps = LABELTEXTAREA_STYLE_PROPS & LabelProps & TextareaProps & {
-  labelStyle?: React.CSSProperties;
-  textAreaStyle?: React.CSSProperties;
-};
+// export type LabelInputProps = LabelProps &
+//   InputProps &
+//   LABELINPUT_STYLE_PROPS & {
+//     labelStyle?: React.CSSProperties;
+//     inputStyle?: React.CSSProperties;
+//   };

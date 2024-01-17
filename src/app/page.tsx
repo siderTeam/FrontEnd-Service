@@ -210,14 +210,31 @@ return (
       </SelectContainer> */}
     <LabelInput
       location="left"
-      label="dd"
-      name="dd"
-      require="*"
-      subText="서브"
-      labelStyle={{ color: "red" }}
-      inputStyle={{ border: "1px solid red" }}
-      size="small"
-      mode="disabled"
+      labelOption={{
+        label: "dd",
+        require: "*",
+        subText: "서브",
+      }}
+      inputOption={{
+        name: "dd",
+        style: { border: "1px solid red" },
+        size: "small",
+        mode: "disabled",
+      }}
+    />
+    <LabelInput
+      location="top"
+      labelOption={{
+        label: "dd",
+        require: "*",
+        subText: "서브",
+      }}
+      inputOption={{
+        name: "dd",
+        style: { border: "1px solid red" },
+        size: "small",
+        mode: "disabled",
+      }}
     />
   </main>
 );
