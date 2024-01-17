@@ -10,6 +10,7 @@ import CheckBox from "@/components/CheckBox/CheckBox";
 import SelectBox from "@/components/SelectBox/SelectBox";
 
 import styled from "@emotion/styled";
+import LabelInput from "@/components/LabelInput/LabelInput";
 
 export default function Home() {
   const [visible, setVisible] = useState(false);
@@ -126,7 +127,7 @@ export default function Home() {
       >
         내가 모달이야!
       </Modal>
-      {/* <div>
+      <div>
         <CheckBox
           text='이용 약관'
           isChecked={isChecked.first}
@@ -141,37 +142,52 @@ export default function Home() {
           name='second'
           onChange={handleCheckBoxChange}
         />
-      </div> */}
-      <SelectContainer>
-        <Label label="승인 유무 small" style={{ marginRight: 5 }}>
+      </div>
+      {/* <SelectContainer>
+        <Label label='승인 유무 small' style={{ marginRight: 5 }}>
           <SelectBox
             options={["미승인", "승인", "반려"]}
             value={selected.first}
-            name="first"
+            name='first'
             onChange={handleSelectChange}
-            size="small"
+            size='small'
           />
         </Label>
 
-        <Label label="승인 유무 medium" style={{ marginRight: 5 }}>
+        <Label label='승인 유무 medium' style={{ marginRight: 5 }}>
           <SelectBox
             options={["미승인", "승인", "반려"]}
             value={selected.second}
-            name="second"
+            name='second'
             onChange={handleSelectChange}
           ></SelectBox>
         </Label>
 
-        <Label label="승인 유무 large" style={{ marginRight: 5 }}>
+        <Label
+          label='승인 유무 large'
+          style={{ marginRight: 5 }}
+          location='left'
+        >
           <SelectBox
             options={["미승인", "승인", "반려"]}
             value={selected.third}
-            name="third"
+            name='third'
             onChange={handleSelectChange}
-            size="large"
+            size='large'
           ></SelectBox>
         </Label>
-      </SelectContainer>
+      </SelectContainer> */}
+      <LabelInput
+        location='left'
+        label='dd'
+        name='dd'
+        require='*'
+        subText='서브'
+        labelStyle={{ color: "red" }}
+        inputStyle={{ border: "1px solid red" }}
+        size='small'
+        mode='disabled'
+      />
     </main>
   );
 }
