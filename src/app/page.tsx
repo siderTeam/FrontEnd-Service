@@ -56,39 +56,31 @@ export default function Home() {
     });
   };
 
-  const [textCount, setTextCount] = useState(0);
   const [textAreaValue, setTextAreaValue] = useState("");
-
-  const handleTextAreaChange = (e: any) => {
-    if (e.target.maxLength) {
-      handleTextCount(e);
-    }
-    setTextAreaValue(e.target.value);
-  };
   
-  const handleTextCount = (e: any) => {
-    const { value, maxLength } = e.target;
-
-    if (value.length > maxLength) {
-      e.target.value = value.slice(0, maxLength);
-    }
-    setTextCount(e.target.value.length);
+  const handleTextAreaChange = (e: any) => {
+    setTextAreaValue(e.target.value);
   };
 
 return (
   <main>
     내가 메인
     <LabelTextArea
-      label="라벨명"
       location="top"
-      rows={10}
-      value={textAreaValue}
-      name="textarea"
-      onChange={handleTextAreaChange}
-      maxLength={10}
+      labelOption={{
+        label: "라벨명",
+        require: "*",
+        subText: "서브",
+      }}
+      TextAreaOption={{
+        size: "large",
+        rows: 10,
+        value: textAreaValue,
+        name: "textarea",
+        onChange: handleTextAreaChange,
+        maxLength: 100,
+      }}
     />
-    <span>{textCount}</span>
-    <span> / 10</span>
     {/* <div>
         <Label label='라벨명1' style={{ fontSize: 20 }}>
           <TextArea />
