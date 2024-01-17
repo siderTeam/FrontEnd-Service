@@ -1,20 +1,9 @@
 "use client";
 
 import styled from "@emotion/styled";
-import { ButtonHTMLAttributes } from "react";
 
-type STYLE_PROPS = {
-  size?: "small" | "medium" | "large";
-  mode?: "primary" | "error";
-};
-
-type Props = STYLE_PROPS &
-  ButtonHTMLAttributes<HTMLButtonElement> & {
-    children: any;
-    style?: React.CSSProperties;
-    onClick?: () => void;
-    isDisabled?: boolean;
-  };
+import { ButtonProps } from "@/types/types";
+import { BUTTON_STYLE_PROPS } from "@/types/types";
 
 const Button = ({
   children,
@@ -24,7 +13,7 @@ const Button = ({
   onClick,
   isDisabled = false,
   ...rest
-}: Props) => {
+}: ButtonProps) => {
   return (
     <StyledButton
       size={size}
@@ -72,7 +61,7 @@ const COLOR_TYPE = {
   },
 };
 
-const StyledButton = styled.button<Props>`
+const StyledButton = styled.button<BUTTON_STYLE_PROPS>`
   ${({ size }) => BUTTON_TYPE[size as "medium"]};
   ${({ mode }) => COLOR_TYPE[mode as "primary"]};
 

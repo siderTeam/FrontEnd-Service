@@ -3,14 +3,9 @@
 import styled from "@emotion/styled";
 import { IoClose } from "react-icons/io5";
 
-type Props = {
-  visible: boolean;
-  onClose: () => void;
-  children: any;
-  style?: React.CSSProperties;
-};
+import { ModalProps } from "@/types/types";
 
-const Modal = ({ visible, onClose, children, style }: Props) => {
+const Modal = ({ visible, onClose, children, style }: ModalProps) => {
   return (
     <Container visible={visible} onClick={onClose}>
       <Content style={style} onClick={(e) => e.stopPropagation()}>

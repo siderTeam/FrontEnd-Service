@@ -1,14 +1,6 @@
 import styled from "@emotion/styled";
 
-type Props = {
-  text: string;
-  requireText?: string;
-  isChecked: boolean;
-  name: string;
-  onChange: (e: any) => void;
-  style?: React.CSSProperties;
-  requireStyle?: React.CSSProperties;
-};
+import { CheckboxProps } from "@/types/types";
 
 const CheckBox = ({
   text,
@@ -18,7 +10,7 @@ const CheckBox = ({
   onChange,
   style,
   requireStyle,
-}: Props) => {
+}: CheckboxProps) => {
   return (
     <Container>
       <StyledCheckBox

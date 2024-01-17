@@ -2,51 +2,22 @@
 
 import styled from "@emotion/styled";
 
-type STYLE_PROPS = {
-  location?: "left" | "top";
-};
+import { LabelProps } from "@/types/types";
 
-type Props = STYLE_PROPS & {
-  children: any;
-  label: string;
-  require?: string;
-  subText?: string;
-  style?: React.CSSProperties;
-};
-
-const Label = ({
-  children,
-  location = "left",
-  label,
-  require,
-  subText,
-  style,
-}: Props) => {
+const Label = ({ label, require, subText, style }: LabelProps) => {
   return (
     <>
-      <StyledLabel location={location} style={style}>
+      <StyledLabel style={style}>
         {label}
         {require && <StyledRequire>{require}</StyledRequire>}
       </StyledLabel>
       {subText && <StyledsubText>{subText}</StyledsubText>}
-      {children}
     </>
   );
 };
 export default Label;
 
-const LOCAION_TYPE = {
-  ["left"]: {
-    verticalAlign: "top",
-  },
-  ["top"]: {
-    display: "flex",
-    marginBottom: "3px",
-  },
-};
-
-const StyledLabel = styled.label<STYLE_PROPS>`
-  ${({ location }) => LOCAION_TYPE[location as "left"]};
+const StyledLabel = styled.label`
   font-weight: bold;
 `;
 

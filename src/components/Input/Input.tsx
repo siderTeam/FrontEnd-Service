@@ -1,27 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import { InputHTMLAttributes } from "react";
-
-type STYLE_PROPS = {
-  size?: "small" | "medium" | "large";
-  mode?: "primary" | "disabled";
-};
-
-type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
-
-type Props = STYLE_PROPS &
-  INPUT_TYPE & {
-    value?: string | number | undefined;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    readOnly?: boolean;
-    type?: string;
-    name: string;
-    placeholder?: string;
-    errorText?: string;
-    style?: React.CSSProperties;
-    rest?: any;
-  };
+import { InputProps } from "@/types/types";
 
 const Input = ({
   value,
@@ -35,7 +15,7 @@ const Input = ({
   mode = "primary",
   style,
   ...rest
-}: Props) => {
+}: InputProps) => {
   return (
     <Container>
       <StyledInput
