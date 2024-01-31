@@ -40,13 +40,12 @@ export type BUTTON_STYLE_PROPS = {
   mode?: "primary" | "error";
 };
 
-export type ButtonProps = BUTTON_STYLE_PROPS &
-  ButtonHTMLAttributes<HTMLButtonElement> & {
-    children: any;
-    style?: React.CSSProperties;
-    onClick?: () => void;
-    isDisabled?: boolean;
-  };
+export type ButtonProps = BUTTON_STYLE_PROPS & {
+  children: any;
+  style?: React.CSSProperties;
+  onClick?: () => void;
+  isDisabled?: boolean;
+};
 
 //CheckBox
 

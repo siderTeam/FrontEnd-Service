@@ -13,47 +13,47 @@ import styled from "@emotion/styled";
 import LabelInput from "@/components/LabelInput/LabelInput";
 
 export default function Home() {
-  const [visible, setVisible] = useState(false);
-  const [inputValue, setInputValue] = useState({
-    name: "",
-    password: "",
-  });
+  // const [visible, setVisible] = useState(false);
+  // const [inputValue, setInputValue] = useState({
+  //   name: "",
+  //   password: "",
+  // });
 
-  const [isChecked, setIsChecked] = useState({
-    first: false,
-    second: false,
-  });
+  // const [isChecked, setIsChecked] = useState({
+  //   first: false,
+  //   second: false,
+  // });
 
-  const [selected, setSelected] = useState({
-    first: "미승인",
-    second: "승인",
-    third: "반려",
-  });
+  // const [selected, setSelected] = useState({
+  //   first: "미승인",
+  //   second: "승인",
+  //   third: "반려",
+  // });
 
-  const handleinputChange = (e: any) => {
-    const { value, name } = e.target;
+  // const handleinputChange = (e: any) => {
+  //   const { value, name } = e.target;
 
-    setInputValue({
-      ...inputValue,
-      [name]: value,
-    });
-  };
+  //   setInputValue({
+  //     ...inputValue,
+  //     [name]: value,
+  //   });
+  // };
 
-  const handleCheckBoxChange = (e: any) => {
-    const { name, checked } = e.target;
+  // const handleCheckBoxChange = (e: any) => {
+  //   const { name, checked } = e.target;
 
-    setIsChecked({
-      ...isChecked,
-      [name]: checked,
-    });
-  };
+  //   setIsChecked({
+  //     ...isChecked,
+  //     [name]: checked,
+  //   });
+  // };
 
-  const handleSelectChange = (value: string, name: string) => {
-    setSelected({
-      ...selected,
-      [name]: value,
-    });
-  };
+  // const handleSelectChange = (value: string, name: string) => {
+  //   setSelected({
+  //     ...selected,
+  //     [name]: value,
+  //   });
+  // };
 
   return (
     <main>
@@ -120,7 +120,7 @@ export default function Home() {
           mode='primary'
         />
       </div> */}
-      <Modal
+      {/* <Modal
         onClose={() => setVisible(false)}
         style={{ width: 300, height: 200 }}
         visible={visible}
@@ -142,7 +142,7 @@ export default function Home() {
           name="second"
           onChange={handleCheckBoxChange}
         />
-      </div>
+      </div> */}
       {/* <SelectContainer>
         <Label label='승인 유무 small' style={{ marginRight: 5 }}>
           <SelectBox
@@ -177,7 +177,7 @@ export default function Home() {
           ></SelectBox>
         </Label>
       </SelectContainer> */}
-      <LabelInput
+      {/* <LabelInput
         location="left"
         labelOption={{
           label: "dd",
@@ -204,7 +204,7 @@ export default function Home() {
           size: "small",
           mode: "disabled",
         }}
-      />
+      /> */}
     </main>
   );
 }
