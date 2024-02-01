@@ -1,61 +1,142 @@
+"use client";
+
 import styled from "@emotion/styled";
+import { useSelectedLayoutSegment } from "next/navigation";
+import Link from "next/link";
 import Button from "../Button_new/Button";
 
-const NavBar = () => {
+export default function NavBarTest() {
+  const segment = useSelectedLayoutSegment();
+
   return (
     <>
       <Container>
         <div>
           <Logo>
-            <img src='Logo.svg' />
+            <img src='images/Logo.svg' />
           </Logo>
         </div>
         <Imsi>
           <TopMenu>
-            <ChoiceMenuWrap>
-              <Wrap>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='25'
-                  viewBox='0 0 24 25'
-                  fill='none'
-                >
-                  <path
-                    d='M3 9.62317L12 2.62317L21 9.62317V20.6232C21 21.1536 20.7893 21.6623 20.4142 22.0374C20.0391 22.4125 19.5304 22.6232 19 22.6232H5C4.46957 22.6232 3.96086 22.4125 3.58579 22.0374C3.21071 21.6623 3 21.1536 3 20.6232V9.62317Z'
-                    stroke='#0066FF'
-                    stroke-width='2'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                  />
-                  <path
-                    d='M9 22.6232V12.6232H15V22.6232'
-                    stroke='#0066FF'
-                    stroke-width='2'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                  />
-                </svg>
-                <MenuText>Home</MenuText>
-              </Wrap>
-              <ChoiceMenu src='more.svg' />
-            </ChoiceMenuWrap>
-            <MenuWrap>
-              <MenuIcon src='Calendar.svg' />
-              <MenuText>마이페이지</MenuText>
-            </MenuWrap>
-            <MenuWrap>
-              <MenuIcon src='Group.svg' />
-              <MenuText>지원서 관리</MenuText>
-            </MenuWrap>
-            <MenuWrap>
-              <MenuIcon src='Calendar.svg' />
-              <MenuText>결제 내역</MenuText>
-            </MenuWrap>
-            <MenuWrap>
-              <MenuIcon src='Bookmark.svg' />
-              <MenuText>프로젝트</MenuText>
-            </MenuWrap>
+            {/* home */}
+            <li>
+              <Link href='/Home'>
+                {segment === "Home" ? (
+                  <>
+                    <ChoiceMenuWrap>
+                      <Wrap>
+                        <MenuIcon src='/images/home/Home_blue.svg' />
+                        <MenuText>Home</MenuText>
+                      </Wrap>
+                      <ChoiceMenu src='/images/home/arrow_gray.svg' />
+                    </ChoiceMenuWrap>
+                  </>
+                ) : (
+                  <>
+                    <MenuWrap>
+                      <MenuIcon src='/images/home/Home_gray.svg' />
+                      <MenuText>Home</MenuText>
+                    </MenuWrap>
+                  </>
+                )}
+              </Link>
+            </li>
+
+            {/* mypage */}
+            <li>
+              <Link href='/MyPage'>
+                {segment === "MyPage" ? (
+                  <>
+                    <ChoiceMenuWrap>
+                      <Wrap>
+                        <MenuIcon src='/images/home/Calendar_blue.svg' />
+                        <MenuText>마이페이지</MenuText>
+                      </Wrap>
+                      <ChoiceMenu src='/images/home/arrow_gray.svg' />
+                    </ChoiceMenuWrap>
+                  </>
+                ) : (
+                  <>
+                    <MenuWrap>
+                      <MenuIcon src='/images/home/Calendar_gray.svg' />
+                      <MenuText>마이페이지</MenuText>
+                    </MenuWrap>
+                  </>
+                )}
+              </Link>
+            </li>
+
+            {/* 지원서 */}
+            <li>
+              <Link href='/Application'>
+                {segment === "Application" ? (
+                  <>
+                    <ChoiceMenuWrap>
+                      <Wrap>
+                        <MenuIcon src='/images/home/Group_blue.svg' />
+                        <MenuText>지원서 관리</MenuText>
+                      </Wrap>
+                      <ChoiceMenu src='/images/home/arrow_gray.svg' />
+                    </ChoiceMenuWrap>
+                  </>
+                ) : (
+                  <>
+                    <MenuWrap>
+                      <MenuIcon src='/images/home/Group_gray.svg' />
+                      <MenuText>지원서 관리</MenuText>
+                    </MenuWrap>
+                  </>
+                )}
+              </Link>
+            </li>
+
+            {/* 결제 내역 */}
+            <li>
+              <Link href='/Pay'>
+                {segment === "Pay" ? (
+                  <>
+                    <ChoiceMenuWrap>
+                      <Wrap>
+                        <MenuIcon src='/images/home/Calendar_blue.svg' />
+                        <MenuText>결제 내역</MenuText>
+                      </Wrap>
+                      <ChoiceMenu src='/images/home/arrow_gray.svg' />
+                    </ChoiceMenuWrap>
+                  </>
+                ) : (
+                  <>
+                    <MenuWrap>
+                      <MenuIcon src='/images/home/Calendar_gray.svg' />
+                      <MenuText>결제 내역</MenuText>
+                    </MenuWrap>
+                  </>
+                )}
+              </Link>
+            </li>
+
+            {/* 프로젝트 */}
+            <li>
+              <Link href='/Project'>
+                {segment === "Project" ? (
+                  <>
+                    <ChoiceMenuWrap>
+                      <Wrap>
+                        <MenuIcon src='/images/home/Bookmark_blue.svg' />
+                        <MenuText>프로젝트</MenuText>
+                      </Wrap>
+                      <ChoiceMenu src='/images/home/arrow_gray.svg' />
+                    </ChoiceMenuWrap>
+                  </>
+                ) : (
+                  <>
+                    <MenuWrap>
+                      <MenuIcon src='/images/home/Bookmark_gray.svg' />
+                      <MenuText>프로젝트</MenuText>
+                    </MenuWrap>
+                  </>
+                )}
+              </Link>
+            </li>
           </TopMenu>
           <BottomMenu>
             <ProfileWrap>
@@ -78,9 +159,7 @@ const NavBar = () => {
       </Container>
     </>
   );
-};
-
-export default NavBar;
+}
 
 const Container = styled.div`
   display: inline-flex;
@@ -118,6 +197,27 @@ const TopMenu = styled.div`
   gap: 30px;
 `;
 
+const MenuIcon = styled.img`
+  width: 24px;
+  height: 24px;
+`;
+
+const MenuText = styled.div`
+  color: var(--primary, #06f);
+  text-align: center;
+  /* font-family: Pretendard; */
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`;
+
+const ChoiceMenu = styled.img`
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+`;
+
 const ChoiceMenuWrap = styled.div`
   display: flex;
   width: 146px;
@@ -140,27 +240,6 @@ const MenuWrap = styled.div`
   align-self: stretch;
 `;
 
-const MenuIcon = styled.img`
-  width: 24px;
-  height: 24px;
-`;
-
-const MenuText = styled.div`
-  color: var(--primary, #06f);
-  text-align: center;
-  /* font-family: Pretendard; */
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-`;
-
-const ChoiceMenu = styled.img`
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-`;
-
 const BottomMenu = styled.div`
   display: flex;
   flex-direction: column;
@@ -179,7 +258,7 @@ const ProfileImg = styled.img`
   width: 94px;
   height: 94px;
   border-radius: 94px;
-  background: url("Ellipse.svg"), lightgray 50% / cover no-repeat;
+  background: url("images/home/Ellipse.svg"), lightgray 50% / cover no-repeat;
 `;
 
 const ProfileInfo = styled.div`
