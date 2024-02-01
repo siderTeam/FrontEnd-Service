@@ -49,16 +49,20 @@ const COLOR_TYPE = {
 
 const ICON_TYPE = {
   ["designer"]: {
-    background: 'url("designericon.png")  50% / cover no-repeat',
+    background:
+      'url("images/positionicon/designericon.png")  50% / cover no-repeat',
   },
   ["projectManager"]: {
-    background: 'url("plannericon.png")  50% / cover no-repeat',
+    background:
+      'url("images/positionicon/plannericon.png")  50% / cover no-repeat',
   },
   ["feDeveloper"]: {
-    background: 'url("developericon.png")  50% / cover no-repeat',
+    background:
+      'url("images/positionicon/developericon.png")  50% / cover no-repeat',
   },
   ["beDeveloper"]: {
-    background: 'url("developericon.png")  50% / cover no-repeat',
+    background:
+      'url("images/positionicon/developericon.png")  50% / cover no-repeat',
   },
 };
 
