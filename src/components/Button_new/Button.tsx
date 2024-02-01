@@ -3,14 +3,17 @@
 import styled from "@emotion/styled";
 
 type BUTTON_STYLE_PROPS = {
-  size?: "primary" | "basic" | "large";
-  mode?: "primary" | "error" | "basic";
+  size?: "primary" | "basic" | "basic-choice";
+  mode?: "primary" | "error" | "basic" | "basic-choice";
 };
 
 type ButtonProps = BUTTON_STYLE_PROPS & {
   children: any;
   style?: React.CSSProperties;
   onClick?: () => void;
+  icon?: boolean;
+  src?: string;
+  type?: string;
 };
 
 const Button = ({
@@ -19,6 +22,9 @@ const Button = ({
   mode = "primary",
   style,
   onClick,
+  icon = false,
+  src,
+  type,
   ...rest
 }: ButtonProps) => {
   return (
@@ -30,9 +36,13 @@ const Button = ({
           style={style}
           onClick={onClick}
           {...rest}
+          type={type}
         >
-          {children}
-          {/* <Icon src='more_white.svg' /> */}
+          <div>
+            {src && <Img src={src} />}
+            {children}
+          </div>
+          {icon && <Icon src='images/home/arrow_white.svg' />}
         </StyledButton>
       </ButtonWrap>
     </>
@@ -48,8 +58,15 @@ const BUTTON_TYPE = {
     alignItems: "center",
     gap: "10px",
     borderRadius: "100px",
+
+    // textAlign: "center",
+    fontFamily: "Pretendard",
+    fontSize: "14px",
+    fontStyle: "normal",
+    fontWeight: 500,
+    lineHeight: "normal",
   },
-  ["basic"]: {
+  ["basic-choice"]: {
     display: "flex",
     width: "160px",
     height: "48px",
@@ -68,6 +85,30 @@ const BUTTON_TYPE = {
     fontStyle: "normal",
     fontWeight: 500,
     lineHeight: "normal",
+    boxSizing: "border-box",
+  },
+
+  ["basic"]: {
+    display: "flex",
+    width: "160px",
+    height: "48px",
+    padding: "20px",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "4px",
+
+    borderRadius: "100px",
+    border: "1px solid var(--White, #FFF)",
+
+    backdropFilter: "blur(15px)",
+
+    textAlign: "center",
+    fontFamily: "Pretendard",
+    fontSize: "18px",
+    fontStyle: "normal",
+    fontWeight: 500,
+    lineHeight: "normal",
+    boxSizing: "border-box",
   },
 };
 
@@ -80,15 +121,19 @@ const COLOR_TYPE = {
     background: "#FF4E4E",
     color: "white",
   },
-  ["basic"]: {
+  ["basic-choice"]: {
     background: "var(--White, #FFF)",
     color: "var(--primary, #06F)",
+  },
+  ["basic"]: {
+    background: "rgba(255, 255, 255, 0.50)",
+    color: "var(--txt-main, #1E1E20)",
   },
 };
 
 const TEXT_TYPE = {};
 
-const StyledButton = styled.div<BUTTON_STYLE_PROPS>`
+const StyledButton = styled.div<ButtonProps>`
   ${({ size }) => BUTTON_TYPE[size as "primary"]};
   ${({ mode }) => COLOR_TYPE[mode as "primary"]};
 
@@ -102,6 +147,12 @@ const Icon = styled.img`
 
 const ButtonWrap = styled.div`
   display: flex;
-  padding: 3px 0px;
   align-items: center;
+`;
+
+const Img = styled.img`
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-right: 4px;
 `;
