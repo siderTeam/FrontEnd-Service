@@ -1,3 +1,4 @@
+import Navigation from '@/component/Navigation/Navigation';
 import '../../public/reset.css'
 
 export const metadata = {
@@ -12,7 +13,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body style={{ background: "#d8ebff" }}>
+        <Navigation />
+        <div style={{position: "absolute", left: 304, top: 90}}>
+        {children}
+        </div>
+      </body>
     </html>
-  )
+  );
 }
