@@ -31,7 +31,7 @@ const Card = ({
       </CardTop>
       <CardBottom>
         <SpaceBetweenWrap>
-          <SubTitle>프로젝트 기간</SubTitle>
+          <SubTitle>프로젝트기간</SubTitle>
           <DateWrap>
             {startDate.replace(/-/g, ".")} ~ {endDate.replace(/-/g, ".")}
           </DateWrap>
