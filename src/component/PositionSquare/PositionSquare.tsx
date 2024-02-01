@@ -3,9 +3,9 @@
 import styled from "@emotion/styled";
 import { PositionSquareProps } from "@/type/types";
 import Image, { StaticImageData } from "next/image";
-import designer from "/public/designer.png";
-import pm from "/public/pm.png";
-import developer from "/public/developer.png";
+import designer from "/public/images/position/designer.png";
+import pm from "/public/images/position/pm.png";
+import developer from "/public/images/position/developer.png";
 
 //value,     icon, backgroundColor, color => 이렇게 3개는 value에 뭐가 들어오는지에 따라서 바뀌도록
 
