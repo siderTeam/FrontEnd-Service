@@ -15,7 +15,9 @@ export default function RootLayout({
         <LeftSection>
           <NavBar />
         </LeftSection>
-        <Main>{children}</Main>
+        <RightSection>
+          <div>{children}</div>
+        </RightSection>
       </Container>
     </html>
   );
@@ -24,6 +26,7 @@ export default function RootLayout({
 const Container = styled.div`
   display: flex;
   align-items: stretch;
+  max-width: 1920px;
 `;
 
 const LeftSection = styled.div`
@@ -33,6 +36,9 @@ const LeftSection = styled.div`
   /* flex-grow: 1; */
 `;
 
-const Main = styled.div`
-  width: 600px;
+const RightSection = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
 `;
