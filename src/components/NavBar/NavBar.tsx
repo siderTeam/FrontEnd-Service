@@ -150,7 +150,7 @@ export default function NavBarTest() {
               </ProfileInfo>
             </ProfileWrap>
             <ButtonWrap>
-              <Button size='primary' mode='primary'>
+              <Button size='primary' mode='primary' icon={true}>
                 마이페이지
               </Button>
             </ButtonWrap>
