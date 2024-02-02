@@ -96,9 +96,9 @@ const page = () => {
       <Wrap>
         <ButtonWrap>
           <Button>전체</Button>
-          <Button>디자인</Button>
-          <Button>기획</Button>
-          <Button>개발</Button>
+          <Button leftIcon="/images/position/designer.png">디자인</Button>
+          <Button leftIcon="/images/position/pm.png">기획</Button>
+          <Button leftIcon="/images/position/developer.png">개발</Button>
         </ButtonWrap>
         <Input
           type="search"
@@ -128,7 +128,7 @@ const page = () => {
 
 export default page;
 
-const Title = styled.div`
+const Title = styled.h1`
   color: var(--txt-main, #1e1e20);
   font-family: Pretendard;
   font-size: 28px;

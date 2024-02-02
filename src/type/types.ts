@@ -1,4 +1,5 @@
 import { InputHTMLAttributes } from "react";
+import { ButtonHTMLAttributes } from "react";
 
 //positionSquare
 export type PositionSquareProps = {
@@ -35,4 +36,20 @@ export type InputProps = INPUT_STYLE_PROPS &
     errorText?: string;
     style?: React.CSSProperties;
     rest?: any;
+};
+  
+//button
+export type BUTTON_STYLE_PROPS = {
+  size?: "small" | "medium" | "large";
+  mode?: "default" | "primary" | "error";
+};
+
+export type ButtonProps = BUTTON_STYLE_PROPS &
+  ButtonHTMLAttributes<HTMLButtonElement> & {
+    children: any;
+    style?: React.CSSProperties;
+    onClick?: () => void;
+    isDisabled?: boolean;
+    leftIcon?: string;
+    rightIcon?: string;
   };
