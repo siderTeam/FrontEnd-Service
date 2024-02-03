@@ -1,130 +1,24 @@
 "use client";
 
 import Card from "@/components/Card/Card";
-
 import styled from "@emotion/styled";
-import PositionIcon from "@/components/PositionIcon/PositionIcon";
 import Button from "@/components/Button_new/Button";
 import Input from "@/components/Input_new/Input";
 import { useState } from "react";
-
-const data = [
-  {
-    id: "1",
-    title: "사이드1",
-    projectPeriod: "2024.01.20 ~ 2024.02.20",
-    deposit: "10만원",
-    necessaryPeriod: "20일",
-    position: ["designer", "projectManager", "feDeveloper", "beDeveloper"],
-  },
-  {
-    id: "2",
-    title: "사이드2",
-    projectPeriod: "2024.01.20 ~ 2024.02.20",
-    deposit: "10만원",
-    necessaryPeriod: "20일",
-    position: ["designer", "projectManager", "beDeveloper"],
-  },
-  {
-    id: "3",
-    title: "사이드3",
-    projectPeriod: "2024.01.20 ~ 2024.02.20",
-    deposit: "10만원",
-    necessaryPeriod: "20일",
-    position: ["feDeveloper", "beDeveloper"],
-  },
-  {
-    id: "4",
-    title: "사이드4",
-    projectPeriod: "2024.01.20 ~ 2024.02.20",
-    deposit: "10만원",
-    necessaryPeriod: "20일",
-    position: ["designer", "feDeveloper", "beDeveloper"],
-  },
-  {
-    id: "5",
-    title: "사이드5",
-    projectPeriod: "2024.01.20 ~ 2024.02.20",
-    deposit: "10만원",
-    necessaryPeriod: "20일",
-    position: ["designer", "feDeveloper", "beDeveloper"],
-  },
-  {
-    id: "5",
-    title: "사이드5",
-    projectPeriod: "2024.01.20 ~ 2024.02.20",
-    deposit: "10만원",
-    necessaryPeriod: "20일",
-    position: ["designer", "feDeveloper", "beDeveloper"],
-  },
-  {
-    id: "5",
-    title: "사이드5",
-    projectPeriod: "2024.01.20 ~ 2024.02.20",
-    deposit: "10만원",
-    necessaryPeriod: "20일",
-    position: ["designer", "feDeveloper", "beDeveloper"],
-  },
-  {
-    id: "5",
-    title: "사이드5",
-    projectPeriod: "2024.01.20 ~ 2024.02.20",
-    deposit: "10만원",
-    necessaryPeriod: "20일",
-    position: ["designer", "feDeveloper", "beDeveloper"],
-  },
-  {
-    id: "5",
-    title: "사이드5",
-    projectPeriod: "2024.01.20 ~ 2024.02.20",
-    deposit: "10만원",
-    necessaryPeriod: "20일",
-    position: ["designer", "feDeveloper", "beDeveloper"],
-  },
-  {
-    id: "5",
-    title: "사이드5",
-    projectPeriod: "2024.01.20 ~ 2024.02.20",
-    deposit: "10만원",
-    necessaryPeriod: "20일",
-    position: ["designer", "feDeveloper", "beDeveloper"],
-  },
-  {
-    id: "5",
-    title: "사이드5",
-    projectPeriod: "2024.01.20 ~ 2024.02.20",
-    deposit: "10만원",
-    necessaryPeriod: "20일",
-    position: ["designer", "feDeveloper", "beDeveloper"],
-  },
-  {
-    id: "5",
-    title: "사이드5",
-    projectPeriod: "2024.01.20 ~ 2024.02.20",
-    deposit: "10만원",
-    necessaryPeriod: "20일",
-    position: ["designer", "feDeveloper", "beDeveloper"],
-  },
-  {
-    id: "5",
-    title: "사이드5",
-    projectPeriod: "2024.01.20 ~ 2024.02.20",
-    deposit: "10만원",
-    necessaryPeriod: "20일",
-    position: ["designer", "feDeveloper", "beDeveloper"],
-  },
-  {
-    id: "5",
-    title: "사이드5",
-    projectPeriod: "2024.01.20 ~ 2024.02.20",
-    deposit: "10만원",
-    necessaryPeriod: "20일",
-    position: ["designer", "feDeveloper", "beDeveloper"],
-  },
-];
+import { useQuery } from "@tanstack/react-query";
+import { rest } from "@/api/rest";
+import { getProejct } from "@/api/api";
+import PositionIcon from "@/components/PositionIcon/PositionIcon";
 
 const page = () => {
-  const [filterType, setFilterType] = useState("develop");
+  const { data } = useQuery({
+    queryKey: [rest.get.proejct],
+    queryFn: getProejct,
+  });
+
+  console.log(data);
+
+  const [filterType, setFilterType] = useState("all");
 
   const handleClickAll = () => {
     setFilterType("all");
@@ -146,68 +40,76 @@ const page = () => {
 
   return (
     <HomeStyle>
-      {/* <RightSection> */}
-      <Title>사이드플젝</Title>
-      <ButtonWrap>
-        <Button
-          size={filterType === "all" ? "basic-choice" : "basic"}
-          mode={filterType === "all" ? "basic-choice" : "basic"}
-          type='all'
-          onClick={handleClickAll}
-        >
-          전체
-        </Button>
-        <Button
-          size={filterType === "design" ? "basic-choice" : "basic"}
-          mode={filterType === "design" ? "basic-choice" : "basic"}
-          src='images/positionicon/designericon.png'
-          type='design'
-          onClick={handleClickDesign}
-        >
-          디자인
-        </Button>
-        <Button
-          size={filterType === "plan" ? "basic-choice" : "basic"}
-          mode={filterType === "plan" ? "basic-choice" : "basic"}
-          src='images/positionicon/plannericon.png'
-          type='plan'
-          onClick={handleClickPlan}
-        >
-          기획
-        </Button>
-        <Button
-          size={filterType === "develop" ? "basic-choice" : "basic"}
-          mode={filterType === "develop" ? "basic-choice" : "basic"}
-          src='images/positionicon/developericon.png'
-          type='develop'
-          onClick={handleClickDevelop}
-        >
-          개발
-        </Button>
-        <Input placeholder='프로젝트 검색' />
-      </ButtonWrap>
+      <Title>사이드 프로젝트</Title>
+
+      <FilterContainer>
+        <div className='button_wrap'>
+          <Button
+            size={filterType === "all" ? "basic-choice" : "basic"}
+            mode={filterType === "all" ? "basic-choice" : "basic"}
+            type='all'
+            onClick={handleClickAll}
+          >
+            전체
+          </Button>
+          <Button
+            size={filterType === "design" ? "basic-choice" : "basic"}
+            mode={filterType === "design" ? "basic-choice" : "basic"}
+            src='images/positionicon/designericon.png'
+            type='design'
+            onClick={handleClickDesign}
+          >
+            디자인
+          </Button>
+          <Button
+            size={filterType === "plan" ? "basic-choice" : "basic"}
+            mode={filterType === "plan" ? "basic-choice" : "basic"}
+            src='images/positionicon/plannericon.png'
+            type='plan'
+            onClick={handleClickPlan}
+          >
+            기획
+          </Button>
+          <Button
+            size={filterType === "develop" ? "basic-choice" : "basic"}
+            mode={filterType === "develop" ? "basic-choice" : "basic"}
+            src='images/positionicon/developericon.png'
+            type='develop'
+            onClick={handleClickDevelop}
+          >
+            개발
+          </Button>
+        </div>
+        <div className='input'>
+          <Input placeholder='프로젝트 검색' />
+        </div>
+      </FilterContainer>
+
       <ImsiContainer>
         <Imsi>
-          {data.map((item, idx) => (
+          {data?.map((item) => (
             <Card
-              id={item.id}
-              title={item.title}
-              projectPeriod={item.projectPeriod}
+              key={item.id}
+              title={item.name}
+              projectPeriod={item.recruitEndDate}
               deposit={item.deposit}
-              necessaryPeriod={item.necessaryPeriod}
+              necessaryPeriod={item.count}
             >
-              {item.position.map((position, positionIdx) => (
+              <PositionIcon color='designer' icon='designer' />
+              <PositionIcon color='projectManager' icon='projectManager' />
+              <PositionIcon color='feDeveloper' icon='feDeveloper' />
+              <PositionIcon color='beDeveloper' icon='beDeveloper' />
+              {/* {item.position.map((position, positionIdx) => (
                 <PositionIcon
                   key={positionIdx}
                   color={position}
                   icon={position}
                 />
-              ))}
+              ))} */}
             </Card>
           ))}
         </Imsi>
       </ImsiContainer>
-      {/* </RightSection> */}
     </HomeStyle>
   );
 };
@@ -215,43 +117,48 @@ const page = () => {
 export default page;
 
 const HomeStyle = styled.div`
-  /* position: absolute;
-  left: 304px;
-  top: 90px; */
+  padding-top: 90px;
+  /* padding-right: 58px; */
+
+  max-width: calc(100vw - 246px - 58px - 58px);
 `;
 const ImsiContainer = styled.div`
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 32px;
+  display: flex;
+  width: 100%;
+  margin-bottom: 24px;
 `;
 
 const Imsi = styled.div`
+  max-width: 1920px;
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   gap: 18px;
 `;
 
-const RightSection = styled.div`
+const FilterContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 24px;
 
-  justify-content: center;
+  .button_wrap {
+    display: flex;
+    gap: 15px;
+    flex: 1;
+  }
+  @media (max-width: 1486px) {
+    flex-direction: column;
+  }
+  .input {
+    @media (max-width: 1486px) {
+      margin-top: 10px;
+    }
+  }
 `;
 
-const ButtonWrap = styled.div`
-  display: inline-flex;
-  margin: 21px 0 24px 0;
-  align-items: flex-start;
-  gap: 20px;
-`;
-
-const Title = styled.div`
-  color: var(--txt-main, #1e1e20);
-  /* font-family: Pretendard; */
+const Title = styled.h1`
   font-size: 28px;
-  font-style: normal;
-  font-weight: 800;
-  line-height: normal;
-  letter-spacing: -1.12px;
+  margin-bottom: 21px;
+  font-weight: bold;
 `;
