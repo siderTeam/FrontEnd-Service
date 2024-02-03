@@ -31,15 +31,15 @@ const positonFilter = [
 ];
 
 const Page = () => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(0);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const { data } = useQuery({
     queryKey: [rest.get.project],
     queryFn: getProject,
   });
 
-  const handleFilterClick = (index: number | null) => {
-    setActiveIndex(index === activeIndex ? null : index);
+  const handleFilterClick = (index: number) => {
+    setActiveIndex((prevIndex) => index === activeIndex ? prevIndex : index);
   };
 
   return (
