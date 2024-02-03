@@ -1,301 +1,174 @@
 "use client";
 
 import styled from "@emotion/styled";
-import { useSelectedLayoutSegment } from "next/navigation";
+import Image from "next/image";
+
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Button from "../Button_new/Button";
 
-export default function NavBarTest() {
-  const segment = useSelectedLayoutSegment();
+const router = [
+  {
+    path: "/home",
+    label: "Home",
+    iconPath: "Home_gray",
+    activeIconPath: "Home_blue",
+  },
+  {
+    path: "/myPage",
+    label: "마이페이지",
+    iconPath: "Calendar_gray",
+    activeIconPath: "Calendar_blue",
+  },
+  {
+    path: "/application",
+    label: "지원서 관리",
+    iconPath: "Group_gray",
+    activeIconPath: "Group_blue",
+  },
+  {
+    path: "/payment",
+    label: "결제 내역",
+    iconPath: "Calendar_gray",
+    activeIconPath: "Calendar_blue",
+  },
+  {
+    path: "/project",
+    label: "프로젝트",
+    iconPath: "Bookmark_gray",
+    activeIconPath: "Bookmark_blue",
+  },
+];
+
+const Sidebar = () => {
+  const path = usePathname();
 
   return (
-    <>
-      <Container>
-        <div>
-          <Logo>
-            <img src='images/Logo.svg' />
-          </Logo>
-        </div>
-        <Imsi>
-          <TopMenu>
-            {/* home */}
-            <li>
-              <Link href='/Home'>
-                {segment === "Home" ? (
-                  <>
-                    <ChoiceMenuWrap>
-                      <Wrap>
-                        <MenuIcon src='/images/home/Home_blue.svg' />
-                        <MenuText>Home</MenuText>
-                      </Wrap>
-                      <ChoiceMenu src='/images/home/arrow_gray.svg' />
-                    </ChoiceMenuWrap>
-                  </>
-                ) : (
-                  <>
-                    <MenuWrap>
-                      <MenuIcon src='/images/home/Home_gray.svg' />
-                      <MenuText>Home</MenuText>
-                    </MenuWrap>
-                  </>
-                )}
+    <Container>
+      <div className='top'>
+        <Image
+          className='logo'
+          src={"images/Logo.svg"}
+          width={60}
+          height={34}
+          alt='로고'
+        />
+        <RouteWrapper>
+          {router.map((route) => (
+            <div className='route_box' key={route.path}>
+              <Image
+                src={
+                  path === route.path
+                    ? `images/home/${route.activeIconPath}.svg`
+                    : `images/home/${route.iconPath}.svg`
+                }
+                width={24}
+                height={24}
+                alt='route_path'
+              />
+              <Link href={route.path}>
+                <span>{route.label}</span>
               </Link>
-            </li>
-
-            {/* mypage */}
-            <li>
-              <Link href='/MyPage'>
-                {segment === "MyPage" ? (
-                  <>
-                    <ChoiceMenuWrap>
-                      <Wrap>
-                        <MenuIcon src='/images/home/Calendar_blue.svg' />
-                        <MenuText>마이페이지</MenuText>
-                      </Wrap>
-                      <ChoiceMenu src='/images/home/arrow_gray.svg' />
-                    </ChoiceMenuWrap>
-                  </>
-                ) : (
-                  <>
-                    <MenuWrap>
-                      <MenuIcon src='/images/home/Calendar_gray.svg' />
-                      <MenuText>마이페이지</MenuText>
-                    </MenuWrap>
-                  </>
-                )}
-              </Link>
-            </li>
-
-            {/* 지원서 */}
-            <li>
-              <Link href='/Application'>
-                {segment === "Application" ? (
-                  <>
-                    <ChoiceMenuWrap>
-                      <Wrap>
-                        <MenuIcon src='/images/home/Group_blue.svg' />
-                        <MenuText>지원서 관리</MenuText>
-                      </Wrap>
-                      <ChoiceMenu src='/images/home/arrow_gray.svg' />
-                    </ChoiceMenuWrap>
-                  </>
-                ) : (
-                  <>
-                    <MenuWrap>
-                      <MenuIcon src='/images/home/Group_gray.svg' />
-                      <MenuText>지원서 관리</MenuText>
-                    </MenuWrap>
-                  </>
-                )}
-              </Link>
-            </li>
-
-            {/* 결제 내역 */}
-            <li>
-              <Link href='/Pay'>
-                {segment === "Pay" ? (
-                  <>
-                    <ChoiceMenuWrap>
-                      <Wrap>
-                        <MenuIcon src='/images/home/Calendar_blue.svg' />
-                        <MenuText>결제 내역</MenuText>
-                      </Wrap>
-                      <ChoiceMenu src='/images/home/arrow_gray.svg' />
-                    </ChoiceMenuWrap>
-                  </>
-                ) : (
-                  <>
-                    <MenuWrap>
-                      <MenuIcon src='/images/home/Calendar_gray.svg' />
-                      <MenuText>결제 내역</MenuText>
-                    </MenuWrap>
-                  </>
-                )}
-              </Link>
-            </li>
-
-            {/* 프로젝트 */}
-            <li>
-              <Link href='/Project'>
-                {segment === "Project" ? (
-                  <>
-                    <ChoiceMenuWrap>
-                      <Wrap>
-                        <MenuIcon src='/images/home/Bookmark_blue.svg' />
-                        <MenuText>프로젝트</MenuText>
-                      </Wrap>
-                      <ChoiceMenu src='/images/home/arrow_gray.svg' />
-                    </ChoiceMenuWrap>
-                  </>
-                ) : (
-                  <>
-                    <MenuWrap>
-                      <MenuIcon src='/images/home/Bookmark_gray.svg' />
-                      <MenuText>프로젝트</MenuText>
-                    </MenuWrap>
-                  </>
-                )}
-              </Link>
-            </li>
-          </TopMenu>
-          <BottomMenu>
-            <ProfileWrap>
-              <ProfileImg />
-              <ProfileInfo>
-                <NicknameText>808Ground</NicknameText>
-                <PositionWrap>
-                  <PositionText>10년차</PositionText>
-                  <PositionText>디자이너</PositionText>
-                </PositionWrap>
-              </ProfileInfo>
-            </ProfileWrap>
-            <ButtonWrap>
-              <Button size='primary' mode='primary' icon={true}>
-                마이페이지
-              </Button>
-            </ButtonWrap>
-          </BottomMenu>
-        </Imsi>
-      </Container>
-    </>
+              {path === route.path && (
+                <div className='arrow_icon'>
+                  <Image
+                    src={`images/home/arrow_gray.svg`}
+                    width={20}
+                    height={20}
+                    alt='arrow'
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+        </RouteWrapper>
+      </div>
+      <div className='bottom'>
+        <ProfileWrapper>
+          <Image
+            src={"images/home/Ellipse.svg"}
+            width={94}
+            height={94}
+            alt='profile'
+          />
+          <span className='name'>닉네임</span>
+          <span>10년차 디자이너</span>
+          <Button icon={true} style={{ marginTop: 10 }}>
+            마이페이지
+          </Button>
+        </ProfileWrapper>
+      </div>
+    </Container>
   );
-}
+};
+
+export default Sidebar;
 
 const Container = styled.div`
-  display: inline-flex;
-  height: 960px;
-  padding: 80px 50px;
-  flex-direction: column;
-  align-items: center;
-  gap: 100px;
-  flex-shrink: 0;
+  position: fixed;
+  height: 100vh;
+  width: 246px;
+  border-radius: 15px;
+  background: white;
+  z-index: 3;
 
-  border-radius: 14px 30px 50px 30px;
-  background: var(--White, #fff);
+  .top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .bottom {
+    position: absolute;
+    bottom: 0px;
+    width: 146px;
+    left: 50px;
+    bottom: 50px;
+  }
+
+  .logo {
+    margin-top: 50px;
+    margin-bottom: 100px;
+  }
 `;
 
-const Logo = styled.div`
-  width: 60px;
-  height: 33.623px;
-  flex-shrink: 0;
-`;
-
-const Imsi = styled.div`
+const RouteWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  flex: 1 0 0;
-`;
-
-const TopMenu = styled.div`
-  display: flex;
-  width: 146px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  width: 150px;
   gap: 30px;
+
+  .route_box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #0066ff;
+
+    .arrow_icon {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex: 1;
+    }
+  }
 `;
 
-const MenuIcon = styled.img`
-  width: 24px;
-  height: 24px;
-`;
-
-const MenuText = styled.div`
-  color: var(--primary, #06f);
-  text-align: center;
-  /* font-family: Pretendard; */
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-`;
-
-const ChoiceMenu = styled.img`
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-`;
-
-const ChoiceMenuWrap = styled.div`
-  display: flex;
-  width: 146px;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-`;
-
-const Wrap = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: 1 0 0;
-`;
-
-const MenuWrap = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  align-self: stretch;
-`;
-
-const BottomMenu = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-`;
-
-const ProfileWrap = styled.div`
+const ProfileWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-`;
 
-const ProfileImg = styled.img`
-  width: 94px;
-  height: 94px;
-  border-radius: 94px;
-  background: url("images/home/Ellipse.svg"), lightgray 50% / cover no-repeat;
-`;
+  span {
+    color: #0066ff;
+    font-size: 14px;
+  }
 
-const ProfileInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-`;
+  .name {
+    font-size: 16px;
+  }
 
-const NicknameText = styled.div`
-  color: var(--primary, #06f);
-  text-align: center;
-  /* font-family: Pretendard; */
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-`;
-
-const PositionWrap = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: 7px;
-`;
-
-const PositionText = styled.div`
-  color: var(--primary, #06f);
-  text-align: center;
-  /* font-family: Pretendard; */
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-`;
-
-const ButtonWrap = styled.div`
-  display: flex;
-  padding: 3px 0px;
-  align-items: center;
+  button {
+    margin-top: 10px;
+  }
 `;

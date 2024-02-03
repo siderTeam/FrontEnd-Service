@@ -53,8 +53,10 @@ export default Button;
 const BUTTON_TYPE = {
   ["primary"]: {
     display: "flex",
+    justifyContent: "center",
+    width: "130px",
     height: "32px",
-    padding: "10px 24px",
+    padding: "5px",
     alignItems: "center",
     gap: "10px",
     borderRadius: "100px",
@@ -68,13 +70,12 @@ const BUTTON_TYPE = {
   },
   ["basic-choice"]: {
     display: "flex",
-    width: "160px",
-    height: "48px",
-    padding: "8px 20px",
-    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    gap: "52px",
+    // gap: "52px",
+    width: "160px",
+    height: "48px",
+
     borderRadius: "100px",
     border: "1px solid #D6E3F3",
     boxShadow:
@@ -90,12 +91,12 @@ const BUTTON_TYPE = {
 
   ["basic"]: {
     display: "flex",
-    width: "160px",
-    height: "48px",
-    padding: "20px",
     justifyContent: "center",
     alignItems: "center",
-    gap: "4px",
+    // gap: "4px",
+
+    width: "160px",
+    height: "48px",
 
     borderRadius: "100px",
     border: "1px solid var(--White, #FFF)",
@@ -147,7 +148,6 @@ const Icon = styled.img`
 
 const ButtonWrap = styled.div`
   display: flex;
-  align-items: center;
 `;
 
 const Img = styled.img`

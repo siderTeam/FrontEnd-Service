@@ -3,12 +3,12 @@
 import styled from "@emotion/styled";
 
 type CardProps = {
-  children: any;
-  id: string;
-  title: string;
-  projectPeriod: string;
-  deposit: string;
-  necessaryPeriod: string;
+  children?: any;
+  id?: string;
+  title?: string;
+  projectPeriod?: string | number;
+  deposit?: string | number;
+  necessaryPeriod?: string | number;
 };
 const Card = ({
   children,
@@ -54,15 +54,16 @@ const CardContainer = styled.div`
   align-items: flex-start;
   gap: 52px;
 
-  width: 376px;
+  flex-grow: 1;
+
+  box-sizing: border-box;
+
   padding: 20px;
 
   border-radius: 14px;
   border: 1px solid #fff;
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(15px);
-
-  /* box-sizing: border-box; */
 
   &:hover {
     border-radius: 14px;
