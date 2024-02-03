@@ -87,7 +87,7 @@ const CardTop = styled.div`
   align-self: stretch;
 `;
 
-const Title = styled.div`
+const Title = styled.h2`
   color: var(--txt-main, #1e1e20);
   font-family: Pretendard;
   font-size: 22px;

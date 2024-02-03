@@ -151,7 +151,7 @@ const Navigation = () => {
               <JobDetail>디자이너</JobDetail>
             </Job>
           </Profile>
-          <Button mode="primary">마이페이지</Button>
+          <Button mode="primary" rightIcon="images/home/more_white.svg">마이페이지</Button>
         </ProfileWrap>
       </NavWrap>
     </Container>

@@ -1,5 +1,5 @@
-import Navigation from '@/component/Navigation/Navigation';
 import '../../public/reset.css'
+import RootContainer from '@/component/RootContainer';
 
 export const metadata = {
   title: 'Next.js',
@@ -14,10 +14,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={{ background: "#d8ebff" }}>
-        <Navigation />
-        <div style={{position: "absolute", left: 304, top: 90}}>
-        {children}
-        </div>
+        <RootContainer>
+          <div style={{ position: "absolute", left: 304, top: 90 }}>
+            {children}
+          </div>
+        </RootContainer>
       </body>
     </html>
   );

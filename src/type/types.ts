@@ -12,7 +12,7 @@ export type CardProps = {
   title: string;
   startDate: string;
   endDate: string;
-  deposit: string;
+  deposit: number;
   children: any;
   style?: React.CSSProperties;
 };
