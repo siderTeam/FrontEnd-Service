@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import styled from "@emotion/styled";
 import Card from "@/component/Card/Card";
@@ -8,24 +8,55 @@ import Button from "@/component/Button/Button";
 import { useQuery } from "@tanstack/react-query";
 import { rest } from "../api/rest";
 import { getProject } from "../api/api";
+import { useState } from "react";
 
 const positions = ["디자이너", "기획자", "프론트엔드", "백엔드"];
 
+const positonFilter = [
+  {
+    name: "전체",
+  },
+  {
+    name: "디자인",
+    icon: "/images/position/designer.png",
+  },
+  {
+    name: "기획",
+    icon: "/images/position/pm.png",
+  },
+  {
+    name: "개발",
+    icon: "/images/position/developer.png",
+  },
+];
+
 const Page = () => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(0);
+
   const { data } = useQuery({
     queryKey: [rest.get.project],
     queryFn: getProject,
-  })
+  });
+
+  const handleFilterClick = (index: number | null) => {
+    setActiveIndex(index === activeIndex ? null : index);
+  };
 
   return (
     <div>
       <Title>사이드 플젝</Title>
       <Wrap>
         <ButtonWrap>
-          <Button>전체</Button>
-          <Button leftIcon="/images/position/designer.png">디자인</Button>
-          <Button leftIcon="/images/position/pm.png">기획</Button>
-          <Button leftIcon="/images/position/developer.png">개발</Button>
+          {positonFilter.map((item, index) => (
+            <Button
+              key={index}
+              className={index === activeIndex ? "active" : ""}
+              onClick={() => handleFilterClick(index)}
+              leftIcon={item.icon}
+            >
+              {item.name}
+            </Button>
+          ))}
         </ButtonWrap>
         <Input
           type="search"

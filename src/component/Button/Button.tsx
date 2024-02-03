@@ -78,4 +78,14 @@ const StyledButton = styled.button<BUTTON_STYLE_PROPS>`
   text-align: center;
   font-family: Pretendard;
   font-weight: 500;
+
+  &.active {
+    ${({ mode }) =>
+      mode === "default" &&
+      `background: #fff;
+    box-shadow: 4px 4px 20px 0px rgba(111, 140, 176, 0.41),
+      -6px -6px 20px 0px rgba(255, 255, 255, 0.5),
+      2px 2px 4px 0px rgba(114, 142, 171, 0.1);
+      color: #0066ff;`}
+  }
 `;
