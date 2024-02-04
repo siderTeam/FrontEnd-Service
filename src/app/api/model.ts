@@ -7,3 +7,8 @@ export type PROJECT_RESPONSE = {
   deposit: number;
   count: number;
 }
+
+export type POSITION_CODE_RESPONSE = {
+  id: number;
+  name: string;
+}

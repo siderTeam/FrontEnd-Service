@@ -7,7 +7,7 @@ import PositionSquare from "@/component/PositionSquare/PositionSquare";
 import Button from "@/component/Button/Button";
 import { useQuery } from "@tanstack/react-query";
 import { rest } from "../api/rest";
-import { getProject } from "../api/api";
+import { getProject, getPositionCode } from "../api/api";
 import { useState } from "react";
 
 const positions = ["디자이너", "기획자", "프론트엔드", "백엔드"];
@@ -31,14 +31,19 @@ const positonFilter = [
 ];
 
 const Page = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  const { data } = useQuery({
+  const projectData = useQuery({
     queryKey: [rest.get.project],
     queryFn: getProject,
   });
 
-  const handleFilterClick = (index: number) => {
+  const positionData = useQuery({
+    queryKey: [rest.get.code],
+    queryFn: getPositionCode,
+  });
+
+  const handleFilterClick = (index: (number | null)) => {
     setActiveIndex((prevIndex) => index === activeIndex ? prevIndex : index);
   };
 
@@ -47,12 +52,18 @@ const Page = () => {
       <Title>사이드 플젝</Title>
       <Wrap>
         <ButtonWrap>
-          {positonFilter.map((item, index) => (
+          <Button
+            className={activeIndex === null ? "active" : ""}
+            onClick={() => handleFilterClick(null)}
+          >
+            전체
+          </Button>
+          {positionData.data?.map((item) => (
             <Button
-              key={index}
-              className={index === activeIndex ? "active" : ""}
-              onClick={() => handleFilterClick(index)}
-              leftIcon={item.icon}
+              key={item.id}
+              className={item.id === activeIndex ? "active" : ""}
+              onClick={() => handleFilterClick(item.id)}
+              // leftIcon={item.icon}
             >
               {item.name}
             </Button>
@@ -66,7 +77,7 @@ const Page = () => {
         />
       </Wrap>
       <CardWrap>
-        {data?.map((project) => (
+        {projectData.data?.map((project) => (
           <Card
             key={project.id}
             title={project.name}
