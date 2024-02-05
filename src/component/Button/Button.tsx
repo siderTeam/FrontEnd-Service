@@ -15,6 +15,7 @@ const Button = ({
   isDisabled = false,
   leftIcon,
   rightIcon,
+  iconSize = 20,
   ...rest
 }: ButtonProps) => {
   return (
@@ -26,9 +27,13 @@ const Button = ({
       onClick={onClick}
       {...rest}
     >
-      {leftIcon && <Image src={leftIcon} alt="icon" width={20} height={20} />}
+      {leftIcon && (
+        <Image src={leftIcon} alt="icon" width={iconSize} height={iconSize} />
+      )}
       {children}
-      {rightIcon && <Image src={rightIcon} alt="icon" width={20} height={20} />}
+      {rightIcon && (
+        <Image src={rightIcon} alt="icon" width={iconSize} height={iconSize} />
+      )}
     </StyledButton>
   );
 };

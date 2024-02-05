@@ -52,4 +52,5 @@ export type ButtonProps = BUTTON_STYLE_PROPS &
     isDisabled?: boolean;
     leftIcon?: string;
     rightIcon?: string;
+    iconSize?: number;
   };
