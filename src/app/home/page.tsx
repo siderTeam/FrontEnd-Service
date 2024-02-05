@@ -14,9 +14,6 @@ const positions = ["디자이너", "기획자", "프론트엔드", "백엔드"];
 
 const positonFilter = [
   {
-    name: "전체",
-  },
-  {
     name: "디자인",
     icon: "/images/position/designer.png",
   },
@@ -63,7 +60,11 @@ const Page = () => {
               key={item.id}
               className={item.id === activeIndex ? "active" : ""}
               onClick={() => handleFilterClick(item.id)}
-              // leftIcon={item.icon}
+              leftIcon={
+                positonFilter.find(
+                  (filterItem) => filterItem.name === item.name
+                )?.icon
+              }
             >
               {item.name}
             </Button>
