@@ -3,11 +3,44 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
 import Link from "next/link";
-import { useSelectedLayoutSegment } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Button from "../Button/Button";
 
+const router = [
+  {
+    path: "/home",
+    label: "Home",
+    iconPath: "home_gray",
+    activeIconPath: "home_blue",
+  },
+  {
+    path: "/myPage",
+    label: "마이페이지",
+    iconPath: "calendar_gray",
+    activeIconPath: "calendar_blue",
+  },
+  {
+    path: "/application",
+    label: "지원서 관리",
+    iconPath: "setup_gray",
+    activeIconPath: "setup_blue",
+  },
+  {
+    path: "/payment",
+    label: "결제 내역",
+    iconPath: "calendar_gray",
+    activeIconPath: "calendar_blue",
+  },
+  {
+    path: "/project",
+    label: "프로젝트",
+    iconPath: "bookmark_gray",
+    activeIconPath: "bookmark_blue",
+  },
+];
+
 const Navigation = () => {
-  const segment = useSelectedLayoutSegment();
+  const path = usePathname();
 
   return (
     <Container>
@@ -16,22 +49,24 @@ const Navigation = () => {
       </Link>
       <NavWrap>
         <MenuWrap>
-          <Link href="/home" style={{ textDecoration: "none" }}>
-            <Menu>
+          {router.map((route) => (
+            <Menu key={route.path}>
               <MenuDetail>
                 <Image
                   src={
-                    segment === "home"
-                      ? "images/home/home_blue.svg"
-                      : "images/home/home_gray.svg"
+                    path === route.path
+                      ? `images/home/${route.activeIconPath}.svg`
+                      : `images/home/${route.iconPath}.svg`
                   }
-                  alt="home"
+                  alt={route.path}
                   width={20}
                   height={20}
                 />
-                Home
+                <Link href={route.path}>
+                  <MenuLabel>{route.label}</MenuLabel>
+                </Link>
               </MenuDetail>
-              {segment === "home" && (
+              {path === route.path && (
                 <Image
                   src="images/home/more.svg"
                   alt="more"
@@ -40,110 +75,13 @@ const Navigation = () => {
                 />
               )}
             </Menu>
-          </Link>
-          <Link href="/myPage" style={{ textDecoration: "none" }}>
-            <Menu>
-              <MenuDetail>
-                <Image
-                  src={
-                    segment === "myPage"
-                      ? "images/home/calendar_blue.svg"
-                      : "images/home/calendar_gray.svg"
-                  }
-                  alt="myPage"
-                  width={20}
-                  height={20}
-                />
-                마이페이지
-              </MenuDetail>
-              {segment === "myPage" && (
-                <Image
-                  src="images/home/more.svg"
-                  alt="more"
-                  width={24}
-                  height={24}
-                />
-              )}
-            </Menu>
-          </Link>
-          <Link href="/resume" style={{ textDecoration: "none" }}>
-            <Menu>
-              <MenuDetail>
-                <Image
-                  src={
-                    segment === "resume"
-                      ? "images/home/setup_blue.svg"
-                      : "images/home/setup_gray.svg"
-                  }
-                  alt="resume"
-                  width={20}
-                  height={20}
-                />
-                지원서 관리
-              </MenuDetail>
-              {segment === "resume" && (
-                <Image
-                  src="images/home/more.svg"
-                  alt="more"
-                  width={24}
-                  height={24}
-                />
-              )}
-            </Menu>
-          </Link>
-          <Link href="/payment" style={{ textDecoration: "none" }}>
-            <Menu>
-              <MenuDetail>
-                <Image
-                  src={
-                    segment === "payment"
-                      ? "images/home/calendar_blue.svg"
-                      : "images/home/calendar_gray.svg"
-                  }
-                  alt="payment"
-                  width={20}
-                  height={20}
-                />
-                결제 내역
-              </MenuDetail>
-              {segment === "payment" && (
-                <Image
-                  src="images/home/more.svg"
-                  alt="more"
-                  width={24}
-                  height={24}
-                />
-              )}
-            </Menu>
-          </Link>
-          <Link href="/project" style={{ textDecoration: "none" }}>
-            <Menu>
-              <MenuDetail>
-                <Image
-                  src={
-                    segment === "project"
-                      ? "images/home/bookmark_blue.svg"
-                      : "images/home/bookmark_gray.svg"
-                  }
-                  alt="project"
-                  width={20}
-                  height={20}
-                />
-                프로젝트
-              </MenuDetail>
-              {segment === "project" && (
-                <Image
-                  src="images/home/more.svg"
-                  alt="more"
-                  width={24}
-                  height={24}
-                />
-              )}
-            </Menu>
-          </Link>
+          ))}
         </MenuWrap>
         <ProfileWrap>
-          <Image src="images/home/profile.svg" alt="profile" width={94} height={94} />
+          <Button mode="primary" rightIcon="images/user.svg" iconSize={16}>
+            로그인
+          </Button>
+          {/* <Image src="images/home/profile.svg" alt="profile" width={94} height={94} />
           <Profile>
             <Name>808Ground</Name>
             <Job>
@@ -151,7 +89,7 @@ const Navigation = () => {
               <JobDetail>디자이너</JobDetail>
             </Job>
           </Profile>
-          <Button mode="primary" rightIcon="images/home/more_white.svg">마이페이지</Button>
+          <Button mode="primary" rightIcon="images/home/more_white.svg">마이페이지</Button> */}
         </ProfileWrap>
       </NavWrap>
     </Container>
@@ -202,16 +140,18 @@ const Menu = styled.div`
 `;
 
 const MenuDetail = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 0 0;
+`;
+
+const MenuLabel = styled.span`
   color: #0066ff;
   text-align: center;
   font-family: Pretendard;
   font-size: 14px;
   font-weight: 500;
-
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: 1 0 0;
 `;
 
 const ProfileWrap = styled.div`
