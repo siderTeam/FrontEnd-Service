@@ -1,15 +1,8 @@
 "use client";
 
+import { CardProps } from "@/types/types";
 import styled from "@emotion/styled";
 
-type CardProps = {
-  children?: any;
-  id?: string;
-  title?: string;
-  projectPeriod?: string | number;
-  deposit?: string | number;
-  necessaryPeriod?: string | number;
-};
 const Card = ({
   children,
   id,

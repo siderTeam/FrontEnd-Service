@@ -1,39 +1,49 @@
 "use client";
 
-import Card from "@/components/Card/Card";
+import Card from "@/component/Card/Card";
 import styled from "@emotion/styled";
-import Button from "@/components/Button_new/Button";
-import Input from "@/components/Input_new/Input";
+import Button from "@/component/Button_new/Button";
+import Input from "@/component/Input_new/Input";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { rest } from "@/api/rest";
-import { getProejct } from "@/api/api";
-import PositionIcon from "@/components/PositionIcon/PositionIcon";
+import { getCodePosition, getProject } from "@/api/api";
+import PositionIcon from "@/component/PositionIcon/PositionIcon";
 
-const page = () => {
-  const { data } = useQuery({
-    queryKey: [rest.get.proejct],
-    queryFn: getProejct,
+const projectTypeButtons = [
+  { type: "전체", label: "전체" },
+  {
+    type: "디자인",
+    label: "디자인",
+    icon: "images/positionicon/designericon.png",
+  },
+  {
+    type: "기획",
+    label: "기획",
+    icon: "images/positionicon/plannericon.png",
+  },
+  {
+    type: "개발",
+    label: "개발",
+    icon: "images/positionicon/developericon.png",
+  },
+];
+
+const ProjectPage = () => {
+  const [filterType, setFilterType] = useState("전체");
+
+  const projectData = useQuery({
+    queryKey: [rest.get.project],
+    queryFn: getProject,
   });
 
-  console.log(data);
+  const positionData = useQuery({
+    queryKey: [rest.get.code],
+    queryFn: getCodePosition,
+  });
 
-  const [filterType, setFilterType] = useState("all");
-
-  const handleClickAll = () => {
-    setFilterType("all");
-  };
-
-  const handleClickDesign = () => {
-    setFilterType("design");
-  };
-
-  const handleClickPlan = () => {
-    setFilterType("plan");
-  };
-
-  const handleClickDevelop = () => {
-    setFilterType("develop");
+  const handleFilterClick = (type: any) => {
+    setFilterType(type);
   };
 
   console.log(filterType);
@@ -45,49 +55,37 @@ const page = () => {
       <FilterContainer>
         <div className='button_wrap'>
           <Button
-            size={filterType === "all" ? "basic-choice" : "basic"}
-            mode={filterType === "all" ? "basic-choice" : "basic"}
-            type='all'
-            onClick={handleClickAll}
+            size={filterType === "전체" ? "basic-choice" : "basic"}
+            mode={filterType === "전체" ? "basic-choice" : "basic"}
+            type='전체'
+            onClick={() => handleFilterClick("전체")}
           >
             전체
           </Button>
-          <Button
-            size={filterType === "design" ? "basic-choice" : "basic"}
-            mode={filterType === "design" ? "basic-choice" : "basic"}
-            src='images/positionicon/designericon.png'
-            type='design'
-            onClick={handleClickDesign}
-          >
-            디자인
-          </Button>
-          <Button
-            size={filterType === "plan" ? "basic-choice" : "basic"}
-            mode={filterType === "plan" ? "basic-choice" : "basic"}
-            src='images/positionicon/plannericon.png'
-            type='plan'
-            onClick={handleClickPlan}
-          >
-            기획
-          </Button>
-          <Button
-            size={filterType === "develop" ? "basic-choice" : "basic"}
-            mode={filterType === "develop" ? "basic-choice" : "basic"}
-            src='images/positionicon/developericon.png'
-            type='develop'
-            onClick={handleClickDevelop}
-          >
-            개발
-          </Button>
+          {positionData.data?.map((item) => (
+            <Button
+              key={item.id}
+              size={filterType === item.name ? "basic-choice" : "basic"}
+              mode={filterType === item.name ? "basic-choice" : "basic"}
+              type={item.name}
+              onClick={() => handleFilterClick(item.name)}
+              LeftIcon={
+                projectTypeButtons.find((button) => button.label === item.name)
+                  ?.icon || ""
+              }
+            >
+              {item.name}
+            </Button>
+          ))}
         </div>
         <div className='input'>
-          <Input placeholder='프로젝트 검색' />
+          <Input placeholder='프로젝트 검색' icon={true} />
         </div>
       </FilterContainer>
 
       <ImsiContainer>
         <Imsi>
-          {data?.map((item) => (
+          {projectData.data?.map((item) => (
             <Card
               key={item.id}
               title={item.name}
@@ -99,13 +97,6 @@ const page = () => {
               <PositionIcon color='projectManager' icon='projectManager' />
               <PositionIcon color='feDeveloper' icon='feDeveloper' />
               <PositionIcon color='beDeveloper' icon='beDeveloper' />
-              {/* {item.position.map((position, positionIdx) => (
-                <PositionIcon
-                  key={positionIdx}
-                  color={position}
-                  icon={position}
-                />
-              ))} */}
             </Card>
           ))}
         </Imsi>
@@ -114,14 +105,13 @@ const page = () => {
   );
 };
 
-export default page;
+export default ProjectPage;
 
 const HomeStyle = styled.div`
   padding-top: 90px;
-  /* padding-right: 58px; */
-
   max-width: calc(100vw - 246px - 58px - 58px);
 `;
+
 const ImsiContainer = styled.div`
   display: flex;
   width: 100%;
@@ -147,9 +137,11 @@ const FilterContainer = styled.div`
     gap: 15px;
     flex: 1;
   }
+
   @media (max-width: 1486px) {
     flex-direction: column;
   }
+
   .input {
     @media (max-width: 1486px) {
       margin-top: 10px;

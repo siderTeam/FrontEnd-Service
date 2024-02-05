@@ -1,29 +1,7 @@
 "use client";
 
+import { InputProps } from "@/types/types";
 import styled from "@emotion/styled";
-import { InputHTMLAttributes } from "react";
-
-export type INPUT_STYLE_PROPS = {
-  size?: "home";
-  mode?: "primary" | "disabled";
-  text?: "home";
-};
-
-export type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
-
-export type InputProps = INPUT_STYLE_PROPS &
-  INPUT_TYPE & {
-    value?: string | number | undefined;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    readOnly?: boolean;
-    type?: string;
-    name?: string;
-    placeholder?: string;
-    errorText?: string;
-    icon?: boolean;
-    style?: React.CSSProperties;
-    rest?: any;
-  };
 
 const Input = ({
   value,
@@ -36,12 +14,12 @@ const Input = ({
   size = "home",
   mode = "primary",
   text = "home",
-  icon = true,
+  icon = false,
   style,
   ...rest
 }: InputProps) => {
   return (
-    <Container size={size} mode={mode}>
+    <Container size={size}>
       <StyledInput
         text={text}
         value={value}
@@ -77,6 +55,18 @@ const INPUT_TYPE = {
     boxShadow:
       "4px 4px 20px 0px rgba(111, 140, 176, 0.41), -6px -6px 20px 0px rgba(255, 255, 255, 0.50), 2px 2px 4px 0px rgba(114, 142, 171, 0.10)",
   },
+  ["primary"]: {
+    width: "396px",
+    height: "52px",
+    padding: "0px 16px",
+    background: "white",
+    border: "1px solid #B8B8B8",
+    borderRadius: "8px",
+
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 };
 
 // const COLOR_TYPE = {
@@ -99,14 +89,27 @@ const TEXT_TYPE = {
     fontWeight: 400,
     lineHeight: "normal",
   },
+  ["primary"]: {
+    color: "#B8B8B8",
+
+    fontFamily: "Pretendard",
+    fontSize: "16px",
+    fontStyle: "normal",
+    fontWeight: 400,
+    lineHeight: "normal",
+  },
 };
 
 const Container = styled.div<any>`
+  display: flex;
+  justify-content: center;
+
   ${({ size }) => INPUT_TYPE[size as "home"]};
   box-sizing: border-box;
 `;
 
 const StyledInput = styled.input<any>`
+  height: 100%;
   flex: 1 0 0;
 
   border: none;

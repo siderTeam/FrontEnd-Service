@@ -1,6 +1,6 @@
-import Background from "@/components/Background.tsx/Background";
+import Background from "@/component/Background.tsx/Background";
 import "../../public/reset.css";
-import RootContainer from "@/components/RootContainer";
+import RootContainer from "@/component/RootContainer";
 
 export const metadata = {
   title: "Next.js",
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body style={{ background: "#d8ebff;" }}>
-        <Background />
+        {/* <Background /> */}
         <RootContainer>
           <div style={{ marginLeft: 246 }}>
             <div style={{ display: "flex", justifyContent: "center" }}>

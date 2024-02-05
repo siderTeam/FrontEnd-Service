@@ -5,8 +5,9 @@ import { TextareaHTMLAttributes } from "react";
 //Input
 
 export type INPUT_STYLE_PROPS = {
-  size?: "small" | "medium" | "large";
+  size?: "home" | "primary";
   mode?: "primary" | "disabled";
+  text?: "home" | "primary";
 };
 
 export type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
@@ -17,9 +18,10 @@ export type InputProps = INPUT_STYLE_PROPS &
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     readOnly?: boolean;
     type?: string;
-    name: string;
+    name?: string;
     placeholder?: string;
     errorText?: string;
+    icon?: boolean;
     style?: React.CSSProperties;
     rest?: any;
   };
@@ -36,15 +38,18 @@ export type LabelProps = {
 //Button
 
 export type BUTTON_STYLE_PROPS = {
-  size?: "small" | "medium" | "large";
-  mode?: "primary" | "error";
+  size?: "nav" | "primary" | "basic" | "basic-choice";
+  mode?: "primary" | "reverse-primary" | "error" | "basic" | "basic-choice";
 };
 
 export type ButtonProps = BUTTON_STYLE_PROPS & {
   children: any;
   style?: React.CSSProperties;
   onClick?: () => void;
-  isDisabled?: boolean;
+  rightIcon?: string;
+  LeftIcon?: string;
+  type?: string;
+  iconStyle?: React.CSSProperties;
 };
 
 //CheckBox
@@ -101,9 +106,13 @@ export type LABELINPUT_STYLE_PROPS = {
   location: "left" | "top";
 };
 
-// export type LabelInputProps = LabelProps &
-//   InputProps &
-//   LABELINPUT_STYLE_PROPS & {
-//     labelStyle?: React.CSSProperties;
-//     inputStyle?: React.CSSProperties;
-//   };
+//Card
+
+export type CardProps = {
+  children?: any;
+  id?: string;
+  title?: string;
+  projectPeriod?: string | number;
+  deposit?: string | number;
+  necessaryPeriod?: string | number;
+};

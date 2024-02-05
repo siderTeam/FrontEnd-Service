@@ -1,48 +1,35 @@
 "use client";
 
+import { ButtonProps } from "@/types/types";
 import styled from "@emotion/styled";
-
-type BUTTON_STYLE_PROPS = {
-  size?: "primary" | "basic" | "basic-choice";
-  mode?: "primary" | "error" | "basic" | "basic-choice";
-};
-
-type ButtonProps = BUTTON_STYLE_PROPS & {
-  children: any;
-  style?: React.CSSProperties;
-  onClick?: () => void;
-  icon?: boolean;
-  src?: string;
-  type?: string;
-};
 
 const Button = ({
   children,
   size = "primary",
   mode = "primary",
   style,
+  iconStyle,
   onClick,
-  icon = false,
-  src,
+  rightIcon,
+  LeftIcon,
   type,
   ...rest
 }: ButtonProps) => {
   return (
     <>
-      <ButtonWrap>
+      <ButtonWrap {...rest}>
         <StyledButton
           size={size}
           mode={mode}
           style={style}
           onClick={onClick}
-          {...rest}
           type={type}
         >
-          <div>
-            {src && <Img src={src} />}
+          <div className='text_icon_wrap'>
+            {LeftIcon && <Img src={LeftIcon} />}
             {children}
+            {rightIcon && <Icon src={rightIcon} style={iconStyle} />}
           </div>
-          {icon && <Icon src='images/home/arrow_white.svg' />}
         </StyledButton>
       </ButtonWrap>
     </>
@@ -52,6 +39,23 @@ export default Button;
 
 const BUTTON_TYPE = {
   ["primary"]: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+
+    width: "396px",
+    height: "52px",
+    borderRadius: "8px",
+    padding: "0px, 24px",
+
+    textAlign: "center",
+    fontFamily: "Pretendard",
+    fontSize: "16px",
+    fontStyle: "normal",
+    lineHeight: "normal",
+    boxSizing: "border-box",
+  },
+  ["nav"]: {
     display: "flex",
     justifyContent: "center",
     width: "130px",
@@ -118,6 +122,11 @@ const COLOR_TYPE = {
     background: "var(--primary, #06F)",
     color: "white",
   },
+  ["reverse-primary"]: {
+    background: "rgba(255, 255, 255, 0.1)",
+    border: "1px solid #06F ",
+    color: "#06f",
+  },
   ["error"]: {
     background: "#FF4E4E",
     color: "white",
@@ -135,19 +144,30 @@ const COLOR_TYPE = {
 const TEXT_TYPE = {};
 
 const StyledButton = styled.div<ButtonProps>`
-  ${({ size }) => BUTTON_TYPE[size as "primary"]};
+  ${({ size }) => BUTTON_TYPE[size as "nav"]};
   ${({ mode }) => COLOR_TYPE[mode as "primary"]};
 
   cursor: pointer;
+
+  .text_icon_wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const Icon = styled.img`
+  margin-left: 4px;
   width: 24px;
   height: 24px;
 `;
 
 const ButtonWrap = styled.div`
   display: flex;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
 `;
 
 const Img = styled.img`

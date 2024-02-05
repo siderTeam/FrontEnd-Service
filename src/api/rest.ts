@@ -1,8 +1,12 @@
 export const rest = {
   get: {
-    proejct: "/project",
+    project: "/project",
+    code: "/code",
   },
-  post: {},
+  post: {
+    userSignIn: "/user/signIn",
+    userSignUp: "/user/signUp",
+  },
   put: {},
   delete: {},
   patch: {},

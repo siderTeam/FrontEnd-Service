@@ -33,7 +33,7 @@ const router = [
     activeIconPath: "Calendar_blue",
   },
   {
-    path: "/project",
+    path: "/myProject",
     label: "프로젝트",
     iconPath: "Bookmark_gray",
     activeIconPath: "Bookmark_blue",
@@ -85,7 +85,7 @@ const Sidebar = () => {
       </div>
       <div className='bottom'>
         <ProfileWrapper>
-          <Image
+          {/* <Image
             src={"images/home/Ellipse.svg"}
             width={94}
             height={94}
@@ -93,9 +93,22 @@ const Sidebar = () => {
           />
           <span className='name'>닉네임</span>
           <span>10년차 디자이너</span>
-          <Button icon={true} style={{ marginTop: 10 }}>
+          <Button
+            size='nav'
+            rightIcon='images/home/arrow_white.svg'
+            style={{ marginTop: 10 }}
+          >
             마이페이지
-          </Button>
+          </Button> */}
+          <Link href='/login'>
+            <Button
+              size='nav'
+              rightIcon='images/home/user_white.svg'
+              iconStyle={{ width: 16, height: 16 }}
+            >
+              로그인
+            </Button>
+          </Link>
         </ProfileWrapper>
       </div>
     </Container>
