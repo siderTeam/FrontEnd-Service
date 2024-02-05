@@ -46,18 +46,16 @@ const ProjectPage = () => {
     setFilterType(type);
   };
 
-  console.log(filterType);
-
   return (
     <HomeStyle>
       <Title>사이드 프로젝트</Title>
 
       <FilterContainer>
-        <div className='button_wrap'>
+        <div className="button_wrap">
           <Button
             size={filterType === "전체" ? "basic-choice" : "basic"}
             mode={filterType === "전체" ? "basic-choice" : "basic"}
-            type='전체'
+            type="전체"
             onClick={() => handleFilterClick("전체")}
           >
             전체
@@ -78,8 +76,8 @@ const ProjectPage = () => {
             </Button>
           ))}
         </div>
-        <div className='input'>
-          <Input placeholder='프로젝트 검색' icon={true} />
+        <div className="input">
+          <Input placeholder="프로젝트 검색" icon={true} />
         </div>
       </FilterContainer>
 
@@ -93,10 +91,10 @@ const ProjectPage = () => {
               deposit={item.deposit}
               necessaryPeriod={item.count}
             >
-              <PositionIcon color='designer' icon='designer' />
-              <PositionIcon color='projectManager' icon='projectManager' />
-              <PositionIcon color='feDeveloper' icon='feDeveloper' />
-              <PositionIcon color='beDeveloper' icon='beDeveloper' />
+              <PositionIcon color="designer" icon="designer" />
+              <PositionIcon color="projectManager" icon="projectManager" />
+              <PositionIcon color="feDeveloper" icon="feDeveloper" />
+              <PositionIcon color="beDeveloper" icon="beDeveloper" />
             </Card>
           ))}
         </Imsi>

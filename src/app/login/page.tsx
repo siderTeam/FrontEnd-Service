@@ -1,6 +1,6 @@
 "use client";
 
-import { postUserSignIn } from "@/api/api";
+import { getAcceessToken, postUserSignIn } from "@/api/api";
 import { USER_SIGNIN_REQUEST } from "@/api/model";
 import Button from "@/component/Button_new/Button";
 import LabelInput from "@/component/LabelInput_new/LabelInput";
@@ -8,9 +8,12 @@ import LabelInput from "@/component/LabelInput_new/LabelInput";
 import styled from "@emotion/styled";
 import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { setCookie } from "public/lib/util";
 import { useState } from "react";
 
-const page = () => {
+const Page = () => {
+  const route = useRouter();
   const [form, setForm] = useState<USER_SIGNIN_REQUEST>({
     username: "",
     password: "",
@@ -18,8 +21,14 @@ const page = () => {
 
   const { mutate } = useMutation({
     mutationFn: postUserSignIn,
-    onSuccess: () => {
-      console.log("성공");
+    onSuccess: async (data) => {
+      if (data.result === true) {
+        setCookie("RefreshToken", data.data);
+        const response = await getAcceessToken();
+        setCookie("AccessToken", response.data);
+
+        route.push("/home");
+      }
     },
     onError: () => {
       console.log("실패");
@@ -38,15 +47,15 @@ const page = () => {
 
   return (
     <Container>
-      <div className='header'>
-        <img src='images/Logo.svg' />
-        <p className='sub-title'>우리들의 꿈을 잇다.</p>
+      <div className="header">
+        <img src="images/Logo.svg" />
+        <p className="sub-title">우리들의 꿈을 잇다.</p>
       </div>
       <LoginContainer>
-        <div className='top'>
-          <div className='id'>
+        <div className="top">
+          <div className="id">
             <LabelInput
-              location='top'
+              location="top"
               labelOption={{
                 label: "아이디",
               }}
@@ -59,9 +68,9 @@ const page = () => {
               }}
             />
           </div>
-          <div className='password'>
+          <div className="password">
             <LabelInput
-              location='top'
+              location="top"
               labelOption={{
                 label: "비밀번호",
               }}
@@ -76,20 +85,20 @@ const page = () => {
             />
           </div>
         </div>
-        <div className='bottom'>
-          <div className='button-wrap'>
-            <Button size='primary' onClick={() => mutate(form)}>
+        <div className="bottom">
+          <div className="button-wrap">
+            <Button size="primary" onClick={() => mutate(form)}>
               로그인
             </Button>
-            <Link href='/signUp'>
-              <Button size='primary' mode='reverse-primary'>
+            <Link href="/signUp">
+              <Button size="primary" mode="reverse-primary">
                 회원 가입
               </Button>
             </Link>
           </div>
-          <div className='txt-button-wrap'>
-            <span className='find-id'>아이디 찾기</span>
-            <span className='find-password'>비밀번호 찾기</span>
+          <div className="txt-button-wrap">
+            <span className="find-id">아이디 찾기</span>
+            <span className="find-password">비밀번호 찾기</span>
           </div>
         </div>
       </LoginContainer>
@@ -97,7 +106,7 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
 
 const Container = styled.div`
   padding: 52px 0;

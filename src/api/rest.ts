@@ -6,6 +6,7 @@ export const rest = {
   post: {
     userSignIn: "/user/signIn",
     userSignUp: "/user/signUp",
+    getAcceessToken: '/user/newAc'
   },
   put: {},
   delete: {},
