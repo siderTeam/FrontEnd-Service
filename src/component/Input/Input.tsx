@@ -28,6 +28,7 @@ const Input = ({
         readOnly={readOnly}
         name={name}
         placeholder={placeholder}
+        mode={mode}
         {...rest}
       />
       {type === "search" && (
@@ -47,17 +48,23 @@ const Input = ({
 export default Input;
 
 const INPUT_TYPE = {
-  ["small"]: { //미정
+  ["small"]: {
+    //미정
     width: 150,
     height: 30,
   },
-  ["medium"]: { //미정
+  ["medium"]: {
+    //미정
     width: 250,
     height: 30,
   },
   ["large"]: {
     width: 436,
-  height: 48,
+    height: 48,
+  },
+  ["full"]: {
+    width: "100%",
+    height: 52,
   },
 };
 
@@ -69,29 +76,35 @@ const COLOR_TYPE = {
     background: "#F2F2F2",
     border: "none",
   },
+  ["text"]: {
+    background: "white",
+    border: "1px solid #B8B8B8",
+    padding: "16px",
+    borderRadius: "8px",
+  },
 };
 
 const Container = styled.div<any>`
   ${({ size }) => INPUT_TYPE[size as "medium"]};
-  display: flex;
-  box-sizing: border-box;
+  ${({ mode }) => mode === "search" && `
+    display: flex;
+    box-sizing: border-box;
 
-  padding: 8px 20px;
-  justify-content: space-between;
-  gap: 52px;
-  flex-shrink: 0;
+    padding: 8px 20px;
+    justify-content: space-between;
+    gap: 52px;
+    flex-shrink: 0;
 
-  border-radius: 100px;
-  border: 1px solid #d6e3f3;
-  background: var(--White, #fff);
-  box-shadow: 4px 4px 20px 0px rgba(111, 140, 176, 0.41),
-    -6px -6px 20px 0px rgba(255, 255, 255, 0.5),
-    2px 2px 4px 0px rgba(114, 142, 171, 0.1);
+    border-radius: 100px;
+    border: 1px solid #d6e3f3;
+    background: var(--White, #fff);
+    box-shadow: 4px 4px 20px 0px rgba(111, 140, 176, 0.41),
+      -6px -6px 20px 0px rgba(255, 255, 255, 0.5),
+      2px 2px 4px 0px rgba(114, 142, 171, 0.1);
+  `};
 `;
 
 const StyledInput = styled.input<any>`
-  ${({ mode }) => COLOR_TYPE[mode as "primary"]};
-  
   width: 100%;
   color: #515151;
   font-family: Pretendard;
@@ -100,6 +113,7 @@ const StyledInput = styled.input<any>`
 
   border: none;
   outline: none;
+  ${({ mode }) => COLOR_TYPE[mode as "primary"]};
 
   //input type="search"일 때 x표시 지우기
   &[type="search"] {

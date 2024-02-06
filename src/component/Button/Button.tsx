@@ -68,11 +68,28 @@ const COLOR_TYPE = {
     background: "#FF4E4E",
     color: "white",
   },
+  ["primary_square"]: {
+    background: "#0066FF",
+    color: "var(--White, #FFF)",
+    fontSize: "16px",
+
+    width: "100%",
+    height: "52px",
+    borderRadius: "8px",
+  },
+  ["square"]: {
+    background: "none",
+    border: "1px solid #0066FF",
+    color: "#0066FF",
+    fontSize: "16px",
+
+    width: "100%",
+    height: "52px",
+    borderRadius: "8px",
+  },
 };
 
 const StyledButton = styled.button<BUTTON_STYLE_PROPS>`
-  ${({ mode }) => COLOR_TYPE[mode as "primary"]};
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,6 +100,8 @@ const StyledButton = styled.button<BUTTON_STYLE_PROPS>`
   text-align: center;
   font-family: Pretendard;
   font-weight: 500;
+
+  ${({ mode }) => COLOR_TYPE[mode as "primary"]};
 
   &.active {
     ${({ mode }) =>

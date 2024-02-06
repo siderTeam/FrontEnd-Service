@@ -78,9 +78,11 @@ const Navigation = () => {
           ))}
         </MenuWrap>
         <ProfileWrap>
-          <Button mode="primary" rightIcon="images/user.svg" iconSize={16}>
-            로그인
-          </Button>
+          <Link href="/login">
+            <Button mode="primary" rightIcon="images/user.svg" iconSize={16}>
+              로그인
+            </Button>
+          </Link>
           {/* <Image src="images/home/profile.svg" alt="profile" width={94} height={94} />
           <Profile>
             <Name>808Ground</Name>
