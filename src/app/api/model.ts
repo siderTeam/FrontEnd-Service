@@ -8,7 +8,7 @@ export type PROJECT_RESPONSE = {
   count: number;
 };
 
-export type POSITION_CODE_RESPONSE = {
+export type CODE_RESPONSE = {
   id: number;
   name: string;
 };

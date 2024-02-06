@@ -7,7 +7,7 @@ import PositionSquare from "@/component/PositionSquare/PositionSquare";
 import Button from "@/component/Button/Button";
 import { useQuery } from "@tanstack/react-query";
 import { rest } from "../api/rest";
-import { getProject, getPositionCode } from "../api/api";
+import { getProject, getCode } from "../api/api";
 import { useState } from "react";
 
 const positions = ["디자이너", "기획자", "프론트엔드", "백엔드"];
@@ -37,11 +37,11 @@ const Page = () => {
 
   const positionData = useQuery({
     queryKey: [rest.get.code],
-    queryFn: getPositionCode,
+    queryFn: () => getCode(10, 2),
   });
 
-  const handleFilterClick = (index: (number | null)) => {
-    setActiveIndex((prevIndex) => index === activeIndex ? prevIndex : index);
+  const handleFilterClick = (index: number | null) => {
+    setActiveIndex((prevIndex) => (index === activeIndex ? prevIndex : index));
   };
 
   return (
