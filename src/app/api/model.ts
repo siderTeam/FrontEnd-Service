@@ -6,9 +6,14 @@ export type PROJECT_RESPONSE = {
   content: string;
   deposit: number;
   count: number;
-}
+};
 
 export type POSITION_CODE_RESPONSE = {
   id: number;
   name: string;
-}
+};
+
+export type USER_SIGNIN_REQUEST = {
+  username: string;
+  password: string;
+};

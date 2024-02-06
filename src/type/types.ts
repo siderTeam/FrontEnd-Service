@@ -19,8 +19,8 @@ export type CardProps = {
 
 //input
 export type INPUT_STYLE_PROPS = {
-  size?: "small" | "medium" | "large";
-  mode?: "primary" | "disabled";
+  size?: "small" | "medium" | "large" | "full";
+  mode?: "primary" | "disabled" | "search" | "text";
 };
 
 export type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
@@ -41,7 +41,7 @@ export type InputProps = INPUT_STYLE_PROPS &
 //button
 export type BUTTON_STYLE_PROPS = {
   size?: "small" | "medium" | "large";
-  mode?: "default" | "primary" | "error";
+  mode?: "default" | "primary" | "error" | "primary_square" | "square";
 };
 
 export type ButtonProps = BUTTON_STYLE_PROPS &
@@ -53,4 +53,18 @@ export type ButtonProps = BUTTON_STYLE_PROPS &
     leftIcon?: string;
     rightIcon?: string;
     iconSize?: number;
-  };
+};
+  
+//Label
+export type LabelProps = {
+  label: string;
+  require?: string;
+  subText?: string;
+  style?: React.CSSProperties;
+};
+
+//LabelInput
+export type LABELINPUT_STYLE_PROPS = {
+  location: "left" | "top";
+};
+

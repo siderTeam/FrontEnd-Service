@@ -5,8 +5,41 @@ import styled from "@emotion/styled";
 import LabelInput from "@/component/LabelInput/LabelInput";
 import Button from "@/component/Button/Button";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { USER_SIGNIN_REQUEST } from "../api/model";
+import { useMutation } from "@tanstack/react-query";
+import { getAccessToken, postUserSignIn } from "../api/api";
+import { setCookie } from "public/lib/util";
 
 const Page = () => {
+  const route = useRouter();
+  const [form, setForm] = useState<USER_SIGNIN_REQUEST>({
+    username: "",
+    password: "",
+  });
+
+  const { mutate } = useMutation({
+    mutationFn: postUserSignIn,
+    onSuccess: async (data) => {
+      if (data.result === true) {
+        setCookie("RefreshToken", data.data);
+        const response = await getAccessToken();
+        setCookie("AccessToken", response.data);
+
+        route.push("/home");
+      }
+    },
+    onError: () => {
+      console.log("실패");
+    },
+  });
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  }
+
   return (
     <Container>
       <Logo>
@@ -22,10 +55,11 @@ const Page = () => {
             }}
             inputOption={{
               type: "text",
-              name: "id",
+              name: "username",
               size: "full",
               mode: "text",
               placeholder: "아이디를 입력해주세요.",
+              onChange: handleChange,
             }}
           />
           <LabelInput
@@ -39,11 +73,12 @@ const Page = () => {
               size: "full",
               mode: "text",
               placeholder: "비밀번호를 입력해주세요.",
+              onChange: handleChange,
             }}
           />
         </div>
         <div className="button-wrap">
-          <Button mode="primary_square">로그인</Button>
+          <Button mode="primary_square" onClick={() => mutate(form)}>로그인</Button>
           <Button mode="square">회원가입</Button>
         </div>
         <div className="find-wrap">
