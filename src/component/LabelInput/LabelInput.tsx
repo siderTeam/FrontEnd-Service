@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Input from "../Input/Input";
 import Label from "../Label/Label";
 
-import { InputProps, LABELINPUT_STYLE_PROPS, LabelProps } from "@/types/types";
+import { InputProps, LABELINPUT_STYLE_PROPS, LabelProps } from "@/type/types";
 
 type LabelInputProps = {
   labelOption: LabelProps;
