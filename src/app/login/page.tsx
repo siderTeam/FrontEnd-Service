@@ -78,8 +78,12 @@ const Page = () => {
           />
         </div>
         <div className="button-wrap">
-          <Button mode="primary_square" onClick={() => mutate(form)}>로그인</Button>
-          <Button mode="square">회원가입</Button>
+          <Button mode="primary_square" onClick={() => mutate(form)}>
+            로그인
+          </Button>
+          <Link href="/signUp">
+            <Button mode="square">회원가입</Button>
+          </Link>
         </div>
         <div className="find-wrap">
           <Link href="">아이디 찾기</Link>

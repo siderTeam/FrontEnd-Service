@@ -2,6 +2,7 @@ import {
   PROJECT_RESPONSE,
   POSITION_CODE_RESPONSE,
   USER_SIGNIN_REQUEST,
+  USER_SIGNUP_REQUEST,
 } from "./model";
 import { rest } from "./rest";
 import { API } from "./axiosConfig";
@@ -39,3 +40,10 @@ export const getAccessToken = async () => {
 
   return response.data;
 }
+
+//회원가입
+export const postUserSignUp = async (params: USER_SIGNUP_REQUEST) => {
+  const response = await API.post(`${rest.post.userSignUp}`, params);
+
+  return response.data;
+};
