@@ -60,6 +60,7 @@ const StyledSquare = styled.span<PositionSquareProps>`
   box-sizing: border-box;
   padding: 4px 8px;
   border-radius: 4px;
+  white-space: nowrap;
 
   align-items: center;
   display: inline-flex;

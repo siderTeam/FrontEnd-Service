@@ -125,8 +125,22 @@ const ButtonWrap = styled.div`
 `;
 
 const CardWrap = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  @media (max-width: 1750px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 1400px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 1000px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
   gap: 32px 18px;
   margin-top: 24px;
 `;
