@@ -45,7 +45,7 @@ const Page = () => {
   };
 
   return (
-    <div>
+    <Container>
       <Title>사이드 플젝</Title>
       <Wrap>
         <ButtonWrap>
@@ -73,6 +73,7 @@ const Page = () => {
         <Input
           type="search"
           name="input"
+          mode="search"
           placeholder="프로젝트 검색"
           size="large"
         />
@@ -92,11 +93,16 @@ const Page = () => {
           </Card>
         ))}
       </CardWrap>
-    </div>
+    </Container>
   );
 };
 
 export default Page;
+
+const Container = styled.div`
+  max-width: calc(100vw - 246px - 58px - 58px);
+  padding-top: 90px;
+`;
 
 const Title = styled.h1`
   color: var(--txt-main, #1e1e20);
