@@ -68,3 +68,16 @@ export type LABELINPUT_STYLE_PROPS = {
   location: "left" | "top";
 };
 
+//SelectBox
+export type SELECTBOX_STYLE_PROPS = {
+  size?: "small" | "medium" | "large";
+};
+
+export type SelectBoxProps = SELECTBOX_STYLE_PROPS & {
+  options: { id: number; name: string }[];
+  value: string;
+  name: string;
+  onChange: (name: string, id: number, value: string) => void;
+  style?: React.CSSProperties;
+  optionStyle?: React.CSSProperties;
+};

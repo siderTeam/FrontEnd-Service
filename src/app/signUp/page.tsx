@@ -7,31 +7,41 @@ import Button from "@/component/Button/Button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { USER_SIGNUP_REQUEST } from "../api/model";
-import { useMutation } from "@tanstack/react-query";
-import { postUserSignUp } from "../api/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getCode, postUserSignUp } from "../api/api";
+import { rest } from "../api/rest";
+import SelectBox from "@/component/SelectBox/SelectBox";
 
 const Page = () => {
   const route = useRouter();
+  const [selectJob, setSelectJob] = useState("선택");
   const [form, setForm] = useState<USER_SIGNUP_REQUEST>({
     username: "",
     name: "",
     password: "",
     email: "",
     nickname: "",
-    bankName:	"",
-    bankNo:	"",
-    bankUserName:	"",
+    bankName: "",
+    bankNo: "",
+    bankUserName: "",
     phone: "",
     jobCode: 0,
     positionCode: [],
   });
+
+  //직군 데이터
+  const jobData = useQuery({
+    queryKey: [rest.get.code],
+    queryFn: () => getCode(10, 2),
+  });
+  //console.log(jobData.data);
 
   const { mutate } = useMutation({
     mutationFn: postUserSignUp,
     onSuccess: async (data) => {
       if (data.result === true) {
         alert("회원가입이 완료되었습니다.\n로그인 페이지로 이동합니다.");
-        
+
         route.push("/login");
       }
     },
@@ -40,20 +50,17 @@ const Page = () => {
     },
   });
 
-  const handleChangeString = (e: any) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
-  const handleChangeNumber = (e: any) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: Number(value) });
+  const handleJobSelectChange = (name: string, id: number, value: string) => {
+    setSelectJob(value);
+    setForm({ ...form, [name]: Number(id) });
   };
 
-  const handleChangePosition = (e: any) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: [Number(value)] });
-  };
+  console.log(form);
 
   return (
     <Container>
@@ -75,7 +82,7 @@ const Page = () => {
               size: "full",
               mode: "text",
               placeholder: "아이디를 입력해주세요.",
-              onChange: handleChangeString,
+              onChange: handleChange,
             }}
           />
           <LabelInput
@@ -90,7 +97,7 @@ const Page = () => {
               size: "full",
               mode: "text",
               placeholder: "비밀번호를 입력해주세요.",
-              onChange: handleChangeString,
+              onChange: handleChange,
             }}
           />
           <LabelInput
@@ -105,7 +112,7 @@ const Page = () => {
               size: "full",
               mode: "text",
               placeholder: "비밀번호를 다시 입력해주세요.",
-              onChange: handleChangeString,
+              onChange: handleChange,
             }}
           />
           <LabelInput
@@ -120,7 +127,7 @@ const Page = () => {
               size: "full",
               mode: "text",
               placeholder: "이름을 입력해주세요.",
-              onChange: handleChangeString,
+              onChange: handleChange,
             }}
           />
           <LabelInput
@@ -135,7 +142,7 @@ const Page = () => {
               size: "full",
               mode: "text",
               placeholder: "이메일을 입력해주세요.",
-              onChange: handleChangeString,
+              onChange: handleChange,
             }}
           />
           <LabelInput
@@ -150,7 +157,7 @@ const Page = () => {
               size: "full",
               mode: "text",
               placeholder: "닉네임을 입력해주세요.",
-              onChange: handleChangeString,
+              onChange: handleChange,
             }}
           />
           <LabelInput
@@ -165,10 +172,16 @@ const Page = () => {
               size: "full",
               mode: "text",
               placeholder: "전화번호를 입력해주세요.",
-              onChange: handleChangeString,
+              onChange: handleChange,
             }}
           />
-          <LabelInput
+          <SelectBox
+            options={jobData.data || []}
+            value={selectJob}
+            name="jobCode"
+            onChange={handleJobSelectChange}
+          />
+          {/* <LabelInput
             location="top"
             labelOption={{
               label: "직군",
@@ -197,7 +210,7 @@ const Page = () => {
               placeholder: "포지션을 입력해주세요.",
               onChange: handleChangePosition,
             }}
-          />
+          /> */}
         </div>
         <Button mode="primary_square" onClick={() => mutate(form)}>
           회원가입
