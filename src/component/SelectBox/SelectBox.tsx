@@ -13,6 +13,7 @@ const SelectBox = ({
   onChange,
   style,
   optionStyle,
+  placeholder,
 }: SelectBoxProps) => {
   const [visible, setVisible] = useState(false);
 
@@ -20,10 +21,13 @@ const SelectBox = ({
     setVisible(!visible);
   };
 
-  const handleClick = (id: number, value: string) => {
-    onChange(name, id, value);
+  const handleClick = (value: string) => {
+    onChange(name, value);
     setVisible(false);
   };
+
+  const selected = options.filter((option) => option.value === value);
+
   return (
     <Container>
       <StyledSelect
@@ -33,18 +37,18 @@ const SelectBox = ({
         style={style}
         onClick={handleClickSelect}
       >
-        <div className="value">{value}</div>
+        <div className="value">{selected.length === 0 ? placeholder : selected[0].label}</div>
       </StyledSelect>
       {visible && (
         <OptionWrapper size={size}>
           {options?.map((option) => (
             <li
-              onClick={() => handleClick(option.id, option.name)}
+              onClick={() => handleClick(option.value)}
               style={optionStyle}
-              key={option.id}
-              value={option.name}
+              key={option.value}
+              value={option.label}
             >
-              {option.name}
+              {option.label}
             </li>
           ))}
         </OptionWrapper>
@@ -76,7 +80,7 @@ const SELECT_TYPE = {
 
 const OptionWrapper = styled.ul<{ size: "small" | "medium" | "large" }>`
   position: absolute;
-  font-size: 12px;
+  font-size: 16px;
   box-sizing: border-box;
   top: ${({ size }) => SELECT_TYPE[size].height};
   background: white;
@@ -89,7 +93,9 @@ const OptionWrapper = styled.ul<{ size: "small" | "medium" | "large" }>`
     box-sizing: border-box;
     cursor: pointer;
     border-bottom: 1px solid #eeee;
-    ${({ size }) => SELECT_TYPE[size as "medium"]};
+    width: 100%;
+    height: 52px;
+    //${({ size }) => SELECT_TYPE[size as "medium"]};
   }
 
   li:hover {
@@ -98,13 +104,16 @@ const OptionWrapper = styled.ul<{ size: "small" | "medium" | "large" }>`
 `;
 
 const StyledSelect = styled.div<any>`
-  ${({ size }) => SELECT_TYPE[size as "medium"]};
-  font-size: 12px;
-  border: 1px solid #a7a7a7;
+  //${({ size }) => SELECT_TYPE[size as "medium"]};
+  width: 100%;
+  height: 52px;
+  font-size: 16px;
+  border: 1px solid #b8b8b8;
   border-radius: 6px;
   outline: none;
   padding: 0 10px;
   box-sizing: border-box;
+  background: white;
 
   .value {
     width: 100%;

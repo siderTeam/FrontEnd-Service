@@ -56,11 +56,12 @@ export default Card;
 const Container = styled.div`
   cursor: pointer;
   display: flex;
-  width: 376px;
+  //min-width: 376px;
   padding: 20px;
-  //box-sizing: border-box;
+  box-sizing: border-box;
   flex-direction: column;
   gap: 52px;
+  flex-grow: 1; /* flex-grow 추가 */
 
   border-radius: 14px;
   border: 1px solid #fff;

@@ -5,16 +5,19 @@ import styled from "@emotion/styled";
 import LabelInput from "@/component/LabelInput/LabelInput";
 import Button from "@/component/Button/Button";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { USER_SIGNUP_REQUEST } from "../api/model";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getCode, postUserSignUp } from "../api/api";
 import { rest } from "../api/rest";
 import SelectBox from "@/component/SelectBox/SelectBox";
+import Label from "@/component/Label/Label";
 
 const Page = () => {
   const route = useRouter();
-  const [selectJob, setSelectJob] = useState("선택");
+  const [selectJob, setSelectJob] = useState("직군 선택");
+  const [selectPosition, setSelectPosition] = useState("포지션 선택");
+  const [jobId, setJobId] = useState(0);
   const [form, setForm] = useState<USER_SIGNUP_REQUEST>({
     username: "",
     name: "",
@@ -34,7 +37,12 @@ const Page = () => {
     queryKey: [rest.get.code],
     queryFn: () => getCode(10, 2),
   });
-  //console.log(jobData.data);
+
+  //포지션 데이터
+  const positionData = useQuery({
+    queryKey: ["position", jobId],
+    queryFn: () => getCode(jobId, 2),
+  });
 
   const { mutate } = useMutation({
     mutationFn: postUserSignUp,
@@ -55,12 +63,18 @@ const Page = () => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleJobSelectChange = (name: string, id: number, value: string) => {
+  //직군 onChange
+  const handleJobSelectChange = (name: string, value: string) => {
     setSelectJob(value);
-    setForm({ ...form, [name]: Number(id) });
+    setForm({ ...form, [name]: Number(value) });
+    setJobId(Number(value));
   };
 
-  console.log(form);
+  //포지션 onChange
+  const handlePositionSelectChange = (name: string, value: string) => {
+    setSelectPosition(value);
+    setForm({ ...form, [name]: [Number(value)] });
+  };
 
   return (
     <Container>
@@ -175,42 +189,36 @@ const Page = () => {
               onChange: handleChange,
             }}
           />
+          <Label label="직군" require="*" />
           <SelectBox
-            options={jobData.data || []}
+            options={
+              jobData.data?.map(({ id, name }) => {
+                return {
+                  label: name,
+                  value: id as unknown as string,
+                };
+              }) || []
+            }
             value={selectJob}
             name="jobCode"
             onChange={handleJobSelectChange}
+            placeholder="직군 선택"
           />
-          {/* <LabelInput
-            location="top"
-            labelOption={{
-              label: "직군",
-              require: "*",
-            }}
-            inputOption={{
-              type: "text",
-              name: "jobCode",
-              size: "full",
-              mode: "text",
-              placeholder: "직군을 입력해주세요.",
-              onChange: handleChangeNumber,
-            }}
+          <Label label="포지션" require="*" />
+          <SelectBox
+            options={
+              positionData.data?.map(({ id, name }) => {
+                return {
+                  label: name,
+                  value: id as unknown as string,
+                };
+              }) || []
+            }
+            value={selectPosition}
+            name="positionCode"
+            onChange={handlePositionSelectChange}
+            placeholder="포지션 선택"
           />
-          <LabelInput
-            location="top"
-            labelOption={{
-              label: "포지션",
-              require: "*",
-            }}
-            inputOption={{
-              type: "text",
-              name: "positionCode",
-              size: "full",
-              mode: "text",
-              placeholder: "포지션을 입력해주세요.",
-              onChange: handleChangePosition,
-            }}
-          /> */}
         </div>
         <Button mode="primary_square" onClick={() => mutate(form)}>
           회원가입

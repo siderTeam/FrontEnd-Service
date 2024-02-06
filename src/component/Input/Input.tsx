@@ -86,7 +86,9 @@ const COLOR_TYPE = {
 
 const Container = styled.div<any>`
   ${({ size }) => INPUT_TYPE[size as "medium"]};
-  ${({ mode }) => mode === "search" && `
+  ${({ mode }) =>
+    mode === "search" &&
+    `
     display: flex;
     box-sizing: border-box;
 
@@ -110,6 +112,7 @@ const StyledInput = styled.input<any>`
   font-family: Pretendard;
   font-size: 16px;
   font-weight: 400;
+  box-sizing: border-box;
 
   border: none;
   outline: none;

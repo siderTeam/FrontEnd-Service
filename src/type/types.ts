@@ -74,10 +74,11 @@ export type SELECTBOX_STYLE_PROPS = {
 };
 
 export type SelectBoxProps = SELECTBOX_STYLE_PROPS & {
-  options: { id: number; name: string }[];
+  options: { label: string; value: string }[];
   value: string;
   name: string;
-  onChange: (name: string, id: number, value: string) => void;
+  onChange: (name: string, value: string) => void;
   style?: React.CSSProperties;
   optionStyle?: React.CSSProperties;
+  placeholder?: string;
 };
