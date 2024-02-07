@@ -7,7 +7,7 @@ import Input from "@/component/Input_new/Input";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { rest } from "@/api/rest";
-import { getCodePosition, getProject } from "@/api/api";
+import { getCode, getProject } from "@/api/api";
 import PositionIcon from "@/component/PositionIcon/PositionIcon";
 
 const projectTypeButtons = [
@@ -37,9 +37,9 @@ const ProjectPage = () => {
     queryFn: getProject,
   });
 
-  const positionData = useQuery({
+  const jobData = useQuery({
     queryKey: [rest.get.code],
-    queryFn: getCodePosition,
+    queryFn: () => getCode(10, 2),
   });
 
   const handleFilterClick = (type: any) => {
@@ -47,20 +47,20 @@ const ProjectPage = () => {
   };
 
   return (
-    <HomeStyle>
+    <Container>
       <Title>사이드 프로젝트</Title>
 
       <FilterContainer>
-        <div className="button_wrap">
+        <div className='button_wrap'>
           <Button
             size={filterType === "전체" ? "basic-choice" : "basic"}
             mode={filterType === "전체" ? "basic-choice" : "basic"}
-            type="전체"
+            type='전체'
             onClick={() => handleFilterClick("전체")}
           >
             전체
           </Button>
-          {positionData.data?.map((item) => (
+          {jobData.data?.map((item) => (
             <Button
               key={item.id}
               size={filterType === item.name ? "basic-choice" : "basic"}
@@ -76,8 +76,8 @@ const ProjectPage = () => {
             </Button>
           ))}
         </div>
-        <div className="input">
-          <Input placeholder="프로젝트 검색" icon={true} />
+        <div className='input'>
+          <Input placeholder='프로젝트 검색' icon={true} />
         </div>
       </FilterContainer>
 
@@ -91,21 +91,21 @@ const ProjectPage = () => {
               deposit={item.deposit}
               necessaryPeriod={item.count}
             >
-              <PositionIcon color="designer" icon="designer" />
-              <PositionIcon color="projectManager" icon="projectManager" />
-              <PositionIcon color="feDeveloper" icon="feDeveloper" />
-              <PositionIcon color="beDeveloper" icon="beDeveloper" />
+              <PositionIcon color='designer' icon='designer' />
+              <PositionIcon color='projectManager' icon='projectManager' />
+              <PositionIcon color='feDeveloper' icon='feDeveloper' />
+              <PositionIcon color='beDeveloper' icon='beDeveloper' />
             </Card>
           ))}
         </Imsi>
       </ImsiContainer>
-    </HomeStyle>
+    </Container>
   );
 };
 
 export default ProjectPage;
 
-const HomeStyle = styled.div`
+const Container = styled.div`
   padding-top: 90px;
   max-width: calc(100vw - 246px - 58px - 58px);
 `;
@@ -117,11 +117,24 @@ const ImsiContainer = styled.div`
 `;
 
 const Imsi = styled.div`
-  max-width: 1920px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 18px;
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  @media (max-width: 1750px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 1400px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 1000px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  gap: 32px 18px;
+  margin-top: 24px;
 `;
 
 const FilterContainer = styled.div`

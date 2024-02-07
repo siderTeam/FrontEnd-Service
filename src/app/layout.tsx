@@ -1,4 +1,4 @@
-import Background from "@/component/Background.tsx/Background";
+import Background from "@/component/Background/Background";
 import "../../public/reset.css";
 import RootContainer from "@/component/RootContainer";
 

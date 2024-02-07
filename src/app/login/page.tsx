@@ -1,6 +1,6 @@
 "use client";
 
-import { getAcceessToken, postUserSignIn } from "@/api/api";
+import { getAccessToken, postUserSignIn } from "@/api/api";
 import { USER_SIGNIN_REQUEST } from "@/api/model";
 import Button from "@/component/Button_new/Button";
 import LabelInput from "@/component/LabelInput_new/LabelInput";
@@ -24,7 +24,7 @@ const Page = () => {
     onSuccess: async (data) => {
       if (data.result === true) {
         setCookie("RefreshToken", data.data);
-        const response = await getAcceessToken();
+        const response = await getAccessToken();
         setCookie("AccessToken", response.data);
 
         route.push("/home");
@@ -47,15 +47,15 @@ const Page = () => {
 
   return (
     <Container>
-      <div className="header">
-        <img src="images/Logo.svg" />
-        <p className="sub-title">우리들의 꿈을 잇다.</p>
+      <div className='header'>
+        <img src='/images/Logo.svg' />
+        <p className='sub-title'>우리들의 꿈을 잇다.</p>
       </div>
       <LoginContainer>
-        <div className="top">
-          <div className="id">
+        <div className='top'>
+          <div className='id'>
             <LabelInput
-              location="top"
+              location='top'
               labelOption={{
                 label: "아이디",
               }}
@@ -68,9 +68,9 @@ const Page = () => {
               }}
             />
           </div>
-          <div className="password">
+          <div className='password'>
             <LabelInput
-              location="top"
+              location='top'
               labelOption={{
                 label: "비밀번호",
               }}
@@ -85,20 +85,20 @@ const Page = () => {
             />
           </div>
         </div>
-        <div className="bottom">
-          <div className="button-wrap">
-            <Button size="primary" onClick={() => mutate(form)}>
+        <div className='bottom'>
+          <div className='button-wrap'>
+            <Button size='primary' onClick={() => mutate(form)}>
               로그인
             </Button>
-            <Link href="/signUp">
-              <Button size="primary" mode="reverse-primary">
+            <Link href='/signUp'>
+              <Button size='primary' mode='reverse-primary'>
                 회원 가입
               </Button>
             </Link>
           </div>
-          <div className="txt-button-wrap">
-            <span className="find-id">아이디 찾기</span>
-            <span className="find-password">비밀번호 찾기</span>
+          <div className='txt-button-wrap'>
+            <span className='find-id'>아이디 찾기</span>
+            <span className='find-password'>비밀번호 찾기</span>
           </div>
         </div>
       </LoginContainer>

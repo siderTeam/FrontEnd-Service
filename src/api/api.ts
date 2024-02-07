@@ -1,52 +1,65 @@
-import { rest } from "./rest";
 import {
-  CODE_POSITION_RESPONSE,
   PROJECT_RESPONSE,
+  CODE_RESPONSE,
   USER_SIGNIN_REQUEST,
   USER_SIGNUP_REQUEST,
+  USER_RESUME_RESPONSE,
 } from "./model";
+import { rest } from "./rest";
 import { API } from "./axiosConfig";
-import axios from "axios";
 
-// 프로젝트들 가져오기
+//프로젝트 가져오기
 export const getProject = async (): Promise<PROJECT_RESPONSE[]> => {
   const response = await API.get(`${rest.get.project}`, {
     params: {
       page: 0,
-      size: 30,
+      size: 20,
     },
   });
 
   return response.data.data.content;
 };
 
-
-// 포지션 코드 가져오기
-export const getCodePosition = async (): Promise<CODE_POSITION_RESPONSE[]> => {
-  const response = await API.get(`${rest.get.code}/10?depth=2`);
+//코드 가져오기
+export const getCode = async (
+  groupId: number,
+  depth: number
+): Promise<CODE_RESPONSE[]> => {
+  const response = await API.get(`${rest.get.code}/${groupId}?depth=${depth}`);
 
   return response.data.data;
 };
 
-// 로그인
+//로그인
 export const postUserSignIn = async (params: USER_SIGNIN_REQUEST) => {
   const response = await API.post(`${rest.post.userSignIn}`, params);
 
   return response.data;
 };
 
-// 어세스 토큰 발급
-export const getAcceessToken = async () => {
-  const response = await API.post(`${rest.post.getAcceessToken}`);
+//엑세스 토큰 발급
+export const getAccessToken = async () => {
+  const response = await API.post(`${rest.post.getAccessToken}`);
 
   return response.data;
 };
 
-// 회원가입
+//회원가입
 export const postUserSignUp = async (params: USER_SIGNUP_REQUEST) => {
-  const response = await API.post(`${rest.post.userSignUp}`, {
-    params: params,
-  });
+  const response = await API.post(`${rest.post.userSignUp}`, params);
 
   return response.data;
+};
+
+//이력서 목록 가져오기
+
+export const getResume = async (): Promise<USER_RESUME_RESPONSE[]> => {
+  const response = await API.get(`${rest.get.resume}`, {
+    params: {
+      page: 1,
+      per: 50,
+    },
+  });
+
+  return response.data.data;
 };

@@ -165,9 +165,9 @@ const Icon = styled.img`
 const ButtonWrap = styled.div`
   display: flex;
 
-  &:hover {
+  /* &:hover {
     filter: brightness(0.9);
-  }
+  } */
 `;
 
 const Img = styled.img`

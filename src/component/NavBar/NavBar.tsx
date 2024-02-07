@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Button from "../Button_new/Button";
+import { useState } from "react";
 
 const router = [
   {
@@ -21,10 +22,14 @@ const router = [
     activeIconPath: "Calendar_blue",
   },
   {
-    path: "/application",
-    label: "지원서 관리",
+    path: "/myApplication",
+    label: "내 지원서",
     iconPath: "Group_gray",
-    activeIconPath: "Group_blue",
+    activeIconPath: "Group_black",
+    subMenu: [
+      { path: "/myApplication/applications", label: "지원서 관리" },
+      { path: "/myApplication/applicationsCreate", label: "지원서 작성" },
+    ],
   },
   {
     path: "/payment",
@@ -38,47 +43,109 @@ const router = [
     iconPath: "Bookmark_gray",
     activeIconPath: "Bookmark_blue",
   },
+  {
+    path: "/myProject/myProjectList",
+    label: "내 프로젝트",
+    iconPath: "Bookmark_gray",
+    activeIconPath: "Bookmark_blue",
+  },
 ];
 
 const Sidebar = () => {
   const path = usePathname();
+  const [arcodian, setArcodian] = useState(false);
+
+  const handleClick = () => {
+    if (router.filter((item) => item.subMenu)) {
+      setArcodian(!arcodian);
+    }
+  };
+
+  const handleClickOther = () => {
+    setArcodian(false);
+  };
+
+  console.log(arcodian);
 
   return (
     <Container>
       <div className='top'>
         <Image
           className='logo'
-          src={"images/Logo.svg"}
+          src={"/images/Logo.svg"}
           width={60}
           height={34}
           alt='로고'
         />
         <RouteWrapper>
           {router.map((route) => (
-            <div className='route_box' key={route.path}>
-              <Image
-                src={
-                  path === route.path
-                    ? `images/home/${route.activeIconPath}.svg`
-                    : `images/home/${route.iconPath}.svg`
-                }
-                width={24}
-                height={24}
-                alt='route_path'
-              />
-              <Link href={route.path}>
-                <span>{route.label}</span>
-              </Link>
-              {path === route.path && (
-                <div className='arrow_icon'>
+            <div
+              className={
+                route.subMenu && arcodian ? "route_box" : "route_box_nosub"
+              }
+              key={route.path}
+            >
+              <div className='wrap'>
+                {!route.subMenu && (
                   <Image
-                    src={`images/home/arrow_gray.svg`}
-                    width={20}
-                    height={20}
-                    alt='arrow'
+                    src={
+                      path === route.path
+                        ? `/images/home/${route.activeIconPath}.svg`
+                        : `/images/home/${route.iconPath}.svg`
+                    }
+                    width={24}
+                    height={24}
+                    style={{ marginRight: "8px" }}
+                    alt='route_path'
                   />
+                )}
+
+                {!route.subMenu && (
+                  <Link href={route.path}>
+                    <span onClick={handleClickOther}>{route.label}</span>
+                  </Link>
+                )}
+
+                {path === route.path && !route.subMenu && (
+                  <div className='arrow_icon'>
+                    <Image
+                      src={`/images/home/arrow_gray.svg`}
+                      width={20}
+                      height={20}
+                      alt='arrow'
+                    />
+                  </div>
+                )}
+
+                <div className={route.subMenu && arcodian && "subMenu-wrap"}>
+                  {route.subMenu && (
+                    <div className='subMenu-title'>
+                      <Image
+                        src={
+                          arcodian === true
+                            ? `/images/home/${route.activeIconPath}.svg`
+                            : `/images/home/${route.iconPath}.svg`
+                        }
+                        width={24}
+                        height={24}
+                        alt='route_path'
+                        style={{ marginRight: "8px" }}
+                      />
+                      <span onClick={handleClick}>{route.label}</span>
+                    </div>
+                  )}
+                  <div className='subMenu'>
+                    {arcodian &&
+                      route.subMenu?.map((item) => (
+                        <Link href={item.path}>
+                          <span className={path === item.path && "choice"}>
+                            {item.label}
+                          </span>
+                        </Link>
+                      ))}
+                  </div>
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </RouteWrapper>
@@ -86,7 +153,7 @@ const Sidebar = () => {
       <div className='bottom'>
         <ProfileWrapper>
           {/* <Image
-            src={"images/home/Ellipse.svg"}
+            src={"/images/home/Ellipse.svg"}
             width={94}
             height={94}
             alt='profile'
@@ -95,7 +162,7 @@ const Sidebar = () => {
           <span>10년차 디자이너</span>
           <Button
             size='nav'
-            rightIcon='images/home/arrow_white.svg'
+            rightIcon='/images/home/arrow_white.svg'
             style={{ marginTop: 10 }}
           >
             마이페이지
@@ -103,7 +170,7 @@ const Sidebar = () => {
           <Link href='/login'>
             <Button
               size='nav'
-              rightIcon='images/home/user_white.svg'
+              rightIcon='/images/home/user_white.svg'
               iconStyle={{ width: 16, height: 16 }}
             >
               로그인
@@ -146,22 +213,91 @@ const Container = styled.div`
 `;
 
 const RouteWrapper = styled.div`
+  /* position: fixed;
+  top: 190px; */
   display: flex;
+  justify-content: center;
   flex-direction: column;
-  width: 150px;
+
   gap: 30px;
 
   .route_box {
+    width: 214px;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     color: #0066ff;
+    background: #e2f1ff;
+    border-radius: 12px;
 
+    .wrap {
+      width: 150px;
+      display: flex;
+      align-items: center;
+    }
     .arrow_icon {
       display: flex;
       align-items: center;
       justify-content: flex-end;
       flex: 1;
+    }
+  }
+
+  .route_box_nosub {
+    width: 214px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #0066ff;
+
+    .wrap {
+      width: 150px;
+      display: flex;
+      align-items: center;
+    }
+    .arrow_icon {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex: 1;
+    }
+  }
+  .subMenu-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+
+    width: 200px;
+    padding: 20px 0;
+
+    transition: all 0.5s;
+  }
+
+  .subMenu-title {
+    display: flex;
+    /* justify-content: center; */
+
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .subMenu {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    gap: 40px;
+    color: black;
+
+    .choice {
+      color: #06f;
+    }
+
+    a {
+      display: flex;
+      justify-content: center;
     }
   }
 `;

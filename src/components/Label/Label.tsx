@@ -4,12 +4,13 @@ import styled from "@emotion/styled";
 
 import { LabelProps } from "@/types/types";
 
-const Label = ({ label, require, subText, style }: LabelProps) => {
+const Label = ({ label, require, subText, style, children }: LabelProps) => {
   return (
     <>
       <StyledLabel style={style} location={location}>
         {label}
         {require && <StyledRequire>{require}</StyledRequire>}
+        {children}
       </StyledLabel>
       {subText && <StyledSubText location={location}>{subText}</StyledSubText>}
     </>

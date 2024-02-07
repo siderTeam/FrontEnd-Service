@@ -8,7 +8,7 @@ export type PROJECT_RESPONSE = {
   count: number;
 };
 
-export type CODE_POSITION_RESPONSE = {
+export type CODE_RESPONSE = {
   id: number;
   name: string;
 };
@@ -24,7 +24,18 @@ export type USER_SIGNUP_REQUEST = {
   password: string;
   email: string;
   nickname: string;
+  bankName: string;
+  bankNo: string;
+  bankUserName: string;
   phone: string;
   jobCode: number;
   positionCode: number[];
+};
+
+export type USER_RESUME_RESPONSE = {
+  id: number;
+  name: string;
+  contents: string;
+  skill: string;
+  positionCodeValueList: number[];
 };

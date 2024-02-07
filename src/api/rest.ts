@@ -2,11 +2,12 @@ export const rest = {
   get: {
     project: "/project",
     code: "/code",
+    resume: "/resume",
   },
   post: {
     userSignIn: "/user/signIn",
     userSignUp: "/user/signUp",
-    getAcceessToken: '/user/newAc'
+    getAccessToken: "/user/newAc",
   },
   put: {},
   delete: {},

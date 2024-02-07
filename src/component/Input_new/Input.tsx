@@ -32,7 +32,7 @@ const Input = ({
         {...rest}
       />
       {errorText && <ErrorText>{errorText}</ErrorText>}
-      {icon && <img src='/images/home/search_blue.svg' />}
+      {icon && <img src='/images/home/search_blue.svg' className='search' />}
     </Container>
   );
 };
@@ -106,6 +106,10 @@ const Container = styled.div<any>`
 
   ${({ size }) => INPUT_TYPE[size as "home"]};
   box-sizing: border-box;
+
+  .search {
+    cursor: pointer;
+  }
 `;
 
 const StyledInput = styled.input<any>`

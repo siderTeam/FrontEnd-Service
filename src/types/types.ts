@@ -33,6 +33,7 @@ export type LabelProps = {
   require?: string;
   subText?: string;
   style?: React.CSSProperties;
+  children?: any;
 };
 
 //Button
@@ -76,16 +77,19 @@ export type ModalProps = {
 //SelectBox
 
 export type SELECTBOX_STYLE_PROPS = {
-  size?: "small" | "medium" | "large";
+  selectedType?: "primary";
+  optionType?: "primary";
+  text?: "primary";
 };
 
 export type SelectBoxProps = SELECTBOX_STYLE_PROPS & {
-  options: string[];
+  options: { label: string; value: string }[];
   value: string;
   name: string;
-  onChange: (value: string, name: string) => void;
+  onChange?: (name: string, value: string) => void;
   style?: React.CSSProperties;
   optionStyle?: React.CSSProperties;
+  placeholder?: string;
 };
 
 //Textarea
