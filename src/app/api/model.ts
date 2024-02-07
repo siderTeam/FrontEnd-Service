@@ -31,3 +31,11 @@ export type USER_SIGNUP_REQUEST = {
   jobCode: number;
   positionCode: number[];
 };
+
+export type RESUME_RESPONSE = {
+  id: string;
+  name: string;
+  contents: string;
+  skill: string;
+  positionCodeValueList: number[];
+};

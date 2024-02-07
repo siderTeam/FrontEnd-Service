@@ -3,6 +3,7 @@ import {
   CODE_RESPONSE,
   USER_SIGNIN_REQUEST,
   USER_SIGNUP_REQUEST,
+  RESUME_RESPONSE,
 } from "./model";
 import { rest } from "./rest";
 import { API } from "./axiosConfig";
@@ -20,9 +21,12 @@ export const getProject = async (): Promise<PROJECT_RESPONSE[]> => {
 };
 
 //코드 가져오기
-export const getCode = async (groupId: number, depth: number): Promise<CODE_RESPONSE[]> => {
+export const getCode = async (
+  groupId: number,
+  depth: number
+): Promise<CODE_RESPONSE[]> => {
   const response = await API.get(`${rest.get.code}/${groupId}?depth=${depth}`);
-  
+
   return response.data.data;
 };
 
@@ -45,4 +49,19 @@ export const postUserSignUp = async (params: USER_SIGNUP_REQUEST) => {
   const response = await API.post(`${rest.post.userSignUp}`, params);
 
   return response.data;
+};
+
+//지원서 목록 가져오기
+export const getResumeList = async (
+  page: number,
+  perPage: number
+): Promise<RESUME_RESPONSE[]> => {
+  const response = await API.get(`${rest.get.getResumeList}`, {
+    params: {
+      page: page,
+      perPage: perPage,
+    },
+  });
+  
+  return response.data.data;
 };
