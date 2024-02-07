@@ -29,7 +29,6 @@ const PaginationBox = styled.div`
   .pagination {
     display: flex;
     justify-content: center;
-    padding: 15px 0;
   }
   ul {
     list-style: none;
