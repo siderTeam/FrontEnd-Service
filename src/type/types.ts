@@ -82,3 +82,11 @@ export type SelectBoxProps = SELECTBOX_STYLE_PROPS & {
   optionStyle?: React.CSSProperties;
   placeholder?: string;
 };
+
+//paging
+export type PaginationProps = {
+  page: number;
+  items: number;
+  count: number;
+  setPage: (page: number) => void;
+};
