@@ -11,7 +11,7 @@ const PeriodDate = (start: string, end: string): number => {
   const eDate: Date = new Date(end);
   //종료일 포함하는가????????
   return (eDate.getTime() - sDate.getTime()) / (1000 * 3600 * 24) + 1;
-}
+};
 
 const Card = ({
   title,
@@ -39,7 +39,7 @@ const Card = ({
         <SpaceBetweenWrap>
           <div>
             <SubTitle>보증금</SubTitle>
-            <BottomData>{deposit}</BottomData>
+            <BottomData>{deposit.toLocaleString()}원</BottomData>
           </div>
           <div>
             <SubTitle>소요기간</SubTitle>
