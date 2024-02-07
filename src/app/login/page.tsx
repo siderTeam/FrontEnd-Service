@@ -38,7 +38,7 @@ const Page = () => {
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
-  }
+  };
 
   return (
     <Container>
@@ -152,7 +152,7 @@ const LoginCard = styled.div`
       width: 198px;
     }
 
-    a:first-child {
+    a:first-of-type {
       border-right: 1px solid #b8b8b8;
     }
   }
