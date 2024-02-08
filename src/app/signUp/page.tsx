@@ -8,16 +8,18 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { USER_SIGNUP_REQUEST } from "../api/model";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getCode, postUserSignUp } from "../api/api";
+import { getCode, getIdCheck, postUserSignUp } from "../api/api";
 import { rest } from "../api/rest";
 import SelectBox from "@/component/SelectBox/SelectBox";
 import Label from "@/component/Label/Label";
+import Input from "@/component/Input/Input";
 
 const Page = () => {
   const route = useRouter();
   const [selectJob, setSelectJob] = useState("직군 선택");
   const [selectPosition, setSelectPosition] = useState("포지션 선택");
   const [jobId, setJobId] = useState(0);
+  const [userId, setUserId] = useState("");
   const [form, setForm] = useState<USER_SIGNUP_REQUEST>({
     username: "",
     name: "",
@@ -32,6 +34,13 @@ const Page = () => {
     positionCode: [],
   });
 
+  //id 중복확인
+  const idCheckData = useQuery({
+    queryKey: [rest.get.getIdCheck, userId],
+    queryFn: () => getIdCheck(userId),
+    enabled: !!userId, //id값이 존재하지 않을 경우 false를 변경해줌으로써 자동 실행을 막을 수 있음
+  });
+
   //직군 데이터
   const jobData = useQuery({
     queryKey: [rest.get.code],
@@ -44,6 +53,7 @@ const Page = () => {
     queryFn: () => getCode(jobId, 2),
   });
 
+  //회원가입
   const { mutate } = useMutation({
     mutationFn: postUserSignUp,
     onSuccess: async (data) => {
@@ -84,21 +94,18 @@ const Page = () => {
       </Logo>
       <SignUpCard>
         <div className="login-wrap">
-          <LabelInput
-            location="top"
-            labelOption={{
-              label: "아이디",
-              require: "*",
-            }}
-            inputOption={{
-              type: "text",
-              name: "username",
-              size: "full",
-              mode: "text",
-              placeholder: "아이디를 입력해주세요.",
-              onChange: handleChange,
-            }}
-          />
+          <Label label="아이디" require="*" />
+          <InputButton>
+            <Input
+              type="text"
+              name="username"
+              size="full"
+              mode="text"
+              placeholder="아이디를 입력해주세요."
+              onChange={handleChange}
+            />
+            <Button onClick={() => setUserId(form.username)}>중복 확인</Button>
+          </InputButton>
           <LabelInput
             location="top"
             labelOption={{
@@ -275,4 +282,9 @@ const SignUpCard = styled.div`
     flex-direction: column;
     gap: 20px;
   }
+`;
+
+const InputButton = styled.div`
+  display: flex;
+  gap: 5px;
 `;

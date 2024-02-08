@@ -51,6 +51,17 @@ export const postUserSignUp = async (params: USER_SIGNUP_REQUEST) => {
   return response.data;
 };
 
+//id 중복 확인
+export const getIdCheck = async (id: string) => {
+  const response = await API.get(`${rest.get.getIdCheck}`, {
+    params: {
+      id: id,
+    },
+  });
+  
+  return response.data;
+};
+
 //지원서 목록 가져오기
 export const getResumeList = async (
   page: number,
@@ -62,6 +73,6 @@ export const getResumeList = async (
       perPage: perPage,
     },
   });
-  
+
   return response.data.data;
 };
