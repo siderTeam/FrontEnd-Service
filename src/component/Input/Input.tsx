@@ -10,6 +10,7 @@ const Input = ({
   type,
   value,
   onChange,
+  onClick,
   readOnly,
   name,
   placeholder,
@@ -38,7 +39,7 @@ const Input = ({
           width={24}
           height={24}
           style={{ cursor: "pointer" }}
-          onClick={() => alert("클릭")}
+          onClick={onClick}
         />
       )}
     </Container>

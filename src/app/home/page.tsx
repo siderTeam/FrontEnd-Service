@@ -10,8 +10,6 @@ import { rest } from "../api/rest";
 import { getProject, getCode } from "../api/api";
 import { useState } from "react";
 
-const positions = ["디자이너", "기획자", "프론트엔드", "백엔드"];
-
 const positonFilter = [
   {
     name: "디자인",
@@ -28,20 +26,44 @@ const positonFilter = [
 ];
 
 const Page = () => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [positionCode, setsetPositionCode] = useState<number | null>(null);
+  const [inputText, setInputText] = useState("");
+  const [keyword, setKeyword] = useState<string | null>(null);
 
+  //프로젝트 데이터
   const projectData = useQuery({
-    queryKey: [rest.get.project],
-    queryFn: getProject,
+    queryKey: [rest.get.project, positionCode, keyword],
+    queryFn: () => getProject(positionCode, keyword),
   });
 
+  //포지션 데이터
   const positionData = useQuery({
     queryKey: [rest.get.code],
     queryFn: () => getCode(10, 2),
   });
 
+  //포지션 필터 onClick
   const handleFilterClick = (index: number | null) => {
-    setActiveIndex((prevIndex) => (index === activeIndex ? prevIndex : index));
+    setsetPositionCode((prevIndex) =>
+      index === positionCode ? prevIndex : index
+    );
+  };
+
+  //키워드 input onChange
+  const handleInputChange = (e: any) => {
+    setInputText(e.target.value);
+  };
+
+  //키워드 검색 button Click
+  const handleKeywordClick = () => {
+    setKeyword(inputText ? inputText : null);
+  };
+
+  //키워드 검색 input Enter
+  const handleKeywordEnter = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleKeywordClick();
+    }
   };
 
   return (
@@ -50,7 +72,7 @@ const Page = () => {
       <Wrap>
         <ButtonWrap>
           <Button
-            className={activeIndex === null ? "active" : ""}
+            className={positionCode === null ? "active" : ""}
             onClick={() => handleFilterClick(null)}
           >
             전체
@@ -58,7 +80,7 @@ const Page = () => {
           {positionData.data?.map((item) => (
             <Button
               key={item.id}
-              className={item.id === activeIndex ? "active" : ""}
+              className={item.id === positionCode ? "active" : ""}
               onClick={() => handleFilterClick(item.id)}
               leftIcon={
                 positonFilter.find(
@@ -73,9 +95,13 @@ const Page = () => {
         <Input
           type="search"
           name="input"
+          value={inputText}
           mode="search"
           placeholder="프로젝트 검색"
           size="large"
+          onChange={handleInputChange}
+          onKeyDown={handleKeywordEnter}
+          onClick={handleKeywordClick}
         />
       </Wrap>
       <CardWrap>

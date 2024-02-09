@@ -9,11 +9,18 @@ import { rest } from "./rest";
 import { API } from "./axiosConfig";
 
 //프로젝트 가져오기
-export const getProject = async (): Promise<PROJECT_RESPONSE[]> => {
+export const getProject = async (
+  parentCode: number | null,
+  keyword: string | null,
+): Promise<PROJECT_RESPONSE[]> => {
   const response = await API.get(`${rest.get.project}`, {
     params: {
       page: 0,
-      size: 20,
+      size: 30,
+      keyword: keyword,
+      positionCode: null,
+      parentCode: parentCode,
+      status: null,
     },
   });
 
@@ -58,7 +65,7 @@ export const getIdCheck = async (id: string) => {
       id: id,
     },
   });
-  
+
   return response.data;
 };
 

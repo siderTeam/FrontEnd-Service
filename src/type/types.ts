@@ -30,6 +30,7 @@ export type InputProps = INPUT_STYLE_PROPS &
   INPUT_TYPE & {
     value?: string | number | undefined;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onClick: () => void;
     readOnly?: boolean;
     type?: string;
     name: string;
@@ -37,7 +38,7 @@ export type InputProps = INPUT_STYLE_PROPS &
     errorText?: string;
     style?: React.CSSProperties;
     rest?: any;
-};
+  };
   
 //button
 export type BUTTON_STYLE_PROPS = {
