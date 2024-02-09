@@ -3,7 +3,8 @@ import { ButtonHTMLAttributes } from "react";
 
 //positionSquare
 export type PositionSquareProps = {
-  value: string;
+  parent: string;
+  name: string;
   style?: React.CSSProperties;
 };
 

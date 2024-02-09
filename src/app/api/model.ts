@@ -6,6 +6,12 @@ export type PROJECT_RESPONSE = {
   content: string;
   deposit: number;
   count: number;
+  positionCodeList: {
+    positionCode: number;
+    name: string;
+    parentCode: number;
+    parentName: string;
+  }[];
 };
 
 export type CODE_RESPONSE = {
@@ -24,9 +30,9 @@ export type USER_SIGNUP_REQUEST = {
   password: string;
   email: string;
   nickname: string;
-  bankName:	string;
-  bankNo:	string;
-  bankUserName:	string;
+  bankName: string;
+  bankNo: string;
+  bankUserName: string;
   phone: string;
   jobCode: number;
   positionCode: number[];

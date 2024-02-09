@@ -100,6 +100,7 @@ const Position = styled.div`
   align-items: flex-start;
   gap: 4px;
   align-self: stretch;
+  flex-flow: wrap;
 `;
 
 const CardBottom = styled.div`

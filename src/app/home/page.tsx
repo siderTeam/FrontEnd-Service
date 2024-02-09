@@ -87,8 +87,12 @@ const Page = () => {
             endDate={project.recruitEndDate}
             deposit={project.deposit}
           >
-            {positions.map((position, index) => (
-              <PositionSquare key={index} value={position} />
+            {project.positionCodeList.map((position, index) => (
+              <PositionSquare
+                key={index}
+                parent={position.parentName}
+                name={position.name}
+              />
             ))}
           </Card>
         ))}

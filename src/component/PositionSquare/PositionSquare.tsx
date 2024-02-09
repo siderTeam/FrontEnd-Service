@@ -9,27 +9,31 @@ import developer from "/public/images/position/developer.png";
 
 //value,     icon, backgroundColor, color => 이렇게 3개는 value에 뭐가 들어오는지에 따라서 바뀌도록
 
-const PositionSquare = ({ value = "디자이너", style }: PositionSquareProps) => {
+const PositionSquare = ({
+  parent = "개발",
+  name,
+  style,
+}: PositionSquareProps) => {
   let src: StaticImageData;
 
-  if (value === "디자이너") {
+  if (parent === "디자인") {
     src = designer;
-  } else if (value === "기획자") {
+  } else if (parent === "기획") {
     src = pm;
   } else {
     src = developer;
   }
 
   return (
-    <StyledSquare value={value} style={style}>
+    <StyledSquare parent={parent} style={style}>
       <Image
         src={src}
-        alt={value}
+        alt={parent}
         width={14}
         height={14}
         style={{ marginRight: "4px" }}
       />
-      {value}
+      {name}
     </StyledSquare>
   );
 };
@@ -37,26 +41,26 @@ const PositionSquare = ({ value = "디자이너", style }: PositionSquareProps) 
 export default PositionSquare;
 
 const COLOR_TYPE = {
-  ["디자이너"]: {
+  ["디자인"]: {
     background: "#FFEFFB",
     color: "#EC67C6",
   },
-  ["기획자"]: {
+  ["기획"]: {
     background: "#F1E0FE",
     color: "#B35FF5",
   },
-  ["프론트엔드"]: {
+  ["개발"]: {
     background: "#E3F7E7",
     color: "#58BF66",
   },
-  ["백엔드"]: {
-    background: "#CBE0FF",
-    color: "#4F75ED",
-  },
+  // [""]: {
+  //   background: "#CBE0FF",
+  //   color: "#4F75ED",
+  // },
 };
 
-const StyledSquare = styled.span<PositionSquareProps>`
-  ${({ value }) => COLOR_TYPE[value as "디자이너"]};
+const StyledSquare = styled.span<{parent: string}>`
+  ${({ parent }) => COLOR_TYPE[parent as "개발"]};
   box-sizing: border-box;
   padding: 4px 8px;
   border-radius: 4px;
