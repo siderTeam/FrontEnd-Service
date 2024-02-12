@@ -28,6 +28,8 @@ const Page = () => {
         setCookie("AccessToken", response.data);
 
         route.push("/home");
+      } else {
+        alert("로그인 실패하였습니다.\n다시 시도해주시기 바랍니다.");
       }
     },
     onError: () => {
@@ -38,6 +40,14 @@ const Page = () => {
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
+  };
+
+  const handleLogin = () => {
+    if (form.username.trim() === "" || form.password.trim() === "") {
+      alert("아이디/비밀번호를 입력해주세요.");
+      return;
+    }
+    mutate(form);
   };
 
   return (
@@ -78,7 +88,7 @@ const Page = () => {
           />
         </div>
         <div className="button-wrap">
-          <Button mode="primary_square" onClick={() => mutate(form)}>
+          <Button mode="primary_square" onClick={handleLogin}>
             로그인
           </Button>
           <Link href="/signUp">
