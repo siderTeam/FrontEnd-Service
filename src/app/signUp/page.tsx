@@ -20,6 +20,9 @@ const Page = () => {
   const [selectPosition, setSelectPosition] = useState("포지션 선택");
   const [jobId, setJobId] = useState(0);
   const [userId, setUserId] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
+  const [idConfirmText, setIdConfirmText] = useState("");
+  const [pwErrorText, setPwErrorText] = useState("");
   const [form, setForm] = useState<USER_SIGNUP_REQUEST>({
     username: "",
     name: "",
@@ -40,6 +43,16 @@ const Page = () => {
     queryFn: () => getIdCheck(userId),
     enabled: !!userId, //id값이 존재하지 않을 경우 false를 변경해줌으로써 자동 실행을 막을 수 있음
   });
+
+  useEffect(() => {
+    if (idCheckData.isSuccess) {
+      if (idCheckData.data?.result === true) {
+        setIdConfirmText("사용 가능한 아이디입니다.");
+      } else {
+        setIdConfirmText("중복된 아이디입니다.");
+      }
+    }
+  }, [idCheckData.data, idCheckData.isSuccess]);
 
   //직군 데이터
   const jobData = useQuery({
@@ -68,9 +81,26 @@ const Page = () => {
     },
   });
 
+  //form input onChange
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
+
+    //id 변경 시 중복확인 메시지 초기화
+    if (name === "username") {
+      setIdConfirmText("");
+    }
+  };
+
+  //비밀번호 확인 onchange
+  const handlePasswordChange = (e: any) => {
+    setPasswordCheck(e.target.value);
+
+    if (form.password === e.target.value) {
+      setPwErrorText("");
+    } else {
+      setPwErrorText("비밀번호가 일치하지 않습니다");
+    }
   };
 
   //직군 onChange
@@ -94,7 +124,12 @@ const Page = () => {
       </Logo>
       <SignUpCard>
         <div className="login-wrap">
-          <Label label="아이디" require="*" />
+          <Label
+            label="아이디"
+            require="*"
+            confirmText={idCheckData.data?.result ? idConfirmText : undefined}
+            errorText={!idCheckData.data?.result ? idConfirmText : undefined}
+          />
           <InputButton>
             <Input
               type="text"
@@ -114,7 +149,7 @@ const Page = () => {
             }}
             inputOption={{
               type: "password",
-              name: "passwordCheck",
+              name: "password",
               size: "full",
               mode: "text",
               placeholder: "비밀번호를 입력해주세요.",
@@ -126,14 +161,16 @@ const Page = () => {
             labelOption={{
               label: "비밀번호 확인",
               require: "*",
+              errorText: pwErrorText,
             }}
             inputOption={{
               type: "password",
-              name: "password",
+              name: "passwordCheck",
+              value: passwordCheck,
               size: "full",
               mode: "text",
               placeholder: "비밀번호를 다시 입력해주세요.",
-              onChange: handleChange,
+              onChange: handlePasswordChange,
             }}
           />
           <LabelInput
@@ -274,7 +311,6 @@ const SignUpCard = styled.div`
     display: flex;
     flex-direction: column;
     gap: 20px;
-    max-width: 376px;
   }
 
   .button-wrap {
