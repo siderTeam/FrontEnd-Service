@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import LabelInput from "@/component/LabelInput/LabelInput";
 import Button from "@/component/Button/Button";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { USER_SIGNUP_REQUEST } from "../api/model";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getCode, getIdCheck, postUserSignUp } from "../api/api";
@@ -14,15 +14,19 @@ import SelectBox from "@/component/SelectBox/SelectBox";
 import Label from "@/component/Label/Label";
 import Input from "@/component/Input/Input";
 
+const USERNAME_REGEX = /^[a-zA-Z0-9]{4,12}$/;
+const PWD_REGEX = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$/;
+const NAME_REGEX = /^[a-zA-Z가-힣]{2,10}$/;
+const EMAIL_REGEX =
+  /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
+
 const Page = () => {
   const route = useRouter();
-  const [selectJob, setSelectJob] = useState("직군 선택");
-  const [selectPosition, setSelectPosition] = useState("포지션 선택");
+  const [selectJob, setSelectJob] = useState("");
+  const [selectPosition, setSelectPosition] = useState("");
   const [jobId, setJobId] = useState(0);
-  const [userId, setUserId] = useState("");
+  const [username, setUsername] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
-  const [idConfirmText, setIdConfirmText] = useState("");
-  const [pwErrorText, setPwErrorText] = useState("");
   const [form, setForm] = useState<USER_SIGNUP_REQUEST>({
     username: "",
     name: "",
@@ -36,23 +40,133 @@ const Page = () => {
     jobCode: 0,
     positionCode: [],
   });
+  //유효성 검사
+  const [idValidate, setIdValidate] = useState(false);
+  const [idDuplicate, setIdDuplicate] = useState(false);
+  const [pwValidate, setPwValidate] = useState(false);
+  const [pwCheckValidate, setPwCheckValidate] = useState(false);
+  const [nameValidate, setNameValidate] = useState(false);
+  const [emailValidate, setEmailValidate] = useState(false);
+  //메시지 출력
+  const [idMessage, setIdMessage] = useState("");
+  const [pwMessage, setPwMessage] = useState("");
+  const [pwCheckMessage, setPwCheckMessage] = useState("");
+  const [nameMessage, setNameMessage] = useState("");
+  const [emailMessage, setEmailMessage] = useState("");
+
+  //form input onChange
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+
+    if (name === "username") {
+      onChangeId(value);
+    } else if (name === "password") {
+      onChangePassword(value);
+    } else if (name === "name") {
+      onChangeName(value);
+    } else if (name === "email") {
+      onChangeEmail(value);
+    }
+  };
 
   //id 중복확인
   const idCheckData = useQuery({
-    queryKey: [rest.get.getIdCheck, userId],
-    queryFn: () => getIdCheck(userId),
-    enabled: !!userId, //id값이 존재하지 않을 경우 false를 변경해줌으로써 자동 실행을 막을 수 있음
+    queryKey: [rest.get.getIdCheck, username],
+    queryFn: () => getIdCheck(username),
+    enabled: !!username, //id값이 존재하지 않을 경우 false를 변경해줌으로써 자동 실행을 막을 수 있음
   });
 
   useEffect(() => {
     if (idCheckData.isSuccess) {
       if (idCheckData.data?.result === true) {
-        setIdConfirmText("사용 가능한 아이디입니다.");
+        setIdMessage("사용 가능한 아이디입니다.");
+        setIdDuplicate(true);
       } else {
-        setIdConfirmText("중복된 아이디입니다.");
+        setIdMessage("중복된 아이디입니다.");
+        setIdDuplicate(false);
       }
     }
   }, [idCheckData.data, idCheckData.isSuccess]);
+
+  //id onChange
+  const onChangeId = useCallback((value: string) => {
+    if (USERNAME_REGEX.test(value)) {
+      setIdMessage("올바른 아이디 형식입니다.");
+      setIdValidate(true);
+    } else {
+      setIdMessage("4~12자, 영문과 숫자로만 입력해주세요.");
+      setIdValidate(false);
+    }
+  }, []);
+
+  //비밀번호 onChange
+  const onChangePassword = useCallback((value: string) => {
+    if (value === "") {
+      setPwMessage("");
+      setPwValidate(false);
+      setPwCheckMessage("비밀번호가 일치하지 않습니다");
+      setPwCheckValidate(false);
+      return;
+    }
+
+    if (PWD_REGEX.test(value)) {
+      setPwMessage("올바른 비밀번호 형식입니다.");
+      setPwValidate(true);
+    } else {
+      setPwMessage("8~20자, 영문/숫자/특수문자를 모두 포함해주세요.");
+      setPwValidate(false);
+    }
+  }, []);
+
+  //비밀번호 확인 onchange
+  const handlePasswordChange = (e: any) => {
+    setPasswordCheck(e.target.value);
+
+    if (e.target.value === "") {
+      setPwCheckMessage("");
+      setPwCheckValidate(false);
+      return;
+    }
+
+    if (form.password === e.target.value) {
+      setPwCheckMessage("비밀번호가 일치합니다.");
+      setPwCheckValidate(true);
+    } else {
+      setPwCheckMessage("비밀번호가 일치하지 않습니다.");
+      setPwCheckValidate(false);
+    }
+  };
+
+  //이름 onChange
+  const onChangeName = useCallback((value: string) => {
+    if (NAME_REGEX.test(value)) {
+      setNameMessage("올바른 이름 형식입니다.");
+      setNameValidate(true);
+    } else {
+      setNameMessage("2~10자, 한글, 영문으로 입력해주세요.");
+      setNameValidate(false);
+    }
+  }, []);
+
+  //이메일 onChange
+  const onChangeEmail = useCallback((value: string) => {
+    if (EMAIL_REGEX.test(value)) {
+      setEmailMessage("올바른 이메일 형식입니다.");
+      setEmailValidate(true);
+    } else {
+      setEmailMessage("올바르지 않은 이메일 형식입니다.");
+      setEmailValidate(false);
+    }
+  }, []);
+
+  //전화번호 onKeyDown
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    // 입력된 키가 숫자가 아니면 이벤트를 취소
+    if (!/\d/.test(e.key)) {
+      e.preventDefault();
+    }
+  };
 
   //직군 데이터
   const jobData = useQuery({
@@ -60,11 +174,26 @@ const Page = () => {
     queryFn: () => getCode(10, 2),
   });
 
+  //직군 onChange
+  const handleJobSelectChange = (name: string, value: string) => {
+    setSelectPosition(""); //포지션 초기화
+
+    setSelectJob(value);
+    setForm({ ...form, [name]: Number(value) });
+    setJobId(Number(value));
+  };
+
   //포지션 데이터
   const positionData = useQuery({
     queryKey: ["position", jobId],
     queryFn: () => getCode(jobId, 2),
   });
+
+  //포지션 onChange
+  const handlePositionSelectChange = (name: string, value: string) => {
+    setSelectPosition(value);
+    setForm({ ...form, [name]: [Number(value)] });
+  };
 
   //회원가입
   const { mutate } = useMutation({
@@ -81,41 +210,6 @@ const Page = () => {
     },
   });
 
-  //form input onChange
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-
-    //id 변경 시 중복확인 메시지 초기화
-    if (name === "username") {
-      setIdConfirmText("");
-    }
-  };
-
-  //비밀번호 확인 onchange
-  const handlePasswordChange = (e: any) => {
-    setPasswordCheck(e.target.value);
-
-    if (form.password === e.target.value) {
-      setPwErrorText("");
-    } else {
-      setPwErrorText("비밀번호가 일치하지 않습니다");
-    }
-  };
-
-  //직군 onChange
-  const handleJobSelectChange = (name: string, value: string) => {
-    setSelectJob(value);
-    setForm({ ...form, [name]: Number(value) });
-    setJobId(Number(value));
-  };
-
-  //포지션 onChange
-  const handlePositionSelectChange = (name: string, value: string) => {
-    setSelectPosition(value);
-    setForm({ ...form, [name]: [Number(value)] });
-  };
-
   return (
     <Container>
       <Logo>
@@ -127,8 +221,8 @@ const Page = () => {
           <Label
             label="아이디"
             require="*"
-            confirmText={idCheckData.data?.result ? idConfirmText : undefined}
-            errorText={!idCheckData.data?.result ? idConfirmText : undefined}
+            confirmText={idDuplicate ? idMessage : undefined}
+            errorText={!idDuplicate ? idMessage : undefined}
           />
           <InputButton>
             <Input
@@ -139,13 +233,20 @@ const Page = () => {
               placeholder="아이디를 입력해주세요."
               onChange={handleChange}
             />
-            <Button onClick={() => setUserId(form.username)}>중복 확인</Button>
+            <Button
+              disabled={!idValidate ? true : false}
+              onClick={() => setUsername(form.username)}
+            >
+              중복 확인
+            </Button>
           </InputButton>
           <LabelInput
             location="top"
             labelOption={{
               label: "비밀번호",
               require: "*",
+              confirmText: pwValidate ? pwMessage : undefined,
+              errorText: !pwValidate ? pwMessage : undefined,
             }}
             inputOption={{
               type: "password",
@@ -161,7 +262,8 @@ const Page = () => {
             labelOption={{
               label: "비밀번호 확인",
               require: "*",
-              errorText: pwErrorText,
+              confirmText: pwCheckValidate ? pwCheckMessage : undefined,
+              errorText: !pwCheckValidate ? pwCheckMessage : undefined,
             }}
             inputOption={{
               type: "password",
@@ -178,6 +280,8 @@ const Page = () => {
             labelOption={{
               label: "이름",
               require: "*",
+              confirmText: nameValidate ? nameMessage : undefined,
+              errorText: !nameValidate ? nameMessage : undefined,
             }}
             inputOption={{
               type: "text",
@@ -193,6 +297,8 @@ const Page = () => {
             labelOption={{
               label: "이메일",
               require: "*",
+              confirmText: emailValidate ? emailMessage : undefined,
+              errorText: !emailValidate ? emailMessage : undefined,
             }}
             inputOption={{
               type: "email",
@@ -229,8 +335,10 @@ const Page = () => {
               name: "phone",
               size: "full",
               mode: "text",
-              placeholder: "전화번호를 입력해주세요.",
+              placeholder: "전화번호를 입력해주세요. (숫자만 입력 가능)",
               onChange: handleChange,
+              onKeyPress: handleKeyDown,
+              maxLength: 11,
             }}
           />
           <Label label="직군" require="*" />
@@ -264,7 +372,24 @@ const Page = () => {
             placeholder="포지션 선택"
           />
         </div>
-        <Button mode="primary_square" onClick={() => mutate(form)}>
+        <Button
+          mode="primary_square"
+          onClick={() => mutate(form)}
+          disabled={
+            !(
+              idValidate &&
+              idDuplicate &&
+              pwValidate &&
+              pwCheckValidate &&
+              nameValidate &&
+              emailValidate &&
+              form.nickname &&
+              form.phone.length === 11 &&
+              selectJob &&
+              selectPosition
+            )
+          }
+        >
           회원가입
         </Button>
       </SignUpCard>
