@@ -112,4 +112,7 @@ const StyledButton = styled.button<BUTTON_STYLE_PROPS>`
       2px 2px 4px 0px rgba(114, 142, 171, 0.1);
       color: #0066ff;`}
   }
+
+  background: ${(props) => (props.disabled ? "#d2d2d2" : "inherit")};
+  color: ${(props) => (props.disabled ? "gray" : "inherit")};
 `;
