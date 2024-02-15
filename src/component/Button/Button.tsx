@@ -113,6 +113,6 @@ const StyledButton = styled.button<BUTTON_STYLE_PROPS>`
       color: #0066ff;`}
   }
 
-  background: ${(props) => (props.disabled ? "#d2d2d2" : "inherit")};
-  color: ${(props) => (props.disabled ? "gray" : "inherit")};
+  background: ${(props) => props.disabled && "#d2d2d2"};
+  color: ${(props) => props.disabled && "gray"};
 `;
