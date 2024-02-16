@@ -5,9 +5,8 @@ import { TextareaHTMLAttributes } from "react";
 //Input
 
 export type INPUT_STYLE_PROPS = {
-  size?: "home" | "primary";
-  mode?: "primary" | "disabled";
-  text?: "home" | "primary";
+  size?: "small" | "full";
+  text?: "primary";
 };
 
 export type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
@@ -15,7 +14,7 @@ export type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
 export type InputProps = INPUT_STYLE_PROPS &
   INPUT_TYPE & {
     value?: string | number | undefined;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange?: (e: any, id: string) => void;
     readOnly?: boolean;
     type?: string;
     name?: string;
@@ -24,6 +23,10 @@ export type InputProps = INPUT_STYLE_PROPS &
     icon?: boolean;
     style?: React.CSSProperties;
     rest?: any;
+    buttonText?: string;
+    onClick?: () => void;
+    ref?: any;
+    isValid?: boolean;
   };
 
 //Label
@@ -34,13 +37,14 @@ export type LabelProps = {
   subText?: string;
   style?: React.CSSProperties;
   children?: any;
+  isValid?: boolean;
 };
 
 //Button
 
 export type BUTTON_STYLE_PROPS = {
-  size?: "nav" | "primary" | "basic" | "basic-choice";
-  mode?: "primary" | "reverse-primary" | "error" | "basic" | "basic-choice";
+  size?: "full";
+  mode?: "primary" | "primary-reverse";
 };
 
 export type ButtonProps = BUTTON_STYLE_PROPS & {
@@ -55,14 +59,20 @@ export type ButtonProps = BUTTON_STYLE_PROPS & {
 
 //CheckBox
 
-export type CheckboxProps = {
+export type CHECKBOX_TYPE_PROPS = {
+  type?: "unchecked" | "hover" | "checked" | "disabled" | "disabledCheck";
+};
+
+export type CheckboxProps = CHECKBOX_TYPE_PROPS & {
   text: string;
   requireText?: string;
-  isChecked: boolean;
-  name: string;
-  onChange: (e: any) => void;
+  isChecked?: boolean;
+  name?: string;
+  onChange?: (e: any) => void;
+  onClick?: () => void;
   style?: React.CSSProperties;
   requireStyle?: React.CSSProperties;
+  className?: string;
 };
 
 //Modal

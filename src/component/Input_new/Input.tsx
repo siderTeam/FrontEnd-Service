@@ -2,6 +2,8 @@
 
 import { InputProps } from "@/types/types";
 import styled from "@emotion/styled";
+import Button from "../Button_new/Button";
+import * as CS from "../Styles/CommonStyles";
 
 const Input = ({
   value,
@@ -11,16 +13,21 @@ const Input = ({
   name,
   placeholder,
   errorText,
-  size = "home",
-  mode = "primary",
-  text = "home",
+  size = "full",
+  text = "primary",
   icon = false,
   style,
+  buttonText,
+  onClick,
+  ref,
+  isValid,
   ...rest
 }: InputProps) => {
   return (
-    <Container size={size}>
+    <InputContainer>
       <StyledInput
+        size={size}
+        isValid={isValid}
         text={text}
         value={value}
         onChange={onChange}
@@ -29,70 +36,38 @@ const Input = ({
         name={name}
         placeholder={placeholder}
         style={style}
+        ref={ref}
         {...rest}
       />
       {errorText && <ErrorText>{errorText}</ErrorText>}
       {icon && <img src='/images/home/search_blue.svg' className='search' />}
-    </Container>
+
+      {buttonText && (
+        <Button style={{ width: 80, height: 52 }} onClick={onClick}>
+          {buttonText}
+        </Button>
+      )}
+    </InputContainer>
   );
 };
 export default Input;
 
 const INPUT_TYPE = {
-  ["home"]: {
+  ["full"]: {
     display: "flex",
-    width: "436px",
-    height: "48px",
-    padding: "8px 20px",
-    justifyContent: "center",
+    width: "100%",
+    padding: "18px 20px 18px 20px",
     alignItems: "center",
-    gap: "52px",
-    flexShrink: 0,
 
-    borderRadius: "100px",
-    border: "1px solid #D6E3F3",
-    background: "var(--White, #FFF)",
-    boxShadow:
-      "4px 4px 20px 0px rgba(111, 140, 176, 0.41), -6px -6px 20px 0px rgba(255, 255, 255, 0.50), 2px 2px 4px 0px rgba(114, 142, 171, 0.10)",
-  },
-  ["primary"]: {
-    width: "396px",
-    height: "52px",
-    padding: "0px 16px",
-    background: "white",
-    border: "1px solid #B8B8B8",
-    borderRadius: "8px",
-
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    borderRadius: "12px",
+    border: `1px solid ${CS.color.gray6}`,
   },
 };
-
-// const COLOR_TYPE = {
-//   ["primary"]: {
-//     border: "1px solid #A7A7A7",
-//   },
-//   ["disabled"]: {
-//     background: "#F2F2F2",
-//     border: "none",
-//   },
-// };
 
 const TEXT_TYPE = {
-  ["home"]: {
-    color: "#515151",
-
-    fontFamily: "Pretendard",
-    fontSize: "16px",
-    fontStyle: "normal",
-    fontWeight: 400,
-    lineHeight: "normal",
-  },
   ["primary"]: {
-    color: "#B8B8B8",
-
-    fontFamily: "Pretendard",
+    color: `${CS.color.gray7}`,
+    fontFamily: "Spoqa Han Sans Neo",
     fontSize: "16px",
     fontStyle: "normal",
     fontWeight: 400,
@@ -100,29 +75,24 @@ const TEXT_TYPE = {
   },
 };
 
-const Container = styled.div<any>`
+const InputContainer = styled.div`
   display: flex;
-  justify-content: center;
-
-  ${({ size }) => INPUT_TYPE[size as "home"]};
-  box-sizing: border-box;
-
-  .search {
-    cursor: pointer;
-  }
+  justify-content: space-between;
 `;
 
 const StyledInput = styled.input<any>`
-  height: 100%;
-  flex: 1 0 0;
+  ${({ size }) => INPUT_TYPE[size as "full"]};
+  ${({ text }) => TEXT_TYPE[text as "primary"]};
 
-  border: none;
-  outline: none;
-
+  display: flex;
+  justify-content: center;
+  background: none;
   box-sizing: border-box;
 
-  &::placeholder {
-    ${({ text }) => TEXT_TYPE[text as "home"]};
+  outline: none;
+
+  .search {
+    cursor: pointer;
   }
 `;
 

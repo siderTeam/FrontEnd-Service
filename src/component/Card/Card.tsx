@@ -2,6 +2,8 @@
 
 import { CardProps } from "@/types/types";
 import styled from "@emotion/styled";
+import Profile from "../Profile/Profile";
+import * as CS from "../Styles/CommonStyles";
 
 const Card = ({
   children,
@@ -14,26 +16,27 @@ const Card = ({
   return (
     <>
       <CardContainer id={id}>
-        <TitleWrap>
-          <TitleStyle className='title'>{title}</TitleStyle>
-          <PositionIconWrap>{children}</PositionIconWrap>
-        </TitleWrap>
+        <TopInfo>
+          <div className='commonText'>모집 마감일 {projectPeriod}</div>
+        </TopInfo>
+
+        <PositionIconWrap>{children}</PositionIconWrap>
+
+        <TitleStyle className='title'>{title}</TitleStyle>
+
         <InfoWrap>
           <ProjectPeriodWrap>
-            <SubTitleStyle className='period'>프로젝트 기간</SubTitleStyle>
-            <DateStyle>{projectPeriod}</DateStyle>
+            <div className='commonText'>프로젝트 기간</div>
+            <div className='projectPeriod'>{projectPeriod}</div>
           </ProjectPeriodWrap>
-          <SecondInfoWrap>
-            <DepositWrap>
-              <SubTitleStyle>보증금</SubTitleStyle>
-              <SubTextStyle>{deposit}</SubTextStyle>
-            </DepositWrap>
-            <NecessaryPeriodWrap>
-              <SubTitleStyle>소요기간</SubTitleStyle>
-              <SubTextStyle>{necessaryPeriod}</SubTextStyle>
-            </NecessaryPeriodWrap>
-          </SecondInfoWrap>
+
+          <DepositWrap>
+            <div className='commonText'>보증금</div>
+            <div className='deposit'>{deposit}</div>
+          </DepositWrap>
         </InfoWrap>
+
+        <Profile />
       </CardContainer>
     </>
   );
@@ -42,41 +45,37 @@ const Card = ({
 export default Card;
 
 const CardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 52px;
-
-  flex-grow: 1;
+  width: 296px;
+  height: 325px;
+  padding: 20px;
 
   box-sizing: border-box;
 
-  padding: 20px;
-
-  border-radius: 14px;
-  border: 1px solid #fff;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(15px);
+  border-radius: 10px;
+  border: 1px solid #89192b;
+  background: ${CS.color.black};
 
   &:hover {
-    border-radius: 14px;
-    border: 1px solid #fff;
-    background: #fff;
-    box-shadow: 4px 4px 20px 0px rgba(111, 140, 176, 0.41),
-      -6px -6px 20px 0px rgba(255, 255, 255, 0.5),
-      2px 2px 4px 0px rgba(114, 142, 171, 0.1);
-
     cursor: pointer; //
 
     .title {
-      color: #06f;
-      /* font-family: Pretendard; */
-      font-size: 22px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
     }
   }
+
+  .commonText {
+    overflow: hidden;
+    color: ${CS.color.gray5};
+    text-overflow: ellipsis;
+    font-family: "Spoqa Han Sans Neo";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+`;
+
+const TopInfo = styled.div`
+  display: flex;
 `;
 
 const TitleWrap = styled.div`
@@ -88,9 +87,16 @@ const TitleWrap = styled.div`
 `;
 
 const TitleStyle = styled.div`
-  color: #1e1e20;
-  /* font-family: Pretendard; */
-  font-size: 22px;
+  display: -webkit-box;
+  width: 236px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+
+  overflow: hidden;
+  color: ${CS.color.white};
+  text-overflow: ellipsis;
+  font-family: "Spoqa Han Sans Neo";
+  font-size: 16px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -105,71 +111,42 @@ const PositionIconWrap = styled.div`
 
 const InfoWrap = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  align-self: stretch;
+  gap: 65px;
 `;
 
 const ProjectPeriodWrap = styled.div`
-  display: flex;
-
+  display: inline-flex;
+  flex-direction: column;
   align-items: flex-start;
-  align-self: stretch; //
-  gap: 6px;
+  gap: 4px;
 
-  .period {
-    flex: 1 0 0;
+  .projectPeriod {
+    overflow: hidden;
+    color: ${CS.color.gray2};
+    text-align: right;
+    text-overflow: ellipsis;
+    font-family: "Spoqa Han Sans Neo";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
   }
 `;
 
-const DateStyle = styled.div`
-  width: 233px;
-  flex-shrink: 0;
-  color: #000;
-  text-align: right;
-  /* font-family: Pretendard; */
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-`;
-
-const SecondInfoWrap = styled.div`
-  display: flex;
-  align-items: flex-end;
-  align-self: stretch;
-`;
-
 const DepositWrap = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: 1 0 0;
-`;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
 
-const NecessaryPeriodWrap = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 8px;
-  flex: 1 0 0;
-`;
-
-const SubTitleStyle = styled.div`
-  color: #515151;
-  /* font-family: Pretendard; */
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-`;
-
-const SubTextStyle = styled.div`
-  color: #000;
-  /* font-family: Pretendard; */
-  font-size: 22px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
+  .deposit {
+    overflow: hidden;
+    color: ${CS.color.gray3};
+    text-overflow: ellipsis;
+    font-family: "Spoqa Han Sans Neo";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
 `;
