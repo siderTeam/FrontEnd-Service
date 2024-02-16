@@ -1,45 +1,25 @@
 "use client";
 
-import Card from "@/component/Card/Card";
-import styled from "@emotion/styled";
-import Button from "@/component/Button_new/Button";
-import Input from "@/component/Input_new/Input";
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { getProject } from "@/api/api";
 import { rest } from "@/api/rest";
-import { getCode, getProject } from "@/api/api";
+import Button from "@/component/Button_new/Button";
+import Card from "@/component/Card/Card";
+
+import Input from "@/component/Input_new/Input";
 import PositionIcon from "@/component/PositionIcon/PositionIcon";
+import Profile from "@/component/Profile/Profile";
 
-const projectTypeButtons = [
-  { type: "전체", label: "전체" },
-  {
-    type: "디자인",
-    label: "디자인",
-    icon: "images/positionicon/designericon.png",
-  },
-  {
-    type: "기획",
-    label: "기획",
-    icon: "images/positionicon/plannericon.png",
-  },
-  {
-    type: "개발",
-    label: "개발",
-    icon: "images/positionicon/developericon.png",
-  },
-];
+import styled from "@emotion/styled";
+import * as CS from "../../component/Styles/CommonStyles";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
-const ProjectPage = () => {
-  const [filterType, setFilterType] = useState("전체");
+const page = () => {
+  const [filterType, setFilterType] = useState("all");
 
   const projectData = useQuery({
     queryKey: [rest.get.project],
     queryFn: getProject,
-  });
-
-  const jobData = useQuery({
-    queryKey: [rest.get.code],
-    queryFn: () => getCode(10, 2),
   });
 
   const handleFilterClick = (type: any) => {
@@ -48,46 +28,54 @@ const ProjectPage = () => {
 
   return (
     <Container>
-      <Title>사이드 프로젝트</Title>
-
-      <FilterContainer>
-        <div className='button_wrap'>
-          <Button
-            size={filterType === "전체" ? "basic-choice" : "basic"}
-            mode={filterType === "전체" ? "basic-choice" : "basic"}
-            type='전체'
-            onClick={() => handleFilterClick("전체")}
+      <Header>
+        <img src='/images/Logo.svg' alt='로고' className='logo' />
+        <Profile />
+      </Header>
+      <div className='banner'>배너</div>
+      <div className='title'>프로젝트</div>
+      <FilterWrap>
+        <div className='buttonWrap'>
+          <div
+            className={filterType === "all" ? "choice" : "basic"}
+            onClick={() => handleFilterClick("all")}
           >
-            전체
-          </Button>
-          {jobData.data?.map((item) => (
-            <Button
-              key={item.id}
-              size={filterType === item.name ? "basic-choice" : "basic"}
-              mode={filterType === item.name ? "basic-choice" : "basic"}
-              type={item.name}
-              onClick={() => handleFilterClick(item.name)}
-              LeftIcon={
-                projectTypeButtons.find((button) => button.label === item.name)
-                  ?.icon || ""
-              }
-            >
-              {item.name}
-            </Button>
-          ))}
+            #전체
+          </div>
+          <div
+            className={filterType === "design" ? "choice" : "basic"}
+            onClick={() => handleFilterClick("design")}
+          >
+            #디자인
+          </div>
+          <div
+            className={filterType === "pm" ? "choice" : "basic"}
+            onClick={() => handleFilterClick("pm")}
+          >
+            #기획
+          </div>
+          <div
+            className={filterType === "develop" ? "choice" : "basic"}
+            onClick={() => handleFilterClick("develop")}
+          >
+            #개발
+          </div>
+          <div
+            className={filterType === "recruitment" ? "choice" : "basic"}
+            onClick={() => handleFilterClick("recruitment")}
+          >
+            #모집중
+          </div>
         </div>
-        <div className='input'>
-          <Input placeholder='프로젝트 검색' icon={true} />
-        </div>
-      </FilterContainer>
-
-      <ImsiContainer>
+        <Input />
+      </FilterWrap>
+      <CardContainer>
         <Imsi>
           {projectData.data?.map((item) => (
             <Card
               key={item.id}
               title={item.name}
-              projectPeriod={item.recruitEndDate}
+              projectPeriod={`${item.recruitStartDate}~${item.recruitEndDate}`}
               deposit={item.deposit}
               necessaryPeriod={item.count}
             >
@@ -98,19 +86,105 @@ const ProjectPage = () => {
             </Card>
           ))}
         </Imsi>
-      </ImsiContainer>
+      </CardContainer>
     </Container>
   );
 };
 
-export default ProjectPage;
+export default page;
 
 const Container = styled.div`
-  padding-top: 90px;
-  max-width: calc(100vw - 246px - 58px - 58px);
+  max-width: 1920px;
+  height: 2561px;
+
+  .banner {
+    width: 1280px;
+    height: 400px;
+    flex-shrink: 0;
+
+    margin-bottom: 64px;
+
+    background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0) 100%),
+      url("/images/다운로드.jpg"),
+      lightgray 0px -234.525px / 100% 292.86% no-repeat;
+  }
+  .title {
+    color: ${CS.color.gray3};
+    font-family: "Spoqa Han Sans Neo";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+
+    margin-bottom: 24px;
+  }
 `;
 
-const ImsiContainer = styled.div`
+const Header = styled.div`
+  display: inline-flex;
+  height: 124px;
+  padding: 42px 0px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1039px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+
+  .logo {
+    width: 60px;
+    height: 33.623px;
+    flex-shrink: 0;
+  }
+`;
+
+const FilterWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 36px;
+
+  .buttonWrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    .basic {
+      display: flex;
+      padding: 6px 17px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-radius: 34px;
+      border: 1px solid ${CS.color.gray8};
+      background: ${CS.color.black};
+      color: ${CS.color.gray6};
+      font-family: "Spoqa Han Sans Neo";
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      cursor: pointer;
+    }
+    .choice {
+      display: flex;
+      padding: 6px 17px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-radius: 34px;
+      border: 1px solid ${CS.color.brandMain};
+      background: ${CS.color.black};
+      color: ${CS.color.brandMain};
+      font-family: "Spoqa Han Sans Neo";
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      cursor: pointer;
+    }
+  }
+`;
+
+const CardContainer = styled.div`
   display: flex;
   width: 100%;
   margin-bottom: 24px;
@@ -133,35 +207,6 @@ const Imsi = styled.div`
     grid-template-columns: repeat(1, 1fr);
   }
 
-  gap: 32px 18px;
+  gap: 40px 32px;
   margin-top: 24px;
-`;
-
-const FilterContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 24px;
-
-  .button_wrap {
-    display: flex;
-    gap: 15px;
-    flex: 1;
-  }
-
-  @media (max-width: 1486px) {
-    flex-direction: column;
-  }
-
-  .input {
-    @media (max-width: 1486px) {
-      margin-top: 10px;
-    }
-  }
-`;
-
-const Title = styled.h1`
-  font-size: 28px;
-  margin-bottom: 21px;
-  font-weight: bold;
 `;

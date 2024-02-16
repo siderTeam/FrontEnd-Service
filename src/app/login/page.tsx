@@ -1,182 +1,140 @@
 "use client";
 
-import { getAccessToken, postUserSignIn } from "@/api/api";
-import { USER_SIGNIN_REQUEST } from "@/api/model";
-import Button from "@/component/Button_new/Button";
-import LabelInput from "@/component/LabelInput_new/LabelInput";
-
 import styled from "@emotion/styled";
-import { useMutation } from "@tanstack/react-query";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { setCookie } from "public/lib/util";
+import * as CS from "../../component/Styles/CommonStyles";
+import Checkbox from "@/component/Checkbox_new/Checkbox";
 import { useState } from "react";
+import Input from "@/component/Input_new/Input";
+import Button from "@/component/Button_new/Button";
 
-const Page = () => {
-  const route = useRouter();
-  const [form, setForm] = useState<USER_SIGNIN_REQUEST>({
-    username: "",
-    password: "",
-  });
+const page = () => {
+  const [isChecked, setIsChecked] = useState(false);
 
-  const { mutate } = useMutation({
-    mutationFn: postUserSignIn,
-    onSuccess: async (data) => {
-      if (data.result === true) {
-        setCookie("RefreshToken", data.data);
-        const response = await getAccessToken();
-        setCookie("AccessToken", response.data);
-
-        route.push("/home");
-      }
-    },
-    onError: () => {
-      console.log("실패");
-    },
-  });
-
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-
-    console.log("value", value);
-    console.log("name", name);
+  const handleChecked = () => {
+    setIsChecked(!isChecked);
   };
-
-  console.log("form:", form);
 
   return (
     <Container>
-      <div className='header'>
-        <img src='/images/Logo.svg' />
-        <p className='sub-title'>우리들의 꿈을 잇다.</p>
-      </div>
+      <div className='backgroundImg'></div>
       <LoginContainer>
-        <div className='top'>
-          <div className='id'>
-            <LabelInput
-              location='top'
-              labelOption={{
-                label: "아이디",
-              }}
-              inputOption={{
-                name: "username",
-                size: "primary",
-                text: "primary",
-                placeholder: "아이디를 입력해주세요.",
-                onChange: handleChange,
-              }}
-            />
-          </div>
-          <div className='password'>
-            <LabelInput
-              location='top'
-              labelOption={{
-                label: "비밀번호",
-              }}
-              inputOption={{
-                name: "password",
-                size: "primary",
-                text: "primary",
-                placeholder: "비밀번호를 입력해주세요.",
-                type: "password",
-                onChange: handleChange,
-              }}
-            />
-          </div>
+        <div className='title'>로그인</div>
+        <div className='inputWrap'>
+          <Input size='full' text='primary' placeholder='아이디' />
+          <Input size='full' text='primary' placeholder='비밀번호' />
         </div>
-        <div className='bottom'>
-          <div className='button-wrap'>
-            <Button size='primary' onClick={() => mutate(form)}>
-              로그인
-            </Button>
-            <Link href='/signUp'>
-              <Button size='primary' mode='reverse-primary'>
-                회원 가입
-              </Button>
-            </Link>
-          </div>
-          <div className='txt-button-wrap'>
-            <span className='find-id'>아이디 찾기</span>
-            <span className='find-password'>비밀번호 찾기</span>
-          </div>
+        <div className='wrap'>
+          <Checkbox
+            type={isChecked ? "checked" : "unchecked"}
+            className='checkbox'
+            text='아이디 저장'
+            isChecked={isChecked}
+            onClick={handleChecked}
+          />
+          <div className='find'>계정정보 찾기</div>
+        </div>
+        <div className='buttonWrap'>
+          <Button>로그인</Button>
+          <Button mode='primary-reverse'>회원가입</Button>
         </div>
       </LoginContainer>
     </Container>
   );
 };
 
-export default Page;
+export default page;
 
 const Container = styled.div`
-  padding: 52px 0;
+  width: 1920px;
+  height: 100vh;
+  position: relative;
 
-  .header {
+  .backgroundImg {
+    width: 1273px;
+    height: 100vh;
+    flex-shrink: 0;
+    position: absolute;
+
+    background: linear-gradient(
+        90deg,
+        #02060d 6.5%,
+        rgba(0, 0, 0, 0) 52%,
+        #02060d 92%
+      ),
+      linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%),
+      url("/images/dummy.jpg"), lightgray 50% / cover no-repeat;
+  }
+
+  .title {
+    color: ${CS.color.brandMain};
+    text-align: center;
+    font-family: "Spoqa Han Sans Neo";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+
+    margin-bottom: 44px;
+    box-sizing: border-box;
+  }
+
+  .inputWrap {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 52px;
-  }
 
-  img {
-    width: 121px;
-    height: 68px;
-    margin-bottom: 10px;
-  }
+    gap: 10px;
 
-  .sub-title {
-    font-size: 26px;
-    color: #0066ff;
+    margin-bottom: 8.5px;
+    box-sizing: border-box;
   }
 `;
 
 const LoginContainer = styled.div`
-  width: 500px;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 14px;
-  padding: 52px;
-  gap: 44px;
+  width: 480px;
+  height: 640px;
+  flex-shrink: 0;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding: 110px 58px;
 
   box-sizing: border-box;
 
-  .top {
+  position: fixed;
+  top: 220px;
+  right: 429px;
+  z-index: 3;
+
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.67);
+  background: linear-gradient(
+      144deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    rgba(2, 6, 13, 0.5);
+  backdrop-filter: blur(20px);
+
+  .wrap {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+
+    margin-bottom: 50.5px;
+  }
+  .find {
+    color: ${CS.color.gray5};
+    text-align: right;
+    font-family: "Spoqa Han Sans Neo";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
   }
 
-  .bottom {
+  .buttonWrap {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-  }
 
-  .button-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .txt-button-wrap {
-    display: flex;
-    flex: 1;
-
-    span {
-      font-size: 16px;
-      font-weight: 500;
-      width: 198px;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    span:first-child {
-      border-right: 1px solid #b8b8b8;
-    }
+    gap: 8px;
   }
 `;
