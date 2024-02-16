@@ -39,3 +39,7 @@ export type USER_RESUME_RESPONSE = {
   skill: string;
   positionCodeValueList: number[];
 };
+
+export type USER_ID_RESPONSE = {
+  id: string;
+};

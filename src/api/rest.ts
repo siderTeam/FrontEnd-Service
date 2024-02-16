@@ -3,6 +3,7 @@ export const rest = {
     project: "/project",
     code: "/code",
     resume: "/resume",
+    userId: "/user/id",
   },
   post: {
     userSignIn: "/user/signIn",

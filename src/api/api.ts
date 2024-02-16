@@ -51,8 +51,14 @@ export const postUserSignUp = async (params: USER_SIGNUP_REQUEST) => {
   return response.data;
 };
 
-//이력서 목록 가져오기
+//유저 아이디 가져오기 (아이디 중복 확인)
+export const getUserId = async (username: string) => {
+  const response = await API.get(`${rest.get.userId}?id=${username}`);
 
+  return response.data;
+};
+
+//이력서 목록 가져오기
 export const getResume = async (): Promise<USER_RESUME_RESPONSE[]> => {
   const response = await API.get(`${rest.get.resume}`, {
     params: {
