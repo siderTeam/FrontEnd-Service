@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import NavBar from "./NavBar/NavBar";
+// import NavBar from "./NavBar/NavBar";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -15,7 +15,7 @@ const RootContainer = ({ children }: any) => {
 
   return redered ? (
     <QueryClientProvider client={queryClient}>
-      <NavBar />
+      {/* <NavBar /> */}
       {children}
     </QueryClientProvider>
   ) : (

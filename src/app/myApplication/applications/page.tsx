@@ -78,7 +78,7 @@ const Container = styled.div`
   flex-direction: column;
   flex: 1;
   padding-top: 90px;
-  max-width: calc(100vw - 246px - 58px - 58px);
+  max-width: 1920px;
 
   .table-wrap {
     flex-grow: 1;
