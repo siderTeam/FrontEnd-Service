@@ -94,7 +94,7 @@ const OPTIONS_TYPE = {
     padding: "0px 16px",
     background: "white",
     border: "1px solid #eeee",
-    borderRadius: "8px",
+    // borderRadius: "8px",
 
     display: "flex",
     justifyContent: "center",
