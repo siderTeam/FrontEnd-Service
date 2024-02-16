@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import Label from "@/components/Label/Label";
+import Label from "../Label_new/Label";
 import SelectBox from "../SelectBox_new/SelectBox";
 
 import {
