@@ -13,12 +13,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={{ background: "#d8ebff" }}>
-        <RootContainer>
-          <div style={{ display: "flex", justifyContent: "center", marginLeft: 246, }}>
-            {children}
-          </div>
-        </RootContainer>
+      <body>
+        <RootContainer>{children}</RootContainer>
       </body>
     </html>
   );

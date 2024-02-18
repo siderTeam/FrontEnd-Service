@@ -2,7 +2,6 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useState } from "react"
-import Navigation from "./Navigation/Navigation";
 
 const RootContainer = ({ children }: any) => {
   const [rendered, setRendered] = useState(false);
@@ -14,7 +13,6 @@ const RootContainer = ({ children }: any) => {
 
   return rendered && (
     <QueryClientProvider client={queryClient}>
-      <Navigation />
       {children}
     </QueryClientProvider>
   );
