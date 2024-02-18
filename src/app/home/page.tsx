@@ -1,32 +1,19 @@
 "use client";
 
 import styled from "@emotion/styled";
+import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
+import { rest } from "../api/rest";
+import { getProject } from "../api/api";
+import { useState } from "react";
 import Card from "@/component/Card/Card";
 import Input from "@/component/Input/Input";
-import PositionSquare from "@/component/PositionSquare/PositionSquare";
-import Button from "@/component/Button/Button";
-import { useQuery } from "@tanstack/react-query";
-import { rest } from "../api/rest";
-import { getProject, getCode } from "../api/api";
-import { useState } from "react";
-
-const positonFilter = [
-  {
-    name: "디자인",
-    icon: "/images/position/designer.png",
-  },
-  {
-    name: "기획",
-    icon: "/images/position/pm.png",
-  },
-  {
-    name: "개발",
-    icon: "/images/position/developer.png",
-  },
-];
+import Profile from "@/component/Profile/Profile";
+import * as CS from "../../component/Styles/CommonStyles";
 
 const Page = () => {
-  const [positionCode, setsetPositionCode] = useState<number | null>(null);
+  const [positionCode, setPositionCode] = useState<number | null>(null);
   const [inputText, setInputText] = useState("");
   const [keyword, setKeyword] = useState<string | null>(null);
 
@@ -36,15 +23,9 @@ const Page = () => {
     queryFn: () => getProject(positionCode, keyword),
   });
 
-  //포지션 데이터
-  const positionData = useQuery({
-    queryKey: [rest.get.code],
-    queryFn: () => getCode(10, 2),
-  });
-
   //포지션 필터 onClick
   const handleFilterClick = (index: number | null) => {
-    setsetPositionCode((prevIndex) =>
+    setPositionCode((prevIndex) =>
       index === positionCode ? prevIndex : index
     );
   };
@@ -68,30 +49,47 @@ const Page = () => {
 
   return (
     <Container>
-      <Title>사이드 플젝</Title>
-      <Wrap>
-        <ButtonWrap>
-          <Button
+      <LogoProfileWrap>
+        <Link href="/home">
+          <Image src={"/images/logo.svg"} alt="logo" width={60} height={34} />
+        </Link>
+        <Profile />
+      </LogoProfileWrap>
+      <ImageSlider>광고 이미지</ImageSlider>
+      <Title>프로젝트</Title>
+      <FilterWrap>
+        <div className="buttonWrap">
+          <button
             className={positionCode === null ? "active" : ""}
             onClick={() => handleFilterClick(null)}
           >
-            전체
-          </Button>
-          {positionData.data?.map((item) => (
-            <Button
-              key={item.id}
-              className={item.id === positionCode ? "active" : ""}
-              onClick={() => handleFilterClick(item.id)}
-              leftIcon={
-                positonFilter.find(
-                  (filterItem) => filterItem.name === item.name
-                )?.icon
-              }
-            >
-              {item.name}
-            </Button>
-          ))}
-        </ButtonWrap>
+            #전체
+          </button>
+          <button
+            className={positionCode === 1 ? "active" : ""}
+            onClick={() => handleFilterClick(1)}
+          >
+            #디자인
+          </button>
+          <button
+            className={positionCode === 2 ? "active" : ""}
+            onClick={() => handleFilterClick(2)}
+          >
+            #기획
+          </button>
+          <button
+            className={positionCode === 3 ? "active" : ""}
+            onClick={() => handleFilterClick(3)}
+          >
+            #개발
+          </button>
+          <button
+            className={positionCode === 4 ? "active" : ""}
+            onClick={() => handleFilterClick(4)}
+          >
+            #모집중
+          </button>
+        </div>
         <Input
           type="search"
           name="input"
@@ -103,8 +101,8 @@ const Page = () => {
           onKeyDown={handleKeywordEnter}
           onClick={handleKeywordClick}
         />
-      </Wrap>
-      <CardWrap>
+      </FilterWrap>
+      <ProjectCardWrap>
         {projectData.data?.map((project) => (
           <Card
             key={project.id}
@@ -112,17 +110,9 @@ const Page = () => {
             startDate={project.recruitStartDate}
             endDate={project.recruitEndDate}
             deposit={project.deposit}
-          >
-            {project.positionCodeList.map((position, index) => (
-              <PositionSquare
-                key={index}
-                parent={position.parentName}
-                name={position.name}
-              />
-            ))}
-          </Card>
+          />
         ))}
-      </CardWrap>
+      </ProjectCardWrap>
     </Container>
   );
 };
@@ -130,47 +120,67 @@ const Page = () => {
 export default Page;
 
 const Container = styled.div`
-  max-width: calc(100vw - 246px - 58px - 58px);
-  padding-top: 90px;
+  margin: 0 auto;
+  max-width: 1280px;
 `;
 
-const Title = styled.h1`
-  color: var(--txt-main, #1e1e20);
-  font-family: Pretendard;
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: -1.12px;
-`;
-
-const Wrap = styled.div`
-  margin-top: 21px;
+const LogoProfileWrap = styled.div`
+  padding: 42px 0;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 `;
 
-const ButtonWrap = styled.div`
-  display: inline-flex;
-  align-items: flex-start;
-  gap: 20px;
+const ImageSlider = styled.div`
+  max-width: 1280px;
+  height: 400px;
+  background: gray;
 `;
 
-const CardWrap = styled.div`
-  display: grid;
+const Title = styled.h1`
+  color: ${CS.color.gray3};
+  font-size: 24px;
+  font-weight: 700;
+  margin: 64px 0 24px 0;
+`;
 
-  grid-template-columns: repeat(4, 1fr);
+const FilterWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  @media (max-width: 1750px) {
-    grid-template-columns: repeat(3, 1fr);
+  .buttonWrap {
+    display: flex;
+    gap: 8px;
+
+    button {
+      cursor: pointer;
+      box-sizing: border-box;
+      padding: 6px 17px;
+      border-radius: 34px;
+      background: ${CS.color.black};
+      color: ${CS.color.gray6};
+      border: 1px solid ${CS.color.gray8};
+
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+
+    button.active {
+      background: ${CS.color.black};
+      border: 1px solid ${CS.color.brandMain};
+      color: ${CS.color.brandMain};
+      font-size: 16px;
+      font-weight: 700;
+    }
   }
+`;
 
-  @media (max-width: 1400px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 1000px) {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  gap: 32px 18px;
-  margin-top: 24px;
+const ProjectCardWrap = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 32px;
+  margin: 36px 0;
 `;

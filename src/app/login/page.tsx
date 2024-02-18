@@ -1,8 +1,6 @@
 "use client";
 
-import Image from "next/image";
 import styled from "@emotion/styled";
-import LabelInput from "@/component/LabelInput/LabelInput";
 import Button from "@/component/Button/Button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -11,9 +9,13 @@ import { USER_SIGNIN_REQUEST } from "../api/model";
 import { useMutation } from "@tanstack/react-query";
 import { getAccessToken, postUserSignIn } from "../api/api";
 import { setCookie } from "public/lib/util";
+import Input from "@/component/Input/Input";
+import * as CS from "../../component/Styles/CommonStyles";
+import CheckBox from "@/component/CheckBox/CheckBox";
 
 const Page = () => {
   const route = useRouter();
+  const [isChecked, setIsChecked] = useState(false);
   const [form, setForm] = useState<USER_SIGNIN_REQUEST>({
     username: "",
     password: "",
@@ -37,11 +39,13 @@ const Page = () => {
     },
   });
 
+  //input onChange
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
+  //로그인 onClick
   const handleLogin = () => {
     if (form.username.trim() === "" || form.password.trim() === "") {
       alert("아이디/비밀번호를 입력해주세요.");
@@ -50,56 +54,49 @@ const Page = () => {
     mutate(form);
   };
 
+  //아이디 저장 체크박스
+  const handleChecked = () => {
+    setIsChecked((prev) => !prev);
+  };
+
   return (
     <Container>
-      <Logo>
-        <Image src="images/logo.svg" alt="logo" width={121} height={68} />
-        <div className="sub-title">우리들의 꿈을 잇다.</div>
-      </Logo>
-      <LoginCard>
-        <div className="login-wrap">
-          <LabelInput
-            location="top"
-            labelOption={{
-              label: "아이디",
-            }}
-            inputOption={{
-              type: "text",
-              name: "username",
-              size: "full",
-              mode: "text",
-              placeholder: "아이디를 입력해주세요.",
-              onChange: handleChange,
-            }}
+      <div className="backgroundImage"></div>
+      <LoginContainer>
+        <div className="title">로그인</div>
+        <div className="inputWrap">
+          <Input
+            type="text"
+            name="username"
+            size="full"
+            placeholder="아이디"
+            onChange={handleChange}
           />
-          <LabelInput
-            location="top"
-            labelOption={{
-              label: "비밀번호",
-            }}
-            inputOption={{
-              type: "password",
-              name: "password",
-              size: "full",
-              mode: "text",
-              placeholder: "비밀번호를 입력해주세요.",
-              onChange: handleChange,
-            }}
+          <Input
+            type="password"
+            name="password"
+            size="full"
+            placeholder="비밀번호"
+            onChange={handleChange}
           />
         </div>
-        <div className="button-wrap">
-          <Button mode="primary_square" onClick={handleLogin}>
-            로그인
-          </Button>
+        <TextWrap>
+          <CheckBox
+            text="아이디 저장"
+            isChecked={isChecked}
+            onChange={handleChecked}
+          />
+          <Link href="" className="findInfo">
+            계정정보 찾기
+          </Link>
+        </TextWrap>
+        <div className="buttonWrap">
+          <Button onClick={handleLogin}>로그인</Button>
           <Link href="/signUp">
-            <Button mode="square">회원가입</Button>
+            <Button mode="primary-reverse">회원가입</Button>
           </Link>
         </div>
-        <div className="find-wrap">
-          <Link href="">아이디 찾기</Link>
-          <Link href="">비밀번호 찾기</Link>
-        </div>
-      </LoginCard>
+      </LoginContainer>
     </Container>
   );
 };
@@ -107,63 +104,81 @@ const Page = () => {
 export default Page;
 
 const Container = styled.div`
-  padding-top: 92px;
-  display: flex;
-  flex-direction: column;
-  gap: 52px;
-`;
+  position: relative;
 
-const Logo = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+  .backgroundImage {
+    width: 1273px;
+    height: 100vh;
+    position: absolute;
 
-  .sub-title {
-    color: #0066ff;
-    font-family: Pretendard;
-    font-size: 26px;
-    font-weight: 600;
+    background: linear-gradient(
+        90deg,
+        #02060d 6.5%,
+        rgba(0, 0, 0, 0) 52%,
+        #02060d 92%
+      ),
+      linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%),
+      url("/images/testImage.jpeg"), lightgray 50% / cover no-repeat;
   }
 `;
 
-const LoginCard = styled.div`
+const LoginContainer = styled.div`
   box-sizing: border-box;
-  width: 500px;
-  padding: 52px;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid #ffffff;
-  border-radius: 14px;
+  width: 480px;
+  height: 640px;
+  padding: 110px 58px;
 
-  display: flex;
-  flex-direction: column;
-  gap: 44px;
+  position: fixed;
+  top: 220px;
+  right: 429px;
 
-  .login-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 376px;
-  }
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.67);
+  background: linear-gradient(
+      144deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    rgba(2, 6, 13, 0.5);
+  backdrop-filter: blur(20px);
 
-  .button-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .find-wrap {
-    display: flex;
+  .title {
+    color: ${CS.color.brandMain};
     text-align: center;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
 
-    a {
-      color: black;
-      font-size: 16px;
-      width: 198px;
-    }
+    margin-bottom: 44px;
+    box-sizing: border-box;
+  }
 
-    a:first-of-type {
-      border-right: 1px solid #b8b8b8;
-    }
+  .inputWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .buttonWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+`;
+
+const TextWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 51px;
+
+  .findInfo {
+    color: ${CS.color.gray5};
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
   }
 `;
