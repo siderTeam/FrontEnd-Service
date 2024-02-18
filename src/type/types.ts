@@ -20,7 +20,7 @@ export type CardProps = {
 
 //input
 export type INPUT_STYLE_PROPS = {
-  size?: "small" | "medium" | "large" | "full";
+  size?: "large" | "full";
   mode?: "primary" | "disabled" | "search" | "text";
 };
 
@@ -43,7 +43,7 @@ export type InputProps = INPUT_STYLE_PROPS &
 //button
 export type BUTTON_STYLE_PROPS = {
   size?: "full";
-  mode?: "primary" | "primary_reserve";
+  mode?: "primary" | "primary-reverse";
 };
 
 export type ButtonProps = BUTTON_STYLE_PROPS &
@@ -93,4 +93,16 @@ export type PaginationProps = {
   items: number;
   count: number;
   setPage: (page: number) => void;
+};
+
+//CheckBox
+export type CheckboxProps = {
+  text: string;
+  requireText?: string;
+  isChecked?: boolean;
+  disabled?: boolean;
+  name?: string;
+  onChange: (e: any) => void;
+  style?: React.CSSProperties;
+  requireStyle?: React.CSSProperties;
 };
