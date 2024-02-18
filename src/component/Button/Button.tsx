@@ -5,11 +5,12 @@ import styled from "@emotion/styled";
 import { ButtonProps } from "@/type/types";
 import { BUTTON_STYLE_PROPS } from "@/type/types";
 import Image from "next/image";
+import * as CS from "../Styles/CommonStyles";
 
 const Button = ({
   children,
-  size = "medium",
-  mode = "default",
+  size = "full",
+  mode = "primary",
   style,
   onClick,
   isDisabled = false,
@@ -39,53 +40,33 @@ const Button = ({
 };
 export default Button;
 
+const BUTTON_TYPE = {
+  ["full"]: {
+    width: "100%",
+    padding: " 13px 0px",
+    borderRadius: "12px",
+  },
+};
+
 const COLOR_TYPE = {
-  ["default"]: {
-    color: "var(--txt-main, #1E1E20)",
-    fontSize: "18px",
-
-    borderRadius: "100px",
-    border: "1px solid var(--White, #FFF)",
-    background: "rgba(255, 255, 255, 0.50)",
-    backdropFilter: "blur(15px)",
-
-    width: "160px",
-    height: "48px",
-    padding: "20px",
-    gap: "4px",
-  },
   ["primary"]: {
-    background: "#0066FF",
-    color: "var(--White, #FFF)",
-    fontSize: "14px",
+    background: `${CS.color.brandMain}`,
+    color: `${CS.color.black}`,
 
-    borderRadius: "100px",
-    height: "32px",
-    padding: "10px 24px",
-    gap: "10px",
+    fontSize: "24px",
+    fontStyle: "normal",
+    fontWeight: 700,
+    lineHeight: "normal",
   },
-  ["error"]: {
-    background: "#FF4E4E",
-    color: "white",
-  },
-  ["primary_square"]: {
-    background: "#0066FF",
-    color: "var(--White, #FFF)",
-    fontSize: "16px",
-
-    width: "100%",
-    height: "52px",
-    borderRadius: "8px",
-  },
-  ["square"]: {
+  ["primary-reverse"]: {
     background: "none",
-    border: "1px solid #0066FF",
-    color: "#0066FF",
-    fontSize: "16px",
+    color: `${CS.color.brandMain}`,
+    border: `1px solid ${CS.color.brandMain}`,
 
-    width: "100%",
-    height: "52px",
-    borderRadius: "8px",
+    fontSize: "24px",
+    fontStyle: "normal",
+    fontWeight: 700,
+    lineHeight: "normal",
   },
 };
 
@@ -93,26 +74,11 @@ const StyledButton = styled.button<BUTTON_STYLE_PROPS>`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 
   cursor: pointer;
   border: none;
 
-  text-align: center;
-  font-family: Pretendard;
-  font-weight: 500;
-
+  ${({ size }) => BUTTON_TYPE[size as "full"]};
   ${({ mode }) => COLOR_TYPE[mode as "primary"]};
-
-  &.active {
-    ${({ mode }) =>
-      mode === "default" &&
-      `background: #fff;
-    box-shadow: 4px 4px 20px 0px rgba(111, 140, 176, 0.41),
-      -6px -6px 20px 0px rgba(255, 255, 255, 0.5),
-      2px 2px 4px 0px rgba(114, 142, 171, 0.1);
-      color: #0066ff;`}
-  }
-
-  background: ${(props) => props.disabled && "#d2d2d2"};
-  color: ${(props) => props.disabled && "gray"};
 `;

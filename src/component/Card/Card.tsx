@@ -2,136 +2,106 @@
 
 import styled from "@emotion/styled";
 import { CardProps } from "@/type/types";
+import Image from "next/image";
+import Profile from "../Profile/Profile";
+import * as CS from "../Styles/CommonStyles";
 
-//title, onClick, position, startDate, endDate, deposit, period
-
-//소요기간 계산 함수
-const PeriodDate = (start: string, end: string): number => {
-  const sDate: Date = new Date(start);
-  const eDate: Date = new Date(end);
-  //종료일 포함하는가????????
-  return (eDate.getTime() - sDate.getTime()) / (1000 * 3600 * 24) + 1;
-};
-
-const Card = ({
+const ProjectCard = ({
   title,
   startDate,
   endDate,
   deposit,
-  children,
   style,
 }: CardProps) => {
-  const days = PeriodDate(startDate, endDate); //소요기간
-
   return (
     <Container>
-      <CardTop>
-        <Title className="card-title">{title}</Title>
-        <Position>{children}</Position>
-      </CardTop>
-      <CardBottom>
-        <SpaceBetweenWrap>
-          <SubTitle>프로젝트기간</SubTitle>
-          <DateWrap>
-            {startDate.replace(/-/g, ".")} ~ {endDate.replace(/-/g, ".")}
-          </DateWrap>
-        </SpaceBetweenWrap>
-        <SpaceBetweenWrap>
-          <div>
-            <SubTitle>보증금</SubTitle>
-            <BottomData>{deposit.toLocaleString()}원</BottomData>
+      <div className="subTitle">모집 마감일 8888.88.88</div>
+      <div className="skillWrap">
+        <Image
+          src={"/images/skillIcons/figma.png"}
+          alt="profile"
+          width={32}
+          height={32}
+        />
+      </div>
+      <h1 className="title">{title}</h1>
+      <SubInfo>
+        <div className="info">
+          <div className="subTitle">프로젝트 기간</div>
+          <div className="projectDate">
+            {startDate.replace(/-/g, ".")}~{endDate.replace(/-/g, ".")}
           </div>
-          <div>
-            <SubTitle>소요기간</SubTitle>
-            <BottomData>{days}일</BottomData>
-          </div>
-        </SpaceBetweenWrap>
-      </CardBottom>
+        </div>
+        <div className="info">
+          <div className="subTitle">보증금</div>
+          <div className="deposit">{deposit.toLocaleString()}원</div>
+        </div>
+      </SubInfo>
+      <Profile />
     </Container>
   );
 };
 
-export default Card;
+export default ProjectCard;
 
 const Container = styled.div`
-  cursor: pointer;
-  display: flex;
-  //min-width: 376px;
-  padding: 20px;
+  width: 296px;
+  height: 325px;
   box-sizing: border-box;
-  flex-direction: column;
-  gap: 52px;
-  flex-grow: 1; /* flex-grow 추가 */
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #89192b;
 
-  border-radius: 14px;
-  border: 1px solid #fff;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(15px);
-
-  &:hover {
-    background: #fff;
-    box-shadow: 4px 4px 20px 0px rgba(111, 140, 176, 0.41),
-      -6px -6px 20px 0px rgba(255, 255, 255, 0.5),
-      2px 2px 4px 0px rgba(114, 142, 171, 0.1);
+  .subTitle {
+    color: ${CS.color.gray5};
+    font-size: 12px;
+    font-weight: 400;
   }
 
-  &:hover .card-title {
-    color: #0066ff;
+  .skillWrap {
+    height: 72px;
+    margin: 24px 0 28px 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .title {
+    height: 40px;
+    color: ${CS.color.white};
+    font-size: 16px;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 16px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 `;
 
-const CardTop = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  align-self: stretch;
-`;
-
-const Title = styled.h2`
-  color: var(--txt-main, #1e1e20);
-  font-family: Pretendard;
-  font-size: 22px;
-  font-weight: 700;
-`;
-
-const Position = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: 4px;
-  align-self: stretch;
-  flex-flow: wrap;
-`;
-
-const CardBottom = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-self: stretch;
-`;
-
-const SpaceBetweenWrap = styled.div`
+const SubInfo = styled.div`
   display: flex;
   justify-content: space-between;
 
-  color: #000;
-  font-family: Pretendard;
-`;
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
 
-const SubTitle = styled.span`
-  color: #515151;
-  font-size: 16px;
-  font-weight: 400;
-`;
+  .projectDate {
+    color: ${CS.color.gray2};
+    font-size: 12px;
+    font-weight: 500;
+  }
 
-const DateWrap = styled.div`
-  font-size: 16px;
-  font-weight: 400;
-`;
-
-const BottomData = styled.span`
-  margin-left: 8px;
-
-  font-size: 22px;
-  font-weight: 600;
+  .deposit {
+    color: ${CS.color.gray3};
+    font-size: 12px;
+    font-weight: 700;
+  }
 `;

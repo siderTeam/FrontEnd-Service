@@ -14,7 +14,7 @@ export type CardProps = {
   startDate: string;
   endDate: string;
   deposit: number;
-  children: any;
+  children?: any;
   style?: React.CSSProperties;
 };
 
@@ -42,8 +42,8 @@ export type InputProps = INPUT_STYLE_PROPS &
   
 //button
 export type BUTTON_STYLE_PROPS = {
-  size?: "small" | "medium" | "large";
-  mode?: "default" | "primary" | "error" | "primary_square" | "square";
+  size?: "full";
+  mode?: "primary" | "primary_reserve";
 };
 
 export type ButtonProps = BUTTON_STYLE_PROPS &
