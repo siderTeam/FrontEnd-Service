@@ -6,6 +6,8 @@ import Image from "next/image";
 import Profile from "../Profile/Profile";
 import * as CS from "../Styles/CommonStyles";
 
+const color = ["red", "yellow", "purple", "green", "blue"];
+
 const ProjectCard = ({
   title,
   startDate,
@@ -13,36 +15,92 @@ const ProjectCard = ({
   deposit,
   style,
 }: CardProps) => {
+  const cardColor = color[Math.floor(Math.random() * color.length)];
+
   return (
-    <Container>
-      <div className="subTitle">모집 마감일 8888.88.88</div>
-      <div className="skillWrap">
-        <Image
-          src={"/images/skillIcons/figma.png"}
-          alt="profile"
-          width={32}
-          height={32}
-        />
-      </div>
-      <h1 className="title">{title}</h1>
-      <SubInfo>
-        <div className="info">
-          <div className="subTitle">프로젝트 기간</div>
-          <div className="projectDate">
-            {startDate.replace(/-/g, ".")}~{endDate.replace(/-/g, ".")}
+    <Container className={cardColor}>
+      <CardWrap>
+        <div className="subTitle">모집 마감일 8888.88.88</div>
+        <div className="skillWrap">
+          <Image
+            src={"/images/skillIcons/figma.png"}
+            alt="profile"
+            width={32}
+            height={32}
+          />
+        </div>
+        <h1 className="title">{title}</h1>
+        <SubInfo>
+          <div className="info">
+            <div className="subTitle">프로젝트 기간</div>
+            <div className="projectDate">
+              {startDate.replace(/-/g, ".")}~{endDate.replace(/-/g, ".")}
+            </div>
           </div>
-        </div>
-        <div className="info">
-          <div className="subTitle">보증금</div>
-          <div className="deposit">{deposit.toLocaleString()}원</div>
-        </div>
-      </SubInfo>
-      <Profile />
+          <div className="info">
+            <div className="subTitle">보증금</div>
+            <div className="deposit">{deposit.toLocaleString()}원</div>
+          </div>
+        </SubInfo>
+        <Profile />
+      </CardWrap>
+      <div className={`${cardColor} effect`} />
     </Container>
   );
 };
 
 export default ProjectCard;
+
+const CONTAINER_TYPE = {
+  ["red"]: {
+    border: "1px solid #991329",
+    background:
+      "linear-gradient(180deg, rgba(153, 19, 41, 0.15) 0%, rgba(0, 0, 0, 0.00) 100%), linear-gradient(140deg, rgba(255, 255, 255, 0.10) 0%, rgba(0, 0, 0, 0.00) 100%), rgba(2, 6, 13, 0.60)",
+  },
+  ["yellow"]: {
+    border: "1px solid #A17605",
+    background:
+      "linear-gradient(180deg, rgba(161, 118, 5, 0.15) 0%, rgba(0, 0, 0, 0.00) 100%), linear-gradient(140deg, rgba(255, 255, 255, 0.10) 0%, rgba(0, 0, 0, 0.00) 100%), rgba(2, 6, 13, 0.60);",
+  },
+  ["purple"]: {
+    border: "1px solid #3705A1",
+    background:
+      "linear-gradient(180deg, rgba(55, 5, 161, 0.15) 0%, rgba(0, 0, 0, 0.00) 100%), linear-gradient(140deg, rgba(255, 255, 255, 0.10) 0%, rgba(0, 0, 0, 0.00) 100%), rgba(2, 6, 13, 0.60);",
+  },
+  ["green"]: {
+    border: "1px solid #05A156",
+    background:
+      "linear-gradient(180deg, rgba(5, 161, 86, 0.15) 0%, rgba(0, 0, 0, 0.00) 100%), linear-gradient(140deg, rgba(255, 255, 255, 0.10) 0%, rgba(0, 0, 0, 0.00) 100%), rgba(2, 6, 13, 0.60);",
+  },
+  ["blue"]: {
+    border: "1px solid #0543A1",
+    background:
+      "linear-gradient(180deg, rgba(5, 67, 161, 0.15) 0%, rgba(0, 0, 0, 0.00) 100%), linear-gradient(140deg, rgba(255, 255, 255, 0.10) 0%, rgba(0, 0, 0, 0.00) 100%), rgba(2, 6, 13, 0.60);",
+  },
+};
+
+const EFFECT_TYPE = {
+  ["red"]: {
+    background:
+      "linear-gradient(180deg, rgba(255, 0, 42, 0.15) 0%, rgba(0, 0, 0, 0.00) 100%)",
+  },
+  ["yellow"]: {
+    background:
+      "linear-gradient(180deg, rgba(255, 185, 0, 0.15) 0%, rgba(0, 0, 0, 0.00) 100%)",
+  },
+  ["purple"]: {
+    background:
+      "linear-gradient(180deg, rgba(98, 24, 255, 0.15) 0%, rgba(0, 0, 0, 0.00) 100%)",
+  },
+  ["green"]: {
+    background:
+      "linear-gradient(180deg, rgba(0, 255, 132, 0.15) 0%, rgba(0, 0, 0, 0.00) 100%)",
+  },
+  ["blue"]: {
+    background:
+      "linear-gradient(180deg, rgba(0, 101, 255, 0.15) 0%, rgba(0, 0, 0, 0.00) 100%)",
+  },
+};
 
 const Container = styled.div`
   width: 296px;
@@ -50,7 +108,26 @@ const Container = styled.div`
   box-sizing: border-box;
   padding: 20px;
   border-radius: 10px;
-  border: 1px solid #89192b;
+  ${({ className }) => CONTAINER_TYPE[className as "red"]};
+
+  position: relative;
+  overflow: hidden;
+
+  .effect {
+    position: absolute;
+    top: -40px;
+    left: -60px;
+
+    width: 311px;
+    height: 342px;
+    transform: rotate(-30deg);
+    ${({ className }) => EFFECT_TYPE[className as "red"]};
+  }
+`;
+
+const CardWrap = styled.div`
+  position: relative;
+  z-index: 1;
 
   .subTitle {
     color: ${CS.color.gray5};
