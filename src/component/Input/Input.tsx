@@ -119,4 +119,13 @@ const StyledInput = styled.input<any>`
       display: none;
     }
   }
+
+  //자동완성
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    box-shadow: 0 0 0 1000px ${CS.color.black} inset; //배경색
+    -webkit-text-fill-color: ${CS.color.white}; //글자색
+  }
 `;

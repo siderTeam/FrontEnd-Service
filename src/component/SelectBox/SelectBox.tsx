@@ -3,6 +3,7 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { SelectBoxProps } from "@/type/types";
+import * as CS from "../Styles/CommonStyles";
 
 const SelectBox = ({
   size = "medium",
@@ -30,7 +31,7 @@ const SelectBox = ({
   };
 
   const selected = options.filter((option) => option.value === value);
-  
+
   return (
     <Container tabIndex={0} onBlur={handleBlur}>
       <StyledSelect
@@ -40,12 +41,14 @@ const SelectBox = ({
         style={style}
         onClick={handleClickSelect}
       >
-        <div className="value">
-          {selected.length === 0 ? placeholder : selected[0].label}
-        </div>
+        {selected.length === 0 ? (
+          <div>{placeholder}</div>
+        ) : (
+          <div className="value">{selected[0].label}</div>
+        )}
       </StyledSelect>
       {visible && (
-        <OptionWrapper size={size}>
+        <OptionWrapper>
           {options?.map((option) => (
             <li
               onClick={() => handleClick(option.value)}
@@ -86,15 +89,16 @@ const SELECT_TYPE = {
 
 const StyledSelect = styled.div<any>`
   //${({ size }) => SELECT_TYPE[size as "medium"]};
-  width: 100%;
-  height: 52px;
-  font-size: 16px;
-  border: 1px solid #b8b8b8;
-  border-radius: 6px;
-  outline: none;
-  padding: 0 10px;
   box-sizing: border-box;
-  background: white;
+  width: 100%;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid ${CS.color.gray6};
+  color: ${CS.color.gray7};
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 
   &::before {
     content: "⌵";
@@ -105,50 +109,51 @@ const StyledSelect = styled.div<any>`
   }
 
   .value {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
+    color: ${CS.color.white};
   }
 `;
 
-const OptionWrapper = styled.ul<{ size: "small" | "medium" | "large" }>`
+const OptionWrapper = styled.ul`
   position: absolute;
   width: 100%;
+  color: ${CS.color.gray7};
   font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   box-sizing: border-box;
-  top: ${({ size }) => SELECT_TYPE[size].height};
-  background: white;
+  background: ${CS.color.black};
+  border: 1px solid ${CS.color.gray6};
+  border-radius: 12px;
   z-index: 3;
 
   max-height: 200px;
   overflow-y: auto;
 
   &::-webkit-scrollbar {
-    width: 10px; /* 스크롤바의 너비 */
+    width: 12px; /* 스크롤바의 너비 */
   }
   &::-webkit-scrollbar-thumb {
-    height: 30%; /* 스크롤바의 길이 */
-    background: #848484; /* 스크롤바의 색상 */
-    border-radius: 10px;
-  }
-  &::-webkit-scrollbar-track {
-    background: #84848447; /*스크롤바 뒷 배경 색상*/
+    background: ${CS.color.gray5}; /* 스크롤바의 색상 */
+    border-radius: 28px;
+
+    background-clip: padding-box;
+    border: 4px solid transparent;
   }
 
   li {
     display: flex;
     align-items: center;
-    padding: 0 10px;
-    box-sizing: border-box;
     cursor: pointer;
-    border-bottom: 1px solid #eeee;
+
+    box-sizing: border-box;
     width: 100%;
     height: 52px;
-    //${({ size }) => SELECT_TYPE[size as "medium"]};
+    padding: 0 20px;
   }
 
   li:hover {
-    background: #eeeeee;
+    background: ${CS.color.gray8};
+    color: ${CS.color.white};
   }
 `;

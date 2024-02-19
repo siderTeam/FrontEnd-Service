@@ -36,7 +36,6 @@ export default CheckBox;
 const Container = styled.label`
   display: flex;
   align-items: center;
-  gap: 8px;
   cursor: pointer;
 `;
 
@@ -44,7 +43,7 @@ const StyledCheckBox = styled.input`
   background-image: url("/images/checkbox/UnChecked.svg");
   width: 16px;
   height: 16px;
-  margin: 0;
+  margin: 0 8px 0 0;
   appearance: none; /* 기본 체크박스 스타일 제거 */
 
   &:hover {
@@ -75,8 +74,9 @@ const StyledLabel = styled.div`
 `;
 
 const StyledRequire = styled.div`
-  font-size: 10px;
-  color: #ff4e4e;
-
-  margin-left: 4px;
+  color: ${CS.color.gray6};
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 `;

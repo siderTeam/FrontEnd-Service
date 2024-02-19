@@ -46,6 +46,10 @@ const BUTTON_TYPE = {
     padding: " 13px 0px",
     borderRadius: "12px",
   },
+  ["free"]: {
+    padding: " 16px",
+    borderRadius: "10px",
+  },
 };
 
 const COLOR_TYPE = {
@@ -81,4 +85,7 @@ const StyledButton = styled.button<BUTTON_STYLE_PROPS>`
 
   ${({ size }) => BUTTON_TYPE[size as "full"]};
   ${({ mode }) => COLOR_TYPE[mode as "primary"]};
+
+  background: ${(props) => props.disabled && CS.color.gray8};
+  color: ${(props) => props.disabled && CS.color.gray9};
 `;
