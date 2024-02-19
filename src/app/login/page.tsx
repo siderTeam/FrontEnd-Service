@@ -118,7 +118,7 @@ const Container = styled.div`
         #02060d 92%
       ),
       linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%),
-      url("/images/testImage.jpeg"), lightgray 50% / cover no-repeat;
+      url("/images/testImage.png"), lightgray 50% / cover no-repeat;
   }
 `;
 
