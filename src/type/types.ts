@@ -39,10 +39,10 @@ export type InputProps = INPUT_STYLE_PROPS &
     style?: React.CSSProperties;
     rest?: any;
   };
-  
+
 //button
 export type BUTTON_STYLE_PROPS = {
-  size?: "full";
+  size?: "full" | "free";
   mode?: "primary" | "primary-reverse";
 };
 
@@ -55,8 +55,8 @@ export type ButtonProps = BUTTON_STYLE_PROPS &
     leftIcon?: string;
     rightIcon?: string;
     iconSize?: number;
-};
-  
+  };
+
 //Label
 export type LabelProps = {
   label: string;
@@ -105,4 +105,21 @@ export type CheckboxProps = {
   onChange: (e: any) => void;
   style?: React.CSSProperties;
   requireStyle?: React.CSSProperties;
+};
+
+//Radio
+export type RadioProps = {
+  text: string;
+  name: string;
+  value: string;
+  requireText?: string;
+  isChecked?: boolean;
+  disabled?: boolean;
+  onChange: (e: any) => void;
+  style?: React.CSSProperties;
+};
+
+//signUp content
+export type SignUpProps = {
+  onNext?: () => void;
 };
