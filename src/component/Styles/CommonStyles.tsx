@@ -1,5 +1,7 @@
 export const color = {
   brandMain: "#01FF1A",
+  error1: "#FF013E",
+  positive1: "#6658FF",
 
   black: "#02060D",
   gray9: "#1D2939",
