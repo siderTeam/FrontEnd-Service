@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
 import { ButtonHTMLAttributes } from "react";
 
 //positionSquare
@@ -59,17 +59,12 @@ export type ButtonProps = BUTTON_STYLE_PROPS &
 
 //Label
 export type LabelProps = {
+  location: "left" | "top";
   label: string;
   require?: string;
-  confirmText?: string;
-  errorText?: string;
   subText?: string;
+  children: any;
   style?: React.CSSProperties;
-};
-
-//LabelInput
-export type LABELINPUT_STYLE_PROPS = {
-  location: "left" | "top";
 };
 
 //SelectBox
@@ -123,3 +118,23 @@ export type RadioProps = {
 export type SignUpProps = {
   onNext?: () => void;
 };
+
+//Modal
+export type ModalProps = {
+  visible: boolean;
+  onClose: () => void;
+  children: any;
+  style?: React.CSSProperties;
+};
+
+//Textarea
+export type TEXTAREA_STYLE_PROPS = {
+  size?: "full";
+};
+
+export type TextareaProps = TEXTAREA_STYLE_PROPS &
+  TextareaHTMLAttributes<HTMLTextAreaElement> & {
+    textCount?: number;
+    style?: React.CSSProperties;
+    rest?: any;
+  };
