@@ -1,246 +1,196 @@
 "use client";
 
-import Button from "@/components/Button/Button";
-import Input from "@/components/Input/Input";
-import Modal from "@/components/Modal/Modal";
-import TextArea from "@/components/TextArea/TextArea";
-import Label from "@/components/Label/Label";
-import { useState } from "react";
-import CheckBox from "@/components/CheckBox/CheckBox";
-import SelectBox from "@/components/SelectBox/SelectBox";
-
 import styled from "@emotion/styled";
-import LabelInput from "@/components/LabelInput/LabelInput";
-import LabelTextArea from "@/components/LabelTextArea/LabelTextArea";
+import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
+import { rest } from "./api/rest";
+import { getProject } from "./api/api";
+import { useState } from "react";
+import Card from "@/component/Card/Card";
+import Input from "@/component/Input/Input";
+import Profile from "@/component/Profile/Profile";
+import * as CS from "../component/Styles/CommonStyles";
+import Modal from "@/component/Modal/Modal";
 
-export default function Home() {
-  const [visible, setVisible] = useState(false);
-  const [inputValue, setInputValue] = useState({
-    name: "",
-    password: "",
+const Page = () => {
+  const [positionCode, setPositionCode] = useState<number | null>(null);
+  const [inputText, setInputText] = useState("");
+  const [keyword, setKeyword] = useState<string | null>(null);
+
+  //프로젝트 데이터
+  const projectData = useQuery({
+    queryKey: [rest.get.project, positionCode, keyword],
+    queryFn: () => getProject(positionCode, keyword),
   });
 
-  const [isChecked, setIsChecked] = useState({
-    first: false,
-    second: false,
-  });
-
-  const [selected, setSelected] = useState({
-    first: "미승인",
-    second: "승인",
-    third: "반려",
-  });
-
-  const handleinputChange = (e: any) => {
-    const { value, name } = e.target;
-
-    setInputValue({
-      ...inputValue,
-      [name]: value,
-    });
+  //포지션 필터 onClick
+  const handleFilterClick = (index: number | null) => {
+    setPositionCode((prevIndex) =>
+      index === positionCode ? prevIndex : index
+    );
   };
 
-  const handleCheckBoxChange = (e: any) => {
-    const { name, checked } = e.target;
-
-    setIsChecked({
-      ...isChecked,
-      [name]: checked,
-    });
+  //키워드 input onChange
+  const handleInputChange = (e: any) => {
+    setInputText(e.target.value);
   };
 
-  const handleSelectChange = (value: string, name: string) => {
-    setSelected({
-      ...selected,
-      [name]: value,
-    });
+  //키워드 검색 button Click
+  const handleKeywordClick = () => {
+    setKeyword(inputText ? inputText : null);
   };
 
-  const [textCount, setTextCount] = useState(0);
-  const [textAreaValue, setTextAreaValue] = useState("");
-
-  const handleTextAreaChange = (e: any) => {
-    if (e.target.maxLength) {
-      handleTextCount(e);
+  //키워드 검색 input Enter
+  const handleKeywordEnter = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleKeywordClick();
     }
-    setTextAreaValue(e.target.value);
-  };
-
-  const handleTextCount = (e: any) => {
-    const { value, maxLength } = e.target;
-
-    if (value.length > maxLength) {
-      e.target.value = value.slice(0, maxLength);
-    }
-    setTextCount(e.target.value.length);
   };
 
   return (
-    <main>
-      내가 메인
-      <LabelTextArea
-        label="라벨명"
-        location="top"
-        rows={10}
-        value={textAreaValue}
-        name="textarea"
-        onChange={handleTextAreaChange}
-        maxLength={10}
-      />
-      <span>{textCount}</span>
-      <span> / 10</span>
-      {/* <div>
-        <Label label='라벨명1' style={{ fontSize: 20 }}>
-          <TextArea />
-        </Label>
-        <Label label='라벨명2' location='top'>
-          <TextArea />
-        </Label>
-        <Label label='라벨명' require='*'>
-          <TextArea />
-        </Label>
-        <Label label='라벨명' require='*' location='top'>
-          <TextArea />
-        </Label>
-        <Label label='라벨명' require='*' subText='서브텍스트입니다.'>
-          <TextArea />
-        </Label>
-        <Label
-          label='라벨명'
-          require='*'
-          subText='서브텍스트입니다.'
-          location='top'
-        >
-          <TextArea />
-        </Label>
-      </div> */}
-      {/* <div>
-        <Button size='small' mode={"primary"}>
-          중복 확인
-        </Button>
-        <Button size='medium' mode={"primary"}>
-          미디움 프라이머리
-        </Button>
-        <Button size='large' mode={"error"}>
-          라지 에러
-        </Button>
-      </div> */}
-      {/* <div>
-        <Input
-          value={inputValue.password}
-          onChange={handleinputChange}
-          type='password'
-          name='password'
-          size='small'
-          mode={"primary"}
-          errorText='특수문자 포함 8글자 이상 입력해주세요.'
-        />
-        <Input
-          value={"read only"}
-          readOnly
-          name='id'
-          size='medium'
-          mode={"disabled"}
-        />
-        <Input
-          value={inputValue.name}
-          onChange={handleinputChange}
-          name='name'
-          placeholder='이름을 입력해주세요.'
-          size='large'
-          mode='primary'
-        />
-      </div> */}
-      <Modal
-        onClose={() => setVisible(false)}
-        style={{ width: 300, height: 200 }}
-        visible={visible}
-      >
-        내가 모달이야!
-      </Modal>
-      <div>
-        <CheckBox
-          text="이용 약관"
-          isChecked={isChecked.first}
-          name="first"
-          onChange={handleCheckBoxChange}
-          requireText="(필수)"
-          requireStyle={{ fontSize: 20 }}
-        />
-        <CheckBox
-          text="알림 수신 동의"
-          isChecked={isChecked.second}
-          name="second"
-          onChange={handleCheckBoxChange}
-        />
-      </div>
-      {/* <SelectContainer>
-        <Label label='승인 유무 small' style={{ marginRight: 5 }}>
-          <SelectBox
-            options={["미승인", "승인", "반려"]}
-            value={selected.first}
-            name='first'
-            onChange={handleSelectChange}
-            size='small'
+    <>
+      <Container>
+        <LogoProfileWrap>
+          <Link href="/">
+            <Image
+              src={"/images/logo.svg"}
+              alt="logo"
+              width={170}
+              height={47}
+            />
+          </Link>
+          <Link href="/myPage">
+            <Profile />
+          </Link>
+        </LogoProfileWrap>
+        <ImageSlider>광고 이미지</ImageSlider>
+        <Title>프로젝트</Title>
+        <FilterWrap>
+          <div className="buttonWrap">
+            <button
+              className={positionCode === null ? "active" : ""}
+              onClick={() => handleFilterClick(null)}
+            >
+              #전체
+            </button>
+            <button
+              className={positionCode === 1 ? "active" : ""}
+              onClick={() => handleFilterClick(1)}
+            >
+              #디자인
+            </button>
+            <button
+              className={positionCode === 2 ? "active" : ""}
+              onClick={() => handleFilterClick(2)}
+            >
+              #기획
+            </button>
+            <button
+              className={positionCode === 3 ? "active" : ""}
+              onClick={() => handleFilterClick(3)}
+            >
+              #개발
+            </button>
+            <button
+              className={positionCode === 4 ? "active" : ""}
+              onClick={() => handleFilterClick(4)}
+            >
+              #모집중
+            </button>
+          </div>
+          <Input
+            type="search"
+            name="input"
+            value={inputText}
+            mode="search"
+            placeholder="프로젝트 검색"
+            size="large"
+            onChange={handleInputChange}
+            onKeyDown={handleKeywordEnter}
+            onClick={handleKeywordClick}
           />
-        </Label>
-
-        <Label label='승인 유무 medium' style={{ marginRight: 5 }}>
-          <SelectBox
-            options={["미승인", "승인", "반려"]}
-            value={selected.second}
-            name='second'
-            onChange={handleSelectChange}
-          ></SelectBox>
-        </Label>
-
-        <Label
-          label='승인 유무 large'
-          style={{ marginRight: 5 }}
-          location='left'
-        >
-          <SelectBox
-            options={["미승인", "승인", "반려"]}
-            value={selected.third}
-            name='third'
-            onChange={handleSelectChange}
-            size='large'
-          ></SelectBox>
-        </Label>
-      </SelectContainer> */}
-      <LabelInput
-        location="left"
-        labelOption={{
-          label: "dd",
-          require: "*",
-          subText: "서브",
-        }}
-        inputOption={{
-          name: "dd",
-          style: { border: "1px solid red" },
-          size: "small",
-          mode: "disabled",
-        }}
-      />
-      <LabelInput
-        location="top"
-        labelOption={{
-          label: "dd",
-          require: "*",
-          subText: "서브",
-        }}
-        inputOption={{
-          name: "dd",
-          style: { border: "1px solid red" },
-          size: "small",
-          mode: "disabled",
-        }}
-      />
-    </main>
+        </FilterWrap>
+        <ProjectCardWrap>
+          {projectData.data?.map((project) => (
+            <Card
+              key={project.id}
+              title={project.name}
+              startDate={project.recruitStartDate}
+              endDate={project.recruitEndDate}
+              deposit={project.deposit}
+            />
+          ))}
+        </ProjectCardWrap>
+      </Container>
+    </>
   );
-}
+};
 
-const SelectContainer = styled.div`
+export default Page;
+
+const Container = styled.div`
+  margin: 0 auto;
+  max-width: 1280px;
+`;
+
+const LogoProfileWrap = styled.div`
+  padding: 42px 0;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const ImageSlider = styled.div`
+  max-width: 1280px;
+  height: 400px;
+  background: gray;
+`;
+
+const Title = styled.h1`
+  color: ${CS.color.gray3};
+  font-size: 24px;
+  font-weight: 700;
+  margin: 64px 0 24px 0;
+`;
+
+const FilterWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .buttonWrap {
+    display: flex;
+    gap: 8px;
+
+    button {
+      cursor: pointer;
+      box-sizing: border-box;
+      padding: 6px 17px;
+      border-radius: 34px;
+      background: ${CS.color.black};
+      color: ${CS.color.gray6};
+      border: 1px solid ${CS.color.gray8};
+
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+
+    button.active {
+      background: ${CS.color.black};
+      border: 1px solid ${CS.color.brandMain};
+      color: ${CS.color.brandMain};
+      font-size: 16px;
+      font-weight: 700;
+    }
+  }
+`;
+
+const ProjectCardWrap = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 32px;
+  margin: 36px 0;
 `;
