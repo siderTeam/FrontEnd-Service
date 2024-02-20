@@ -1,49 +1,60 @@
 "use client";
 
 import styled from "@emotion/styled";
-
 import { LabelProps } from "@/type/types";
+import * as CS from "../Styles/CommonStyles";
 
 const Label = ({
+  location = "left",
   label,
   require,
-  confirmText,
-  errorText,
   subText,
+  children,
   style,
 }: LabelProps) => {
   return (
-    <>
+    <Container location={location} style={style}>
       <StyledLabel style={style} location={location}>
         {label}
         {require && <StyledRequire>{require}</StyledRequire>}
-        {confirmText && <StyledConfirm>{confirmText}</StyledConfirm>}
-        {errorText && <StyledError>{errorText}</StyledError>}
       </StyledLabel>
       {subText && <StyledSubText location={location}>{subText}</StyledSubText>}
-    </>
+      {children}
+    </Container>
   );
 };
 export default Label;
 
+const CONTAINER_TYPE = {
+  ["left"]: {
+    alignItems: "center",
+  },
+  ["top"]: {
+    flexDirection: "column",
+    gap: "4px",
+  },
+};
+
+const Container = styled.div<{ location: string }>`
+  display: flex;
+  gap: 10px;
+  ${({ location }) => CONTAINER_TYPE[location as "left"]};
+`;
+
 const StyledLabel = styled.label<any>`
-  font-weight: bold;
+  color: ${CS.color.white};
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 `;
 
 const StyledRequire = styled.span`
-  color: red;
-`;
-
-const StyledConfirm = styled.span`
+  color: ${CS.color.brandMain};
+  font-size: 16px;
+  font-style: normal;
   font-weight: 500;
-  margin-left: 10px;
-  color: green;
-`;
-
-const StyledError = styled.span`
-  font-weight: 500;
-  margin-left: 10px;
-  color: red;
+  line-height: normal;
 `;
 
 const StyledSubText = styled.p<any>`
