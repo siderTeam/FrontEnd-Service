@@ -52,5 +52,5 @@ const StyledImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 92px;
+  margin-bottom: 90px;
 `;
