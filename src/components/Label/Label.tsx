@@ -4,20 +4,21 @@ import styled from "@emotion/styled";
 
 import { LabelProps } from "@/types/types";
 
-const Label = ({ label, require, subText, style }: LabelProps) => {
+const Label = ({ label, require, subText, style, children }: LabelProps) => {
   return (
     <>
-      <StyledLabel style={style}>
+      <StyledLabel style={style} location={location}>
         {label}
         {require && <StyledRequire>{require}</StyledRequire>}
+        {children}
       </StyledLabel>
-      {subText && <StyledsubText>{subText}</StyledsubText>}
+      {subText && <StyledSubText location={location}>{subText}</StyledSubText>}
     </>
   );
 };
 export default Label;
 
-const StyledLabel = styled.label`
+const StyledLabel = styled.label<any>`
   font-weight: bold;
 `;
 
@@ -25,8 +26,7 @@ const StyledRequire = styled.span`
   color: red;
 `;
 
-const StyledsubText = styled.p`
+const StyledSubText = styled.p<any>`
   color: #a7a7a7;
-  margin: 0px 0px 3px 0px;
   font-size: 0.8em;
 `;

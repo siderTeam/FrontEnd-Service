@@ -1,5 +1,6 @@
 import "../../public/reset.css";
-import RootContainer from "@/components/RootContainer";
+import RootContainer from "@/component/RootContainer";
+import * as CS from "../component/Styles/CommonStyles";
 
 export const metadata = {
   title: "Next.js",
@@ -12,11 +13,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body style={{ background: "#d8ebff" }}>
+    <html lang='en'>
+      <body style={{ background: CS.color.black }}>
+        {/* <Background /> */}
         <RootContainer>
-          <div style={{ marginLeft: 246 }}>
-            <div style={{ marginLeft: 58 }}>{children}</div>
+          <div>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              {children}
+            </div>
           </div>
         </RootContainer>
       </body>
