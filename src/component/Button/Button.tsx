@@ -9,14 +9,13 @@ import * as CS from "../Styles/CommonStyles";
 
 const Button = ({
   children,
-  size = "full",
+  size = "medium",
   mode = "primary",
   style,
   onClick,
-  isDisabled = false,
   leftIcon,
   rightIcon,
-  iconSize = 20,
+  iconSize = 16,
   ...rest
 }: ButtonProps) => {
   return (
@@ -24,7 +23,6 @@ const Button = ({
       size={size}
       mode={mode}
       style={style}
-      disabled={isDisabled}
       onClick={onClick}
       {...rest}
     >
@@ -41,14 +39,31 @@ const Button = ({
 export default Button;
 
 const BUTTON_TYPE = {
-  ["full"]: {
-    width: "100%",
-    padding: " 13px 0px",
-    borderRadius: "12px",
+  ["medium"]: {
+    padding: "10px 20px",
+    borderRadius: "6px",
+    gap: "4px",
+
+    fontSize: "16px",
+    fontWeight: 700,
   },
-  ["free"]: {
-    padding: " 16px",
+  ["large"]: {
+    width: "364px",
+    height: "56px",
+    padding: "13px 0px",
+    borderRadius: "12px",
+
+    fontSize: "24px",
+    fontWeight: 700,
+  },
+  ["in_input"]: {
+    width: "90px",
+    height: "52px",
+    padding: "16px",
     borderRadius: "10px",
+
+    fontSize: "16px",
+    fontWeight: 500,
   },
 };
 
@@ -56,36 +71,46 @@ const COLOR_TYPE = {
   ["primary"]: {
     background: `${CS.color.brandMain}`,
     color: `${CS.color.black}`,
-
-    fontSize: "24px",
-    fontStyle: "normal",
-    fontWeight: 700,
-    lineHeight: "normal",
   },
-  ["primary-reverse"]: {
+  ["secondary"]: {
     background: "none",
-    color: `${CS.color.brandMain}`,
     border: `1px solid ${CS.color.brandMain}`,
+    color: `${CS.color.brandMain}`,
+  },
+};
 
-    fontSize: "24px",
-    fontStyle: "normal",
-    fontWeight: 700,
-    lineHeight: "normal",
+const DISABLED_TYPE = {
+  ["primary"]: {
+    background: `${CS.color.gray8}`,
+    color: `${CS.color.gray9}`,
+  },
+  ["secondary"]: {
+    background: "none",
+    border: `1px solid ${CS.color.gray9}`,
+    color: `${CS.color.gray8}`,
   },
 };
 
 const StyledButton = styled.button<BUTTON_STYLE_PROPS>`
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  font-style: normal;
+  line-height: normal;
 
-  cursor: pointer;
   border: none;
+  cursor: ${({ disabled }) => !disabled && "pointer"};
 
-  ${({ size }) => BUTTON_TYPE[size as "full"]};
+  ${({ size }) => BUTTON_TYPE[size as "medium"]};
   ${({ mode }) => COLOR_TYPE[mode as "primary"]};
 
-  background: ${(props) => props.disabled && CS.color.gray8};
-  color: ${(props) => props.disabled && CS.color.gray9};
+  &:disabled {
+    ${({ mode }) => DISABLED_TYPE[mode as "primary"]};
+  }
+
+  &:hover:not(:disabled) {
+    box-shadow: 0px 0px 6px 0px ${CS.color.brandMain};
+  }
 `;
