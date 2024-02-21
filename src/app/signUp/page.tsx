@@ -74,6 +74,9 @@ const ContainerWrap = styled.div`
   border-radius: 20px;
 
   .signUpContainer {
+    display: flex;
+    flex-direction: column;
+
     box-sizing: border-box;
     width: 624px;
     height: 785px;

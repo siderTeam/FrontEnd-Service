@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../../../component/Styles/CommonStyles";
+import { color } from "../../../Styles/CommonStyles";
 import Button from "@/component/Button/Button";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,7 +24,7 @@ const LastContent = () => {
         />
       </StyledImage>
       <Link href={"/login"}>
-        <Button>고고</Button>
+        <Button size="large">고고</Button>
       </Link>
     </>
   );
@@ -41,7 +41,7 @@ const Progressbar = styled.div`
 
 const SubTitle = styled.div`
   margin-bottom: 56px;
-  color: ${CS.color.gray3};
+  color: ${color.gray3};
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -49,8 +49,8 @@ const SubTitle = styled.div`
 `;
 
 const StyledImage = styled.div`
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 90px;
 `;

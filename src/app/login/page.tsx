@@ -10,7 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import { getAccessToken, postUserSignIn } from "../api/api";
 import { setCookie } from "public/lib/util";
 import Input from "@/component/Input/Input";
-import * as CS from "../../component/Styles/CommonStyles";
+import { color } from "../../Styles/CommonStyles";
 import CheckBox from "@/component/CheckBox/CheckBox";
 
 const Page = () => {
@@ -147,7 +147,7 @@ const LoginContainer = styled.div`
   backdrop-filter: blur(20px);
 
   .title {
-    color: ${CS.color.brandMain};
+    color: ${color.brandMain};
     text-align: center;
     font-size: 32px;
     font-style: normal;
@@ -179,7 +179,7 @@ const TextWrap = styled.div`
   margin-bottom: 51px;
 
   .findInfo {
-    color: ${CS.color.gray5};
+    color: ${color.gray5};
     font-size: 12px;
     font-style: normal;
     font-weight: 400;

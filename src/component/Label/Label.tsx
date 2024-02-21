@@ -2,7 +2,7 @@
 
 import styled from "@emotion/styled";
 import { LabelProps } from "@/type/types";
-import * as CS from "../Styles/CommonStyles";
+import { color } from "../../Styles/CommonStyles";
 
 const Label = ({
   location = "left",
@@ -42,7 +42,7 @@ const Container = styled.div<{ location: string }>`
 `;
 
 const StyledLabel = styled.label<any>`
-  color: ${CS.color.white};
+  color: ${color.white};
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -50,7 +50,7 @@ const StyledLabel = styled.label<any>`
 `;
 
 const StyledRequire = styled.span`
-  color: ${CS.color.brandMain};
+  color: ${color.brandMain};
   font-size: 16px;
   font-style: normal;
   font-weight: 500;

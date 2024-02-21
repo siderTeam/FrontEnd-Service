@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../../../component/Styles/CommonStyles";
+import { color } from "../../../Styles/CommonStyles";
 import { useEffect, useState } from "react";
 import Input from "@/component/Input/Input";
 import { USER_SIGNUP_REQUEST } from "@/app/api/model";
@@ -84,7 +84,6 @@ const SecondContent = ({ onNext }: SignUpProps) => {
           />
           <StyledButton
             size="in_input"
-            style={{ fontSize: "16px", fontWeight: 500 }}
             onClick={() => setUsername(form.username)}
           >
             중복확인
@@ -128,7 +127,9 @@ const SecondContent = ({ onNext }: SignUpProps) => {
           maxLength={11}
         />
       </InputWrap>
-      <Button onClick={onNext}>다음</Button>
+      <Button size="large" onClick={onNext}>
+        다음
+      </Button>
     </>
   );
 };
@@ -144,7 +145,7 @@ const Progressbar = styled.div`
 
 const SubTitle = styled.div`
   margin-bottom: 32px;
-  color: ${CS.color.gray3};
+  color: ${color.gray3};
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -152,10 +153,10 @@ const SubTitle = styled.div`
 `;
 
 const InputWrap = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 46px;
 
   .idWrap {
     display: flex;

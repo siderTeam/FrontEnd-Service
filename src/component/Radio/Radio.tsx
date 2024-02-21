@@ -2,7 +2,7 @@
 
 import styled from "@emotion/styled";
 import { RadioProps } from "@/type/types";
-import * as CS from "../Styles/CommonStyles";
+import { color } from "../../Styles/CommonStyles";
 
 const Radio = ({
   text,
@@ -76,7 +76,7 @@ const StyledRadio = styled.input<any>`
 `;
 
 const StyledLabel = styled.div`
-  color: ${CS.color.white};
+  color: ${color.white};
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -84,7 +84,7 @@ const StyledLabel = styled.div`
 `;
 
 const StyledRequire = styled.div`
-  color: ${CS.color.gray6};
+  color: ${color.gray6};
   font-size: 14px;
   font-style: normal;
   font-weight: 400;

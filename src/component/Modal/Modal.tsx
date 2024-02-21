@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../../Styles/CommonStyles";
+import { color } from "../../Styles/CommonStyles";
 import { ModalProps } from "@/type/types";
 import Sidebar from "../ModalSidebar/ModalSidebar";
 import Image from "next/image";
@@ -58,7 +58,7 @@ const ModalContainer = styled.div`
 
   border-radius: 24px;
   border: 1px solid rgba(255, 255, 255, 0.6);
-  background: ${CS.color.black};
+  background: ${color.black};
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
 `;
 

@@ -3,7 +3,7 @@
 import styled from "@emotion/styled";
 import { InputProps } from "@/type/types";
 import Image from "next/image";
-import * as CS from "../Styles/CommonStyles";
+import { color } from "../../Styles/CommonStyles";
 
 const Input = ({
   type,
@@ -47,22 +47,22 @@ const INPUT_TYPE = {
     width: "331px",
     height: "40px",
     padding: "10px 20px",
-    border: `1px solid ${CS.color.gray6}`,
+    border: `1px solid ${color.gray6}`,
     borderRadius: "8px",
   },
   ["large"]: {
     width: "364px",
     height: "56px",
     padding: "18px 20px",
-    border: `1px solid ${CS.color.gray6}`,
+    border: `1px solid ${color.gray6}`,
     borderRadius: "12px",
   },
 };
 
 const COLOR_TYPE = {
-  ["primary"]: `${CS.color.gray6}`,
-  ["failed"]: `${CS.color.error1}`,
-  ["positive"]: `${CS.color.positive1}`,
+  ["primary"]: `${color.gray6}`,
+  ["failed"]: `${color.error1}`,
+  ["positive"]: `${color.positive1}`,
 };
 
 const Container = styled.div`
@@ -73,7 +73,7 @@ const Container = styled.div`
 const StyledInput = styled.input<any>`
   ${({ size }) => INPUT_TYPE[size as "medium"]};
   border: 1px solid ${({ mode }) => COLOR_TYPE[mode as "primary"]};
-  color: ${({ disabled }) => (disabled ? CS.color.gray9 : CS.color.white)};
+  color: ${({ disabled }) => (disabled ? color.gray9 : color.white)};
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -84,12 +84,12 @@ const StyledInput = styled.input<any>`
   outline: none;
 
   &::placeholder {
-    color: ${CS.color.gray7};
+    color: ${color.gray7};
   }
 
   &:disabled {
-    border: 1px solid ${CS.color.gray9};
-    color: ${CS.color.gray8};
+    border: 1px solid ${color.gray9};
+    color: ${color.gray8};
   }
 
   //자동완성
@@ -97,8 +97,8 @@ const StyledInput = styled.input<any>`
   &:-webkit-autofill:hover,
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active {
-    box-shadow: 0 0 0 1000px ${CS.color.black} inset; //배경색
-    -webkit-text-fill-color: ${CS.color.white}; //글자색
+    box-shadow: 0 0 0 1000px ${color.black} inset; //배경색
+    -webkit-text-fill-color: ${color.white}; //글자색
   }
 `;
 

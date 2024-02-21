@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { CheckboxProps } from "@/type/types";
-import * as CS from "../Styles/CommonStyles";
+import { color } from "../../Styles/CommonStyles";
 
 const CheckBox = ({
   text,
@@ -64,7 +64,7 @@ const StyledCheckBox = styled.input`
 `;
 
 const StyledLabel = styled.div`
-  color: ${CS.color.gray5};
+  color: ${color.gray5};
   text-align: right;
   font-family: "Spoqa Han Sans Neo";
   font-size: 12px;
@@ -74,7 +74,7 @@ const StyledLabel = styled.div`
 `;
 
 const StyledRequire = styled.div`
-  color: ${CS.color.gray6};
+  color: ${color.gray6};
   font-size: 14px;
   font-style: normal;
   font-weight: 400;

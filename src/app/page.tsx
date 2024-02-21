@@ -8,10 +8,9 @@ import { rest } from "./api/rest";
 import { getProject } from "./api/api";
 import { useState } from "react";
 import Card from "@/component/Card/Card";
-import Input from "@/component/Input/Input";
 import Profile from "@/component/Profile/Profile";
-import * as CS from "../component/Styles/CommonStyles";
-import Modal from "@/component/Modal/Modal";
+import { color } from "../Styles/CommonStyles";
+import SelectInput from "@/component/SelectInput/SelectInput";
 
 const Page = () => {
   const [positionCode, setPositionCode] = useState<number | null>(null);
@@ -60,9 +59,25 @@ const Page = () => {
               height={47}
             />
           </Link>
-          <Link href="/myPage">
+          <div className="profileWrap">
             <Profile />
-          </Link>
+            <Link href="/myPage">
+              <Image
+                src={"/images/icons/person_white.svg"}
+                alt="myPage"
+                width={24}
+                height={24}
+              />
+            </Link>
+            <Link href="/login">
+              <Image
+                src={"/images/icons/on_white.svg"}
+                alt="myPage"
+                width={24}
+                height={24}
+              />
+            </Link>
+          </div>
         </LogoProfileWrap>
         <ImageSlider>광고 이미지</ImageSlider>
         <Title>프로젝트</Title>
@@ -99,7 +114,8 @@ const Page = () => {
               #모집중
             </button>
           </div>
-          <Input
+          <SelectInput />
+          {/* <Input
             name="input"
             value={inputText}
             placeholder="프로젝트 검색"
@@ -107,7 +123,7 @@ const Page = () => {
             onChange={handleInputChange}
             onKeyDown={handleKeywordEnter}
             onClick={handleKeywordClick}
-          />
+          /> */}
         </FilterWrap>
         <ProjectCardWrap>
           {projectData.data?.map((project) => (
@@ -137,6 +153,12 @@ const LogoProfileWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  .profileWrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
 `;
 
 const ImageSlider = styled.div`
@@ -146,7 +168,7 @@ const ImageSlider = styled.div`
 `;
 
 const Title = styled.h1`
-  color: ${CS.color.gray3};
+  color: ${color.gray3};
   font-size: 24px;
   font-weight: 700;
   margin: 64px 0 24px 0;
@@ -166,9 +188,9 @@ const FilterWrap = styled.div`
       box-sizing: border-box;
       padding: 6px 17px;
       border-radius: 34px;
-      background: ${CS.color.black};
-      color: ${CS.color.gray6};
-      border: 1px solid ${CS.color.gray8};
+      background: ${color.black};
+      color: ${color.gray6};
+      border: 1px solid ${color.gray8};
 
       font-size: 16px;
       font-style: normal;
@@ -177,9 +199,9 @@ const FilterWrap = styled.div`
     }
 
     button.active {
-      background: ${CS.color.black};
-      border: 1px solid ${CS.color.brandMain};
-      color: ${CS.color.brandMain};
+      background: ${color.black};
+      border: 1px solid ${color.brandMain};
+      color: ${color.brandMain};
       font-size: 16px;
       font-weight: 700;
     }

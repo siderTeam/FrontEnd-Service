@@ -4,9 +4,9 @@ import styled from "@emotion/styled";
 import { CardProps } from "@/type/types";
 import Image from "next/image";
 import Profile from "../Profile/Profile";
-import * as CS from "../Styles/CommonStyles";
+import { color } from "../../Styles/CommonStyles";
 
-const color = ["red", "yellow", "purple", "green", "blue"];
+const colorArr = ["red", "yellow", "purple", "green", "blue"];
 
 const ProjectCard = ({
   title,
@@ -15,7 +15,7 @@ const ProjectCard = ({
   deposit,
   style,
 }: CardProps) => {
-  const cardColor = color[Math.floor(Math.random() * color.length)];
+  const cardColor = colorArr[Math.floor(Math.random() * colorArr.length)];
 
   return (
     <Container className={cardColor}>
@@ -130,7 +130,7 @@ const CardWrap = styled.div`
   z-index: 1;
 
   .subTitle {
-    color: ${CS.color.gray5};
+    color: ${color.gray5};
     font-size: 12px;
     font-weight: 400;
   }
@@ -146,7 +146,7 @@ const CardWrap = styled.div`
 
   .title {
     height: 40px;
-    color: ${CS.color.white};
+    color: ${color.white};
     font-size: 16px;
     font-weight: 700;
     line-height: normal;
@@ -163,6 +163,7 @@ const CardWrap = styled.div`
 const SubInfo = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 16px;
 
   .info {
     display: flex;
@@ -171,13 +172,13 @@ const SubInfo = styled.div`
   }
 
   .projectDate {
-    color: ${CS.color.gray2};
+    color: ${color.gray2};
     font-size: 12px;
     font-weight: 500;
   }
 
   .deposit {
-    color: ${CS.color.gray3};
+    color: ${color.gray3};
     font-size: 12px;
     font-weight: 700;
   }

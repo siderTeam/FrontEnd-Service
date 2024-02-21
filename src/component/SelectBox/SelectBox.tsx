@@ -3,7 +3,7 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { SelectBoxProps } from "@/type/types";
-import * as CS from "../Styles/CommonStyles";
+import { color } from "../../Styles/CommonStyles";
 
 const SelectBox = ({
   size = "medium",
@@ -93,8 +93,8 @@ const StyledSelect = styled.div<any>`
   width: 100%;
   padding: 20px;
   border-radius: 12px;
-  border: 1px solid ${CS.color.gray6};
-  color: ${CS.color.gray7};
+  border: 1px solid ${color.gray6};
+  color: ${color.gray7};
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -109,21 +109,21 @@ const StyledSelect = styled.div<any>`
   }
 
   .value {
-    color: ${CS.color.white};
+    color: ${color.white};
   }
 `;
 
 const OptionWrapper = styled.ul`
   position: absolute;
   width: 100%;
-  color: ${CS.color.gray7};
+  color: ${color.gray7};
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   box-sizing: border-box;
-  background: ${CS.color.black};
-  border: 1px solid ${CS.color.gray6};
+  background: ${color.black};
+  border: 1px solid ${color.gray6};
   border-radius: 12px;
   z-index: 3;
 
@@ -134,7 +134,7 @@ const OptionWrapper = styled.ul`
     width: 12px; /* 스크롤바의 너비 */
   }
   &::-webkit-scrollbar-thumb {
-    background: ${CS.color.gray5}; /* 스크롤바의 색상 */
+    background: ${color.gray5}; /* 스크롤바의 색상 */
     border-radius: 28px;
 
     background-clip: padding-box;
@@ -153,7 +153,7 @@ const OptionWrapper = styled.ul`
   }
 
   li:hover {
-    background: ${CS.color.gray8};
-    color: ${CS.color.white};
+    background: ${color.gray8};
+    color: ${color.white};
   }
 `;

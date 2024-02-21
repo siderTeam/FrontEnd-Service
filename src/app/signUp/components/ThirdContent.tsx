@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../../../component/Styles/CommonStyles";
+import { color } from "../../../Styles/CommonStyles";
 import Button from "@/component/Button/Button";
 import SelectBox from "@/component/SelectBox/SelectBox";
 import Input from "@/component/Input/Input";
@@ -50,7 +50,7 @@ const ThirdContent = ({ onNext }: SignUpProps) => {
     ) {
       e.preventDefault();
     }
-  }
+  };
 
   return (
     <>
@@ -77,7 +77,7 @@ const ThirdContent = ({ onNext }: SignUpProps) => {
         <Input
           type="text"
           name="year"
-          size="full"
+          size="large"
           placeholder="연차"
           onChange={handleChange}
           onKeyDown={handleKeyDown}
@@ -85,7 +85,9 @@ const ThirdContent = ({ onNext }: SignUpProps) => {
         />
       </Wrap>
       <Text>거의 다 왔어요!</Text>
-      <Button onClick={onNext}>다음</Button>
+      <Button size="large" onClick={onNext}>
+        다음
+      </Button>
     </>
   );
 };
@@ -101,7 +103,7 @@ const Progressbar = styled.div`
 
 const SubTitle = styled.div`
   margin-bottom: 32px;
-  color: ${CS.color.gray3};
+  color: ${color.gray3};
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -115,12 +117,13 @@ const Wrap = styled.div`
 `;
 
 const Text = styled.div`
-  color: ${CS.color.gray8};
+  color: ${color.gray8};
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
 
-  margin: 147px 0;
+  flex: 1;
+  margin-top: 147px;
   text-align: center;
 `;

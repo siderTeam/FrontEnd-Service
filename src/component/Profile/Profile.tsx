@@ -2,7 +2,7 @@
 
 import styled from "@emotion/styled";
 import Image from "next/image";
-import * as CS from "../Styles/CommonStyles";
+import { color } from "../../Styles/CommonStyles";
 
 const Profile = () => {
   return (
@@ -27,7 +27,6 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 16px;
 `;
 
 const ProfileInfo = styled.div`
@@ -40,14 +39,14 @@ const ProfileInfo = styled.div`
   text-overflow: ellipsis;
 
   .username {
-    color: ${CS.color.gray3};
+    color: ${color.gray3};
     font-size: 14px;
     font-weight: 500;
     line-height: normal;
   }
 
   .position {
-    color: ${CS.color.gray4};
+    color: ${color.gray4};
     font-size: 14px;
     font-weight: 400;
     line-height: normal;

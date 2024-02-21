@@ -2,7 +2,7 @@
 
 import styled from "@emotion/styled";
 import { TextareaProps } from "@/type/types";
-import * as CS from "../../Styles/CommonStyles";
+import { color } from "../../Styles/CommonStyles";
 import { useState } from "react";
 
 const TextArea = ({ maxLength, textCount, style, ...rest }: TextareaProps) => {
@@ -23,7 +23,7 @@ const Container = styled.div`
   position: relative;
 
   .count {
-    color: ${CS.color.white};
+    color: ${color.white};
     position: absolute;
     bottom: 10px;
     right: 20px;
@@ -34,13 +34,13 @@ const StyledTextArea = styled.textarea<any>`
   box-sizing: border-box;
   padding: 10px 20px;
   border-radius: 8px;
-  border: 1px solid ${CS.color.gray6};
+  border: 1px solid ${color.gray6};
 
   background: none;
   outline: none;
   resize: none;
 
-  color: ${CS.color.white};
+  color: ${color.white};
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -52,7 +52,7 @@ const StyledTextArea = styled.textarea<any>`
     width: 12px; /* 스크롤바의 너비 */
   }
   &::-webkit-scrollbar-thumb {
-    background: ${CS.color.gray5}; /* 스크롤바의 색상 */
+    background: ${color.gray5}; /* 스크롤바의 색상 */
     border-radius: 28px;
 
     background-clip: padding-box;

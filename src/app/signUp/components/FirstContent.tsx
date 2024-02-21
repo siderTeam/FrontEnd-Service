@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../../../component/Styles/CommonStyles";
+import { color } from "../../../Styles/CommonStyles";
 import Radio from "@/component/Radio/Radio";
 import { useState } from "react";
 import Button from "@/component/Button/Button";
@@ -92,7 +92,9 @@ const FirstContent = ({ onNext }: SignUpProps) => {
           </div>
         </div>
       </RadioWrap>
-      <Button onClick={onNext}>다음</Button>
+      <Button size="large" onClick={onNext}>
+        다음
+      </Button>
     </>
   );
 };
@@ -108,7 +110,7 @@ const Progressbar = styled.div`
 
 const SubTitle = styled.div`
   margin-bottom: 32px;
-  color: ${CS.color.gray3};
+  color: ${color.gray3};
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -116,10 +118,10 @@ const SubTitle = styled.div`
 `;
 
 const RadioWrap = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  margin-bottom: 43px;
 
   .explain {
     box-sizing: border-box;
@@ -130,7 +132,7 @@ const RadioWrap = styled.div`
     float: right;
 
     border-radius: 8px;
-    border: 1px solid ${CS.color.gray7};
+    border: 1px solid ${color.gray7};
 
     overflow-y: auto;
 
@@ -138,7 +140,7 @@ const RadioWrap = styled.div`
       width: 12px; /* 스크롤바의 너비 */
     }
     &::-webkit-scrollbar-thumb {
-      background: ${CS.color.gray5}; /* 스크롤바의 색상 */
+      background: ${color.gray5}; /* 스크롤바의 색상 */
       border-radius: 28px;
 
       background-clip: padding-box;
@@ -146,7 +148,7 @@ const RadioWrap = styled.div`
     }
 
     p {
-      color: ${CS.color.gray4};
+      color: ${color.gray4};
       font-size: 12px;
       font-style: normal;
       font-weight: 400;

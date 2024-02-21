@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import { ButtonProps } from "@/type/types";
 import { BUTTON_STYLE_PROPS } from "@/type/types";
 import Image from "next/image";
-import * as CS from "../Styles/CommonStyles";
+import { color } from "../../Styles/CommonStyles";
 
 const Button = ({
   children,
@@ -69,25 +69,25 @@ const BUTTON_TYPE = {
 
 const COLOR_TYPE = {
   ["primary"]: {
-    background: `${CS.color.brandMain}`,
-    color: `${CS.color.black}`,
+    background: `${color.brandMain}`,
+    color: `${color.black}`,
   },
   ["secondary"]: {
     background: "none",
-    border: `1px solid ${CS.color.brandMain}`,
-    color: `${CS.color.brandMain}`,
+    border: `1px solid ${color.brandMain}`,
+    color: `${color.brandMain}`,
   },
 };
 
 const DISABLED_TYPE = {
   ["primary"]: {
-    background: `${CS.color.gray8}`,
-    color: `${CS.color.gray9}`,
+    background: `${color.gray8}`,
+    color: `${color.gray9}`,
   },
   ["secondary"]: {
     background: "none",
-    border: `1px solid ${CS.color.gray9}`,
-    color: `${CS.color.gray8}`,
+    border: `1px solid ${color.gray9}`,
+    color: `${color.gray8}`,
   },
 };
 
@@ -111,6 +111,6 @@ const StyledButton = styled.button<BUTTON_STYLE_PROPS>`
   }
 
   &:hover:not(:disabled) {
-    box-shadow: 0px 0px 6px 0px ${CS.color.brandMain};
+    box-shadow: 0px 0px 6px 0px ${color.brandMain};
   }
 `;

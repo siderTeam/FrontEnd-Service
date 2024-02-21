@@ -10,7 +10,7 @@ import { useState } from "react";
 import Card from "@/component/Card/Card";
 import Input from "@/component/Input/Input";
 import Profile from "@/component/Profile/Profile";
-import * as CS from "../../component/Styles/CommonStyles";
+import { color } from "../../Styles/CommonStyles";
 
 const Page = () => {
   const [positionCode, setPositionCode] = useState<number | null>(null);
@@ -138,7 +138,7 @@ const ImageSlider = styled.div`
 `;
 
 const Title = styled.h1`
-  color: ${CS.color.gray3};
+  color: ${color.gray3};
   font-size: 24px;
   font-weight: 700;
   margin: 64px 0 24px 0;
@@ -158,9 +158,9 @@ const FilterWrap = styled.div`
       box-sizing: border-box;
       padding: 6px 17px;
       border-radius: 34px;
-      background: ${CS.color.black};
-      color: ${CS.color.gray6};
-      border: 1px solid ${CS.color.gray8};
+      background: ${color.black};
+      color: ${color.gray6};
+      border: 1px solid ${color.gray8};
 
       font-size: 16px;
       font-style: normal;
@@ -169,9 +169,9 @@ const FilterWrap = styled.div`
     }
 
     button.active {
-      background: ${CS.color.black};
-      border: 1px solid ${CS.color.brandMain};
-      color: ${CS.color.brandMain};
+      background: ${color.black};
+      border: 1px solid ${color.brandMain};
+      color: ${color.brandMain};
       font-size: 16px;
       font-weight: 700;
     }
