@@ -1,17 +1,4 @@
-"use client";
-
-import Button from "@/components/Button/Button";
-import Input from "@/components/Input/Input";
-import Modal from "@/components/Modal/Modal";
-import TextArea from "@/components/TextArea/TextArea";
-import Label from "@/components/Label/Label";
-import { useState } from "react";
-import CheckBox from "@/components/CheckBox/CheckBox";
-import SelectBox from "@/components/SelectBox/SelectBox";
-
-import styled from "@emotion/styled";
-import LabelInput from "@/components/LabelInput/LabelInput";
-
+// "use client";
 export default function Home() {
   // const [visible, setVisible] = useState(false);
   // const [inputValue, setInputValue] = useState({
@@ -208,8 +195,3 @@ export default function Home() {
     </main>
   );
 }
-
-const SelectContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
