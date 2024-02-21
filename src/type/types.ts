@@ -20,8 +20,8 @@ export type CardProps = {
 
 //input
 export type INPUT_STYLE_PROPS = {
-  size?: "large" | "full";
-  mode?: "primary" | "disabled" | "search" | "text";
+  size?: "medium" | "large";
+  mode?: "primary" | "failed" | "positive";
 };
 
 export type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
@@ -42,8 +42,8 @@ export type InputProps = INPUT_STYLE_PROPS &
 
 //button
 export type BUTTON_STYLE_PROPS = {
-  size?: "full" | "free";
-  mode?: "primary" | "primary-reverse";
+  size?: "medium" | "large" | "in_input";
+  mode?: "primary" | "secondary";
 };
 
 export type ButtonProps = BUTTON_STYLE_PROPS &
@@ -102,8 +102,13 @@ export type CheckboxProps = {
   requireStyle?: React.CSSProperties;
 };
 
+//Radio style
+export type RADIO_PROPS = {
+  size?: "small" | "big";
+};
+
 //Radio
-export type RadioProps = {
+export type RadioProps = RADIO_PROPS & {
   text: string;
   name: string;
   value: string;

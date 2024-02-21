@@ -78,12 +78,12 @@ const SecondContent = ({ onNext }: SignUpProps) => {
           <Input
             type="text"
             name="username"
-            size="full"
+            size="large"
             placeholder="아이디"
             onChange={handleChange}
           />
           <StyledButton
-            size="free"
+            size="in_input"
             style={{ fontSize: "16px", fontWeight: 500 }}
             onClick={() => setUsername(form.username)}
           >
@@ -93,35 +93,35 @@ const SecondContent = ({ onNext }: SignUpProps) => {
         <Input
           type="password"
           name="password"
-          size="full"
+          size="large"
           placeholder="비밀번호"
           onChange={handleChange}
         />
         <Input
           type="password"
           name="passwordCheck"
-          size="full"
+          size="large"
           placeholder="비밀번호 확인"
           onChange={handleChange}
         />
         <Input
           type="text"
           name="name"
-          size="full"
+          size="large"
           placeholder="이름"
           onChange={handleChange}
         />
         <Input
           type="text"
           name="nickname"
-          size="full"
+          size="large"
           placeholder="닉네임"
           onChange={handleChange}
         />
         <Input
           type="text"
           name="phone"
-          size="full"
+          size="large"
           placeholder="전화번호"
           onChange={handleChange}
           onKeyDown={handleKeyDown}
@@ -159,6 +159,7 @@ const InputWrap = styled.div`
 
   .idWrap {
     display: flex;
+    flex-direction: column;
     position: relative;
   }
 `;

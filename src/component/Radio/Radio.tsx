@@ -11,6 +11,7 @@ const Radio = ({
   requireText,
   isChecked = false,
   disabled = false,
+  size = "big",
   onChange,
   style,
 }: RadioProps) => {
@@ -23,6 +24,7 @@ const Radio = ({
         checked={isChecked}
         disabled={disabled}
         onChange={onChange}
+        size={size}
         style={style}
       />
       <StyledLabel>{text}</StyledLabel>
@@ -33,16 +35,26 @@ const Radio = ({
 
 export default Radio;
 
+const BUTTON_TYPE = {
+  ["big"]: {
+    width: "20px",
+    height: "20px",
+  },
+  ["small"]: {
+    width: "16px",
+    height: "16px",
+  },
+};
+
 const Container = styled.label`
   display: flex;
   align-items: center;
   cursor: pointer;
 `;
 
-const StyledRadio = styled.input`
+const StyledRadio = styled.input<any>`
+  ${({ size }) => BUTTON_TYPE[size as "big"]};
   background-image: url("/images/radio/UnChecked.svg");
-  width: 20px;
-  height: 20px;
   margin: 0 12px 0 0;
   appearance: none; /* 기본 체크박스 스타일 제거 */
 

@@ -100,12 +100,10 @@ const Page = () => {
             </button>
           </div>
           <Input
-            type="search"
             name="input"
             value={inputText}
-            mode="search"
             placeholder="프로젝트 검색"
-            size="large"
+            size="medium"
             onChange={handleInputChange}
             onKeyDown={handleKeywordEnter}
             onClick={handleKeywordClick}

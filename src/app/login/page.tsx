@@ -68,14 +68,14 @@ const Page = () => {
           <Input
             type="text"
             name="username"
-            size="full"
+            size="large"
             placeholder="아이디"
             onChange={handleChange}
           />
           <Input
             type="password"
             name="password"
-            size="full"
+            size="large"
             placeholder="비밀번호"
             onChange={handleChange}
           />
@@ -91,9 +91,13 @@ const Page = () => {
           </Link>
         </TextWrap>
         <div className="buttonWrap">
-          <Button onClick={handleLogin}>로그인</Button>
+          <Button size="large" onClick={handleLogin}>
+            로그인
+          </Button>
           <Link href="/signUp">
-            <Button mode="primary-reverse">회원가입</Button>
+            <Button size="large" mode="secondary">
+              회원가입
+            </Button>
           </Link>
         </div>
       </LoginContainer>
