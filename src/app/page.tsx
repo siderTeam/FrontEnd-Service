@@ -1,58 +1,46 @@
-"use client";
-
-import Button from "@/components/Button/Button";
-import Input from "@/components/Input/Input";
-import Modal from "@/components/Modal/Modal";
-import TextArea from "@/components/TextArea/TextArea";
-import Label from "@/components/Label/Label";
-import { useState } from "react";
-import CheckBox from "@/components/CheckBox/CheckBox";
-import SelectBox from "@/components/SelectBox/SelectBox";
-
-import styled from "@emotion/styled";
-
+// "use client";
 export default function Home() {
-  const [visible, setVisible] = useState(false);
-  const [inputValue, setInputValue] = useState({
-    name: "",
-    password: "",
-  });
+  // const [visible, setVisible] = useState(false);
+  // const [inputValue, setInputValue] = useState({
+  //   name: "",
+  //   password: "",
+  // });
 
-  const [isChecked, setIsChecked] = useState({
-    first: false,
-    second: false,
-  });
+  // const [isChecked, setIsChecked] = useState({
+  //   first: false,
+  //   second: false,
+  // });
 
-  const [selected, setSelected] = useState({
-    first: "미승인",
-    second: "승인",
-    third: "반려",
-  });
+  // const [selected, setSelected] = useState({
+  //   first: "미승인",
+  //   second: "승인",
+  //   third: "반려",
+  // });
 
-  const handleinputChange = (e: any) => {
-    const { value, name } = e.target;
+  // const handleinputChange = (e: any) => {
+  //   const { value, name } = e.target;
 
-    setInputValue({
-      ...inputValue,
-      [name]: value,
-    });
-  };
+  //   setInputValue({
+  //     ...inputValue,
+  //     [name]: value,
+  //   });
+  // };
 
-  const handleCheckBoxChange = (e: any) => {
-    const { name, checked } = e.target;
+  // const handleCheckBoxChange = (e: any) => {
+  //   const { name, checked } = e.target;
 
-    setIsChecked({
-      ...isChecked,
-      [name]: checked,
-    });
-  };
+  //   setIsChecked({
+  //     ...isChecked,
+  //     [name]: checked,
+  //   });
+  // };
 
-  const handleSelectChange = (value: string, name: string) => {
-    setSelected({
-      ...selected,
-      [name]: value,
-    });
-  };
+  // const handleSelectChange = (value: string, name: string) => {
+  //   setSelected({
+  //     ...selected,
+  //     [name]: value,
+  //   });
+  // };
 
   return (
     <main>
@@ -119,64 +107,91 @@ export default function Home() {
           mode='primary'
         />
       </div> */}
-      <Modal
+      {/* <Modal
         onClose={() => setVisible(false)}
         style={{ width: 300, height: 200 }}
         visible={visible}
       >
         내가 모달이야!
       </Modal>
-      {/* <div>
+      <div>
         <CheckBox
-          text='이용 약관'
+          text="이용 약관"
           isChecked={isChecked.first}
-          name='first'
+          name="first"
           onChange={handleCheckBoxChange}
-          requireText='(필수)'
+          requireText="(필수)"
           requireStyle={{ fontSize: 20 }}
         />
         <CheckBox
-          text='알림 수신 동의'
+          text="알림 수신 동의"
           isChecked={isChecked.second}
-          name='second'
+          name="second"
           onChange={handleCheckBoxChange}
         />
       </div> */}
-      <SelectContainer>
-        <Label label="승인 유무 small" style={{ marginRight: 5 }}>
+      {/* <SelectContainer>
+        <Label label='승인 유무 small' style={{ marginRight: 5 }}>
           <SelectBox
             options={["미승인", "승인", "반려"]}
             value={selected.first}
-            name="first"
+            name='first'
             onChange={handleSelectChange}
-            size="small"
+            size='small'
           />
         </Label>
 
-        <Label label="승인 유무 medium" style={{ marginRight: 5 }}>
+        <Label label='승인 유무 medium' style={{ marginRight: 5 }}>
           <SelectBox
             options={["미승인", "승인", "반려"]}
             value={selected.second}
-            name="second"
+            name='second'
             onChange={handleSelectChange}
           ></SelectBox>
         </Label>
 
-        <Label label="승인 유무 large" style={{ marginRight: 5 }}>
+        <Label
+          label='승인 유무 large'
+          style={{ marginRight: 5 }}
+          location='left'
+        >
           <SelectBox
             options={["미승인", "승인", "반려"]}
             value={selected.third}
-            name="third"
+            name='third'
             onChange={handleSelectChange}
-            size="large"
+            size='large'
           ></SelectBox>
         </Label>
-      </SelectContainer>
+      </SelectContainer> */}
+      {/* <LabelInput
+        location="left"
+        labelOption={{
+          label: "dd",
+          require: "*",
+          subText: "서브",
+        }}
+        inputOption={{
+          name: "dd",
+          style: { border: "1px solid red" },
+          size: "small",
+          mode: "disabled",
+        }}
+      />
+      <LabelInput
+        location="top"
+        labelOption={{
+          label: "dd",
+          require: "*",
+          subText: "서브",
+        }}
+        inputOption={{
+          name: "dd",
+          style: { border: "1px solid red" },
+          size: "small",
+          mode: "disabled",
+        }}
+      /> */}
     </main>
   );
 }
-
-const SelectContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;

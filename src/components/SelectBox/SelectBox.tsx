@@ -3,18 +3,7 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 
-type STYLE_PROPS = {
-  size?: "small" | "medium" | "large";
-};
-
-type Props = STYLE_PROPS & {
-  options: string[];
-  value: string;
-  name: string;
-  onChange: (value: string, name: string) => void;
-  style?: React.CSSProperties;
-  optionStyle?: React.CSSProperties;
-};
+import { SelectBoxProps } from "@/types/types";
 
 const SelectBox = ({
   size = "medium",
@@ -24,7 +13,7 @@ const SelectBox = ({
   onChange,
   style,
   optionStyle,
-}: Props) => {
+}: SelectBoxProps) => {
   const [visible, setVisible] = useState(false);
 
   const handleClickSelect = () => {
@@ -44,7 +33,7 @@ const SelectBox = ({
         style={style}
         onClick={handleClickSelect}
       >
-        <div className="value">{value}</div>
+        <div className='value'>{value}</div>
       </StyledSelect>
       {visible && (
         <OptionWrapper size={size}>
