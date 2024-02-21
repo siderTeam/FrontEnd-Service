@@ -126,19 +126,12 @@ export type SignUpProps = {
 
 //Modal
 export type ModalProps = {
-  visible: boolean;
-  onClose: () => void;
   children: any;
   style?: React.CSSProperties;
 };
 
 //Textarea
-export type TEXTAREA_STYLE_PROPS = {
-  size?: "full";
-};
-
-export type TextareaProps = TEXTAREA_STYLE_PROPS &
-  TextareaHTMLAttributes<HTMLTextAreaElement> & {
+export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
     textCount?: number;
     style?: React.CSSProperties;
     rest?: any;

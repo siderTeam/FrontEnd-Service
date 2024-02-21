@@ -2,24 +2,13 @@
 
 import styled from "@emotion/styled";
 import { TextareaProps } from "@/type/types";
-import * as CS from "../../component/Styles/CommonStyles";
+import * as CS from "../../Styles/CommonStyles";
 import { useState } from "react";
 
-const TextArea = ({
-  size = "full",
-  maxLength,
-  textCount,
-  style,
-  ...rest
-}: TextareaProps) => {
+const TextArea = ({ maxLength, textCount, style, ...rest }: TextareaProps) => {
   return (
     <Container>
-      <StyledTextArea
-        size={size}
-        style={style}
-        maxLength={maxLength}
-        {...rest}
-      />
+      <StyledTextArea style={style} maxLength={maxLength} {...rest} />
       {maxLength && (
         <span className="count">
           {textCount} / {maxLength}
@@ -30,26 +19,18 @@ const TextArea = ({
 };
 export default TextArea;
 
-const TEXTAREA_TYPE = {
-  ["full"]: {
-    width: "100%",
-  },
-};
-
 const Container = styled.div`
   position: relative;
 
   .count {
     color: ${CS.color.white};
     position: absolute;
-    top: 85px;
+    bottom: 10px;
     right: 20px;
   }
 `;
 
 const StyledTextArea = styled.textarea<any>`
-  ${({ size }) => TEXTAREA_TYPE[size as "full"]};
-
   box-sizing: border-box;
   padding: 10px 20px;
   border-radius: 8px;

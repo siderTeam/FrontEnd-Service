@@ -1,18 +1,21 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../Styles/CommonStyles";
+import * as CS from "../../Styles/CommonStyles";
 import { ModalProps } from "@/type/types";
 import Sidebar from "../ModalSidebar/ModalSidebar";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-const Modal = ({ visible, onClose, children, style }: ModalProps) => {
+const Modal = ({ children, style }: ModalProps) => {
+  const router = useRouter();
+
   return (
-    <Container visible={visible} onClick={onClose}>
+    <Container>
       <ModalContainer style={style} onClick={(e) => e.stopPropagation()}>
         <Sidebar />
         <Content>
-          <div className="close" onClick={onClose}>
+          <div className="close" onClick={() => router.back()}>
             <Image
               src="/images/icons/X_white.svg"
               alt="close"
@@ -29,8 +32,8 @@ const Modal = ({ visible, onClose, children, style }: ModalProps) => {
 
 export default Modal;
 
-const Container = styled.div<{ visible: boolean }>`
-  display: ${({ visible }) => (visible ? "flex" : "none")};
+const Container = styled.div`
+  display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -61,7 +64,7 @@ const ModalContainer = styled.div`
 
 const Content = styled.div`
   box-sizing: border-box;
-  width: 100%;
+  width: 842px;
   height: 100%;
   padding: 40px;
 
