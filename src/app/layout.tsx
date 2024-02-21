@@ -1,6 +1,7 @@
+import { color } from "@/styles/color";
 import "../../public/reset.css";
 import RootContainer from "@/component/RootContainer";
-import * as CS from "../component/Styles/CommonStyles";
+import '../styles/global.css'
 
 export const metadata = {
   title: "Next.js",
@@ -14,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body style={{ background: CS.color.black }}>
+      <body style={{ background: color.gray.black }}>
         {/* <Background /> */}
         <RootContainer>
           <div>
