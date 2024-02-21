@@ -5,7 +5,6 @@ const nextConfig = {
     appDir: true,
   },
   async rewrites() {
-    console.log("Rewrites called");
     return [
       {
         source: "/:path*",

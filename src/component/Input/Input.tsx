@@ -2,8 +2,8 @@
 
 import { InputProps } from "@/types/types";
 import styled from "@emotion/styled";
-import Button from "../Button_new/Button";
-import * as CS from "../Styles/CommonStyles";
+import Button from "../Button/Button";
+import { color } from "@/styles/color";
 
 const Input = ({
   value,
@@ -60,13 +60,13 @@ const INPUT_TYPE = {
     alignItems: "center",
 
     borderRadius: "12px",
-    border: `1px solid ${CS.color.gray6}`,
+    border: `1px solid ${color.gray.gray6}`,
   },
 };
 
 const TEXT_TYPE = {
   ["primary"]: {
-    color: `${CS.color.gray7}`,
+    color: `${color.gray.gray7}`,
     fontFamily: "Spoqa Han Sans Neo",
     fontSize: "16px",
     fontStyle: "normal",

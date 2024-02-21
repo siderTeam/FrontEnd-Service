@@ -63,42 +63,14 @@ const Page = () => {
     <Container>
       <Title>내 프로젝트</Title>
 
-      <div className='table-wrap'>
+      <div className="table-wrap">
         <TableHeader>
-          <div className='number'>No.</div>
-          <div className='title'>프로젝트 명</div>
-          <div className='period'>프로젝트 진행 기간</div>
-          <div className='refunds'>환급 여부</div>
+          <div className="number">No.</div>
+          <div className="title">프로젝트 명</div>
+          <div className="period">프로젝트 진행 기간</div>
+          <div className="refunds">환급 여부</div>
         </TableHeader>
-        <TableContent>
-          {data
-            .slice(items * (page - 1), items * (page - 1) + items)
-            .map((content, index) => (
-              <ul>
-                <li className='number'>{(page - 1) * items + index + 1}</li>
-                <li className='title'>{content.title}</li>
-                <li className='period'>{content.period}</li>
-                {content.status === "심사중" ? (
-                  <div className='flex'>
-                    <div className='circle-ing'></div>
-                    <li className='refunds-ing'>{content.status}</li>
-                  </div>
-                ) : content.status === "반려" ? (
-                  <div className='flex'>
-                    <div className='circle-no'></div>
-                    <li className='refunds-no'>{content.status}</li>
-                  </div>
-                ) : content.status === "심사 완료" ? (
-                  <div className='flex'>
-                    <div className='circle-good'></div>
-                    <li className='refunds-good'>{content.status}</li>
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </ul>
-            ))}
-        </TableContent>
+        <TableContent></TableContent>
         <PaginationComponent
           activePage={page}
           itemsCountPerPage={items}

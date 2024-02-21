@@ -1,8 +1,8 @@
 "use client";
 
+import { color } from "@/styles/color";
 import { ButtonProps } from "@/types/types";
 import styled from "@emotion/styled";
-import * as CS from "../Styles/CommonStyles";
 
 const Button = ({
   children,
@@ -26,7 +26,7 @@ const Button = ({
           onClick={onClick}
           type={type}
         >
-          <div className='text_icon_wrap'>
+          <div className="text_icon_wrap">
             {LeftIcon && <Img src={LeftIcon} />}
             {children}
             {rightIcon && <Icon src={rightIcon} style={iconStyle} />}
@@ -48,8 +48,8 @@ const BUTTON_TYPE = {
 
 const COLOR_TYPE = {
   ["primary"]: {
-    background: `${CS.color.brandMain}`,
-    color: `${CS.color.black}`,
+    background: `${color.brand.brandMain}`,
+    color: `${color.gray.black}`,
 
     fontSize: "24px",
     fontStyle: "normal",
@@ -58,8 +58,8 @@ const COLOR_TYPE = {
   },
   ["primary-reverse"]: {
     background: "none",
-    color: `${CS.color.brandMain}`,
-    border: `1px solid ${CS.color.brandMain}`,
+    color: `${color.brand.brandMain}`,
+    border: `1px solid ${color.brand.brandMain}`,
 
     fontSize: "24px",
     fontStyle: "normal",
@@ -67,8 +67,6 @@ const COLOR_TYPE = {
     lineHeight: "normal",
   },
 };
-
-const TEXT_TYPE = {};
 
 const StyledButton = styled.div<ButtonProps>`
   ${({ size }) => BUTTON_TYPE[size as "full"]};
@@ -91,10 +89,6 @@ const Icon = styled.img`
 
 const ButtonWrap = styled.div`
   display: flex;
-
-  /* &:hover {
-    filter: brightness(0.9);
-  } */
 `;
 
 const Img = styled.img`

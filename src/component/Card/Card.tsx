@@ -3,7 +3,8 @@
 import { CardProps } from "@/types/types";
 import styled from "@emotion/styled";
 import Profile from "../Profile/Profile";
-import * as CS from "../Styles/CommonStyles";
+import Image from "next/image";
+import { color } from "@/styles/color";
 
 const Card = ({
   children,
@@ -14,139 +15,148 @@ const Card = ({
   necessaryPeriod = "20일",
 }: CardProps) => {
   return (
-    <>
-      <CardContainer id={id}>
-        <TopInfo>
-          <div className='commonText'>모집 마감일 {projectPeriod}</div>
-        </TopInfo>
+    <Container id={id}>
+      <span className="endDate">모집 마감일 8888.88.88</span>
+      <div className="iconContianer">
+        {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((_, index) => (
+          <div key={index} className="iconWrapper">
+            <Image
+              src={"/images/skills/git.svg"}
+              alt="git"
+              width={28}
+              height={26}
+            />
+          </div>
+        ))}
+      </div>
+      <span className="title">
+        우리 함께 고구마를 구워보자. 오고 고구마고구마고규ㅜ마
+        고구마오지겜ㄴㅇㅁㄴㅇ
+      </span>
+      <div className="projectInfo">
+        <div>
+          <label>프로젝트기간</label>
+          <span className="content">8888.88.88~888.88.88</span>
+        </div>
 
-        <PositionIconWrap>{children}</PositionIconWrap>
-
-        <TitleStyle className='title'>{title}</TitleStyle>
-
-        <InfoWrap>
-          <ProjectPeriodWrap>
-            <div className='commonText'>프로젝트 기간</div>
-            <div className='projectPeriod'>{projectPeriod}</div>
-          </ProjectPeriodWrap>
-
-          <DepositWrap>
-            <div className='commonText'>보증금</div>
-            <div className='deposit'>{deposit}</div>
-          </DepositWrap>
-        </InfoWrap>
-
-        <Profile />
-      </CardContainer>
-    </>
+        <div>
+          <label>보증금</label>
+          <span className="content">300만원</span>
+        </div>
+      </div>
+      <Profile />
+      <div className="test" />
+    </Container>
   );
 };
 
 export default Card;
 
-const CardContainer = styled.div`
+const Container = styled.div`
   width: 296px;
   height: 325px;
   padding: 20px;
-
   box-sizing: border-box;
-
+  position: relative;
+  overflow: hidden;
   border-radius: 10px;
-  border: 1px solid #89192b;
-  background: ${CS.color.black};
+  background: linear-gradient(
+      180deg,
+      rgba(153, 19, 41, 0.15) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    linear-gradient(
+      140deg,
+      rgba(255, 255, 255, 0.001) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    rgba(2, 6, 13, 0.7);
 
-  &:hover {
-    cursor: pointer; //
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    padding: 1px;
+    background: linear-gradient(-45deg, #9b1226, #242323);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
 
-    .title {
+  .test {
+    position: absolute;
+    left: -70px;
+    top: -22px;
+    width: 311.102px;
+    height: 342.62px;
+    transform: rotate(-30deg);
+    flex-shrink: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 0, 42, 0.23) 0%,
+        rgba(0, 0, 0, 0) 100%
+      ),
+      linear-gradient(
+        140deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(0, 0, 0, 0) 100%
+      ),
+      rgba(2, 6, 13, 0.6);
+    z-index: -1;
+  }
+
+  .endDate {
+    color: ${color.gray.gray5};
+    font-size: 12px;
+  }
+
+  .iconContianer {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    margin-bottom: 28px;
+
+    .iconWrapper {
+      background: red;
+      width: 32px;
+      height: 32px;
     }
   }
 
-  .commonText {
+  .title {
+    color: ${color.gray.white};
     overflow: hidden;
-    color: ${CS.color.gray5};
     text-overflow: ellipsis;
-    font-family: "Spoqa Han Sans Neo";
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-`;
-
-const TopInfo = styled.div`
-  display: flex;
-`;
-
-const TitleWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  align-self: stretch;
-`;
-
-const TitleStyle = styled.div`
-  display: -webkit-box;
-  width: 236px;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-
-  overflow: hidden;
-  color: ${CS.color.white};
-  text-overflow: ellipsis;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-`;
-
-const PositionIconWrap = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: 4px;
-  align-self: stretch;
-`;
-
-const InfoWrap = styled.div`
-  display: flex;
-  gap: 65px;
-`;
-
-const ProjectPeriodWrap = styled.div`
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-
-  .projectPeriod {
-    overflow: hidden;
-    color: ${CS.color.gray2};
-    text-align: right;
-    text-overflow: ellipsis;
-    font-family: "Spoqa Han Sans Neo";
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
-`;
-
-const DepositWrap = styled.div`
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-
-  .deposit {
-    overflow: hidden;
-    color: ${CS.color.gray3};
-    text-overflow: ellipsis;
-    font-family: "Spoqa Han Sans Neo";
-    font-size: 12px;
-    font-style: normal;
+    font-size: 16px;
     font-weight: 700;
-    line-height: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .projectInfo {
+    display: flex;
+    margin-bottom: 16px;
+    justify-content: space-between;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      text-overflow: ellipsis;
+      font-size: 12px;
+      font-weight: 500;
+      gap: 4px;
+
+      label {
+        color: ${color.gray.gray5};
+      }
+
+      .content {
+        color: ${color.gray.white};
+      }
+    }
   }
 `;

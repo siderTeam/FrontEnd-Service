@@ -3,8 +3,7 @@
 import { getCode, getUserId, postUserSignUp } from "@/api/api";
 import { USER_SIGNUP_REQUEST } from "@/api/model";
 import { rest } from "@/api/rest";
-import Button from "@/component/Button_new/Button";
-import LabelInput from "@/component/LabelInput_new/LabelInput";
+import Button from "@/component/Button/Button";
 import LabelSelect from "@/component/LabelSelect/LabelSelect";
 import { usePasswordConfirmValidation } from "@/component/hooks/usePasswordConfirmValidation";
 import { useEmailValidation } from "@/component/hooks/useEmailValidation";
@@ -19,8 +18,9 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import LabelInput from "@/component/LabelInput/LabelInput";
 
-const page = () => {
+const Page = () => {
   const [selectJob, setSelectJob] = useState("직군 선택");
   const [selectPosition, setSelectPosition] = useState("포지션 선택");
   const [jobId, setJobId] = useState(0);
@@ -172,15 +172,15 @@ const page = () => {
 
   return (
     <Container>
-      <div className='header'>
-        <img src='/images/Logo.svg' />
-        <p className='sub-title'>우리들의 꿈을 잇다.</p>
+      <div className="header">
+        <img src="/images/Logo.svg" />
+        <p className="sub-title">우리들의 꿈을 잇다.</p>
       </div>
       <LoginContainer>
-        <div className='top'>
-          <div className='username'>
+        <div className="top">
+          <div className="username">
             <LabelInput
-              location='top'
+              location="top"
               labelOption={{
                 label: "아이디",
                 require: "*",
@@ -189,7 +189,7 @@ const page = () => {
               }}
               inputOption={{
                 name: "username",
-                size: "primary",
+                size: "full",
                 text: "primary",
                 placeholder: "아이디를 입력해주세요.",
                 ref: usernameInputRef,
@@ -199,9 +199,9 @@ const page = () => {
             />
           </div>
 
-          <div className='password'>
+          <div className="password">
             <LabelInput
-              location='top'
+              location="top"
               labelOption={{
                 label: "비밀번호",
                 require: "*",
@@ -209,7 +209,7 @@ const page = () => {
               }}
               inputOption={{
                 name: "password",
-                size: "primary",
+                size: "full",
                 text: "primary",
                 placeholder: "비밀번호를 입력해주세요.",
                 type: "password",
@@ -219,9 +219,9 @@ const page = () => {
             />
           </div>
 
-          <div className='passwordConfirm'>
+          <div className="passwordConfirm">
             <LabelInput
-              location='top'
+              location="top"
               labelOption={{
                 label: "비밀번호 확인",
                 require: "*",
@@ -231,7 +231,7 @@ const page = () => {
               }}
               inputOption={{
                 name: "passwordConfirm",
-                size: "primary",
+                size: "full",
                 text: "primary",
                 placeholder: "비밀번호를 입력해주세요.",
                 type: "password",
@@ -241,9 +241,9 @@ const page = () => {
             />
           </div>
 
-          <div className='name'>
+          <div className="name">
             <LabelInput
-              location='top'
+              location="top"
               labelOption={{
                 label: "이름",
                 require: "*",
@@ -251,7 +251,7 @@ const page = () => {
               }}
               inputOption={{
                 name: "name",
-                size: "primary",
+                size: "full",
                 text: "primary",
                 placeholder: "이름을 입력해주세요.",
                 ref: nameInputRef,
@@ -260,9 +260,9 @@ const page = () => {
             />
           </div>
 
-          <div className='email'>
+          <div className="email">
             <LabelInput
-              location='top'
+              location="top"
               labelOption={{
                 label: "이메일",
                 require: "*",
@@ -270,7 +270,7 @@ const page = () => {
               }}
               inputOption={{
                 name: "email",
-                size: "primary",
+                size: "full",
                 text: "primary",
                 placeholder: "이메일을 입력해주세요.",
                 ref: emailInputRef,
@@ -279,9 +279,9 @@ const page = () => {
             />
           </div>
 
-          <div className='nickname'>
+          <div className="nickname">
             <LabelInput
-              location='top'
+              location="top"
               labelOption={{
                 label: "닉네임",
                 require: "*",
@@ -289,7 +289,7 @@ const page = () => {
               }}
               inputOption={{
                 name: "nickname",
-                size: "primary",
+                size: "full",
                 text: "primary",
                 placeholder: "닉네임을 입력해주세요.",
                 ref: nicknameInputRef,
@@ -298,16 +298,16 @@ const page = () => {
             />
           </div>
 
-          <div className='bankName'>
+          <div className="bankName">
             <LabelInput
-              location='top'
+              location="top"
               labelOption={{
                 label: "은행명",
                 require: "*",
               }}
               inputOption={{
                 name: "bankName",
-                size: "primary",
+                size: "full",
                 text: "primary",
                 placeholder: "은행명을 입력해주세요.",
                 onChange: handleChange,
@@ -315,16 +315,16 @@ const page = () => {
             />
           </div>
 
-          <div className='bankNo'>
+          <div className="bankNo">
             <LabelInput
-              location='top'
+              location="top"
               labelOption={{
                 label: "계좌번호",
                 require: "*",
               }}
               inputOption={{
                 name: "bankNo",
-                size: "primary",
+                size: "full",
                 text: "primary",
                 placeholder: "계좌번호를 입력해주세요.",
                 onChange: handleChange,
@@ -332,16 +332,16 @@ const page = () => {
             />
           </div>
 
-          <div className='bankUserName'>
+          <div className="bankUserName">
             <LabelInput
-              location='top'
+              location="top"
               labelOption={{
                 label: "예금주",
                 require: "*",
               }}
               inputOption={{
                 name: "bankUserName",
-                size: "primary",
+                size: "full",
                 text: "primary",
                 placeholder: "예금주명을 입력해주세요.",
                 onChange: handleChange,
@@ -349,9 +349,9 @@ const page = () => {
             />
           </div>
 
-          <div className='phone'>
+          <div className="phone">
             <LabelInput
-              location='top'
+              location="top"
               labelOption={{
                 label: "핸드폰번호",
                 require: "*",
@@ -359,7 +359,7 @@ const page = () => {
               }}
               inputOption={{
                 name: "phone",
-                size: "primary",
+                size: "full",
                 text: "primary",
                 placeholder: "핸드폰번호를 입력해주세요.",
                 ref: phoneInputRef,
@@ -368,9 +368,9 @@ const page = () => {
             />
           </div>
 
-          <div className='job'>
+          <div className="job">
             <LabelSelect
-              location='top'
+              location="top"
               labelOption={{
                 label: "직군",
                 require: "*",
@@ -395,9 +395,9 @@ const page = () => {
             />
           </div>
 
-          <div className='position'>
+          <div className="position">
             <LabelSelect
-              location='top'
+              location="top"
               labelOption={{
                 label: "포지션",
                 require: "*",
@@ -422,9 +422,9 @@ const page = () => {
             />
           </div>
         </div>
-        <div className='bottom'>
-          <div className='button-wrap'>
-            <Button size='primary' mode='primary' onClick={() => mutate(form)}>
+        <div className="bottom">
+          <div className="button-wrap">
+            <Button size="full" mode="primary" onClick={() => mutate(form)}>
               회원 가입
             </Button>
           </div>
@@ -434,7 +434,7 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
 
 const Container = styled.div`
   padding: 52px 0;
