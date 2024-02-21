@@ -1,8 +1,8 @@
 "use client";
 
+import { color } from "@/styles/color";
 import { CHECKBOX_TYPE_PROPS, CheckboxProps } from "@/types/types";
 import styled from "@emotion/styled";
-import * as CS from "../Styles/CommonStyles";
 
 const Checkbox = ({
   text,
@@ -68,7 +68,7 @@ const StyledCheckbox = styled.div<CHECKBOX_TYPE_PROPS>`
 `;
 
 const StyledLabel = styled.div`
-  color: ${CS.color.gray5};
+  color: ${color.gray.gray5};
   text-align: right;
   font-family: "Spoqa Han Sans Neo";
   font-size: 12px;
@@ -79,7 +79,7 @@ const StyledLabel = styled.div`
 
 const StyledRequire = styled.div`
   font-size: 10px;
-  color: #ff4e4e;
+  color: ${color.secondary.error_1};
 
   margin-left: 4px;
 `;

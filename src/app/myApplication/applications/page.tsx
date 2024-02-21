@@ -33,32 +33,12 @@ const Page = () => {
     <Container>
       <Title>지원서 관리</Title>
 
-      <div className='table-wrap'>
+      <div className="table-wrap">
         <TableHeader>
-          <div className='number'>No.</div>
-          <div className='title'>지원서 이름</div>
+          <div className="number">No.</div>
+          <div className="title">지원서 이름</div>
         </TableHeader>
-        <TableContent>
-          {resumeData.data
-            ?.slice(items * (page - 1), items * (page - 1) + items)
-            .map((content, index) => (
-              <ul>
-                <li className='number'>{(page - 1) * items + index + 1}</li>
-                <li className='title'>{content.name}</li>
-                <div
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  className='delete'
-                >
-                  {isHovered ? (
-                    <img src='/images/applications/delete_red.svg' />
-                  ) : (
-                    <img src='/images/applications/delete_gray.svg' />
-                  )}
-                </div>
-              </ul>
-            ))}
-        </TableContent>
+        <TableContent></TableContent>
         <PaginationComponent
           activePage={page}
           itemsCountPerPage={items}

@@ -1,13 +1,13 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../../component/Styles/CommonStyles";
-import Checkbox from "@/component/Checkbox_new/Checkbox";
+import Checkbox from "@/component/Checkbox/Checkbox";
 import { useState } from "react";
-import Input from "@/component/Input_new/Input";
-import Button from "@/component/Button_new/Button";
+import Input from "@/component/Input/Input";
+import Button from "@/component/Button/Button";
+import { color } from "@/styles/color";
 
-const page = () => {
+const Page = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleChecked = () => {
@@ -42,7 +42,7 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
 
 const Container = styled.div`
   width: 1920px;
@@ -66,7 +66,7 @@ const Container = styled.div`
   }
 
   .title {
-    color: ${CS.color.brandMain};
+    color: ${color.brand.brandMain};
     text-align: center;
     font-family: "Spoqa Han Sans Neo";
     font-size: 32px;
@@ -122,7 +122,7 @@ const LoginContainer = styled.div`
     margin-bottom: 50.5px;
   }
   .find {
-    color: ${CS.color.gray5};
+    color: ${color.gray.gray5};
     text-align: right;
     font-family: "Spoqa Han Sans Neo";
     font-size: 12px;

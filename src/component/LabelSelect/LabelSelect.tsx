@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
-import Label from "../Label_new/Label";
-import SelectBox from "../SelectBox_new/SelectBox";
+import Label from "../Label/Label";
+import SelectBox from "../SelectBox/SelectBox";
 
 import {
   SelectBoxProps,

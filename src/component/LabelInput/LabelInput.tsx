@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
-
-import Label from "../Label_new/Label";
-import Input from "../Input_new/Input";
+import Label from "../Label/Label";
+import Input from "../Input/Input";
 
 import { InputProps, LABELINPUT_STYLE_PROPS, LabelProps } from "@/types/types";
 
