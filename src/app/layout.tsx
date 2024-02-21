@@ -1,5 +1,6 @@
 import "../../public/reset.css";
 import RootContainer from "@/component/RootContainer";
+import "../styles/global.css";
 
 export const metadata = {
   title: "Next.js",
@@ -10,8 +11,8 @@ export default function RootLayout({
   children,
   modal,
 }: {
-    children: React.ReactNode;
-    modal: any,
+  children: React.ReactNode;
+  modal: any;
 }) {
   return (
     <html lang="en">
