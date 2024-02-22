@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-import axios from "axios";
-import { rest } from "./rest";
-import { PROJECT_RESPONSE } from "./model";
-
-export const getProejct = async ():Promise<PROJECT_RESPONSE[]> => {
-  const response = await axios.get(`${rest.get.proejct}`, {
-    params: {
-      page: 0,
-      size: 30,
-=======
 import {
   PROJECT_RESPONSE,
   CODE_RESPONSE,
@@ -25,14 +14,11 @@ export const getProject = async (): Promise<PROJECT_RESPONSE[]> => {
     params: {
       page: 0,
       size: 20,
->>>>>>> 1bb5e45908eaba6a23fa3e749c989cf1417eadcd
     },
   });
 
   return response.data.data.content;
 };
-<<<<<<< HEAD
-=======
 
 //코드 가져오기
 export const getCode = async (
@@ -83,4 +69,3 @@ export const getResume = async (): Promise<USER_RESUME_RESPONSE[]> => {
 
   return response.data.data;
 };
->>>>>>> 1bb5e45908eaba6a23fa3e749c989cf1417eadcd
