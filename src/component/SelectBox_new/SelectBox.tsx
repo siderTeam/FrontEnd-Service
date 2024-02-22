@@ -1,14 +1,15 @@
 "use client";
 
 import styled from "@emotion/styled";
+import * as CS from "../../Styles/CommonStyles";
 import { useState } from "react";
 
 import { SelectBoxProps } from "@/types/types";
 
 const SelectBox = ({
-  selectedType = "primary",
-  optionType = "primary",
-  text = "primary",
+  selectedType = "full",
+  optionType = "full",
+  text = "full",
   value,
   name,
   options,
@@ -41,9 +42,9 @@ const SelectBox = ({
         style={style}
         onClick={handleClickSelect}
       >
-        <div className={selected.length === 0 ? "value" : "choice-value"}>
+        {/* <div className={selected.length === 0 ? "value" : "choice-value"}>
           {selected.length === 0 ? placeholder : selected[0].label}
-        </div>
+        </div> */}
       </StyledSelect>
       {visible && (
         <OptionWrapper selectedType={selectedType} optionType={optionType}>
@@ -65,21 +66,17 @@ const SelectBox = ({
 
 export default SelectBox;
 const SELECT_TYPE = {
-  ["primary"]: {
-    width: "396px",
-    height: "52px",
-    padding: "0px 16px",
-    background: "white",
-    border: "1px solid #B8B8B8",
-    borderRadius: "8px",
-
+  ["full"]: {
     display: "flex",
-    justifyContent: "center",
+    width: "100%",
+    padding: "18px 20px 18px 20px",
     alignItems: "center",
 
-    color: "#B8B8B8",
+    borderRadius: "12px",
+    border: `1px solid ${CS.color.gray6}`,
 
-    fontFamily: "Pretendard",
+    color: `${CS.color.gray7}`,
+
     fontSize: "16px",
     fontStyle: "normal",
     fontWeight: 400,
@@ -88,21 +85,17 @@ const SELECT_TYPE = {
 };
 
 const OPTIONS_TYPE = {
-  ["primary"]: {
-    width: "396px",
-    height: "52px",
-    padding: "0px 16px",
-    background: "white",
-    border: "1px solid #eeee",
-    // borderRadius: "8px",
-
+  ["full"]: {
     display: "flex",
-    justifyContent: "center",
+    width: "100%",
+    padding: "18px 20px 18px 20px",
     alignItems: "center",
 
-    color: "black",
+    borderRadius: "12px",
+    border: `1px solid ${CS.color.gray6}`,
 
-    fontFamily: "Pretendard",
+    color: `${CS.color.gray7}`,
+
     fontSize: "16px",
     fontStyle: "normal",
     fontWeight: 400,
@@ -121,7 +114,7 @@ const OptionWrapper = styled.ul<any>`
   z-index: 3;
 
   li {
-    ${({ optionType }) => OPTIONS_TYPE[optionType as "primary"]}
+    ${({ optionType }) => OPTIONS_TYPE[optionType as "full"]}
 
     box-sizing: border-box;
     cursor: pointer;
@@ -134,7 +127,7 @@ const OptionWrapper = styled.ul<any>`
 `;
 
 const StyledSelect = styled.div<any>`
-  ${({ selectedType }) => SELECT_TYPE[selectedType as "primary"]}
+  ${({ selectedType }) => SELECT_TYPE[selectedType as "full"]}
 
   box-sizing: border-box;
 
