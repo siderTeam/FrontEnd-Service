@@ -182,7 +182,6 @@
 //           </Button> */}
 //           <Link href='/login'>
 //             <Button
-//               size='nav'
 //               rightIcon='/images/home/user_white.svg'
 //               iconStyle={{ width: 16, height: 16 }}
 //             >

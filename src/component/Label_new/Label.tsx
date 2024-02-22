@@ -35,11 +35,21 @@ const Container = styled.div`
 `;
 
 const StyledLabel = styled.label<any>`
-  font-weight: bold;
+  color: #fff;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 `;
 
 const StyledRequire = styled.span`
-  color: red;
+  color: var(--BRAND-BRAND_MAIN, #01ff1a);
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 `;
 
 const StyledSubText = styled.p<any>`

@@ -3,7 +3,7 @@
 import { InputProps } from "@/types/types";
 import styled from "@emotion/styled";
 import Button from "../Button_new/Button";
-import * as CS from "../Styles/CommonStyles";
+import * as CS from "../../Styles/CommonStyles";
 
 const Input = ({
   value,
@@ -13,9 +13,9 @@ const Input = ({
   name,
   placeholder,
   errorText,
-  size = "full",
-  text = "primary",
-  icon = false,
+  size = "large",
+  color = "placeholder",
+  icon,
   style,
   buttonText,
   onClick,
@@ -24,81 +24,137 @@ const Input = ({
   ...rest
 }: InputProps) => {
   return (
-    <InputContainer>
-      <StyledInput
-        size={size}
-        isValid={isValid}
-        text={text}
-        value={value}
-        onChange={onChange}
-        readOnly={readOnly}
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        style={style}
-        ref={ref}
-        {...rest}
-      />
-      {errorText && <ErrorText>{errorText}</ErrorText>}
-      {icon && <img src='/images/home/search_blue.svg' className='search' />}
+    <>
+      <InputContainer>
+        <StyledInput
+          size={size}
+          isValid={isValid}
+          color={color}
+          value={value}
+          onChange={onChange}
+          readOnly={readOnly}
+          type={type}
+          name={name}
+          placeholder={placeholder}
+          style={style}
+          ref={ref}
+          {...rest}
+        />
+        {icon && <img src={icon} className='search' />}
 
-      {buttonText && (
-        <Button style={{ width: 80, height: 52 }} onClick={onClick}>
-          {buttonText}
-        </Button>
-      )}
-    </InputContainer>
+        {buttonText && (
+          <Button
+            size='in_input'
+            mode='primary'
+            onClick={onClick}
+            className='button'
+            disabled
+          >
+            {buttonText}
+          </Button>
+        )}
+        {errorText && <ErrorText color={color}>{errorText}</ErrorText>}
+      </InputContainer>
+    </>
   );
 };
 export default Input;
 
 const INPUT_TYPE = {
-  ["full"]: {
-    display: "flex",
-    width: "100%",
-    padding: "18px 20px 18px 20px",
-    alignItems: "center",
-
+  ["medium"]: {
+    width: "331px",
+    height: "40px",
+    padding: "10px 20px",
+    borderRadius: "8px",
+  },
+  ["large"]: {
+    width: "364px",
+    height: "56px",
+    padding: " 18px 20px",
     borderRadius: "12px",
-    border: `1px solid ${CS.color.gray6}`,
   },
 };
 
-const TEXT_TYPE = {
-  ["primary"]: {
-    color: `${CS.color.gray7}`,
-    fontFamily: "Spoqa Han Sans Neo",
-    fontSize: "16px",
-    fontStyle: "normal",
-    fontWeight: 400,
-    lineHeight: "normal",
+const COLOR_TYPE = {
+  ["placeholder"]: {
+    border: ` 1px solid ${CS.color.gray6}`,
+    color: CS.color.gray7,
+  },
+  ["filled"]: {
+    border: ` 1px solid ${CS.color.gray6}`,
+    color: CS.color.white,
+  },
+  ["active"]: {
+    border: ` 1px solid ${CS.color.brandMain}`,
+    color: CS.color.white,
+  },
+  ["failed"]: {
+    border: ` 1px solid ${CS.color.error1}`,
+    color: CS.color.white,
+  },
+  ["positive"]: {
+    border: ` 1px solid ${CS.color.positive1}`,
+    color: CS.color.white,
+  },
+  ["disabled"]: {
+    border: ` 1px solid ${CS.color.gray9}`,
+    color: CS.color.gray8,
   },
 };
 
 const InputContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+
+  position: relative;
+
+  .button {
+    position: absolute;
+    right: 2px;
+    top: 2px;
+  }
 `;
 
 const StyledInput = styled.input<any>`
-  ${({ size }) => INPUT_TYPE[size as "full"]};
-  ${({ text }) => TEXT_TYPE[text as "primary"]};
+  ${({ size }) => INPUT_TYPE[size as "large"]};
+  ${({ color }) => COLOR_TYPE[color as "placeholder"]};
 
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
   background: none;
   box-sizing: border-box;
-
   outline: none;
+
+  &::placeholder {
+    color: ${({ color }) => COLOR_TYPE[color as "placeholder"]};
+  }
 
   .search {
     cursor: pointer;
   }
 `;
 
-const ErrorText = styled.div`
-  color: #ff4e4e;
-  font-size: 12px;
+const ErrorText = styled.div<InputProps>`
+  color: ${({ color }) =>
+    color === "failed"
+      ? CS.color.error1
+      : color === "positive"
+      ? CS.color.positive1
+      : ""};
 
-  padding: 5px;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.24px;
+
+  margin-top: 4px;
+  margin-left: 10px;
 `;

@@ -2,47 +2,70 @@
 
 import { ButtonProps } from "@/types/types";
 import styled from "@emotion/styled";
-import * as CS from "../Styles/CommonStyles";
+import * as CS from "../../Styles/CommonStyles";
 
 const Button = ({
   children,
-  size = "full",
+  size = "large",
   mode = "primary",
   style,
   iconStyle,
   onClick,
   rightIcon,
-  LeftIcon,
-  type,
+  leftIcon,
+
+  className,
   ...rest
 }: ButtonProps) => {
   return (
     <>
-      <ButtonWrap {...rest}>
-        <StyledButton
-          size={size}
-          mode={mode}
-          style={style}
-          onClick={onClick}
-          type={type}
-        >
-          <div className='text_icon_wrap'>
-            {LeftIcon && <Img src={LeftIcon} />}
-            {children}
-            {rightIcon && <Icon src={rightIcon} style={iconStyle} />}
-          </div>
-        </StyledButton>
-      </ButtonWrap>
+      {/* <ButtonWrap > */}
+      <StyledButton
+        size={size}
+        mode={mode}
+        style={style}
+        onClick={onClick}
+        className={className}
+        {...rest}
+      >
+        <div className='text_icon_wrap'>
+          {leftIcon && <Icon src={leftIcon} style={{ marginRight: "10px" }} />}
+          {children}
+          {rightIcon && <Icon src={rightIcon} style={iconStyle} />}
+        </div>
+      </StyledButton>
+      {/* </ButtonWrap> */}
     </>
   );
 };
 export default Button;
 
-const BUTTON_TYPE = {
-  ["full"]: {
-    width: "100%",
-    padding: " 13px 0px",
+const SIZE_TYPE = {
+  ["medium"]: {
+    height: "40px",
+    padding: "10px 20px",
+    borderRadius: "6px",
+
+    fontSize: "16px",
+    fontWeight: 700,
+  },
+  ["large"]: {
+    width: "364px",
+    height: "56px",
+    padding: "13px 0px",
     borderRadius: "12px",
+
+    fontSize: "24px",
+    fontWeight: 700,
+  },
+  ["in_input"]: {
+    width: "90px",
+    height: "52px",
+    padding: "16px",
+    borderRadius: "10px",
+
+    fontSize: "16px",
+    fontWeight: 500,
   },
 };
 
@@ -50,31 +73,55 @@ const COLOR_TYPE = {
   ["primary"]: {
     background: `${CS.color.brandMain}`,
     color: `${CS.color.black}`,
-
-    fontSize: "24px",
-    fontStyle: "normal",
-    fontWeight: 700,
-    lineHeight: "normal",
   },
-  ["primary-reverse"]: {
+  ["secondary"]: {
     background: "none",
-    color: `${CS.color.brandMain}`,
     border: `1px solid ${CS.color.brandMain}`,
-
-    fontSize: "24px",
-    fontStyle: "normal",
-    fontWeight: 700,
-    lineHeight: "normal",
+    color: `${CS.color.brandMain}`,
   },
 };
 
-const TEXT_TYPE = {};
+const DISABLED_TYPE = {
+  ["primary"]: {
+    background: `${CS.color.gray8}`,
+    color: `${CS.color.gray9}`,
+  },
+  ["secondary"]: {
+    background: "none",
+    border: `1px solid ${CS.color.gray9}`,
+    color: `${CS.color.gray8}`,
+  },
+};
 
-const StyledButton = styled.div<ButtonProps>`
-  ${({ size }) => BUTTON_TYPE[size as "full"]};
-  ${({ mode }) => COLOR_TYPE[mode as "primary"]};
+// const ButtonWrap = styled.div`
+//   display: flex;
+// `;
+
+const StyledButton = styled.button<ButtonProps>`
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-style: normal;
+  line-height: normal;
 
   cursor: pointer;
+
+  border: none;
+
+  cursor: ${({ disabled }) => !disabled && "pointer"};
+
+  ${({ size }) => SIZE_TYPE[size as "medium"]};
+  ${({ mode }) => COLOR_TYPE[mode as "primary"]};
+
+  &:disabled {
+    ${({ mode }) => DISABLED_TYPE[mode as "primary"]};
+  }
+
+  &:hover:not(:disabled) {
+    box-shadow: 0px 0px 6px 0px ${CS.color.brandMain};
+  }
 
   .text_icon_wrap {
     display: flex;
@@ -84,22 +131,6 @@ const StyledButton = styled.div<ButtonProps>`
 `;
 
 const Icon = styled.img`
-  margin-left: 4px;
-  width: 24px;
-  height: 24px;
-`;
-
-const ButtonWrap = styled.div`
-  display: flex;
-
-  /* &:hover {
-    filter: brightness(0.9);
-  } */
-`;
-
-const Img = styled.img`
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  margin-right: 4px;
+  width: 16px;
+  height: 16px;
 `;
