@@ -1,197 +1,266 @@
-// "use client";
-export default function Home() {
-  // const [visible, setVisible] = useState(false);
-  // const [inputValue, setInputValue] = useState({
-  //   name: "",
-  //   password: "",
-  // });
+"use client";
 
-  // const [isChecked, setIsChecked] = useState({
-  //   first: false,
-  //   second: false,
-  // });
+import { rest } from "@/api/rest";
+import Button from "@/component/Button_new/Button";
+import Card from "@/component/Card/Card";
 
-  // const [selected, setSelected] = useState({
-  //   first: "미승인",
-  //   second: "승인",
-  //   third: "반려",
-  // });
+import Input from "@/component/Input_new/Input";
+import PositionIcon from "@/component/PositionIcon/PositionIcon";
+import Profile from "@/component/Profile/Profile";
 
-  // const handleinputChange = (e: any) => {
-  //   const { value, name } = e.target;
+import styled from "@emotion/styled";
+import * as CS from "../Styles/CommonStyles";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import Link from "next/link";
+import Modal from "@/component/Modal_new/Modal";
+import Image from "next/image";
+import SelectBox from "@/component/SelectBox_new/SelectBox";
+import SelectInput from "@/component/SelectInput/SelectInput";
+import { getCode, getProject } from "@/api/api";
 
-  //   setInputValue({
-  //     ...inputValue,
-  //     [name]: value,
-  //   });
-  // };
+const Page = () => {
+  const [filterType, setFilterType] = useState("all");
+  const [visible, setVisible] = useState(false);
+  const [selectJob, setSelectJob] = useState("몇글자지");
 
-  // const handleCheckBoxChange = (e: any) => {
-  //   const { name, checked } = e.target;
+  const projectData = useQuery({
+    queryKey: [rest.get.project],
+    queryFn: getProject,
+  });
 
-  //   setIsChecked({
-  //     ...isChecked,
-  //     [name]: checked,
-  //   });
-  // };
+  const jobData = useQuery({
+    queryKey: [rest.get.code],
+    queryFn: () => getCode(10, 2),
+  });
 
-  // const handleSelectChange = (value: string, name: string) => {
-  //   setSelected({
-  //     ...selected,
-  //     [name]: value,
-  //   });
-  // };
+  const handleFilterClick = (type: any) => {
+    setFilterType(type);
+  };
+
+  const handleJobSelectChange = (name: string, value: string) => {
+    setSelectJob(value);
+  };
 
   return (
-    <main>
-      내가 메인
-      {/* <div>
-        <Label label='라벨명1' style={{ fontSize: 20 }}>
-          <TextArea />
-        </Label>
-        <Label label='라벨명2' location='top'>
-          <TextArea />
-        </Label>
-        <Label label='라벨명' require='*'>
-          <TextArea />
-        </Label>
-        <Label label='라벨명' require='*' location='top'>
-          <TextArea />
-        </Label>
-        <Label label='라벨명' require='*' subText='서브텍스트입니다.'>
-          <TextArea />
-        </Label>
-        <Label
-          label='라벨명'
-          require='*'
-          subText='서브텍스트입니다.'
-          location='top'
-        >
-          <TextArea />
-        </Label>
-      </div> */}
-      {/* <div>
-        <Button size='small' mode={"primary"}>
-          중복 확인
-        </Button>
-        <Button size='medium' mode={"primary"}>
-          미디움 프라이머리
-        </Button>
-        <Button size='large' mode={"error"}>
-          라지 에러
-        </Button>
-      </div> */}
-      {/* <div>
-        <Input
-          value={inputValue.password}
-          onChange={handleinputChange}
-          type='password'
-          name='password'
-          size='small'
-          mode={"primary"}
-          errorText='특수문자 포함 8글자 이상 입력해주세요.'
-        />
-        <Input
-          value={"read only"}
-          readOnly
-          name='id'
-          size='medium'
-          mode={"disabled"}
-        />
-        <Input
-          value={inputValue.name}
-          onChange={handleinputChange}
-          name='name'
-          placeholder='이름을 입력해주세요.'
-          size='large'
-          mode='primary'
-        />
-      </div> */}
-      {/* <Modal
-        onClose={() => setVisible(false)}
-        style={{ width: 300, height: 200 }}
-        visible={visible}
-      >
-        내가 모달이야!
-      </Modal>
-      <div>
-        <CheckBox
-          text="이용 약관"
-          isChecked={isChecked.first}
-          name="first"
-          onChange={handleCheckBoxChange}
-          requireText="(필수)"
-          requireStyle={{ fontSize: 20 }}
-        />
-        <CheckBox
-          text="알림 수신 동의"
-          isChecked={isChecked.second}
-          name="second"
-          onChange={handleCheckBoxChange}
-        />
-      </div> */}
-      {/* <SelectContainer>
-        <Label label='승인 유무 small' style={{ marginRight: 5 }}>
-          <SelectBox
-            options={["미승인", "승인", "반려"]}
-            value={selected.first}
-            name='first'
-            onChange={handleSelectChange}
-            size='small'
+    <Container>
+      <Header>
+        <img src='/images/Logo.svg' alt='로고' className='logo' />
+
+        <div className='profile-wrap'>
+          <Profile />
+          <Link href='/mypage'>
+            <Image
+              src='/images/icons/Person_white.svg'
+              alt='mypage'
+              width={24}
+              height={24}
+            />
+          </Link>
+          <Image
+            src='/images/icons/On_white.svg'
+            alt='log'
+            width={24}
+            height={24}
           />
-        </Label>
+        </div>
+      </Header>
 
-        <Label label='승인 유무 medium' style={{ marginRight: 5 }}>
-          <SelectBox
-            options={["미승인", "승인", "반려"]}
-            value={selected.second}
-            name='second'
-            onChange={handleSelectChange}
-          ></SelectBox>
-        </Label>
+      <div className='banner'>배너</div>
 
-        <Label
-          label='승인 유무 large'
-          style={{ marginRight: 5 }}
-          location='left'
-        >
-          <SelectBox
-            options={["미승인", "승인", "반려"]}
-            value={selected.third}
-            name='third'
-            onChange={handleSelectChange}
-            size='large'
-          ></SelectBox>
-        </Label>
-      </SelectContainer> */}
-      {/* <LabelInput
-        location="left"
-        labelOption={{
-          label: "dd",
-          require: "*",
-          subText: "서브",
-        }}
-        inputOption={{
-          name: "dd",
-          style: { border: "1px solid red" },
-          size: "small",
-          mode: "disabled",
-        }}
-      />
-      <LabelInput
-        location="top"
-        labelOption={{
-          label: "dd",
-          require: "*",
-          subText: "서브",
-        }}
-        inputOption={{
-          name: "dd",
-          style: { border: "1px solid red" },
-          size: "small",
-          mode: "disabled",
-        }}
-      /> */}
-    </main>
+      <div className='title'>프로젝트</div>
+      <FilterWrap>
+        <div className='buttonWrap'>
+          <div
+            className={filterType === "all" ? "choice" : "basic"}
+            onClick={() => handleFilterClick("all")}
+          >
+            #전체
+          </div>
+          <div
+            className={filterType === "design" ? "choice" : "basic"}
+            onClick={() => handleFilterClick("design")}
+          >
+            #디자인
+          </div>
+          <div
+            className={filterType === "pm" ? "choice" : "basic"}
+            onClick={() => handleFilterClick("pm")}
+          >
+            #기획
+          </div>
+          <div
+            className={filterType === "develop" ? "choice" : "basic"}
+            onClick={() => handleFilterClick("develop")}
+          >
+            #개발
+          </div>
+          <div
+            className={filterType === "recruitment" ? "choice" : "basic"}
+            onClick={() => handleFilterClick("recruitment")}
+          >
+            #모집중
+          </div>
+        </div>
+
+        <SelectInput
+          options={
+            jobData.data?.map(({ id, name }) => {
+              return {
+                label: name,
+                value: id as unknown as string,
+              };
+            }) || []
+          }
+          name='select'
+          onChange={handleJobSelectChange}
+          value={selectJob}
+          placeholder='몇글자지'
+        />
+      </FilterWrap>
+      <CardContainer>
+        <Imsi>
+          {projectData.data?.map((item) => (
+            <Card
+              key={item.id}
+              title={item.name}
+              startDate={item.recruitStartDate}
+              endDate={item.recruitEndDate}
+              deposit={item.deposit}
+            >
+              <PositionIcon color='designer' icon='designer' />
+              <PositionIcon color='projectManager' icon='projectManager' />
+              <PositionIcon color='feDeveloper' icon='feDeveloper' />
+              <PositionIcon color='beDeveloper' icon='beDeveloper' />
+            </Card>
+          ))}
+        </Imsi>
+      </CardContainer>
+    </Container>
   );
-}
+};
+
+export default Page;
+
+const Container = styled.div`
+  max-width: 1920px;
+  height: 2561px;
+
+  .banner {
+    width: 1280px;
+    height: 400px;
+    flex-shrink: 0;
+
+    margin-bottom: 64px;
+
+    background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0) 100%),
+      url("/images/다운로드.jpg"),
+      lightgray 0px -234.525px / 100% 292.86% no-repeat;
+  }
+  .title {
+    color: ${CS.color.gray3};
+
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+
+    margin-bottom: 24px;
+  }
+`;
+
+const Header = styled.div`
+  display: inline-flex;
+  height: 124px;
+  padding: 42px 0px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 810px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+
+  .logo {
+    width: 170px;
+    height: 47px;
+  }
+
+  .profile-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+`;
+
+const FilterWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 36px;
+
+  .buttonWrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    .basic {
+      display: flex;
+      padding: 6px 17px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-radius: 34px;
+      border: 1px solid ${CS.color.gray8};
+      background: ${CS.color.black};
+      color: ${CS.color.gray6};
+
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      cursor: pointer;
+    }
+    .choice {
+      display: flex;
+      padding: 6px 17px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-radius: 34px;
+      border: 1px solid ${CS.color.brandMain};
+      background: ${CS.color.black};
+      color: ${CS.color.brandMain};
+
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      cursor: pointer;
+    }
+  }
+`;
+
+const CardContainer = styled.div`
+  display: flex;
+  width: 100%;
+  margin-bottom: 24px;
+`;
+
+const Imsi = styled.div`
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  @media (max-width: 1750px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 1400px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 1000px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  gap: 40px 32px;
+  margin-top: 24px;
+`;
