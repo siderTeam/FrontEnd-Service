@@ -10,7 +10,7 @@ const Modal = ({ visible, onClose, children, style }: ModalProps) => {
     <Container visible={visible} onClick={onClose}>
       <Content style={style} onClick={(e) => e.stopPropagation()}>
         <div onClick={onClose} className='close'>
-          <IoClose />
+          <img src='/images/icons/X.svg' />
         </div>
         {children}
       </Content>

@@ -1,15 +1,42 @@
 "use client";
 
 import styled from "@emotion/styled";
+import * as CS from "../../Styles/CommonStyles";
 
 import { TextareaProps } from "@/types/types";
+import { kMaxLength } from "buffer";
 
-const TextArea = ({ size = "medium", style, ...rest }: TextareaProps) => {
-  return <StyledTextArea size={size} style={style} {...rest} />;
+const TextArea = ({
+  size = "full",
+  color = "primary",
+  style,
+  textareaCount,
+  ...rest
+}: TextareaProps) => {
+  return (
+    <Container>
+      <StyledTextArea size={size} color={color} style={style} {...rest} />
+      <div className='text-length'>{textareaCount}/100</div>
+    </Container>
+  );
 };
 export default TextArea;
 
 const TEXTAREA_TYPE = {
+  ["full"]: {
+    display: "flex",
+    width: "100%",
+    height: "112px",
+    padding: "10px 20px",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-end",
+    gap: "4px",
+
+    borderRadius: "8px",
+    border: `1px solid ${CS.color.gray6}`,
+    background: "none",
+  },
   ["medium"]: {
     width: 250,
   },
@@ -18,12 +45,34 @@ const TEXTAREA_TYPE = {
   },
 };
 
+const COLOR_TYPE = {
+  ["primary"]: {
+    color: CS.color.white,
+    fontSize: "14px",
+    fontStyle: "normal",
+    fontWeight: 400,
+    lineHeight: "normal",
+  },
+};
+
+const Container = styled.div<any>`
+  position: relative;
+
+  .text-length {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+  }
+`;
+
 const StyledTextArea = styled.textarea<any>`
   ${({ size }) => TEXTAREA_TYPE[size as "medium"]};
-
+  ${({ color }) => COLOR_TYPE[color as "primary"]};
   box-sizing: border-box;
-  padding: 10px;
-  border-radius: 6px;
+
+  width: 100%;
+  box-sizing: border-box;
   outline: none;
   resize: none;
+  background: none;
 `;
