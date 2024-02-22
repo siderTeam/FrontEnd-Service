@@ -12,7 +12,6 @@ const Card = ({
   title = "날아라 사이드킥",
   projectPeriod = "2024.01.20 ~ 2024.02.20",
   deposit = "10만원",
-  necessaryPeriod = "20일",
 }: CardProps) => {
   return (
     <Container id={id}>
@@ -29,19 +28,16 @@ const Card = ({
           </div>
         ))}
       </div>
-      <span className="title">
-        우리 함께 고구마를 구워보자. 오고 고구마고구마고규ㅜ마
-        고구마오지겜ㄴㅇㅁㄴㅇ
-      </span>
+      <span className="title">{title}</span>
       <div className="projectInfo">
         <div>
           <label>프로젝트기간</label>
-          <span className="content">8888.88.88~888.88.88</span>
+          <span className="content">{projectPeriod}</span>
         </div>
 
         <div>
           <label>보증금</label>
-          <span className="content">300만원</span>
+          <span className="content">{deposit.toLocaleString()}만원</span>
         </div>
       </div>
       <Profile />

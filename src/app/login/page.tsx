@@ -1,10 +1,10 @@
 "use client";
 
 import styled from "@emotion/styled";
-import Checkbox from "@/component/Checkbox/Checkbox";
+import Checkbox from "@/components/Checkbox/Checkbox";
 import { useState } from "react";
-import Input from "@/component/Input/Input";
-import Button from "@/component/Button/Button";
+import Input from "@/components/Input/Input";
+import Button from "@/components/Button/Button";
 import { color } from "@/styles/color";
 
 const Page = () => {

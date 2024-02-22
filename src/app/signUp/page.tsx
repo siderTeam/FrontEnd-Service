@@ -3,22 +3,22 @@
 import { getCode, getUserId, postUserSignUp } from "@/api/api";
 import { USER_SIGNUP_REQUEST } from "@/api/model";
 import { rest } from "@/api/rest";
-import Button from "@/component/Button/Button";
-import LabelSelect from "@/component/LabelSelect/LabelSelect";
-import { usePasswordConfirmValidation } from "@/component/hooks/usePasswordConfirmValidation";
-import { useEmailValidation } from "@/component/hooks/useEmailValidation";
-import { useIdValidation } from "@/component/hooks/useIdValidation";
-import { useNameValidation } from "@/component/hooks/useNameValidation";
-import { useNicknameValidation } from "@/component/hooks/useNicknameValidation";
-import { usePasswordValidation } from "@/component/hooks/usePasswordValidation";
-import { usePhoneValidation } from "@/component/hooks/usePhoneValidation";
+import Button from "@/components/Button/Button";
+import LabelSelect from "@/components/LabelSelect/LabelSelect";
+import { usePasswordConfirmValidation } from "@/components/hooks/usePasswordConfirmValidation";
+import { useEmailValidation } from "@/components/hooks/useEmailValidation";
+import { useIdValidation } from "@/components/hooks/useIdValidation";
+import { useNameValidation } from "@/components/hooks/useNameValidation";
+import { useNicknameValidation } from "@/components/hooks/useNicknameValidation";
+import { usePasswordValidation } from "@/components/hooks/usePasswordValidation";
+import { usePhoneValidation } from "@/components/hooks/usePhoneValidation";
 
 import styled from "@emotion/styled";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import LabelInput from "@/component/LabelInput/LabelInput";
+import LabelInput from "@/components/LabelInput/LabelInput";
 
 const Page = () => {
   const [selectJob, setSelectJob] = useState("직군 선택");

@@ -1,6 +1,6 @@
 import { color } from "@/styles/color";
 import "../../public/reset.css";
-import RootContainer from "@/component/RootContainer";
+import RootContainer from "@/components/RootContainer";
 import '../styles/global.css'
 
 export const metadata = {

@@ -2,11 +2,11 @@
 
 import { getProject } from "@/api/api";
 import { rest } from "@/api/rest";
-import Card from "@/component/Card/Card";
+import Card from "@/components/Card/Card";
 
-import Input from "@/component/Input/Input";
-import PositionIcon from "@/component/PositionIcon/PositionIcon";
-import Profile from "@/component/Profile/Profile";
+import Input from "@/components/Input/Input";
+import PositionIcon from "@/components/PositionIcon/PositionIcon";
+import Profile from "@/components/Profile/Profile";
 import { color } from "@/styles/color";
 
 import styled from "@emotion/styled";
@@ -16,7 +16,7 @@ import { useState } from "react";
 const Page = () => {
   const [filterType, setFilterType] = useState("all");
 
-  const projectData = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: [rest.get.project],
     queryFn: getProject,
   });
@@ -70,7 +70,7 @@ const Page = () => {
       </FilterWrap>
       <CardContainer>
         <Imsi>
-          {projectData.data?.map((item) => (
+          {data?.map((item) => (
             <Card
               key={item.id}
               title={item.name}

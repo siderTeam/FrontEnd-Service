@@ -2,7 +2,7 @@
 
 import { getResume } from "@/api/api";
 import { rest } from "@/api/rest";
-import PaginationComponent from "@/component/Pagination/Pagination";
+import PaginationComponent from "@/components/Pagination/Pagination";
 import styled from "@emotion/styled";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
