@@ -18,3 +18,12 @@ export const API = axios.create({
   },
   withCredentials: true,
 });
+
+API.interceptors.request.use((config) => {
+  const token = getCookie("AccessToken");
+  if (token) {
+    config.headers.Authorization = token;
+  }
+
+  return config;
+});
