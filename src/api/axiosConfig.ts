@@ -4,6 +4,7 @@ import { getCookie } from 'public/lib/util';
 const getAuthorization = () => {
   const hasAccessToken = getCookie("AccessToken");
   const cookie = getCookie(hasAccessToken ? 'AccessToken' : 'RefreshToken');
+
   if(cookie) {
    return `Bearer ${cookie}`
   } else {
@@ -18,3 +19,12 @@ export const API = axios.create({
   },
   withCredentials: true,
 });
+
+API.interceptors.request.use(config => {
+  const token = getCookie("AccessToken");
+  if(token) {
+    config.headers.Authorization = token;
+  }
+
+  return config
+})
