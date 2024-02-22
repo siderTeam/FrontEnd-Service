@@ -41,16 +41,16 @@ const Page = () => {
 
             <div className='input-wrap'>
               <Label label='이름' require='*'>
-                <Input size='small' style={{ marginTop: "4px" }} />
+                <Input size='medium' style={{ marginTop: "4px" }} />
               </Label>
               <Label label='연차' require='*'>
-                <Input size='small' style={{ marginTop: "4px" }} />
+                <Input size='medium' style={{ marginTop: "4px" }} />
               </Label>
               <Label label='닉네임' require='*'>
-                <Input size='small' style={{ marginTop: "4px" }} />
+                <Input size='medium' style={{ marginTop: "4px" }} />
               </Label>
               <Label label='포지션' require='*'>
-                <Input size='small' style={{ marginTop: "4px" }} />
+                <Input size='medium' style={{ marginTop: "4px" }} />
               </Label>
             </div>
 
@@ -90,6 +90,8 @@ const Container = styled.div`
     height: 100%;
     flex-shrink: 0;
     box-sizing: border-box;
+
+    border-radius: 0 24px 24px 0;
 
     padding-top: 22px;
     padding-right: 126px;

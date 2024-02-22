@@ -18,10 +18,17 @@ const router = [
     iconPath: "Document_white",
     activeIconPath: "Document_green",
     subMenu: [
-      { path: "/myApplication/applications", label: "지원서 관리" },
-      { path: "/myApplication/applicationsCreate", label: "지원서 작성" },
+      { path: "/myapplication/applications", label: "지원서 관리" },
+      { path: "/myapplication/applicationsCreate", label: "지원서 작성" },
     ],
   },
+  {
+    path: "/myapplication/applications",
+    label: "지원서 관리",
+    iconPath: "Document_white",
+    activeIconPath: "Document_green",
+  },
+
   {
     path: "/payment",
     label: "결제 내역",
@@ -33,7 +40,7 @@ const router = [
     label: "프로젝트",
     iconPath: "Monitor_white",
     activeIconPath: "Monitor_green",
-    subMenu: [{ path: "/myProject/myProjectList", label: "내 프로젝트" }],
+    subMenu: [{ path: "/myproject/myProjectList", label: "내 프로젝트" }],
   },
 ];
 

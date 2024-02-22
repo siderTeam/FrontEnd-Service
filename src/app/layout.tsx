@@ -1,7 +1,6 @@
-import { color } from "@/styles/color";
 import "../../public/reset.css";
+import "../Styles/global.css";
 import RootContainer from "@/component/RootContainer";
-import "../styles/global.css";
 import * as CS from "../Styles/CommonStyles";
 export const metadata = {
   title: "Next.js",
