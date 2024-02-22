@@ -2,7 +2,7 @@ import Radio from "@/components/Radio/Radio";
 
 const Page = () => {
   return (
-    <div style={{ background: "pink", width: 300, height: 300 }}>
+    <div style={{ width: 300, height: 300 }}>
       <Radio text="??" />
       <Radio />
       <Radio disabled />

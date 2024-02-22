@@ -88,18 +88,10 @@ const StyledRadio = styled.input<RADIO_BUTTON_TYPE_PROPS>`
 
 const StyledLabel = styled.div`
   color: ${color.gray.white};
-
   font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
 `;
 
 const StyledRequire = styled.div`
   color: ${color.gray.gray6};
-  font-family: "Spoqa Han Sans Neo";
   font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
 `;
