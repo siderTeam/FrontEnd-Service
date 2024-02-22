@@ -29,6 +29,7 @@ const Page = () => {
 
         route.push("/home");
       }
+      console.log("dd", data.data);
     },
     onError: () => {
       console.log("실패");
@@ -38,9 +39,6 @@ const Page = () => {
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
-
-    console.log("value", value);
-    console.log("name", name);
   };
 
   console.log("form:", form);
