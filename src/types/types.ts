@@ -5,8 +5,8 @@ import { TextareaHTMLAttributes } from "react";
 //Input
 
 export type INPUT_STYLE_PROPS = {
-  size?: "small" | "full";
-  text?: "primary";
+  size?: "medium" | "large";
+  color?: string;
 };
 
 export type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
@@ -20,7 +20,7 @@ export type InputProps = INPUT_STYLE_PROPS &
     name?: string;
     placeholder?: string;
     errorText?: string;
-    icon?: boolean;
+    icon?: string;
     style?: React.CSSProperties;
     rest?: any;
     buttonText?: string;
@@ -43,8 +43,8 @@ export type LabelProps = {
 //Button
 
 export type BUTTON_STYLE_PROPS = {
-  size?: "full";
-  mode?: "primary" | "primary-reverse";
+  size?: "medium" | "large" | "in_input";
+  mode?: "primary" | "secondary";
 };
 
 export type ButtonProps = BUTTON_STYLE_PROPS & {
@@ -52,9 +52,10 @@ export type ButtonProps = BUTTON_STYLE_PROPS & {
   style?: React.CSSProperties;
   onClick?: () => void;
   rightIcon?: string;
-  LeftIcon?: string;
-  type?: string;
+  leftIcon?: string;
   iconStyle?: React.CSSProperties;
+  className?: string;
+  disabled?: any;
 };
 
 //CheckBox
@@ -78,23 +79,35 @@ export type CheckboxProps = CHECKBOX_TYPE_PROPS & {
 //Modal
 
 export type ModalProps = {
-  visible: boolean;
-  onClose: () => void;
-  children: any;
+  visible?: boolean;
+  onClose?: () => void;
+  children?: any;
   style?: React.CSSProperties;
 };
 
 //SelectBox
 
 export type SELECTBOX_STYLE_PROPS = {
-  selectedType?: "primary";
-  optionType?: "primary";
-  text?: "primary";
+  selectedType?: "full";
+  optionType?: "full";
+  text?: "full";
 };
 
 export type SelectBoxProps = SELECTBOX_STYLE_PROPS & {
-  options: { label: string; value: string }[];
-  value: string;
+  options?: { label: string; value: string }[];
+  value?: string;
+  name: string;
+  onChange?: (name: string, value: string) => void;
+  style?: React.CSSProperties;
+  optionStyle?: React.CSSProperties;
+  placeholder?: string;
+};
+
+//SelectInput
+
+export type SelectInputProps = {
+  options?: { label: string; value: string }[];
+  value?: string;
   name: string;
   onChange?: (name: string, value: string) => void;
   style?: React.CSSProperties;
@@ -105,13 +118,15 @@ export type SelectBoxProps = SELECTBOX_STYLE_PROPS & {
 //Textarea
 
 export type TEXTAREA_STYLE_PROPS = {
-  size?: "medium" | "large";
+  size?: "full" | "medium" | "large";
+  color?: "primary";
 };
 
 export type TextareaProps = TEXTAREA_STYLE_PROPS &
   TextareaHTMLAttributes<HTMLTextAreaElement> & {
     style?: React.CSSProperties;
     rest?: any;
+    textareaCount: number;
   };
 
 //LabelInput
@@ -120,13 +135,32 @@ export type LABELINPUT_STYLE_PROPS = {
   location: "left" | "top";
 };
 
-//Card
-
+//card
 export type CardProps = {
+  title: string;
+  startDate: string;
+  endDate: string;
+  deposit: number;
   children?: any;
-  id?: string;
-  title?: string;
-  projectPeriod?: string | number;
-  deposit?: string | number;
-  necessaryPeriod?: string | number;
+  style?: React.CSSProperties;
+};
+
+//Radio
+
+export type RADIO_BUTTON_TYPE_PROPS = {
+  size?: "small" | 'big'
+};
+
+export type RadioButtonProps = RADIO_BUTTON_TYPE_PROPS & {
+  text?: string;
+  requireText?: string;
+  isChecked?: boolean;
+  name?: string;
+  onChange?: (e: any) => void;
+  onClick?: () => void;
+  style?: React.CSSProperties;
+  requireStyle?: React.CSSProperties;
+  className?: string;
+  disabled?: boolean;
+  size?: "small" | 'big';
 };

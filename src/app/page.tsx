@@ -74,7 +74,7 @@ const Page = () => {
             <Card
               key={item.id}
               title={item.name}
-              projectPeriod={`${item.recruitStartDate}~${item.recruitEndDate}`}
+              // projectPeriod={`${item.recruitStartDate}~${item.recruitEndDate}`}
               deposit={item.deposit}
               necessaryPeriod={item.count}
             >

@@ -16,26 +16,26 @@ const Page = () => {
 
   return (
     <Container>
-      <div className='backgroundImg'></div>
+      <div className="backgroundImg"></div>
       <LoginContainer>
-        <div className='title'>로그인</div>
-        <div className='inputWrap'>
-          <Input size='full' text='primary' placeholder='아이디' />
-          <Input size='full' text='primary' placeholder='비밀번호' />
+        <div className="title">로그인</div>
+        <div className="inputWrap">
+          <Input size="large" color="primary" placeholder="아이디" />
+          <Input size="large" color="primary" placeholder="비밀번호" />
         </div>
-        <div className='wrap'>
+        <div className="wrap">
           <Checkbox
             type={isChecked ? "checked" : "unchecked"}
-            className='checkbox'
-            text='아이디 저장'
+            className="checkbox"
+            text="아이디 저장"
             isChecked={isChecked}
             onClick={handleChecked}
           />
-          <div className='find'>계정정보 찾기</div>
+          <div className="find">계정정보 찾기</div>
         </div>
-        <div className='buttonWrap'>
+        <div className="buttonWrap">
           <Button>로그인</Button>
-          <Button mode='primary-reverse'>회원가입</Button>
+          <Button mode="primary">회원가입</Button>
         </div>
       </LoginContainer>
     </Container>
