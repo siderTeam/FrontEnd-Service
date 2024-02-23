@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../../Styles/CommonStyles";
+import { color } from "@/Styles/color";
 import { useState } from "react";
 
 import { SelectBoxProps } from "@/types/types";
@@ -73,9 +73,9 @@ const SELECT_TYPE = {
     alignItems: "center",
 
     borderRadius: "12px",
-    border: `1px solid ${CS.color.gray6}`,
+    border: `1px solid ${color.gray.gray6}`,
 
-    color: `${CS.color.gray7}`,
+    color: `${color.gray.gray7}`,
 
     fontSize: "16px",
     fontStyle: "normal",
@@ -92,9 +92,9 @@ const OPTIONS_TYPE = {
     alignItems: "center",
 
     borderRadius: "12px",
-    border: `1px solid ${CS.color.gray6}`,
+    border: `1px solid ${color.gray.gray6}`,
 
-    color: `${CS.color.gray7}`,
+    color: `${color.gray.gray7}`,
 
     fontSize: "16px",
     fontStyle: "normal",

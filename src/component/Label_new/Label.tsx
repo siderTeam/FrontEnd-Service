@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
+import { color } from "@/Styles/color";
 
 import { LabelProps } from "@/types/types";
 
@@ -35,7 +36,7 @@ const Container = styled.div`
 `;
 
 const StyledLabel = styled.label<any>`
-  color: #fff;
+  color: ${color.gray.white};
 
   font-size: 16px;
   font-style: normal;
@@ -44,16 +45,13 @@ const StyledLabel = styled.label<any>`
 `;
 
 const StyledRequire = styled.span`
-  color: var(--BRAND-BRAND_MAIN, #01ff1a);
+  color: ${color.brand.brandMain};
 
   font-size: 16px;
-  font-style: normal;
   font-weight: 500;
-  line-height: normal;
 `;
 
 const StyledSubText = styled.p<any>`
-  /* color: #a7a7a7; */
   font-size: 0.8em;
   margin-left: 8px;
   color: ${({ isValid }) => (isValid === true ? "green" : "red")};

@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../../Styles/CommonStyles";
+import { color } from "@/Styles/color";
 
 import { TextareaProps } from "@/types/types";
 import { kMaxLength } from "buffer";
@@ -16,7 +16,7 @@ const TextArea = ({
   return (
     <Container>
       <StyledTextArea size={size} color={color} style={style} {...rest} />
-      <div className='text-length'>{textareaCount}/100</div>
+      {textareaCount && <div className='text-length'>{textareaCount}/100</div>}
     </Container>
   );
 };
@@ -34,7 +34,7 @@ const TEXTAREA_TYPE = {
     gap: "4px",
 
     borderRadius: "8px",
-    border: `1px solid ${CS.color.gray6}`,
+    border: `1px solid ${color.gray.gray6}`,
     background: "none",
   },
   ["medium"]: {
@@ -47,7 +47,7 @@ const TEXTAREA_TYPE = {
 
 const COLOR_TYPE = {
   ["primary"]: {
-    color: CS.color.white,
+    color: color.gray.white,
     fontSize: "14px",
     fontStyle: "normal",
     fontWeight: 400,

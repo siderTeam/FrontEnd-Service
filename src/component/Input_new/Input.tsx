@@ -3,7 +3,7 @@
 import { InputProps } from "@/types/types";
 import styled from "@emotion/styled";
 import Button from "../Button_new/Button";
-import * as CS from "../../Styles/CommonStyles";
+import { color } from "@/Styles/color";
 
 const Input = ({
   value,
@@ -61,6 +61,12 @@ const Input = ({
 export default Input;
 
 const INPUT_TYPE = {
+  ["small"]: {
+    width: "331px",
+    height: "32px",
+    padding: "7px 237px 7px 16px",
+    borderRadius: "6px",
+  },
   ["medium"]: {
     width: "331px",
     height: "40px",
@@ -77,28 +83,28 @@ const INPUT_TYPE = {
 
 const COLOR_TYPE = {
   ["placeholder"]: {
-    border: ` 1px solid ${CS.color.gray6}`,
-    color: CS.color.gray7,
+    border: ` 1px solid ${color.gray.gray6}`,
+    color: color.gray.gray7,
   },
   ["filled"]: {
-    border: ` 1px solid ${CS.color.gray6}`,
-    color: CS.color.white,
+    border: ` 1px solid ${color.gray.gray6}`,
+    color: color.gray.white,
   },
   ["active"]: {
-    border: ` 1px solid ${CS.color.brandMain}`,
-    color: CS.color.white,
+    border: ` 1px solid ${color.brand.brandMain}`,
+    color: color.gray.white,
   },
   ["failed"]: {
-    border: ` 1px solid ${CS.color.error1}`,
-    color: CS.color.white,
+    border: ` 1px solid ${color.secondary.error_1}`,
+    color: color.gray.white,
   },
   ["positive"]: {
-    border: ` 1px solid ${CS.color.positive1}`,
-    color: CS.color.white,
+    border: ` 1px solid ${color.secondary.positive_1}`,
+    color: color.gray.white,
   },
   ["disabled"]: {
-    border: ` 1px solid ${CS.color.gray9}`,
-    color: CS.color.gray8,
+    border: ` 1px solid ${color.gray.gray9}`,
+    color: color.gray.gray8,
   },
 };
 
@@ -142,11 +148,11 @@ const StyledInput = styled.input<any>`
 `;
 
 const ErrorText = styled.div<InputProps>`
-  color: ${({ color }) =>
-    color === "failed"
-      ? CS.color.error1
-      : color === "positive"
-      ? CS.color.positive1
+  color: ${(props) =>
+    props.color === "failed"
+      ? color.secondary.error_1
+      : props.color === "positive"
+      ? color.secondary.positive_1
       : ""};
 
   font-size: 12px;

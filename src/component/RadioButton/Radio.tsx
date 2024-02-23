@@ -1,29 +1,32 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../../Styles/CommonStyles";
 import { RADIO_BUTTON_TYPE_PROPS, RadioButtonProps } from "@/types/types";
+import { color } from "@/Styles/color";
 
 const Radio = ({
   text,
-  type = "unchecked_Big",
   requireText,
-  name,
   className,
   onChange,
   onClick,
   style,
   requireStyle,
+  disabled,
+  size = "small",
+  isChecked,
 }: RadioButtonProps) => {
   return (
     <Container>
       <StyledRadio
-        type={type}
-        // name={name}
+        type='checkbox'
+        disabled={disabled}
         onChange={onChange}
         onClick={onClick}
         style={style}
         className={className}
+        size={size as never}
+        checked={isChecked}
       />
       <StyledLabel>{text}</StyledLabel>
       {requireText && (
@@ -35,56 +38,14 @@ const Radio = ({
 
 export default Radio;
 
-const RADIO_TYPE = {
-  ["unchecked_Big"]: {
-    background: 'url("/images/radio/UnChecked_Big.svg")',
-    width: "20px",
-    height: "20px,",
+const SIZE = {
+  big: {
+    width: 20,
+    height: 20,
   },
-  ["unchecked_Small"]: {
-    background: 'url("/images/radio/UnChecked_Small.svg")',
-    width: "16px",
-    height: "16px,",
-  },
-  ["hover_Big"]: {
-    background: 'url("/images/radio/Hover_Big.svg")',
-    width: "20px",
-    height: "20px",
-  },
-  ["hover_Small"]: {
-    background: 'url("/images/radio/Hover_Small.svg")',
-    width: "16px",
-    height: "16px,",
-  },
-  ["checked_Big"]: {
-    background: 'url("/images/radio/Checked_Big.svg")',
-    width: "20px",
-    height: "20px,",
-  },
-  ["checked_Small"]: {
-    background: 'url("/images/radio/Checked_Small.svg")',
-    width: "16px",
-    height: "16px,",
-  },
-  ["disabled_Big"]: {
-    background: 'url("/images/radio/Disabled_Big.svg")',
-    width: "20px",
-    height: "20px,",
-  },
-  ["disabled_Small"]: {
-    background: 'url("/images/radio/Disabled_Small.svg")',
-    width: "16px",
-    height: "16px,",
-  },
-  ["disabledCheck_Big"]: {
-    background: 'url("/images/radio/DisabledCheck_Big.svg")',
-    width: "20px",
-    height: "20px,",
-  },
-  ["disabledCheck_Small"]: {
-    background: 'url("/images/radio/DisabledCheck_Big.svg")',
-    width: "16px",
-    height: "16px,",
+  small: {
+    width: 16,
+    height: 16,
   },
 };
 
@@ -93,33 +54,46 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const StyledRadio = styled.div<RADIO_BUTTON_TYPE_PROPS>`
-  ${({ type }) => RADIO_TYPE[type as keyof typeof RADIO_TYPE]};
-
-  flex-shrink: 0;
-  cursor: pointer;
-
-  margin-right: 12px;
+const StyledRadio = styled.input<RADIO_BUTTON_TYPE_PROPS>`
+  ${({ size }) => SIZE[size]}
+  border-radius: 100%;
+  background-color: transparent;
+  border: 1px solid ${color.gray.gray4};
+  appearance: none;
+  box-sizing: border-box;
+  background-position: center;
+  background-size: cover;
 
   &:hover {
-    ${({ type }) => (type === "unchecked_Big" ? RADIO_TYPE.hover_Big : "")};
+    background-color: ${color.gray.gray7};
+  }
+
+  &:hover&:checked {
+    background-color: transparent;
+  }
+
+  &:checked {
+    background-image: url("/images/radio/Checked_Big.svg");
+    border: none;
+  }
+
+  &:disabled {
+    background-image: url("/images/radio/Disabled_Big.svg");
+    border: none;
+  }
+
+  &:checked&:disabled {
+    background-image: url("/images/radio/DisabledCheck_Big.svg");
+    border: none;
   }
 `;
 
 const StyledLabel = styled.div`
-  color: ${CS.color.white};
-
+  color: ${color.gray.white};
   font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
 `;
 
 const StyledRequire = styled.div`
-  color: ${CS.color.gray6};
-  font-family: "Spoqa Han Sans Neo";
+  color: ${color.gray.gray6};
   font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
 `;

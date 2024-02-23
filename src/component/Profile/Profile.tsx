@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import * as CS from "../../Styles/CommonStyles";
+import { color } from "@/Styles/color";
 
 const Profile = () => {
   return (
@@ -26,7 +26,7 @@ const Container = styled.div`
   gap: 10px;
 
   .name {
-    color: ${CS.color.gray4};
+    color: ${color.gray.gray4};
 
     font-size: 14px;
     font-style: normal;
@@ -35,7 +35,7 @@ const Container = styled.div`
   }
 
   .year {
-    color: ${CS.color.gray4};
+    color: ${color.gray.gray4};
 
     font-size: 14px;
     font-style: normal;
@@ -51,7 +51,7 @@ const Container = styled.div`
     flex-shrink: 0;
 
     overflow: hidden;
-    color: ${CS.color.gray4};
+    color: ${color.gray.gray4};
     text-overflow: ellipsis;
 
     font-size: 14px;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import * as CS from "../../../Styles/CommonStyles";
+import { color } from "@/Styles/color";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -28,7 +28,12 @@ const router = [
     iconPath: "Document_white",
     activeIconPath: "Document_green",
   },
-
+  {
+    path: "/myapplication/createapp",
+    label: "지원서 작성",
+    iconPath: "Document_white",
+    activeIconPath: "Document_green",
+  },
   {
     path: "/payment",
     label: "결제 내역",
@@ -36,11 +41,33 @@ const router = [
     activeIconPath: "Document_green",
   },
   {
-    path: "/myproject",
+    path: "/project",
     label: "프로젝트",
     iconPath: "Monitor_white",
     activeIconPath: "Monitor_green",
-    subMenu: [{ path: "/myproject/myProjectList", label: "내 프로젝트" }],
+    subMenu: [
+      { path: "/project/myproject", label: "내 프로젝트" },
+      { path: "/project/applicationStatus", label: "지원 현황" },
+      { path: "/project/recruitmentStatus", label: "모집 현황" },
+    ],
+  },
+  {
+    path: "/project/myproject",
+    label: "내 프로젝트",
+    iconPath: "Monitor_white",
+    activeIconPath: "Monitor_green",
+  },
+  {
+    path: "/project/applicationStatus",
+    label: "지원 현황",
+    iconPath: "Monitor_white",
+    activeIconPath: "Monitor_green",
+  },
+  {
+    path: "/project/recruitmentStatus",
+    label: "모집 현황",
+    iconPath: "Monitor_white",
+    activeIconPath: "Monitor_green",
   },
 ];
 
@@ -136,7 +163,7 @@ const RouteWrapper = styled.div`
   }
 
   .common {
-    color: ${CS.color.white};
+    color: ${color.gray.white};
 
     font-size: 16px;
     font-style: normal;
@@ -146,7 +173,7 @@ const RouteWrapper = styled.div`
   }
 
   .choice {
-    color: ${CS.color.brandMain};
+    color: ${color.brand.brandMain};
 
     font-size: 16px;
     font-style: normal;

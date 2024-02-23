@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { CardProps } from "../../types/types";
 import Image from "next/image";
 import Profile from "../Profile/Profile";
-import * as CS from "../../Styles/CommonStyles";
+import { black } from "@/Styles/color";
 
 const color = ["red", "yellow", "purple", "green", "blue"];
 
@@ -131,7 +131,7 @@ const CardWrap = styled.div`
   position: relative;
 
   .subTitle {
-    color: ${CS.color.gray5};
+    color: ${black.gray.gray5};
     font-size: 12px;
     font-weight: 400;
   }
@@ -147,7 +147,7 @@ const CardWrap = styled.div`
 
   .title {
     height: 40px;
-    color: ${CS.color.white};
+    color: ${black.gray.white};
     font-size: 16px;
     font-weight: 700;
     line-height: normal;
@@ -173,13 +173,13 @@ const SubInfo = styled.div`
   }
 
   .projectDate {
-    color: ${CS.color.gray2};
+    color: ${black.gray.gray2};
     font-size: 12px;
     font-weight: 500;
   }
 
   .deposit {
-    color: ${CS.color.gray3};
+    color: ${black.gray.gray3};
     font-size: 12px;
     font-weight: 700;
   }

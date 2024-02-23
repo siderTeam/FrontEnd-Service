@@ -5,7 +5,7 @@ import { TextareaHTMLAttributes } from "react";
 //Input
 
 export type INPUT_STYLE_PROPS = {
-  size?: "medium" | "large";
+  size?: "small" | "medium" | "large";
   color?: string;
 };
 
@@ -126,7 +126,7 @@ export type TextareaProps = TEXTAREA_STYLE_PROPS &
   TextareaHTMLAttributes<HTMLTextAreaElement> & {
     style?: React.CSSProperties;
     rest?: any;
-    textareaCount: number;
+    textareaCount?: number;
   };
 
 //LabelInput
@@ -148,21 +148,11 @@ export type CardProps = {
 //Radio
 
 export type RADIO_BUTTON_TYPE_PROPS = {
-  type?:
-    | "unchecked_Big"
-    | "unchecked_Small"
-    | "hover_Big"
-    | "hover_Small"
-    | "checked_Big"
-    | "checked_Small"
-    | "disabled_Big"
-    | "disabled_Small"
-    | "disabledCheck_Big"
-    | "disabledCheck_Small";
+  size?: "small" | "big";
 };
 
 export type RadioButtonProps = RADIO_BUTTON_TYPE_PROPS & {
-  text: string;
+  text?: string;
   requireText?: string;
   isChecked?: boolean;
   name?: string;
@@ -171,4 +161,6 @@ export type RadioButtonProps = RADIO_BUTTON_TYPE_PROPS & {
   style?: React.CSSProperties;
   requireStyle?: React.CSSProperties;
   className?: string;
+  disabled?: boolean;
+  size?: "small" | "big";
 };

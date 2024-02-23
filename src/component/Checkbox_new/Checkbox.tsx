@@ -2,7 +2,7 @@
 
 import { CHECKBOX_TYPE_PROPS, CheckboxProps } from "@/types/types";
 import styled from "@emotion/styled";
-import * as CS from "../../Styles/CommonStyles";
+import { color } from "@/Styles/color";
 
 const Checkbox = ({
   text,
@@ -68,7 +68,7 @@ const StyledCheckbox = styled.div<CHECKBOX_TYPE_PROPS>`
 `;
 
 const StyledLabel = styled.div`
-  color: ${CS.color.gray5};
+  color: ${color.gray.gray5};
   text-align: right;
 
   font-size: 12px;

@@ -9,7 +9,7 @@ import PositionIcon from "@/component/PositionIcon/PositionIcon";
 import Profile from "@/component/Profile/Profile";
 
 import styled from "@emotion/styled";
-import * as CS from "../Styles/CommonStyles";
+import { color } from "@/Styles/color";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Link from "next/link";
@@ -158,7 +158,7 @@ const Container = styled.div`
       lightgray 0px -234.525px / 100% 292.86% no-repeat;
   }
   .title {
-    color: ${CS.color.gray3};
+    color: ${color.gray.gray3};
 
     font-size: 24px;
     font-style: normal;
@@ -208,14 +208,14 @@ const FilterWrap = styled.div`
       align-items: center;
       gap: 10px;
       border-radius: 34px;
-      border: 1px solid ${CS.color.gray8};
-      background: ${CS.color.black};
-      color: ${CS.color.gray6};
+      border: 1px solid ${color.gray.gray8};
+      background: ${color.gray.black};
+      color: ${color.gray.gray6};
 
       font-size: 16px;
-      font-style: normal;
+
       font-weight: 400;
-      line-height: normal;
+
       cursor: pointer;
     }
     .choice {
@@ -225,14 +225,14 @@ const FilterWrap = styled.div`
       align-items: center;
       gap: 10px;
       border-radius: 34px;
-      border: 1px solid ${CS.color.brandMain};
-      background: ${CS.color.black};
-      color: ${CS.color.brandMain};
+      border: 1px solid ${color.brand.brandMain};
+      background: ${color.gray.black};
+      color: ${color.brand.brandMain};
 
       font-size: 16px;
-      font-style: normal;
+
       font-weight: 700;
-      line-height: normal;
+
       cursor: pointer;
     }
   }

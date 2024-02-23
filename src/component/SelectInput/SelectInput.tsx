@@ -1,7 +1,7 @@
 import Image from "next/image";
 import SelectBox from "../SelectBox_new/SelectBox";
 import styled from "@emotion/styled";
-import * as CS from "../../Styles/CommonStyles";
+import { color } from "@/Styles/color";
 import { SelectInputProps } from "@/types/types";
 import { useState } from "react";
 
@@ -84,7 +84,7 @@ const Container = styled.div`
   flex-shrink: 0;
 
   border-radius: 58px;
-  border: 1px solid ${CS.color.brandMain};
+  border: 1px solid ${color.brand.brandMain};
 
   .select-input-wrap {
     display: flex;
@@ -102,12 +102,11 @@ const Container = styled.div`
 
       width: 250px;
 
-      color: ${CS.color.gray7};
+      color: ${color.gray.gray7};
 
       font-size: 16px;
-      font-style: normal;
+
       font-weight: 400;
-      line-height: normal;
     }
   }
 `;
@@ -118,7 +117,7 @@ const Container = styled.div`
 
 const SelectStyle = styled.div`
   width: 65px;
-  color: ${CS.color.white};
+  color: ${color.gray.white};
 
   font-size: 16px;
   font-style: normal;
@@ -141,8 +140,8 @@ const OptionWrapper = styled.ul`
     padding: 10px;
     box-sizing: border-box;
     cursor: pointer;
-    border: 1px solid ${CS.color.brandMain};
-    color: ${CS.color.white};
+    border: 1px solid ${color.brand.brandMain};
+    color: ${color.gray.white};
 
     font-size: 16px;
     font-style: normal;

@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../../Styles/CommonStyles";
+import { color } from "@/Styles/color";
 
 import { ModalProps } from "@/types/types";
 import { useRouter } from "next/navigation";
@@ -38,7 +38,7 @@ const Container = styled.div<{ visible: boolean }>`
 `;
 
 const Content = styled.div`
-  background: ${CS.color.black};
+  background: ${color.gray.black};
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 24px;

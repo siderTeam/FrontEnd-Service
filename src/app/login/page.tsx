@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../../Styles/CommonStyles";
+import { color } from "@/Styles/color";
 import Checkbox from "@/component/Checkbox_new/Checkbox";
 import { useState } from "react";
 import Input from "@/component/Input_new/Input";
@@ -48,8 +48,6 @@ const Page = () => {
         setCookie("AccessToken", response.data);
 
         route.push("/");
-
-        console.log("dd", response.data);
       } else if (data.result === false) {
         setUsernameColor("failed");
         setPasswordColor("failed");
@@ -137,7 +135,7 @@ const Container = styled.div`
   }
 
   .title {
-    color: ${CS.color.brandMain};
+    color: ${color.brand.brandMain};
     text-align: center;
 
     font-size: 32px;
@@ -160,12 +158,11 @@ const Container = styled.div`
     position: relative;
 
     .error-text {
-      color: ${CS.color.error1};
-      font-family: "Spoqa Han Sans Neo";
+      color: ${color.secondary.error_1};
+
       font-size: 14px;
-      font-style: normal;
+
       font-weight: 300;
-      line-height: normal;
 
       position: absolute;
       top: -25px;
@@ -226,7 +223,7 @@ const LoginContainer = styled.div`
     margin-bottom: 50.5px;
   }
   .find {
-    color: ${CS.color.gray5};
+    color: ${color.gray.gray5};
     text-align: right;
 
     font-size: 12px;
