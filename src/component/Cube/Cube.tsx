@@ -1,7 +1,7 @@
 import React from "react";
 
 import Lottie from "react-lottie-player";
-import cube from "../../../public/Cube.json";
+import cube from "../../../public/Cube_final.json";
 
 export default function Example() {
   console.log("cube:", cube);

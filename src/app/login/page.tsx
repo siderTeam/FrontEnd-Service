@@ -60,7 +60,9 @@ const Page = () => {
 
   return (
     <Container>
-      <div className='backgroundImg'>{/* <Cube /> */}</div>
+      <div className='backgroundImg'>
+        <Cube />
+      </div>
       <LoginContainer>
         <div className='title'>로그인</div>
         <div className='inputWrap'>
@@ -124,14 +126,14 @@ const Container = styled.div`
     flex-shrink: 0;
     position: absolute;
 
-    background: linear-gradient(
+    /* background: linear-gradient(
         90deg,
         #02060d 6.5%,
         rgba(0, 0, 0, 0) 52%,
         #02060d 92%
       ),
       linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%),
-      lightgray 50% / cover no-repeat;
+      lightgray 50% / cover no-repeat; */
   }
 
   .title {
