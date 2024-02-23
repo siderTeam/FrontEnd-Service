@@ -1,9 +1,9 @@
 "use client";
 
 import styled from "@emotion/styled";
-import { color } from "../../Styles/CommonStyles";
+import { color } from "@/Styles/CommonStyles";
 import { ModalProps } from "@/type/types";
-import Sidebar from "../ModalSidebar/ModalSidebar";
+import Sidebar from "@/component/ModalSidebar/ModalSidebar";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 

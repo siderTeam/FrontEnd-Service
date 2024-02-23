@@ -1,49 +1,103 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../Styles/CommonStyles";
+import { color } from "@/Styles/CommonStyles";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { useState } from "react";
+
+const router = [
+  {
+    path: "/myPage",
+    label: "마이페이지",
+    iconPath: "person_white",
+    activeIconPath: "person_green",
+  },
+  {
+    path: "/resume",
+    label: "내 지원서",
+    iconPath: "document_white",
+    activeIconPath: "document_green",
+    subMenu: [
+      {
+        path: "/resume/resumeList",
+        label: "지원서 관리",
+      },
+      {
+        path: "/resume/resumeCreate",
+        label: "지원서 작성",
+      },
+    ],
+  },
+  {
+    path: "/payment",
+    label: "결제 내역",
+    iconPath: "checkCircle_white",
+    activeIconPath: "checkCircle_green",
+  },
+  {
+    path: "/project",
+    label: "프로젝트",
+    iconPath: "moniter_white",
+    activeIconPath: "moniter_green",
+    subMenu: [
+      {
+        path: "/project/myProject",
+        label: "내 프로젝트",
+      },
+      {
+        path: "/project/supportStatus",
+        label: "지원 현황",
+      },
+      {
+        path: "/project/recruitStatus",
+        label: "모집 현황",
+      },
+    ],
+  },
+];
 
 const Sidebar = () => {
+  const path = usePathname();
+
   return (
     <>
       <Container>
-        <div className="title">
-          <Image
-            src={"/images/icons/person_white.svg"}
-            alt="mypage"
-            width={16}
-            height={16}
-          />
-          <span>마이페이지</span>
-        </div>
-        <div className="title">
-          <Image
-            src={"/images/icons/document_white.svg"}
-            alt="mypage"
-            width={16}
-            height={16}
-          />
-          <span>내 지원서</span>
-        </div>
-        <div className="title">
-          <Image
-            src={"/images/icons/checkCircle_white.svg"}
-            alt="mypage"
-            width={16}
-            height={16}
-          />
-          <span>결제 내역</span>
-        </div>
-        <div className="title">
-          <Image
-            src={"/images/icons/moniter_white.svg"}
-            alt="mypage"
-            width={16}
-            height={16}
-          />
-          <span>프로젝트</span>
-        </div>
+        {router.map((route) => (
+          <div key={route.path}>
+            <div className={`menu ${path.includes(route.path) && "active"}`}>
+              <Image
+                src={
+                  path.includes(route.path)
+                    ? `/images/icons/${route.activeIconPath}.svg`
+                    : `/images/icons/${route.iconPath}.svg`
+                }
+                width={16}
+                height={16}
+                alt={route.label}
+              />
+              {route.subMenu ? (
+                <span>{route.label}</span>
+              ) : (
+                <Link href={route.path}>
+                  <span>{route.label}</span>
+                </Link>
+              )}
+            </div>
+            {route.subMenu && (
+              <div className="subMenu">
+                {route.subMenu?.map((item) => (
+                  <Link href={item.path} key={item.path}>
+                    <span className={`${path === item.path && "active"}`}>
+                      {item.label}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
       </Container>
       <Effect />
     </>
@@ -65,15 +119,33 @@ const Container = styled.div`
   flex-direction: column;
   gap: 45px;
 
-  .title {
+  .menu {
     display: flex;
     align-items: center;
     gap: 8px;
 
-    color: ${CS.color.white};
+    color: ${color.white};
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
+    line-height: normal;
+    cursor: pointer;
+  }
+
+  .active {
+    color: ${color.brandMain};
+  }
+
+  .subMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 16px 0 0 24px;
+
+    color: ${color.gray5};
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
     line-height: normal;
   }
 `;
