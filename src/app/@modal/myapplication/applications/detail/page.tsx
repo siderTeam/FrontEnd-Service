@@ -16,25 +16,25 @@ const Page = () => {
         <Sidebar />
         <div className='right-section'>
           <div className='wrap'>
-            <Label
-              label='지원서 이름'
-              style={{ marginBottom: "4px" }}
-              require='*'
-            >
-              <Input />
+            <Label label='지원서 이름'>
+              <Input style={{ marginTop: "4px" }} />
             </Label>
 
-            <Label label='자기 소개' require='*'>
-              <TextArea />
+            <Label label='자기 소개'>
+              <TextArea style={{ marginTop: "4px" }} />
             </Label>
 
-            <Label label='스킬' require='*'>
-              <TextArea />
+            <Label label='스킬'>
+              <TextArea style={{ marginTop: "4px" }} />
             </Label>
           </div>
+          <div className='delete'>지원서 삭제하기</div>
           <div className='button-wrap'>
+            <Button size='medium' mode='secondary'>
+              이전
+            </Button>
             <Button size='medium' mode='primary'>
-              저장
+              수정
             </Button>
           </div>
         </div>

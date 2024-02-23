@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../../../../Styles/CommonStyles";
+import { color } from "@/Styles/color";
 
 import Modal from "@/component/Modal_new/Modal";
 import React, { useState } from "react";
@@ -15,10 +15,41 @@ const Page = () => {
   const [page, setPage] = useState(1);
   const items = 12;
 
-  const resumeData = useQuery({
-    queryKey: [rest.get.resume],
-    queryFn: getResume,
-  });
+  // const resumeData = useQuery({
+  //   queryKey: [rest.get.resume],
+  //   queryFn: getResume,
+  // });
+
+  const resumeData = [
+    {
+      number: 1,
+      name: "지원서 이름이시다.",
+    },
+    {
+      number: 1,
+      name: "지원서 이름이시다.",
+    },
+    {
+      number: 1,
+      name: "지원서 이름이시다.",
+    },
+    {
+      number: 1,
+      name: "지원서 이름이시다.",
+    },
+    {
+      number: 1,
+      name: "지원서 이름이시다.",
+    },
+    {
+      number: 1,
+      name: "지원서 이름이시다.",
+    },
+    {
+      number: 1,
+      name: "지원서 이름이시다.",
+    },
+  ];
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -44,22 +75,19 @@ const Page = () => {
               <div className='delete'>삭제</div>
             </TableHeader>
             <TableContent>
-              {resumeData.data
+              {resumeData
                 ?.slice(items * (page - 1), items * (page - 1) + items)
                 .map((content, index) => (
                   <ul>
-                    <li className='number'>{(page - 1) * items + index + 1}</li>
+                    {/* <li className='number'>{(page - 1) * items + index + 1}</li> */}
+                    <li className='number'>{content.number}</li>
                     <li className='title'>{content.name}</li>
                     <div
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}
                       className='delete'
                     >
-                      {isHovered ? (
-                        <img src='/images/applications/delete_red.svg' />
-                      ) : (
-                        <img src='/images/applications/delete_gray.svg' />
-                      )}
+                      삭제
                     </div>
                   </ul>
                 ))}
@@ -80,8 +108,6 @@ const Container = styled.div`
   flex-shrink: 0;
   box-sizing: border-box;
 
-  .nav {
-  }
   .right-section {
     width: 842px;
     height: 100%;
@@ -93,7 +119,7 @@ const Container = styled.div`
     padding-right: 70px;
     padding-left: 70px;
 
-    background: ${CS.color.black};
+    background: ${color.gray.black};
   }
 `;
 
@@ -103,11 +129,12 @@ const TableHeader = styled.div`
 
   height: 40px;
   background: none;
-  border-bottom: 1px solid ${CS.color.white};
+  border-bottom: 1px solid ${color.gray.white};
 
   margin-top: 70px;
+  margin-bottom: 20px;
 
-  color: ${CS.color.white};
+  color: ${color.gray.white};
   text-align: center;
   font-size: 16px;
   font-style: normal;
@@ -134,6 +161,7 @@ const TableHeader = styled.div`
 const TableContent = styled.div`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
+  gap: 10px;
 
   ul {
     display: grid;
@@ -141,10 +169,10 @@ const TableContent = styled.div`
 
     height: 52px;
     border-radius: 8px;
-    border: 1px solid ${CS.color.gray8};
+    border: 1px solid ${color.gray.gray8};
     background: rgba(2, 6, 13, 0.5);
 
-    color: ${CS.color.white};
+    color: ${color.gray.white};
 
     text-align: center;
     font-size: 14px;
@@ -152,44 +180,36 @@ const TableContent = styled.div`
     font-weight: 400;
     line-height: normal;
 
+    /* Transition for smooth hover effect */
+    transition: background-position 0.5s ease; /* 애니메이션 추가 */
+
     &:hover {
-      background: #e2f1ff;
+      border-radius: 8px;
+      border: 1px solid ${color.gray.white};
+      background: linear-gradient(
+          92deg,
+          rgba(255, 255, 255, 0.1) 38.9%,
+          rgba(0, 0, 0, 0) 62.68%
+        ),
+        rgba(2, 6, 13, 0.5);
 
-      .title {
-        color: #06f;
-        cursor: pointer;
-      }
-
-      .delete {
-        opacity: 1;
-
-        &:hover {
-          cursor: pointer;
-        }
-      }
+      background-size: 400% 400%; /* 배경 크기 증가 */
+      background-position: 50% 0; /* 그라디언트 위치를 오른쪽 끝으로 이동 */
     }
 
-    .number {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      border-right: 1px solid #a7bfe3;
-    }
-
-    .title {
-      display: flex;
-      align-items: center;
-
-      padding-left: 36px;
-    }
-
+    .number,
+    .title,
     .delete {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
 
-      opacity: 0;
+    .delete {
+      color: ${color.secondary.error_1};
+      text-align: center;
+      font-size: 12px;
+      font-weight: 400;
     }
   }
 `;
