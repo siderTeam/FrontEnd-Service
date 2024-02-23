@@ -30,7 +30,7 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
-axios.interceptors.response.use(
+API.interceptors.response.use(
   (response) => {
     return response;
   },
