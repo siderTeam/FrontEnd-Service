@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../../../Styles/CommonStyles";
+import { color } from "@/Styles/color";
 import Radio from "@/component/RadioButton/Radio";
 import { useEffect, useState } from "react";
 import Button from "@/component/Button_new/Button";
@@ -14,29 +14,38 @@ const FirstContent = ({ onClick }) => {
   });
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  const handleRadioChecked = (name) => {
-    setCheckForm((prev) => ({
-      ...prev,
-      [name]: !prev[name],
-    }));
-  };
-
   useEffect(() => {
-    const { all, first, second } = checkForm;
-    const allChecked = first && second;
-    setCheckForm((prev) => ({
-      ...prev,
-      all: allChecked,
-    }));
-    setIsButtonDisabled(!(first && second));
+    const isAllChecked = checkForm.first && checkForm.second;
+
+    if (isAllChecked) {
+      setCheckForm((prevCheckForm) => ({
+        ...prevCheckForm,
+        all: true,
+      }));
+      setIsButtonDisabled(false);
+    } else {
+      setCheckForm((prevCheckForm) => ({
+        ...prevCheckForm,
+        all: false,
+      }));
+      setIsButtonDisabled(true);
+    }
   }, [checkForm.first, checkForm.second]);
 
-  const handleAllChecked = () => {
-    const newValue = !checkForm.all;
+  const handleAgreeAll = () => {
+    const newState = {
+      all: !checkForm.all,
+      first: !checkForm.all,
+      second: !checkForm.all,
+    };
+    setCheckForm(newState);
+    setIsButtonDisabled(!checkForm.all);
+  };
+
+  const handleRadioClick = (name) => {
     setCheckForm({
-      all: newValue,
-      first: newValue,
-      second: newValue,
+      ...checkForm,
+      [name]: !checkForm[name],
     });
   };
 
@@ -53,49 +62,48 @@ const FirstContent = ({ onClick }) => {
 
       <div className='radio1'>
         <Radio
-          type={checkForm.all ? "checked_Big" : "unchecked_Big"}
+          size='big'
           className='radio'
           text='모두 동의합니다.'
           isChecked={checkForm.all}
-          onClick={handleAllChecked}
-          style={{ width: "20px", height: "20px" }}
+          onClick={handleAgreeAll}
         />
       </div>
 
       <div className='radio2'>
         <Radio
-          type={checkForm.first ? "checked_Big" : "unchecked_Big"}
+          size='big'
           className='radio'
           text='이용약관 동의'
           isChecked={checkForm.first}
-          onClick={() => handleRadioChecked("first")}
           requireText='(필수)'
-          style={{ width: "20px", height: "20px" }}
+          onClick={() => handleRadioClick("first")}
         />
         <div className='terms'>약관 내용</div>
       </div>
 
       <div className='radio3'>
         <Radio
-          type={checkForm.second ? "checked_Big" : "unchecked_Big"}
+          size='big'
           className='radio'
           text='개인정보 이용약관 동의'
           isChecked={checkForm.second}
-          onClick={() => handleRadioChecked("second")}
-          requireText='(선택)'
-          style={{ width: "20px", height: "20px" }}
+          requireText='(필수)'
+          onClick={() => handleRadioClick("second")}
         />
         <div className='terms'>약관 내용</div>
       </div>
 
-      <Button
-        mode='primary'
-        onClick={onClick}
-        style={{ width: "100%" }}
-        disabled={isButtonDisabled}
-      >
-        다음
-      </Button>
+      <div className='button-wrapper'>
+        <Button
+          mode='primary'
+          onClick={onClick}
+          style={{ width: "100%" }}
+          disabled={isButtonDisabled}
+        >
+          다음
+        </Button>
+      </div>
       <div className='mirror'></div>
     </SignupContainer>
   );
@@ -151,7 +159,7 @@ const SignupContainer = styled.div`
     height: 8px;
     flex-shrink: 0;
 
-    background-color: ${CS.color.gray8};
+    background-color: ${color.gray.gray8};
 
     border-radius: 26px;
 
@@ -163,7 +171,7 @@ const SignupContainer = styled.div`
       height: 8px;
       flex-shrink: 0;
 
-      background-color: ${CS.color.brandMain};
+      background-color: ${color.brand.brandMain};
 
       border-radius: 26px 0 0 26px;
       position: absolute;
@@ -171,7 +179,7 @@ const SignupContainer = styled.div`
   }
 
   .text {
-    color: ${CS.color.gray3};
+    color: ${color.gray.gray3};
 
     font-size: 24px;
     font-style: normal;
@@ -188,7 +196,7 @@ const SignupContainer = styled.div`
 
     box-sizing: border-box;
     border-radius: 8px;
-    border: 1px solid ${CS.color.gray7};
+    border: 1px solid ${color.gray.gray7};
 
     padding: 10px 20px 18px 20px;
     margin-top: 10px;
@@ -196,7 +204,7 @@ const SignupContainer = styled.div`
 
     overflow-y: auto;
 
-    color: ${CS.color.gray4};
+    color: ${color.gray.gray4};
 
     font-size: 12px;
     font-style: normal;
@@ -207,7 +215,7 @@ const SignupContainer = styled.div`
       width: 12px; /* 스크롤바의 너비 */
     }
     &::-webkit-scrollbar-thumb {
-      background: ${CS.color.gray5}; /* 스크롤바의 색상 */
+      background: ${color.gray.gray5}; /* 스크롤바의 색상 */
       border-radius: 28px;
 
       background-clip: padding-box;
@@ -221,6 +229,12 @@ const SignupContainer = styled.div`
   }
 
   .radio3 {
-    margin-bottom: 44px;
+  }
+
+  .button-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
   }
 `;

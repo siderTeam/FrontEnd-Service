@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../../../Styles/CommonStyles";
+import { color } from "@/Styles/color";
 import Input from "@/component/Input_new/Input";
 import Button from "@/component/Button_new/Button";
 import { useState } from "react";
@@ -93,13 +93,11 @@ const SecondContent = ({ onClick }) => {
         <Input placeholder='전화번호' name='phone' />
       </div>
 
-      <Button
-        mode='primary'
-        onClick={onClick}
-        style={{ width: "100%", marginTop: "30px" }}
-      >
-        다음
-      </Button>
+      <div className='button-wrapper'>
+        <Button mode='primary' onClick={onClick} style={{ width: "100%" }}>
+          다음
+        </Button>
+      </div>
       <div className='mirror'></div>
     </SignupContainer>
   );
@@ -155,7 +153,7 @@ const SignupContainer = styled.div`
     height: 8px;
     flex-shrink: 0;
 
-    background-color: ${CS.color.gray8};
+    background-color: ${color.gray.gray8};
 
     border-radius: 26px;
 
@@ -167,14 +165,14 @@ const SignupContainer = styled.div`
       height: 8px;
       flex-shrink: 0;
 
-      background-color: ${CS.color.brandMain};
+      background-color: ${color.brand.brandMain};
 
       border-radius: 26px 0 0 26px;
       position: absolute;
     }
   }
   .text {
-    color: ${CS.color.gray3};
+    color: ${color.gray.gray3};
 
     font-size: 24px;
     font-style: normal;
@@ -198,5 +196,12 @@ const SignupContainer = styled.div`
 
     top: 3px;
     right: 3px;
+  }
+
+  .button-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
   }
 `;

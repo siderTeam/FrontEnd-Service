@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../../../Styles/CommonStyles";
+import { color } from "@/Styles/color";
 import Button from "@/component/Button_new/Button";
 import SelectBox from "@/component/SelectBox_new/SelectBox";
 import Input from "@/component/Input_new/Input";
@@ -28,19 +28,21 @@ const ThirdContent = ({ onClick }) => {
       </div>
 
       <div>
-        <SelectBox
+        {/* <SelectBox
           name='positionCode'
           value='dd'
           placeholder='포지션을 선택해주세요.'
-        />
+        /> */}
         <Input placeholder='연차' name='year' />
       </div>
 
       <div className='complete-text'>거의 다 왔어요!</div>
 
-      <Button mode='disabled' onClick={onClick}>
-        다음
-      </Button>
+      <div className='button-wrapper'>
+        <Button mode='primary' onClick={onClick} style={{ width: "100%" }}>
+          다음
+        </Button>
+      </div>
       <div className='mirror'></div>
     </SignupContainer>
   );
@@ -49,6 +51,9 @@ const ThirdContent = ({ onClick }) => {
 export default ThirdContent;
 
 const SignupContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
   width: 624px;
   height: 785px;
   flex-shrink: 0;
@@ -91,7 +96,7 @@ const SignupContainer = styled.div`
     height: 8px;
     flex-shrink: 0;
 
-    background-color: ${CS.color.gray8};
+    background-color: ${color.gray.gray8};
 
     border-radius: 26px;
 
@@ -103,14 +108,14 @@ const SignupContainer = styled.div`
       height: 8px;
       flex-shrink: 0;
 
-      background-color: ${CS.color.brandMain};
+      background-color: ${color.brand.brandMain};
 
       border-radius: 26px 0 0 26px;
       position: absolute;
     }
   }
   .text {
-    color: ${CS.color.gray3};
+    color: ${color.gray.gray3};
 
     font-size: 24px;
     font-style: normal;
@@ -127,11 +132,18 @@ const SignupContainer = styled.div`
     margin-top: 165px;
     margin-bottom: 166px;
 
-    color: ${CS.color.gray8};
+    color: ${color.gray.gray8};
 
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+  }
+
+  .button-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
   }
 `;
