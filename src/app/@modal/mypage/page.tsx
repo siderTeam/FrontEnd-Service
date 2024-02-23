@@ -1,13 +1,15 @@
 "use client";
 
 import styled from "@emotion/styled";
-import * as CS from "../../../Styles/CommonStyles";
+import { color } from "@/Styles/color";
 import Modal from "@/component/Modal_new/Modal";
 import { useState } from "react";
 import Input from "@/component/Input_new/Input";
 import Label from "@/component/Label_new/Label";
 import TextArea from "@/components/TextArea/TextArea";
 import Sidebar from "../components/Sidebar";
+import MyProfile from "@/component/MyProfile/MyProfile";
+import Button from "@/component/Button_new/Button";
 
 const Page = () => {
   const [textareaCount, setTextareaCount] = useState(0);
@@ -27,18 +29,7 @@ const Page = () => {
         <Container>
           <Sidebar />
           <div className='right-section'>
-            <Profile>
-              <img
-                src='/images/profile_dummy2.svg'
-                style={{ width: 80, boxSizing: "border-box" }}
-                className='img'
-              />
-              <div className='profile-text'>
-                <div className='name'>박봉팔</div>
-                <div className='position'>88년차 포지션</div>
-              </div>
-            </Profile>
-
+            <MyProfile style={{ marginTop: "60px", marginBottom: "40px" }} />
             <div className='input-wrap'>
               <Label label='이름' require='*'>
                 <Input size='medium' style={{ marginTop: "4px" }} />
@@ -67,6 +58,11 @@ const Page = () => {
                 textareaCount={textareaCount}
               />
             </Label>
+            <div className='button-wrap'>
+              <Button size='medium' mode='primary'>
+                저장
+              </Button>
+            </div>
           </div>
         </Container>
       </Modal>
@@ -83,9 +79,9 @@ const Container = styled.div`
   flex-shrink: 0;
   box-sizing: border-box;
 
-  .nav {
-  }
   .right-section {
+    display: flex;
+    flex-direction: column;
     width: 842px;
     height: 100%;
     flex-shrink: 0;
@@ -97,7 +93,7 @@ const Container = styled.div`
     padding-right: 126px;
     padding-left: 136px;
 
-    background: ${CS.color.black};
+    background: ${color.gray.black};
   }
 
   .input-wrap {
@@ -106,38 +102,12 @@ const Container = styled.div`
 
     gap: 16px 40px;
   }
-`;
-
-const Profile = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 66px;
-  margin-bottom: 46px;
-
-  .img {
-    margin-right: 24px;
-  }
-
-  .profile-text {
+  .button-wrap {
     display: flex;
-    flex-direction: column;
-  }
-
-  .name {
-    color: ${CS.color.gray3};
-
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
-
-  .position {
-    color: ${CS.color.gray4};
-
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    justify-content: center;
+    align-items: end;
+    flex: 1;
+    gap: 4px;
+    margin-bottom: 32px;
   }
 `;
