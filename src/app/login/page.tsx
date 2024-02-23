@@ -10,7 +10,7 @@ import Link from "next/link";
 
 import Cube from "@/component/Cube/Cube";
 import { USER_SIGNIN_REQUEST } from "@/api/model";
-import { getAccessToken, postUserSignIn } from "@/api/api";
+import { getAccessToken, getResume, postUserSignIn } from "@/api/api";
 import { useMutation } from "@tanstack/react-query";
 import { setCookie } from "public/lib/util";
 import { useRouter } from "next/navigation";
@@ -43,11 +43,13 @@ const Page = () => {
     mutationFn: postUserSignIn,
     onSuccess: async (data) => {
       if (data.result === true) {
-        setCookie("RefreshToken", data.data);
-        const response = await getAccessToken();
-        setCookie("AccessToken", response.data);
-
-        route.push("/");
+        await getAccessToken()
+          .then((res) => {
+            setCookie("AccessToken", res.data.accessToken);
+          })
+          .then(() => {
+            // route.push("/");
+          });
       } else if (data.result === false) {
         setUsernameColor("failed");
         setPasswordColor("failed");
@@ -58,56 +60,62 @@ const Page = () => {
     },
   });
 
+  const test = async () => {
+    const response = await getResume();
+    console.log("response", response);
+  };
+
   return (
     <Container>
-      <div className='backgroundImg'>
+      <button onClick={test}>테스트 호출</button>
+      {/* <div className='backgroundImg'>
         <Cube />
-      </div>
+      </div> */}
       <LoginContainer>
-        <div className='title'>로그인</div>
-        <div className='inputWrap'>
+        <div className="title">로그인</div>
+        <div className="inputWrap">
           {usernameColor === "failed" ? (
-            <span className='error-text'>응가</span>
+            <span className="error-text">응가</span>
           ) : (
             ""
           )}
           <Input
-            size='large'
+            size="large"
             color={usernameColor}
-            placeholder='아이디'
-            name='username'
+            placeholder="아이디"
+            name="username"
             onChange={handleChange}
           />
           <Input
-            size='large'
+            size="large"
             color={passwordColor}
-            placeholder='비밀번호'
-            name='password'
+            placeholder="비밀번호"
+            name="password"
             onChange={handleChange}
-            type='password'
+            type="password"
           />
         </div>
-        <div className='wrap'>
+        <div className="wrap">
           <Checkbox
             type={isChecked ? "checked" : "unchecked"}
-            className='checkbox'
-            text='아이디 저장'
+            className="checkbox"
+            text="아이디 저장"
             isChecked={isChecked}
             onClick={handleChecked}
           />
-          <div className='find'>계정정보 찾기</div>
+          <div className="find">계정정보 찾기</div>
         </div>
-        <div className='buttonWrap'>
-          <Button size='large' mode='primary' onClick={() => mutate(form)}>
+        <div className="buttonWrap">
+          <Button size="large" mode="primary" onClick={() => mutate(form)}>
             로그인
           </Button>
-          <Link href='/signUp'>
-            <Button size='large' mode='secondary'>
+          <Link href="/signUp">
+            <Button size="large" mode="secondary">
               회원가입
             </Button>
           </Link>
         </div>
-        <div className='mirror'></div>
+        <div className="mirror"></div>
       </LoginContainer>
     </Container>
   );
