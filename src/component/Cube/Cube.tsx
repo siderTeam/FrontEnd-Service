@@ -1,5 +1,6 @@
-import React from "react";
+"use client";
 
+import React from "react";
 import Lottie from "react-lottie-player";
 import Cube from "../../../public/Cube_final.json";
 

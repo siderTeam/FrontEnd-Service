@@ -45,32 +45,32 @@ const Page = () => {
   return (
     <Container>
       <Header>
-        <img src='/images/Logo.svg' alt='로고' className='logo' />
+        <img src="/images/Logo.svg" alt="로고" className="logo" />
 
-        <div className='profile-wrap'>
+        <div className="profile-wrap">
           <Profile />
-          <Link href='/mypage'>
+          <Link href="/mypage">
             <Image
-              src='/images/icons/Person_white.svg'
-              alt='mypage'
+              src="/images/icons/Person_white.svg"
+              alt="mypage"
               width={24}
               height={24}
             />
           </Link>
           <Image
-            src='/images/icons/On_white.svg'
-            alt='log'
+            src="/images/icons/On_white.svg"
+            alt="log"
             width={24}
             height={24}
           />
         </div>
       </Header>
 
-      <div className='banner'>배너</div>
+      <div className="banner">배너</div>
 
-      <div className='title'>프로젝트</div>
+      <div className="title">프로젝트</div>
       <FilterWrap>
-        <div className='buttonWrap'>
+        <div className="buttonWrap">
           <div
             className={filterType === "all" ? "choice" : "basic"}
             onClick={() => handleFilterClick("all")}
@@ -112,10 +112,10 @@ const Page = () => {
               };
             }) || []
           }
-          name='select'
+          name="select"
           onChange={handleJobSelectChange}
           value={selectJob}
-          placeholder='몇글자지'
+          placeholder="몇글자지"
         />
       </FilterWrap>
       <CardContainer>
@@ -128,10 +128,10 @@ const Page = () => {
               endDate={item.recruitEndDate}
               deposit={item.deposit}
             >
-              <PositionIcon color='designer' icon='designer' />
-              <PositionIcon color='projectManager' icon='projectManager' />
-              <PositionIcon color='feDeveloper' icon='feDeveloper' />
-              <PositionIcon color='beDeveloper' icon='beDeveloper' />
+              <PositionIcon color="designer" icon="designer" />
+              <PositionIcon color="projectManager" icon="projectManager" />
+              <PositionIcon color="feDeveloper" icon="feDeveloper" />
+              <PositionIcon color="beDeveloper" icon="beDeveloper" />
             </Card>
           ))}
         </Imsi>

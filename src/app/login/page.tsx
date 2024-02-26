@@ -10,7 +10,7 @@ import Link from "next/link";
 
 import Cube from "@/component/Cube/Cube";
 import { USER_SIGNIN_REQUEST } from "@/api/model";
-import { getAccessToken, postUserSignIn } from "@/api/api";
+import { getAccessToken, getResume, postUserSignIn } from "@/api/api";
 import { useMutation } from "@tanstack/react-query";
 import { setCookie } from "public/lib/util";
 import { useRouter } from "next/navigation";
@@ -59,6 +59,11 @@ const Page = () => {
       console.log("실패");
     },
   });
+
+  const test = async () => {
+    const response = await getResume();
+    console.log("response", response);
+  };
 
   return (
     <Container>

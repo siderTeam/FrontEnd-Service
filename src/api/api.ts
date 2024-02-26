@@ -77,7 +77,7 @@ export const getResume = async (): Promise<USER_RESUME_RESPONSE[]> => {
   const response = await API.get(`${rest.get.resume}`, {
     params: {
       page: 1,
-      per: 50,
+      perPage: 50,
     },
   });
 
