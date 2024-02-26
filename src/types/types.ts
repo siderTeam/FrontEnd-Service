@@ -65,10 +65,11 @@ export type CHECKBOX_TYPE_PROPS = {
 };
 
 export type CheckboxProps = CHECKBOX_TYPE_PROPS & {
-  text: string;
+  text?: string;
+  checked?: boolean;
   requireText?: string;
-  isChecked?: boolean;
   name?: string;
+  disabled?: boolean;
   onChange?: (e: any) => void;
   onClick?: () => void;
   style?: React.CSSProperties;

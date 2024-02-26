@@ -1,20 +1,23 @@
-"use client";
+'use client';
 
-import { getProject } from "@/api/api";
-import { rest } from "@/api/rest";
-import Card from "@/components/Card/Card";
+import { getProject } from '@/api/api';
+import { rest } from '@/api/rest';
+import Card from '@/components/Card/Card';
+import Checkbox from '@/components/Checkbox/Checkbox';
 
-import Input from "@/components/Input/Input";
-import PositionIcon from "@/components/PositionIcon/PositionIcon";
-import Profile from "@/components/Profile/Profile";
-import { color } from "@/styles/color";
+import Input from '@/components/Input/Input';
+import Modal from '@/components/Modal/Modal';
+import PositionIcon from '@/components/PositionIcon/PositionIcon';
+import Profile from '@/components/Profile/Profile';
+import MyPage from '@/components/pages/myPageModal/MyPageContainer';
+import { color } from '@/styles/color';
 
-import styled from "@emotion/styled";
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 
 const Page = () => {
-  const [filterType, setFilterType] = useState("all");
+  const [filterType, setFilterType] = useState('all');
 
   const { data, isLoading } = useQuery({
     queryKey: [rest.get.project],
@@ -27,42 +30,23 @@ const Page = () => {
 
   return (
     <Container>
-      <Header>
-        <img src="/images/Logo.svg" alt="로고" className="logo" />
-        <Profile />
-      </Header>
       <div className="banner">배너</div>
       <div className="title">프로젝트</div>
       <FilterWrap>
         <div className="buttonWrap">
-          <div
-            className={filterType === "all" ? "choice" : "basic"}
-            onClick={() => handleFilterClick("all")}
-          >
+          <div className={filterType === 'all' ? 'choice' : 'basic'} onClick={() => handleFilterClick('all')}>
             #전체
           </div>
-          <div
-            className={filterType === "design" ? "choice" : "basic"}
-            onClick={() => handleFilterClick("design")}
-          >
+          <div className={filterType === 'design' ? 'choice' : 'basic'} onClick={() => handleFilterClick('design')}>
             #디자인
           </div>
-          <div
-            className={filterType === "pm" ? "choice" : "basic"}
-            onClick={() => handleFilterClick("pm")}
-          >
+          <div className={filterType === 'pm' ? 'choice' : 'basic'} onClick={() => handleFilterClick('pm')}>
             #기획
           </div>
-          <div
-            className={filterType === "develop" ? "choice" : "basic"}
-            onClick={() => handleFilterClick("develop")}
-          >
+          <div className={filterType === 'develop' ? 'choice' : 'basic'} onClick={() => handleFilterClick('develop')}>
             #개발
           </div>
-          <div
-            className={filterType === "recruitment" ? "choice" : "basic"}
-            onClick={() => handleFilterClick("recruitment")}
-          >
+          <div className={filterType === 'recruitment' ? 'choice' : 'basic'} onClick={() => handleFilterClick('recruitment')}>
             #모집중
           </div>
         </div>
@@ -103,36 +87,17 @@ const Container = styled.div`
 
     margin-bottom: 64px;
 
-    background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0) 100%),
-      url("/images/다운로드.jpg"),
-      lightgray 0px -234.525px / 100% 292.86% no-repeat;
+    background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0) 100%), url('/images/다운로드.jpg'), lightgray 0px -234.525px / 100% 292.86% no-repeat;
   }
   .title {
     color: ${color.gray.gray3};
-    font-family: "Spoqa Han Sans Neo";
+    font-family: 'Spoqa Han Sans Neo';
     font-size: 24px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
 
     margin-bottom: 24px;
-  }
-`;
-
-const Header = styled.div`
-  display: inline-flex;
-  height: 124px;
-  padding: 42px 0px;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 1039px;
-  flex-shrink: 0;
-  box-sizing: border-box;
-
-  .logo {
-    width: 60px;
-    height: 33.623px;
-    flex-shrink: 0;
   }
 `;
 
@@ -156,7 +121,7 @@ const FilterWrap = styled.div`
       border: 1px solid ${color.gray.gray8};
       background: ${color.gray.black};
       color: ${color.gray.gray6};
-      font-family: "Spoqa Han Sans Neo";
+      font-family: 'Spoqa Han Sans Neo';
       font-size: 16px;
       font-style: normal;
       font-weight: 400;
@@ -173,7 +138,7 @@ const FilterWrap = styled.div`
       border: 1px solid ${color.brand.brandMain};
       background: ${color.gray.black};
       color: ${color.brand.brandMain};
-      font-family: "Spoqa Han Sans Neo";
+      font-family: 'Spoqa Han Sans Neo';
       font-size: 16px;
       font-style: normal;
       font-weight: 700;

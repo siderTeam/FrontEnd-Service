@@ -14,17 +14,19 @@ const Radio = ({
   requireStyle,
   disabled,
   size = "small",
+  isChecked,
 }: RadioButtonProps) => {
   return (
     <Container>
       <StyledRadio
-        type="checkbox"
+        type='checkbox'
         disabled={disabled}
         onChange={onChange}
         onClick={onClick}
         style={style}
         className={className}
         size={size as never}
+        checked={isChecked}
       />
       <StyledLabel>{text}</StyledLabel>
       {requireText && (
