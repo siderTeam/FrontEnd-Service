@@ -23,9 +23,9 @@ const Page = () => {
     mutationFn: postUserSignIn,
     onSuccess: async (data) => {
       if (data.result === true) {
-        setCookie("RefreshToken", data.data);
+        setCookie("refreshToken", data.data);
         const response = await getAccessToken();
-        setCookie("AccessToken", response.data);
+        setCookie("accessToken", response.data);
 
         route.push("/home");
       }

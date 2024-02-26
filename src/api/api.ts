@@ -37,9 +37,23 @@ export const postUserSignIn = async (params: USER_SIGNIN_REQUEST) => {
   return response.data;
 };
 
+//로그아웃
+export const userSignOut = async () => {
+  const response = await API.get(`${rest.post.userSignOut}`);
+
+  return response.data;
+};
+
 //엑세스 토큰 발급
 export const getAccessToken = async () => {
   const response = await API.post(`${rest.post.getAccessToken}`);
+
+  return response.data;
+};
+
+//초비상 리프레쉬 토큰 발급
+export const getNewRefreshToken = async () => {
+  const response = await API.post(`${rest.post.getChoBiSangToken}`);
 
   return response.data;
 };

@@ -7,8 +7,8 @@ import { useState } from "react";
 import { SelectBoxProps } from "@/types/types";
 
 const SelectBox = ({
-  selectedType = "full",
-  optionType = "full",
+  selectedType = "placeholder",
+  optionType = "placeholder",
   text = "full",
   value,
   name,
@@ -66,40 +66,32 @@ const SelectBox = ({
 
 export default SelectBox;
 const SELECT_TYPE = {
-  ["full"]: {
-    display: "flex",
-    width: "100%",
-    padding: "18px 20px 18px 20px",
-    alignItems: "center",
-
-    borderRadius: "12px",
-    border: `1px solid ${color.gray.gray6}`,
-
-    color: `${color.gray.gray7}`,
-
-    fontSize: "16px",
-    fontStyle: "normal",
-    fontWeight: 400,
-    lineHeight: "normal",
+  ["placeholder"]: {
+    border: `1px solid ${color.gray.gray6} `,
+  },
+  ["selected"]: {
+    border: `1px solid ${color.gray.gray6} `,
+  },
+  ["active"]: {
+    border: `1px solid ${color.brand.brandMain}`,
+  },
+  ["disabled"]: {
+    border: `1px solid ${color.gray.gray9}`,
   },
 };
 
 const OPTIONS_TYPE = {
-  ["full"]: {
-    display: "flex",
-    width: "100%",
-    padding: "18px 20px 18px 20px",
-    alignItems: "center",
-
-    borderRadius: "12px",
-    border: `1px solid ${color.gray.gray6}`,
-
-    color: `${color.gray.gray7}`,
-
-    fontSize: "16px",
-    fontStyle: "normal",
-    fontWeight: 400,
-    lineHeight: "normal",
+  ["placeholder"]: {
+    border: `1px solid ${color.gray.gray6} `,
+  },
+  ["selected"]: {
+    border: `1px solid ${color.gray.gray6} `,
+  },
+  ["active"]: {
+    border: `1px solid ${color.brand.brandMain}`,
+  },
+  ["disabled"]: {
+    border: `1px solid ${color.gray.gray9}`,
   },
 };
 
@@ -108,13 +100,21 @@ const Container = styled.div`
 `;
 
 const OptionWrapper = styled.ul<any>`
+  ${({ optionType }) => OPTIONS_TYPE[optionType as "placeholder"]}
   position: absolute;
   box-sizing: border-box;
+  border-radius: 6px;
 
   z-index: 3;
 
   li {
-    ${({ optionType }) => OPTIONS_TYPE[optionType as "full"]}
+    ${({ optionType }) => OPTIONS_TYPE[optionType as "placeholder"]}
+
+    display: flex;
+    padding: 6px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 
     box-sizing: border-box;
     cursor: pointer;
@@ -127,7 +127,17 @@ const OptionWrapper = styled.ul<any>`
 `;
 
 const StyledSelect = styled.div<any>`
-  ${({ selectedType }) => SELECT_TYPE[selectedType as "full"]}
+  ${({ selectedType }) => SELECT_TYPE[selectedType as "placeholder"]}
+
+  display: flex;
+  width: 120px;
+  height: 32px;
+  padding: 6px 10px 6px 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 8px;
 
   box-sizing: border-box;
 

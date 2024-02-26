@@ -7,8 +7,10 @@ export const rest = {
   },
   post: {
     userSignIn: "/user/signIn",
+    userSignOut: "/user/signOut",
     userSignUp: "/user/signUp",
     getAccessToken: "/user/newAc",
+    getChoBiSangToken: "/user/newRf",
   },
   put: {},
   delete: {},

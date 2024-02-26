@@ -1,15 +1,15 @@
 import React from "react";
 
 import Lottie from "react-lottie-player";
-import cube from "../../../public/Cube_final.json";
+import Cube from "../../../public/Cube_final.json";
 
 export default function Example() {
-  console.log("cube:", cube);
+  console.log("cube:", Cube);
 
   return (
     <Lottie
       loop
-      animationData={cube}
+      animationData={Cube}
       play
       style={{ width: 200, height: 200 }}
     />

@@ -88,8 +88,8 @@ export type ModalProps = {
 //SelectBox
 
 export type SELECTBOX_STYLE_PROPS = {
-  selectedType?: "full";
-  optionType?: "full";
+  selectedType?: "placeholder" | "selected" | "active" | "disabled";
+  optionType?: "placeholder" | "selected" | "active" | "disabled";
   text?: "full";
 };
 

@@ -43,11 +43,13 @@ const Page = () => {
     mutationFn: postUserSignIn,
     onSuccess: async (data) => {
       if (data.result === true) {
-        setCookie("RefreshToken", data.data);
-        const response = await getAccessToken();
-        setCookie("AccessToken", response.data);
-
-        route.push("/");
+        await getAccessToken()
+          .then((res) => {
+            setCookie("accessToken", res.data.accessToken);
+          })
+          .then(() => {
+            route.push("/");
+          });
       } else if (data.result === false) {
         setUsernameColor("failed");
         setPasswordColor("failed");
@@ -60,9 +62,7 @@ const Page = () => {
 
   return (
     <Container>
-      <div className='backgroundImg'>
-        <Cube />
-      </div>
+      <div className='backgroundImg'>{/* <Cube /> */}</div>
       <LoginContainer>
         <div className='title'>로그인</div>
         <div className='inputWrap'>
