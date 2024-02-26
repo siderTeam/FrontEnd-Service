@@ -1,6 +1,6 @@
 export const rest = {
   get: {
-    project: "/project",
+    project: "/project/list",
     code: "/code",
     resume: "/resume",
     userId: "/user/id",
