@@ -1,16 +1,18 @@
-import axios from "axios";
-import { getCookie, setCookie } from "public/lib/util";
-import { getAccessToken, getNewRefreshToken, userSignOut } from "./api";
+import axios from 'axios';
+import { getCookie, setCookie } from 'public/lib/util';
+import { getAccessToken, getNewRefreshToken, userSignOut } from './api';
 
 const getAuthorization = () => {
-  const hasAccessToken = getCookie("accessToken");
-  const cookie = getCookie(hasAccessToken ? "accessToken" : "refreshToken");
+  const hasAccessToken = getCookie('accessToken');
+  const cookie = getCookie(hasAccessToken ? 'accessToken' : 'refreshToken');
 
   if (cookie) {
     return `Bearer ${cookie}`;
   } else {
     return undefined;
+    return undefined;
   }
+};
 };
 
 export const API = axios.create({
@@ -22,7 +24,7 @@ export const API = axios.create({
 });
 
 API.interceptors.request.use((config) => {
-  const accessToken = getCookie("accessToken");
+  const accessToken = getCookie('accessToken');
 
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
@@ -49,7 +51,7 @@ API.interceptors.response.use(
         await getNewRefreshToken();
       }
 
-      setCookie("accessToken", response.data.accessToken); // 수정된 부분
+      setCookie('accessToken', response.data.accessToken); // 수정된 부분
     }
 
     // 리프레쉬 만료 코드
@@ -58,5 +60,5 @@ API.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );

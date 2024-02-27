@@ -1,28 +1,27 @@
-"use client";
+'use client';
 
-import { rest } from "@/api/rest";
-import Button from "@/component/Button_new/Button";
-import Card from "@/component/Card/Card";
+import { rest } from '@/api/rest';
+import Button from '@/components/Button/Button';
+import Card from '@/components/Card/Card';
 
-import Input from "@/component/Input_new/Input";
-import PositionIcon from "@/component/PositionIcon/PositionIcon";
-import Profile from "@/component/Profile/Profile";
+import Input from '@/components/Input/Input';
+import PositionIcon from '@/components/PositionIcon/PositionIcon';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/color";
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import Link from "next/link";
-import Modal from "@/component/Modal_new/Modal";
-import Image from "next/image";
-import SelectBox from "@/component/SelectBox_new/SelectBox";
-import SelectInput from "@/component/SelectInput/SelectInput";
-import { getCode, getProject } from "@/api/api";
+import styled from '@emotion/styled';
+import { color } from '@/Styles/color';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import Link from 'next/link';
+import Modal from '@/components/Modal/Modal';
+import Image from 'next/image';
+import SelectBox from '@/components/SelectBox/SelectBox';
+import SelectInput from '@/components/SelectInput/SelectInput';
+import { getCode, getProject } from '@/api/api';
 
 const Page = () => {
-  const [filterType, setFilterType] = useState("all");
+  const [filterType, setFilterType] = useState('all');
   const [visible, setVisible] = useState(false);
-  const [selectJob, setSelectJob] = useState("몇글자지");
+  const [selectJob, setSelectJob] = useState('몇글자지');
 
   const projectData = useQuery({
     queryKey: [rest.get.project],
@@ -44,61 +43,24 @@ const Page = () => {
 
   return (
     <Container>
-      <Header>
-        <img src="/images/Logo.svg" alt="로고" className="logo" />
-
-        <div className="profile-wrap">
-          <Profile />
-          <Link href="/mypage">
-            <Image
-              src="/images/icons/Person_white.svg"
-              alt="mypage"
-              width={24}
-              height={24}
-            />
-          </Link>
-          <Image
-            src="/images/icons/On_white.svg"
-            alt="log"
-            width={24}
-            height={24}
-          />
-        </div>
-      </Header>
-
       <div className="banner">배너</div>
 
       <div className="title">프로젝트</div>
       <FilterWrap>
         <div className="buttonWrap">
-          <div
-            className={filterType === "all" ? "choice" : "basic"}
-            onClick={() => handleFilterClick("all")}
-          >
+          <div className={filterType === 'all' ? 'choice' : 'basic'} onClick={() => handleFilterClick('all')}>
             #전체
           </div>
-          <div
-            className={filterType === "design" ? "choice" : "basic"}
-            onClick={() => handleFilterClick("design")}
-          >
+          <div className={filterType === 'design' ? 'choice' : 'basic'} onClick={() => handleFilterClick('design')}>
             #디자인
           </div>
-          <div
-            className={filterType === "pm" ? "choice" : "basic"}
-            onClick={() => handleFilterClick("pm")}
-          >
+          <div className={filterType === 'pm' ? 'choice' : 'basic'} onClick={() => handleFilterClick('pm')}>
             #기획
           </div>
-          <div
-            className={filterType === "develop" ? "choice" : "basic"}
-            onClick={() => handleFilterClick("develop")}
-          >
+          <div className={filterType === 'develop' ? 'choice' : 'basic'} onClick={() => handleFilterClick('develop')}>
             #개발
           </div>
-          <div
-            className={filterType === "recruitment" ? "choice" : "basic"}
-            onClick={() => handleFilterClick("recruitment")}
-          >
+          <div className={filterType === 'recruitment' ? 'choice' : 'basic'} onClick={() => handleFilterClick('recruitment')}>
             #모집중
           </div>
         </div>
@@ -121,13 +83,7 @@ const Page = () => {
       <CardContainer>
         <Imsi>
           {projectData.data?.map((item) => (
-            <Card
-              key={item.id}
-              title={item.name}
-              startDate={item.recruitStartDate}
-              endDate={item.recruitEndDate}
-              deposit={item.deposit}
-            >
+            <Card key={item.id} title={item.name} startDate={item.recruitStartDate} endDate={item.recruitEndDate} deposit={item.deposit}>
               <PositionIcon color="designer" icon="designer" />
               <PositionIcon color="projectManager" icon="projectManager" />
               <PositionIcon color="feDeveloper" icon="feDeveloper" />
@@ -153,9 +109,7 @@ const Container = styled.div`
 
     margin-bottom: 64px;
 
-    background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0) 100%),
-      url("/images/다운로드.jpg"),
-      lightgray 0px -234.525px / 100% 292.86% no-repeat;
+    background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0) 100%), url('/images/다운로드.jpg'), lightgray 0px -234.525px / 100% 292.86% no-repeat;
   }
   .title {
     color: ${color.gray.gray3};

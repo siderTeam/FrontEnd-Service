@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/color";
+import styled from '@emotion/styled';
+import { color } from '@/Styles/color';
 
-import Modal from "@/component/Modal_new/Modal";
-import React, { useState } from "react";
+import Modal from '@/components/Modal/Modal';
+import React, { useState } from 'react';
 
-import { useQuery } from "@tanstack/react-query";
-import { rest } from "@/api/rest";
-import { getResume } from "@/api/api";
-import Sidebar from "../../components/Sidebar";
+import { useQuery } from '@tanstack/react-query';
+import { rest } from '@/api/rest';
+import { getResume } from '@/api/api';
+import Sidebar from '../../components/Sidebar';
 
 const Page = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -24,39 +24,39 @@ const Page = () => {
   const resumeData = [
     {
       number: 1,
-      project: "프로젝트 이름이시다.",
-      period: "8888.88.88~8888.88.88",
-      refund: "심사중",
+      project: '프로젝트 이름이시다.',
+      period: '8888.88.88~8888.88.88',
+      refund: '심사중',
     },
     {
       number: 1,
-      project: "프로젝트 이름이시다.",
-      period: "8888.88.88~8888.88.88",
-      refund: "심사중",
+      project: '프로젝트 이름이시다.',
+      period: '8888.88.88~8888.88.88',
+      refund: '심사중',
     },
     {
       number: 1,
-      project: "프로젝트 이름이시다.",
-      period: "8888.88.88~8888.88.88",
-      refund: "심사중",
+      project: '프로젝트 이름이시다.',
+      period: '8888.88.88~8888.88.88',
+      refund: '심사중',
     },
     {
       number: 1,
-      project: "프로젝트 이름이시다.",
-      period: "8888.88.88~8888.88.88",
-      refund: "심사중",
+      project: '프로젝트 이름이시다.',
+      period: '8888.88.88~8888.88.88',
+      refund: '심사중',
     },
     {
       number: 1,
-      project: "프로젝트 이름이시다.",
-      period: "8888.88.88~8888.88.88",
-      refund: "심사중",
+      project: '프로젝트 이름이시다.',
+      period: '8888.88.88~8888.88.88',
+      refund: '심사중',
     },
     {
       number: 1,
-      project: "프로젝트 이름이시다.",
-      period: "8888.88.88~8888.88.88",
-      refund: "심사중",
+      project: '프로젝트 이름이시다.',
+      period: '8888.88.88~8888.88.88',
+      refund: '심사중',
     },
   ];
 
@@ -74,28 +74,26 @@ const Page = () => {
 
   return (
     <>
-      <Modal style={{ width: "1062px" }}>
+      <Modal style={{ width: '1062px' }}>
         <Container>
           <Sidebar />
-          <div className='right-section'>
+          <div className="right-section">
             <TableHeader>
-              <div className='number'>No.</div>
-              <div className='project'>프로젝트 명</div>
-              <div className='period'>프로젝트 진행 기간</div>
-              <div className='refund'>환급 여부</div>
+              <div className="number">No.</div>
+              <div className="project">프로젝트 명</div>
+              <div className="period">프로젝트 진행 기간</div>
+              <div className="refund">환급 여부</div>
             </TableHeader>
             <TableContent>
-              {resumeData
-                ?.slice(items * (page - 1), items * (page - 1) + items)
-                .map((content, index) => (
-                  <ul>
-                    {/* <li className='number'>{(page - 1) * items + index + 1}</li> */}
-                    <li className='number'>{content.number}</li>
-                    <li className='project'>{content.project}</li>
-                    <li className='period'>{content.period}</li>
-                    <li className='refund'>{content.refund}</li>
-                  </ul>
-                ))}
+              {resumeData?.slice(items * (page - 1), items * (page - 1) + items).map((content, index) => (
+                <ul>
+                  {/* <li className='number'>{(page - 1) * items + index + 1}</li> */}
+                  <li className="number">{content.number}</li>
+                  <li className="project">{content.project}</li>
+                  <li className="period">{content.period}</li>
+                  <li className="refund">{content.refund}</li>
+                </ul>
+              ))}
             </TableContent>
           </div>
         </Container>
@@ -184,12 +182,7 @@ const TableContent = styled.div`
     &:hover {
       border-radius: 8px;
       border: 1px solid ${color.gray.white};
-      background: linear-gradient(
-          92deg,
-          rgba(255, 255, 255, 0.1) 38.9%,
-          rgba(0, 0, 0, 0) 62.68%
-        ),
-        rgba(2, 6, 13, 0.5);
+      background: linear-gradient(92deg, rgba(255, 255, 255, 0.1) 38.9%, rgba(0, 0, 0, 0) 62.68%), rgba(2, 6, 13, 0.5);
 
       background-size: 400% 400%; /* 배경 크기 증가 */
       background-position: 50% 0; /* 그라디언트 위치를 오른쪽 끝으로 이동 */

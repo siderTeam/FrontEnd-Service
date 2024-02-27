@@ -1,39 +1,39 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/color";
-import Modal from "@/component/Modal_new/Modal";
-import Sidebar from "@/app/@modal/components/Sidebar";
-import Input from "@/component/Input_new/Input";
-import TextArea from "@/components/TextArea/TextArea";
-import Button from "@/component/Button_new/Button";
-import Label from "@/component/Label_new/Label";
-import MyProfile from "@/component/MyProfile/MyProfile";
+import styled from '@emotion/styled';
+import { color } from '@/Styles/color';
+import Modal from '@/components/Modal/Modal';
+import Sidebar from '@/app/@modal/components/Sidebar';
+import Input from '@/components/Input/Input';
+import TextArea from '@/components/TextArea/TextArea';
+import Button from '@/components/Button/Button';
+import Label from '@/components/Label/Label';
+import MyProfile from '@/components/MyProfile/MyProfile';
 
 const Page = () => {
   return (
-    <Modal style={{ width: "1062px" }}>
+    <Modal style={{ width: '1062px' }}>
       <Container>
         <Sidebar />
-        <div className='right-section'>
-          <MyProfile style={{ marginTop: "60px", marginBottom: "40px" }} />
+        <div className="right-section">
+          <MyProfile style={{ marginTop: '60px', marginBottom: '40px' }} />
 
-          <div className='wrap'>
-            <Label label='한 줄 소개'>
-              <TextArea style={{ marginTop: "4px" }} />
+          <div className="wrap">
+            <Label label="한 줄 소개">
+              <TextArea style={{ marginTop: '4px' }} />
             </Label>
 
-            <Label label='스킬'>
-              <TextArea style={{ marginTop: "4px" }} />
+            <Label label="스킬">
+              <TextArea style={{ marginTop: '4px' }} />
             </Label>
 
-            <Label label='링크'>
-              <Input style={{ marginTop: "4px" }} />
+            <Label label="링크">
+              <Input style={{ marginTop: '4px' }} />
             </Label>
           </div>
-          <div className='delete'>강제 퇴장</div>
-          <div className='button-wrap'>
-            <Button size='medium' mode='secondary'>
+          <div className="delete">강제 퇴장</div>
+          <div className="button-wrap">
+            <Button size="medium" mode="secondary">
               이전
             </Button>
           </div>

@@ -1,15 +1,15 @@
-import { InputHTMLAttributes } from "react";
-import { ButtonHTMLAttributes } from "react";
-import { TextareaHTMLAttributes } from "react";
+import { InputHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from 'react';
+import { TextareaHTMLAttributes } from 'react';
 
 //Input
 
 export type INPUT_STYLE_PROPS = {
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
   color?: string;
 };
 
-export type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
+export type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>;
 
 export type InputProps = INPUT_STYLE_PROPS &
   INPUT_TYPE & {
@@ -43,8 +43,8 @@ export type LabelProps = {
 //Button
 
 export type BUTTON_STYLE_PROPS = {
-  size?: "medium" | "large" | "in_input";
-  mode?: "primary" | "secondary";
+  size?: 'medium' | 'large' | 'in_input';
+  mode?: 'primary' | 'secondary';
 };
 
 export type ButtonProps = BUTTON_STYLE_PROPS & {
@@ -61,14 +61,15 @@ export type ButtonProps = BUTTON_STYLE_PROPS & {
 //CheckBox
 
 export type CHECKBOX_TYPE_PROPS = {
-  type?: "unchecked" | "hover" | "checked" | "disabled" | "disabledCheck";
+  type?: 'unchecked' | 'hover' | 'checked' | 'disabled' | 'disabledCheck';
 };
 
 export type CheckboxProps = CHECKBOX_TYPE_PROPS & {
-  text: string;
+  text?: string;
+  checked?: boolean;
   requireText?: string;
-  isChecked?: boolean;
   name?: string;
+  disabled?: boolean;
   onChange?: (e: any) => void;
   onClick?: () => void;
   style?: React.CSSProperties;
@@ -88,9 +89,9 @@ export type ModalProps = {
 //SelectBox
 
 export type SELECTBOX_STYLE_PROPS = {
-  selectedType?: "placeholder" | "selected" | "active" | "disabled";
-  optionType?: "placeholder" | "selected" | "active" | "disabled";
-  text?: "full";
+  selectedType?: 'placeholder' | 'selected' | 'active' | 'disabled';
+  optionType?: 'placeholder' | 'selected' | 'active' | 'disabled';
+  text?: 'full';
 };
 
 export type SelectBoxProps = SELECTBOX_STYLE_PROPS & {
@@ -118,8 +119,8 @@ export type SelectInputProps = {
 //Textarea
 
 export type TEXTAREA_STYLE_PROPS = {
-  size?: "full" | "medium" | "large";
-  color?: "primary";
+  size?: 'full' | 'medium' | 'large';
+  color?: 'primary';
 };
 
 export type TextareaProps = TEXTAREA_STYLE_PROPS &
@@ -132,7 +133,7 @@ export type TextareaProps = TEXTAREA_STYLE_PROPS &
 //LabelInput
 
 export type LABELINPUT_STYLE_PROPS = {
-  location: "left" | "top";
+  location: 'left' | 'top';
 };
 
 //card
@@ -148,7 +149,7 @@ export type CardProps = {
 //Radio
 
 export type RADIO_BUTTON_TYPE_PROPS = {
-  size?: "small" | "big";
+  size?: 'small' | 'big';
 };
 
 export type RadioButtonProps = RADIO_BUTTON_TYPE_PROPS & {
@@ -162,5 +163,5 @@ export type RadioButtonProps = RADIO_BUTTON_TYPE_PROPS & {
   requireStyle?: React.CSSProperties;
   className?: string;
   disabled?: boolean;
-  size?: "small" | "big";
+  size?: 'small' | 'big';
 };

@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/color";
-import Button from "@/component/Button_new/Button";
-import SelectBox from "@/component/SelectBox_new/SelectBox";
-import Input from "@/component/Input_new/Input";
-import { useQuery } from "@tanstack/react-query";
-import { getCode } from "@/api/api";
-import { useState } from "react";
+import styled from '@emotion/styled';
+import { color } from '@/Styles/color';
+import Button from '@/components/Button/Button';
+import SelectBox from '@/components/SelectBox/SelectBox';
+import Input from '@/components/Input/Input';
+import { useQuery } from '@tanstack/react-query';
+import { getCode } from '@/api/api';
+import { useState } from 'react';
 
 const ThirdContent = ({ onClick }) => {
   // //포지션 데이터
@@ -18,10 +18,10 @@ const ThirdContent = ({ onClick }) => {
 
   return (
     <SignupContainer>
-      <div className='complete-bar'>
-        <div className='complete'></div>
+      <div className="complete-bar">
+        <div className="complete"></div>
       </div>
-      <div className='text'>
+      <div className="text">
         사이드고를 이용하는
         <br />
         당신의 능력에 대해 설명해주세요.
@@ -33,17 +33,17 @@ const ThirdContent = ({ onClick }) => {
           value='dd'
           placeholder='포지션을 선택해주세요.'
         /> */}
-        <Input placeholder='연차' name='year' />
+        <Input placeholder="연차" name="year" />
       </div>
 
-      <div className='complete-text'>거의 다 왔어요!</div>
+      <div className="complete-text">거의 다 왔어요!</div>
 
-      <div className='button-wrapper'>
-        <Button mode='primary' onClick={onClick} style={{ width: "100%" }}>
+      <div className="button-wrapper">
+        <Button mode="primary" onClick={onClick} style={{ width: '100%' }}>
           다음
         </Button>
       </div>
-      <div className='mirror'></div>
+      <div className="mirror"></div>
     </SignupContainer>
   );
 };
@@ -67,12 +67,7 @@ const SignupContainer = styled.div`
 
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.67);
-  background: linear-gradient(
-      144deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(0, 0, 0, 0) 100%
-    ),
-    rgba(2, 6, 13, 0.5);
+  background: linear-gradient(144deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(2, 6, 13, 0.5);
   backdrop-filter: blur(20px);
 
   .mirror {
@@ -80,11 +75,7 @@ const SignupContainer = styled.div`
     height: 551.634px;
     transform: rotate(-30deg);
     flex-shrink: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.15) 0%,
-      rgba(0, 0, 0, 0) 100%
-    );
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0) 100%);
 
     position: absolute;
     /* overflow: hidden; */

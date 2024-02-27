@@ -1,75 +1,136 @@
 "use client";
 
-import styled from "@emotion/styled";
-
 import { ButtonProps } from "@/types/types";
-import { BUTTON_STYLE_PROPS } from "@/types/types";
+import styled from "@emotion/styled";
+import { color } from "@/Styles/color";
 
 const Button = ({
   children,
-  size = "medium",
+  size = "large",
   mode = "primary",
   style,
+  iconStyle,
   onClick,
-  isDisabled = false,
+  rightIcon,
+  leftIcon,
+
+  className,
   ...rest
 }: ButtonProps) => {
   return (
-    <StyledButton
-      size={size}
-      mode={mode}
-      style={style}
-      disabled={isDisabled}
-      onClick={onClick}
-      {...rest}
-    >
-      {children}
-    </StyledButton>
+    <>
+      {/* <ButtonWrap > */}
+      <StyledButton
+        size={size}
+        mode={mode}
+        style={style}
+        onClick={onClick}
+        className={className}
+        {...rest}
+      >
+        <div className='text_icon_wrap'>
+          {leftIcon && <Icon src={leftIcon} style={{ marginRight: "10px" }} />}
+          {children}
+          {rightIcon && <Icon src={rightIcon} style={iconStyle} />}
+        </div>
+      </StyledButton>
+      {/* </ButtonWrap> */}
+    </>
   );
 };
 export default Button;
 
-const BUTTON_TYPE = {
-  ["small"]: {
-    width: "70px",
-    height: "40px",
-    borderRadius: "8px",
-    fontSize: 12,
-  },
+const SIZE_TYPE = {
   ["medium"]: {
-    width: "140px",
     height: "40px",
-    borderRadius: "8px",
-    fontSize: 12,
+    padding: "10px 20px",
+    borderRadius: "6px",
+
+    fontSize: "16px",
+    fontWeight: 700,
   },
   ["large"]: {
-    width: "400px",
-    height: "40px",
-    borderRadius: "8px",
-    fontSize: 12,
+    width: "364px",
+    height: "56px",
+    padding: "13px 0px",
+    borderRadius: "12px",
+
+    fontSize: "24px",
+    fontWeight: 700,
+  },
+  ["in_input"]: {
+    width: "90px",
+    height: "52px",
+    padding: "16px",
+    borderRadius: "10px",
+
+    fontSize: "16px",
+    fontWeight: 500,
   },
 };
 
 const COLOR_TYPE = {
   ["primary"]: {
-    background: "#3574F2",
-    color: "white",
+    background: `${color.brand.brandMain}`,
+    color: `${color.gray.black}`,
   },
-  ["error"]: {
-    background: "#FF4E4E",
-    color: "white",
+  ["secondary"]: {
+    background: "none",
+    border: `1px solid ${color.brand.brandMain}`,
+    color: `${color.brand.brandMain}`,
   },
 };
 
-const StyledButton = styled.button<BUTTON_STYLE_PROPS>`
-  ${({ size }) => BUTTON_TYPE[size as "medium"]};
-  ${({ mode }) => COLOR_TYPE[mode as "primary"]};
+const DISABLED_TYPE = {
+  ["primary"]: {
+    background: `${color.gray.gray8}`,
+    color: `${color.gray.gray9}`,
+  },
+  ["secondary"]: {
+    background: "none",
+    border: `1px solid ${color.gray.gray9}`,
+    color: `${color.gray.gray8}`,
+  },
+};
 
-  display: ${(props) => (props.disabled ? "none" : "flex")};
+// const ButtonWrap = styled.div`
+//   display: flex;
+// `;
+
+const StyledButton = styled.button<ButtonProps>`
+  box-sizing: border-box;
+  display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  font-style: normal;
+  line-height: normal;
 
   cursor: pointer;
+
   border: none;
-  font-weight: bold;
+
+  cursor: ${({ disabled }) => !disabled && "pointer"};
+
+  ${({ size }) => SIZE_TYPE[size as "medium"]};
+  ${({ mode }) => COLOR_TYPE[mode as "primary"]};
+
+  &:disabled {
+    ${({ mode }) => DISABLED_TYPE[mode as "primary"]};
+  }
+
+  &:hover:not(:disabled) {
+    box-shadow: 0px 0px 6px 0px ${color.brand.brandMain};
+  }
+
+  .text_icon_wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
+const Icon = styled.img`
+  width: 16px;
+  height: 16px;
 `;

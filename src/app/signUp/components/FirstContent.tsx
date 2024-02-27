@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/color";
-import Radio from "@/component/RadioButton/Radio";
-import { useEffect, useState } from "react";
-import Button from "@/component/Button_new/Button";
+import styled from '@emotion/styled';
+import { color } from '@/Styles/color';
+import Radio from '@/components/RadioButton/Radio';
+import { useEffect, useState } from 'react';
+import Button from '@/components/Button/Button';
 
 const FirstContent = ({ onClick }) => {
   const [checkForm, setCheckForm] = useState({
@@ -51,60 +51,42 @@ const FirstContent = ({ onClick }) => {
 
   return (
     <SignupContainer>
-      <div className='complete-bar'>
-        <div className='complete'></div>
+      <div className="complete-bar">
+        <div className="complete"></div>
       </div>
-      <div className='text'>
+      <div className="text">
         사이드고 서비스 이용약관에
         <br />
         동의해 주세요.
       </div>
 
-      <div className='radio1'>
-        <Radio
-          size='big'
-          className='radio'
-          text='모두 동의합니다.'
-          isChecked={checkForm.all}
-          onClick={handleAgreeAll}
-        />
+      <div className="radio1">
+        <Radio size="big" className="radio" text="모두 동의합니다." isChecked={checkForm.all} onClick={handleAgreeAll} />
       </div>
 
-      <div className='radio2'>
-        <Radio
-          size='big'
-          className='radio'
-          text='이용약관 동의'
-          isChecked={checkForm.first}
-          requireText='(필수)'
-          onClick={() => handleRadioClick("first")}
-        />
-        <div className='terms'>약관 내용</div>
+      <div className="radio2">
+        <Radio size="big" className="radio" text="이용약관 동의" isChecked={checkForm.first} requireText="(필수)" onClick={() => handleRadioClick('first')} />
+        <div className="terms">약관 내용</div>
       </div>
 
-      <div className='radio3'>
+      <div className="radio3">
         <Radio
-          size='big'
-          className='radio'
-          text='개인정보 이용약관 동의'
+          size="big"
+          className="radio"
+          text="개인정보 이용약관 동의"
           isChecked={checkForm.second}
-          requireText='(필수)'
-          onClick={() => handleRadioClick("second")}
+          requireText="(필수)"
+          onClick={() => handleRadioClick('second')}
         />
-        <div className='terms'>약관 내용</div>
+        <div className="terms">약관 내용</div>
       </div>
 
-      <div className='button-wrapper'>
-        <Button
-          mode='primary'
-          onClick={onClick}
-          style={{ width: "100%" }}
-          disabled={isButtonDisabled}
-        >
+      <div className="button-wrapper">
+        <Button mode="primary" onClick={onClick} style={{ width: '100%' }} disabled={isButtonDisabled}>
           다음
         </Button>
       </div>
-      <div className='mirror'></div>
+      <div className="mirror"></div>
     </SignupContainer>
   );
 };
@@ -125,12 +107,7 @@ const SignupContainer = styled.div`
 
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.67);
-  background: linear-gradient(
-      144deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(0, 0, 0, 0) 100%
-    ),
-    rgba(2, 6, 13, 0.5);
+  background: linear-gradient(144deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(2, 6, 13, 0.5);
   backdrop-filter: blur(20px);
 
   overflow: hidden;
@@ -141,11 +118,7 @@ const SignupContainer = styled.div`
     height: 551.634px;
     transform: rotate(-30deg);
     flex-shrink: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.15) 0%,
-      rgba(0, 0, 0, 0) 100%
-    );
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0) 100%);
 
     position: absolute;
     /* overflow: hidden; */

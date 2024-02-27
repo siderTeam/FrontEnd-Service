@@ -1,31 +1,38 @@
 import styled from "@emotion/styled";
+
 import Label from "../Label/Label";
-import Input from "../Input/Input";
+import SelectBox from "../SelectBox/SelectBox";
 
-import { InputProps, LABELINPUT_STYLE_PROPS, LabelProps } from "@/types/types";
+import {
+  SelectBoxProps,
+  LABELINPUT_STYLE_PROPS,
+  LabelProps,
+} from "@/types/types";
 
-type LabelInputProps = {
+type LabelSelectProps = {
   labelOption: LabelProps;
-  inputOption: InputProps;
+  selectOption: SelectBoxProps;
   location?: "left" | "top";
   style?: React.CSSProperties;
 };
 
-const LabelInput = ({
+const LabelSelect = ({
   labelOption,
-  inputOption,
+  selectOption,
   location = "left",
   style,
-}: LabelInputProps) => {
+}: LabelSelectProps) => {
   return (
-    <Container location={location} style={style}>
-      <Label {...labelOption} />
-      <Input {...inputOption} />
-    </Container>
+    <>
+      <Container location={location} style={style}>
+        <Label {...labelOption} />
+        <SelectBox {...selectOption} />
+      </Container>
+    </>
   );
 };
 
-export default LabelInput;
+export default LabelSelect;
 
 const CONTAINER_TYPE = {
   ["left"]: {

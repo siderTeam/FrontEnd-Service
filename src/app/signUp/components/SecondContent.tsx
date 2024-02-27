@@ -1,33 +1,33 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/color";
-import Input from "@/component/Input_new/Input";
-import Button from "@/component/Button_new/Button";
-import { useState } from "react";
-import { USER_SIGNUP_REQUEST } from "@/api/model";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { getUserId, postUserSignUp } from "@/api/api";
-import { useRouter } from "next/navigation";
-import { rest } from "@/api/rest";
+import styled from '@emotion/styled';
+import { color } from '@/Styles/color';
+import Input from '@/components/Input/Input';
+import Button from '@/components/Button/Button';
+import { useState } from 'react';
+import { USER_SIGNUP_REQUEST } from '@/api/model';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { getUserId, postUserSignUp } from '@/api/api';
+import { useRouter } from 'next/navigation';
+import { rest } from '@/api/rest';
 
 const SecondContent = ({ onClick }) => {
   const route = useRouter();
   const [form, setForm] = useState<USER_SIGNUP_REQUEST>({
-    username: "",
-    password: "",
-    name: "",
-    email: "",
-    nickname: "",
-    bankName: "",
-    bankNo: "",
-    bankUserName: "",
-    phone: "",
+    username: '',
+    password: '',
+    name: '',
+    email: '',
+    nickname: '',
+    bankName: '',
+    bankNo: '',
+    bankUserName: '',
+    phone: '',
     jobCode: 0,
     positionCode: [],
   });
 
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState('');
 
   //아이디 중복 데이터
   const idCheckData = useQuery({
@@ -50,55 +50,45 @@ const SecondContent = ({ onClick }) => {
     mutationFn: postUserSignUp,
     onSuccess: async (data) => {
       if (data.result === true) {
-        alert("회원가입이 완료되었습니다.\n로그인 페이지로 이동합니다.");
+        alert('회원가입이 완료되었습니다.\n로그인 페이지로 이동합니다.');
 
-        route.push("/login");
+        route.push('/login');
       } else {
-        alert("회원가입 불가");
+        alert('회원가입 불가');
       }
     },
     onError: () => {
-      console.log("실패");
+      console.log('실패');
     },
   });
 
   return (
     <SignupContainer>
-      <div className='complete-bar'>
-        <div className='complete'></div>
+      <div className="complete-bar">
+        <div className="complete"></div>
       </div>
-      <div className='text'>
+      <div className="text">
         사이드고 서비스를 이용할
         <br />
         계정 정보를 작성해 주세요.
       </div>
 
-      <div className='input-wrap'>
-        <Input
-          size='large'
-          placeholder='아이디'
-          name='username'
-          errorText='dd'
-          buttonText='중복확인'
-        />
+      <div className="input-wrap">
+        <Input size="large" placeholder="아이디" name="username" errorText="dd" buttonText="중복확인" />
 
-        <Input placeholder='비밀번호' name='password' type='password' />
-        <Input
-          placeholder='비밀번호 확인'
-          name='passwordConfirm'
-          type='password'
-        />
-        <Input placeholder='이름' name='name' />
-        <Input placeholder='닉네임' name='nickname' />
-        <Input placeholder='전화번호' name='phone' />
+        <Input placeholder="비밀번호" name="password" type="password" />
+        <Input placeholder="비밀번호 확인" name="passwordConfirm" type="password" />
+        <Input placeholder="이름" name="name" />
+        <Input placeholder="닉네임" name="nickname" />
+        <Input placeholder="전화번호" name="phone" />
       </div>
 
-      <div className='button-wrapper'>
-        <Button mode='primary' onClick={onClick} style={{ width: "100%" }}>
+      <div className="button-wrapper">
+        <Button mode="primary" onClick={onClick} style={{ width: '100%' }}>
           다음
         </Button>
       </div>
-      <div className='mirror'></div>
+      <div className="mirror"></div>
     </SignupContainer>
   );
 };
@@ -119,12 +109,7 @@ const SignupContainer = styled.div`
 
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.67);
-  background: linear-gradient(
-      144deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(0, 0, 0, 0) 100%
-    ),
-    rgba(2, 6, 13, 0.5);
+  background: linear-gradient(144deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(2, 6, 13, 0.5);
   backdrop-filter: blur(20px);
 
   overflow: hidden;
@@ -135,11 +120,7 @@ const SignupContainer = styled.div`
     height: 551.634px;
     transform: rotate(-30deg);
     flex-shrink: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.15) 0%,
-      rgba(0, 0, 0, 0) 100%
-    );
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0) 100%);
 
     position: absolute;
     /* overflow: hidden; */

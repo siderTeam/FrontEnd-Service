@@ -1,9 +1,8 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import Sidebar from "./Sidebar/Sidebar";
+import { useEffect, useState } from 'react';
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const RootContainer = ({ children }: any) => {
   const [redered, setRedered] = useState(false);
@@ -13,14 +12,7 @@ const RootContainer = ({ children }: any) => {
     setRedered(true);
   }, []);
 
-  return redered ? (
-    <QueryClientProvider client={queryClient}>
-      <Sidebar />
-      {children}
-    </QueryClientProvider>
-  ) : (
-    <span>렌더안댐</span>
-  );
+  return redered ? <QueryClientProvider client={queryClient}><div style={{ zIndex: 9999, background: 'pink'}}>{children}</div></QueryClientProvider> : <span>렌더안댐</span>;
 };
 
 export default RootContainer;

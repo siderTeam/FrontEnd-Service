@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/color";
-import Modal from "@/component/Modal_new/Modal";
-import { useState } from "react";
-import Input from "@/component/Input_new/Input";
-import Label from "@/component/Label_new/Label";
-import TextArea from "@/components/TextArea/TextArea";
-import Sidebar from "../components/Sidebar";
-import MyProfile from "@/component/MyProfile/MyProfile";
-import Button from "@/component/Button_new/Button";
+import styled from '@emotion/styled';
+import { color } from '@/Styles/color';
+import Modal from '@/components/Modal/Modal';
+import { useState } from 'react';
+import Input from '@/components/Input/Input';
+import Label from '@/components/Label/Label';
+import TextArea from '@/components/TextArea/TextArea';
+import Sidebar from '../components/Sidebar';
+import MyProfile from '@/components/MyProfile/MyProfile';
+import Button from '@/components/Button/Button';
 
 const Page = () => {
   const [textareaCount, setTextareaCount] = useState(0);
@@ -25,41 +25,31 @@ const Page = () => {
 
   return (
     <>
-      <Modal style={{ width: "1062px" }}>
+      <Modal style={{ width: '1062px' }}>
         <Container>
           <Sidebar />
-          <div className='right-section'>
-            <MyProfile style={{ marginTop: "60px", marginBottom: "40px" }} />
-            <div className='input-wrap'>
-              <Label label='이름' require='*'>
-                <Input size='medium' style={{ marginTop: "4px" }} />
+          <div className="right-section">
+            <MyProfile style={{ marginTop: '60px', marginBottom: '40px' }} />
+            <div className="input-wrap">
+              <Label label="이름" require="*">
+                <Input size="medium" style={{ marginTop: '4px' }} />
               </Label>
-              <Label label='연차' require='*'>
-                <Input size='medium' style={{ marginTop: "4px" }} />
+              <Label label="연차" require="*">
+                <Input size="medium" style={{ marginTop: '4px' }} />
               </Label>
-              <Label label='닉네임' require='*'>
-                <Input size='medium' style={{ marginTop: "4px" }} />
+              <Label label="닉네임" require="*">
+                <Input size="medium" style={{ marginTop: '4px' }} />
               </Label>
-              <Label label='포지션' require='*'>
-                <Input size='medium' style={{ marginTop: "4px" }} />
+              <Label label="포지션" require="*">
+                <Input size="medium" style={{ marginTop: '4px' }} />
               </Label>
             </div>
 
-            <Label
-              label='한 줄 소개'
-              style={{ width: "100%", marginTop: "16px" }}
-            >
-              <TextArea
-                size='full'
-                color='primary'
-                style={{ marginTop: "4px" }}
-                onChange={onTextareaHandler}
-                maxLength={100}
-                textareaCount={textareaCount}
-              />
+            <Label label="한 줄 소개" style={{ width: '100%', marginTop: '16px' }}>
+              <TextArea size="full" color="primary" style={{ marginTop: '4px' }} onChange={onTextareaHandler} maxLength={100} textareaCount={textareaCount} />
             </Label>
-            <div className='button-wrap'>
-              <Button size='medium' mode='primary'>
+            <div className="button-wrap">
+              <Button size="medium" mode="primary">
                 저장
               </Button>
             </div>

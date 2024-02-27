@@ -1,35 +1,35 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/color";
+import styled from '@emotion/styled';
+import { color } from '@/Styles/color';
 
-import Modal from "@/component/Modal_new/Modal";
-import React, { useState } from "react";
+import Modal from '@/components/Modal/Modal';
+import React, { useState } from 'react';
 
-import { useQuery } from "@tanstack/react-query";
-import { rest } from "@/api/rest";
-import { getResume } from "@/api/api";
-import Sidebar from "../../components/Sidebar";
-import UserCard from "@/component/UserCard/UserCard";
-import Button from "@/component/Button_new/Button";
+import { useQuery } from '@tanstack/react-query';
+import { rest } from '@/api/rest';
+import { getResume } from '@/api/api';
+import Sidebar from '../../components/Sidebar';
+import UserCard from '@/components/UserCard/UserCard';
+import Button from '@/components/Button/Button';
 
 const Page = () => {
   return (
     <>
-      <Modal style={{ width: "1062px" }}>
+      <Modal style={{ width: '1062px' }}>
         <Container>
           <Sidebar />
-          <div className='right-section'>
-            <div className='project'>나랑 고구마 만들래~</div>
-            <div className='confirm-user'>승인된 유저</div>
-            <div className='usecard-wrap'>
+          <div className="right-section">
+            <div className="project">나랑 고구마 만들래~</div>
+            <div className="confirm-user">승인된 유저</div>
+            <div className="usecard-wrap">
               <UserCard /> <UserCard /> <UserCard /> <UserCard /> <UserCard />
               <UserCard /> <UserCard /> <UserCard />
               <UserCard /> <UserCard /> <UserCard /> <UserCard /> <UserCard />
               <UserCard /> <UserCard /> <UserCard />
             </div>
-            <div className='button'>
-              <Button mode='secondary' size='medium'>
+            <div className="button">
+              <Button mode="secondary" size="medium">
                 이전
               </Button>
             </div>

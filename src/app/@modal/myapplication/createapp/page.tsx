@@ -1,39 +1,35 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/color";
-import Modal from "@/component/Modal_new/Modal";
-import Sidebar from "@/app/@modal/components/Sidebar";
-import Input from "@/component/Input_new/Input";
-import TextArea from "@/components/TextArea/TextArea";
-import Button from "@/component/Button_new/Button";
-import Label from "@/component/Label_new/Label";
+import styled from '@emotion/styled';
+import { color } from '@/Styles/color';
+import Modal from '@/components/Modal/Modal';
+import Sidebar from '@/app/@modal/components/Sidebar';
+import Input from '@/components/Input/Input';
+import TextArea from '@/components/TextArea/TextArea';
+import Button from '@/components/Button/Button';
+import Label from '@/components/Label/Label';
 
 const Page = () => {
   return (
-    <Modal style={{ width: "1062px" }}>
+    <Modal style={{ width: '1062px' }}>
       <Container>
         <Sidebar />
-        <div className='right-section'>
-          <div className='wrap'>
-            <Label
-              label='지원서 이름'
-              style={{ marginBottom: "4px" }}
-              require='*'
-            >
+        <div className="right-section">
+          <div className="wrap">
+            <Label label="지원서 이름" style={{ marginBottom: '4px' }} require="*">
               <Input />
             </Label>
 
-            <Label label='자기 소개' require='*'>
+            <Label label="자기 소개" require="*">
               <TextArea />
             </Label>
 
-            <Label label='스킬' require='*'>
+            <Label label="스킬" require="*">
               <TextArea />
             </Label>
           </div>
-          <div className='button-wrap'>
-            <Button size='medium' mode='primary'>
+          <div className="button-wrap">
+            <Button size="medium" mode="primary">
               저장
             </Button>
           </div>
