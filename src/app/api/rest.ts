@@ -1,6 +1,6 @@
 export const rest = {
   get: {
-    project: "/project",
+    project: "/project/list",
     code: "/code",
     getResumeList: "/resume",
     getIdCheck: "/user/id",
@@ -9,6 +9,8 @@ export const rest = {
     userSignIn: "/user/signIn",
     getAccessToken: "/user/newAc",
     userSignUp: "/user/signUp",
+    userSignOut: "/user/signOut",
+    getNewRefreshToken: "/user/newRf",
   },
   put: {},
   delete: {},

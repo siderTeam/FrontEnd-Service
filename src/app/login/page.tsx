@@ -16,6 +16,7 @@ import CheckBox from "@/component/CheckBox/CheckBox";
 const Page = () => {
   const route = useRouter();
   const [isChecked, setIsChecked] = useState(false);
+  const [validate, setValidate] = useState(false);
   const [form, setForm] = useState<USER_SIGNIN_REQUEST>({
     username: "",
     password: "",
@@ -25,11 +26,13 @@ const Page = () => {
     mutationFn: postUserSignIn,
     onSuccess: async (data) => {
       if (data.result === true) {
-        setCookie("RefreshToken", data.data);
-        const response = await getAccessToken();
-        setCookie("AccessToken", response.data);
-
-        route.push("/home");
+        await getAccessToken()
+          .then((res) => {
+            setCookie("accessToken", res.data.accessToken);
+          })
+          .then(() => {
+            route.push("/");
+          });
       } else {
         alert("로그인 실패하였습니다.\n다시 시도해주시기 바랍니다.");
       }

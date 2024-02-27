@@ -13,6 +13,7 @@ const ProjectCard = ({
   startDate,
   endDate,
   deposit,
+  skillCodeList,
   style,
 }: CardProps) => {
   const cardColor = colorArr[Math.floor(Math.random() * colorArr.length)];
@@ -22,12 +23,15 @@ const ProjectCard = ({
       <CardWrap>
         <div className="subTitle">모집 마감일 8888.88.88</div>
         <div className="skillWrap">
-          <Image
-            src={"/images/skillIcons/figma.png"}
-            alt="profile"
-            width={32}
-            height={32}
-          />
+          {skillCodeList.map((item) => (
+            <Image
+              key={item.skillCode}
+              src={`/images/skillIcons/${item.imageName}.svg`}
+              alt={item.name}
+              width={32}
+              height={32}
+            />
+          ))}
         </div>
         <h1 className="title">{title}</h1>
         <SubInfo>

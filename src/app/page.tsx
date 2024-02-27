@@ -114,16 +114,14 @@ const Page = () => {
               #모집중
             </button>
           </div>
-          <SelectInput />
-          {/* <Input
-            name="input"
+          <SelectInput
+            name="search"
             value={inputText}
             placeholder="프로젝트 검색"
-            size="medium"
             onChange={handleInputChange}
             onKeyDown={handleKeywordEnter}
             onClick={handleKeywordClick}
-          /> */}
+          />
         </FilterWrap>
         <ProjectCardWrap>
           {projectData.data?.map((project) => (
@@ -133,6 +131,7 @@ const Page = () => {
               startDate={project.recruitStartDate}
               endDate={project.recruitEndDate}
               deposit={project.deposit}
+              skillCodeList={project.skillCodeList}
             />
           ))}
         </ProjectCardWrap>

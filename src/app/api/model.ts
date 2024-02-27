@@ -6,6 +6,7 @@ export type PROJECT_RESPONSE = {
   content: string;
   deposit: number;
   count: number;
+  skillCodeList: { skillCode: number; name: string; imageName: string; }[];
   positionCodeList: {
     positionCode: number;
     name: string;
