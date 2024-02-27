@@ -1,14 +1,11 @@
 'use client';
 
 import styled from '@emotion/styled';
-import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
-import Image from 'next/image';
 import { rest } from './api/rest';
 import { getProject } from './api/api';
 import { useState } from 'react';
 import Card from '@/components/Card/Card';
-import Profile from '@/components/Profile/Profile';
 import { color } from '../styles/CommonStyles';
 import SelectInput from '@/components/SelectInput/SelectInput';
 
@@ -48,20 +45,6 @@ const Page = () => {
   return (
     <>
       <Container>
-        <LogoProfileWrap>
-          <Link href="/">
-            <Image src={'/images/logo.svg'} alt="logo" width={170} height={47} />
-          </Link>
-          <div className="profileWrap">
-            <Profile />
-            <Link href="/myPage">
-              <Image src={'/images/icons/person_white.svg'} alt="myPage" width={24} height={24} />
-            </Link>
-            <Link href="/login">
-              <Image src={'/images/icons/on_white.svg'} alt="myPage" width={24} height={24} />
-            </Link>
-          </div>
-        </LogoProfileWrap>
         <ImageSlider>광고 이미지</ImageSlider>
         <Title>프로젝트</Title>
         <FilterWrap>
@@ -113,19 +96,6 @@ export default Page;
 const Container = styled.div`
   margin: 0 auto;
   max-width: 1280px;
-`;
-
-const LogoProfileWrap = styled.div`
-  padding: 42px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  .profileWrap {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
 `;
 
 const ImageSlider = styled.div`

@@ -1,6 +1,7 @@
 import '../../public/reset.css';
 import RootContainer from '@/components/RootContainer';
 import '../styles/global.css';
+import Header from '@/components/Header/Header';
 
 export const metadata = {
   title: 'Next.js',
@@ -11,10 +12,8 @@ export default function RootLayout({ children, modal }: { children: React.ReactN
   return (
     <html lang="en">
       <body>
-        <RootContainer>
-          {children}
-          {modal}
-        </RootContainer>
+        <Header />
+        <RootContainer>{children}</RootContainer>
       </body>
     </html>
   );

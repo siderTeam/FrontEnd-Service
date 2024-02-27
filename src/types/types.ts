@@ -139,6 +139,8 @@ export type SignUpProps = {
 
 //Modal
 export type ModalProps = {
+  visible: boolean;
+  onClose: () => void;
   children: any;
   style?: React.CSSProperties;
 };
