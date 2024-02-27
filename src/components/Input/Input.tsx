@@ -3,7 +3,7 @@
 import { InputProps } from '@/types/types';
 import styled from '@emotion/styled';
 import Button from '../Button/Button';
-import { color } from '@/Styles/color';
+import { color } from '@/styles/color';
 
 const Input = ({
   value,

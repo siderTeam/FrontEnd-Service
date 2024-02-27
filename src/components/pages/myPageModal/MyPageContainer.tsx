@@ -7,6 +7,13 @@ import MyPage from './MyPage';
 import MyApply from './MyApply';
 import Payment from './Payment';
 import Project from './Proejct';
+import ApplyList from './ApplyList';
+import ApplyCreate from './ApplyCreate';
+import ApplyDetail from './ApplyDetail';
+import MyProject from './MyProject';
+import ApplyStatus from './ApplyStatus';
+import RecruitmentStatus from './RecruitmentStatus';
+import RecruitmentDetail from './RecruitmentDetail';
 
 interface MyPageProps {
   visible: boolean;
@@ -26,8 +33,8 @@ const router = [
     iconPath: 'paper',
     activeIconPath: 'paper_green',
     subMenu: [
-      { path: 'myapplication/applications', label: '지원서 관리' },
-      { path: 'myapplication/createapp', label: '지원서 작성' },
+      { path: 'ApplyList', label: '지원서 관리' },
+      { path: 'ApplyCreate', label: '지원서 작성' },
     ],
     height: 38,
   },
@@ -43,15 +50,15 @@ const router = [
     iconPath: 'monitor',
     activeIconPath: 'monitor_green',
     subMenu: [
-      { path: 'project/myproject', label: '내 프로젝트' },
-      { path: 'project/applicationStatus', label: '지원 현황' },
-      { path: 'project/recruitmentStatus', label: '모집 현황' },
+      { path: 'MyProject', label: '내 프로젝트' },
+      { path: 'ApplyStatus', label: '지원 현황' },
+      { path: 'RecruitmentStatus', label: '모집 현황' },
     ],
     height: 62,
   },
 ];
 
-type Route = 'MyPage' | 'MyApply' | 'Payment' | 'Project';
+type Route = 'MyPage' | 'MyApply' | 'ApplyList' | 'ApplyCreate' | 'Payment' | 'Project';
 
 const MyPageContainer = ({ visible, onClose }: MyPageProps) => {
   const [activePath, setActivePath] = useState<Route>('MyPage');
@@ -98,12 +105,14 @@ const MyPageContainer = ({ visible, onClose }: MyPageProps) => {
               </li>
             );
           })}
+          <div className="mirror" />
         </SiderBar>
         <Container>
           {activePath === 'MyPage' && <MyPage />}
           {activePath === 'MyApply' && <MyApply />}
+          {activePath === 'ApplyList' && <ApplyList />}
           {activePath === 'Payment' && <Payment />}
-          {activePath === 'Project' && <Project />}
+          {activePath === 'Project' && <RecruitmentDetail />}
         </Container>
       </div>
     </Modal>
@@ -144,6 +153,20 @@ const SiderBar = styled.ul`
 
   .active {
     color: ${color.brand.brandMain};
+  }
+
+  .mirror {
+    width: 293.614px;
+    height: 254.156px;
+    transform: rotate(-30deg);
+    flex-shrink: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0) 100%);
+
+    position: absolute;
+    top: 0;
+    left: -100px;
+
+    z-index: -1;
   }
 `;
 

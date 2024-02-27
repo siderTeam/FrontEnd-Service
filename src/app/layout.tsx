@@ -1,7 +1,7 @@
 import '../../public/reset.css';
-import '../Styles/global.css';
+import '../styles/global.css';
 import RootContainer from '@/components/RootContainer';
-import { color } from '@/Styles/color';
+import { color } from '@/styles/color';
 import Header from '@/components/Header/Header';
 
 export const metadata = {

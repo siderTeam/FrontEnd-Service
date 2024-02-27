@@ -1,57 +1,51 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/color";
+import styled from '@emotion/styled';
+import { color } from '@/styles/color';
 
-import { TextareaProps } from "@/types/types";
-import { kMaxLength } from "buffer";
+import { TextareaProps } from '@/types/types';
+import { kMaxLength } from 'buffer';
 
-const TextArea = ({
-  size = "full",
-  color = "primary",
-  style,
-  textareaCount,
-  ...rest
-}: TextareaProps) => {
+const TextArea = ({ size = 'full', color = 'primary', style, textareaCount, ...rest }: TextareaProps) => {
   return (
     <Container>
       <StyledTextArea size={size} color={color} style={style} {...rest} />
-      {textareaCount && <div className='text-length'>{textareaCount}/100</div>}
+      {textareaCount && <div className="text-length">{textareaCount}/100</div>}
     </Container>
   );
 };
 export default TextArea;
 
 const TEXTAREA_TYPE = {
-  ["full"]: {
-    display: "flex",
-    width: "100%",
-    height: "112px",
-    padding: "10px 20px",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "flex-end",
-    gap: "4px",
+  ['full']: {
+    display: 'flex',
+    width: '100%',
+    height: '112px',
+    padding: '10px 20px',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    gap: '4px',
 
-    borderRadius: "8px",
+    borderRadius: '8px',
     border: `1px solid ${color.gray.gray6}`,
-    background: "none",
+    background: 'none',
   },
-  ["medium"]: {
+  ['medium']: {
     width: 250,
   },
-  ["large"]: {
+  ['large']: {
     width: 400,
   },
 };
 
 const COLOR_TYPE = {
-  ["primary"]: {
+  ['primary']: {
     color: color.gray.white,
-    fontSize: "14px",
-    fontStyle: "normal",
+    fontSize: '14px',
+    fontStyle: 'normal',
     fontWeight: 400,
-    lineHeight: "normal",
+    lineHeight: 'normal',
   },
 };
 
@@ -66,8 +60,8 @@ const Container = styled.div<any>`
 `;
 
 const StyledTextArea = styled.textarea<any>`
-  ${({ size }) => TEXTAREA_TYPE[size as "medium"]};
-  ${({ color }) => COLOR_TYPE[color as "primary"]};
+  ${({ size }) => TEXTAREA_TYPE[size as 'medium']};
+  ${({ color }) => COLOR_TYPE[color as 'primary']};
   box-sizing: border-box;
 
   width: 100%;

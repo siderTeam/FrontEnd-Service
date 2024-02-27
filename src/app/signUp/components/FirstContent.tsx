@@ -1,7 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { color } from '@/Styles/color';
+import { color } from '@/styles/color';
 import Radio from '@/components/RadioButton/Radio';
 import { useEffect, useState } from 'react';
 import Button from '@/components/Button/Button';

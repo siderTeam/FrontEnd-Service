@@ -1,7 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { color } from '@/Styles/color';
+import { color } from '@/styles/color';
 import Checkbox from '@/components/Checkbox/Checkbox';
 import { useState } from 'react';
 import Input from '@/components/Input/Input';
@@ -76,7 +76,7 @@ const Page = () => {
           <Input size="large" color={passwordColor} placeholder="비밀번호" name="password" onChange={handleChange} type="password" />
         </div>
         <div className="wrap">
-          <Checkbox type={isChecked ? 'checked' : 'unchecked'} className="checkbox" text="아이디 저장" isChecked={isChecked} onClick={handleChecked} />
+          <Checkbox type={isChecked ? 'checked' : 'unchecked'} className="checkbox" text="아이디 저장" checked={isChecked} onClick={handleChecked} />
           <div className="find">계정정보 찾기</div>
         </div>
         <div className="buttonWrap">

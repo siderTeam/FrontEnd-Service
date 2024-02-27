@@ -1,19 +1,15 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/color";
+import styled from '@emotion/styled';
+import { color } from '@/styles/color';
 
 const MyProfile = ({ style }) => {
   return (
     <Profile style={style}>
-      <img
-        src='/images/profile_dummy2.svg'
-        style={{ width: 80, boxSizing: "border-box" }}
-        className='img'
-      />
-      <div className='profile-text'>
-        <div className='name'>박봉팔</div>
-        <div className='position'>88년차 포지션</div>
+      <img src="/images/profile_dummy2.svg" style={{ width: 80, boxSizing: 'border-box' }} className="img" />
+      <div className="profile-text">
+        <div className="name">박봉팔</div>
+        <div className="position">88년차 포지션</div>
       </div>
     </Profile>
   );

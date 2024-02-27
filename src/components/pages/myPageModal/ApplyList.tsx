@@ -1,17 +1,14 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { color } from '@/Styles/color';
+import { color } from '@/styles/color';
 
-import Modal from '@/components/Modal/Modal';
 import React, { useState } from 'react';
-import Sidebar from '../../components/Sidebar';
 import { useQuery } from '@tanstack/react-query';
 import { rest } from '@/api/rest';
 import { getResume } from '@/api/api';
 
-const Page = () => {
-  const [isHovered, setIsHovered] = useState(false);
+const ApplyList = () => {
   const [page, setPage] = useState(1);
   const items = 12;
 
@@ -51,70 +48,44 @@ const Page = () => {
     },
   ];
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
   const handlePageChange = (page) => {
     setPage(page);
   };
 
   return (
-    <>
-      <Modal style={{ width: '1062px' }}>
-        <Container>
-          <Sidebar />
-          <div className="right-section">
-            <TableHeader>
-              <div className="number">No.</div>
-              <div className="title">지원서 이름</div>
-              <div className="delete">삭제</div>
-            </TableHeader>
-            <TableContent>
-              {resumeData?.slice(items * (page - 1), items * (page - 1) + items).map((content, index) => (
-                <ul>
-                  {/* <li className='number'>{(page - 1) * items + index + 1}</li> */}
-                  <li className="number">{content.number}</li>
-                  <li className="title">{content.name}</li>
-                  <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="delete">
-                    삭제
-                  </div>
-                </ul>
-              ))}
-            </TableContent>
-          </div>
-        </Container>
-      </Modal>
-    </>
+    <Container>
+      <TableHeader>
+        <div className="number">No.</div>
+        <div className="title">지원서 이름</div>
+        <div className="delete">삭제</div>
+      </TableHeader>
+      <TableContent>
+        {resumeData?.slice(items * (page - 1), items * (page - 1) + items).map((content, index) => (
+          <ul>
+            {/* <li className='number'>{(page - 1) * items + index + 1}</li> */}
+            <li className="number">{content.number}</li>
+            <li className="title">{content.name}</li>
+            <div className="delete">삭제</div>
+          </ul>
+        ))}
+      </TableContent>
+    </Container>
   );
 };
 
-export default Page;
+export default ApplyList;
 
 const Container = styled.div`
-  display: flex;
   width: 842px;
-  height: 720px;
   flex-shrink: 0;
   box-sizing: border-box;
 
-  .right-section {
-    width: 842px;
-    height: 100%;
-    flex-shrink: 0;
-    box-sizing: border-box;
+  border-radius: 0 24px 24px 0;
 
-    border-radius: 0 24px 24px 0;
+  padding-right: 70px;
+  padding-left: 70px;
 
-    padding-right: 70px;
-    padding-left: 70px;
-
-    background: ${color.gray.black};
-  }
+  background: ${color.gray.black};
 `;
 
 const TableHeader = styled.div`
@@ -125,7 +96,7 @@ const TableHeader = styled.div`
   background: none;
   border-bottom: 1px solid ${color.gray.white};
 
-  margin-top: 70px;
+  margin-top: 60px;
   margin-bottom: 20px;
 
   color: ${color.gray.white};

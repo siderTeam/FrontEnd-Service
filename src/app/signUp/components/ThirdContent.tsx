@@ -1,7 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { color } from '@/Styles/color';
+import { color } from '@/styles/color';
 import Button from '@/components/Button/Button';
 import SelectBox from '@/components/SelectBox/SelectBox';
 import Input from '@/components/Input/Input';

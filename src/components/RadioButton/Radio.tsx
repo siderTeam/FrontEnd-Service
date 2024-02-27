@@ -1,25 +1,14 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { RADIO_BUTTON_TYPE_PROPS, RadioButtonProps } from "@/types/types";
-import { color } from "@/Styles/color";
+import styled from '@emotion/styled';
+import { RADIO_BUTTON_TYPE_PROPS, RadioButtonProps } from '@/types/types';
+import { color } from '@/styles/color';
 
-const Radio = ({
-  text,
-  requireText,
-  className,
-  onChange,
-  onClick,
-  style,
-  requireStyle,
-  disabled,
-  size = "small",
-  isChecked,
-}: RadioButtonProps) => {
+const Radio = ({ text, requireText, className, onChange, onClick, style, requireStyle, disabled, size = 'small', isChecked }: RadioButtonProps) => {
   return (
     <Container>
       <StyledRadio
-        type='checkbox'
+        type="checkbox"
         disabled={disabled}
         onChange={onChange}
         onClick={onClick}
@@ -29,9 +18,7 @@ const Radio = ({
         checked={isChecked}
       />
       <StyledLabel>{text}</StyledLabel>
-      {requireText && (
-        <StyledRequire style={requireStyle}>{requireText}</StyledRequire>
-      )}
+      {requireText && <StyledRequire style={requireStyle}>{requireText}</StyledRequire>}
     </Container>
   );
 };
@@ -73,17 +60,17 @@ const StyledRadio = styled.input<RADIO_BUTTON_TYPE_PROPS>`
   }
 
   &:checked {
-    background-image: url("/images/radio/Checked_Big.svg");
+    background-image: url('/images/radio/Checked_Big.svg');
     border: none;
   }
 
   &:disabled {
-    background-image: url("/images/radio/Disabled_Big.svg");
+    background-image: url('/images/radio/Disabled_Big.svg');
     border: none;
   }
 
   &:checked&:disabled {
-    background-image: url("/images/radio/DisabledCheck_Big.svg");
+    background-image: url('/images/radio/DisabledCheck_Big.svg');
     border: none;
   }
 `;

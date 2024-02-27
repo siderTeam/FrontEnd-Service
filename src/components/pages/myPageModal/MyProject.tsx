@@ -1,18 +1,14 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { color } from '@/Styles/color';
-
-import Modal from '@/components/Modal/Modal';
+import { color } from '@/styles/color';
 import React, { useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 import { rest } from '@/api/rest';
 import { getResume } from '@/api/api';
-import Sidebar from '../../components/Sidebar';
 
-const Page = () => {
-  const [isHovered, setIsHovered] = useState(false);
+const MyProject = () => {
   const [page, setPage] = useState(1);
   const items = 12;
 
@@ -60,70 +56,45 @@ const Page = () => {
     },
   ];
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
   const handlePageChange = (page) => {
     setPage(page);
   };
-
   return (
-    <>
-      <Modal style={{ width: '1062px' }}>
-        <Container>
-          <Sidebar />
-          <div className="right-section">
-            <TableHeader>
-              <div className="number">No.</div>
-              <div className="project">프로젝트 명</div>
-              <div className="period">프로젝트 진행 기간</div>
-              <div className="refund">환급 여부</div>
-            </TableHeader>
-            <TableContent>
-              {resumeData?.slice(items * (page - 1), items * (page - 1) + items).map((content, index) => (
-                <ul>
-                  {/* <li className='number'>{(page - 1) * items + index + 1}</li> */}
-                  <li className="number">{content.number}</li>
-                  <li className="project">{content.project}</li>
-                  <li className="period">{content.period}</li>
-                  <li className="refund">{content.refund}</li>
-                </ul>
-              ))}
-            </TableContent>
-          </div>
-        </Container>
-      </Modal>
-    </>
+    <Container>
+      <TableHeader>
+        <div className="number">No.</div>
+        <div className="project">프로젝트 명</div>
+        <div className="period">프로젝트 진행 기간</div>
+        <div className="refund">환급 여부</div>
+      </TableHeader>
+      <TableContent>
+        {resumeData?.slice(items * (page - 1), items * (page - 1) + items).map((content, index) => (
+          <ul>
+            {/* <li className='number'>{(page - 1) * items + index + 1}</li> */}
+            <li className="number">{content.number}</li>
+            <li className="project">{content.project}</li>
+            <li className="period">{content.period}</li>
+            <li className="refund">{content.refund}</li>
+          </ul>
+        ))}
+      </TableContent>
+    </Container>
   );
 };
 
-export default Page;
+export default MyProject;
 
 const Container = styled.div`
-  display: flex;
   width: 842px;
-  height: 720px;
   flex-shrink: 0;
   box-sizing: border-box;
 
-  .right-section {
-    width: 842px;
-    height: 100%;
-    flex-shrink: 0;
-    box-sizing: border-box;
+  border-radius: 0 24px 24px 0;
 
-    border-radius: 0 24px 24px 0;
+  padding-right: 70px;
+  padding-left: 70px;
 
-    padding-right: 70px;
-    padding-left: 70px;
-
-    background: ${color.gray.black};
-  }
+  background: ${color.gray.black};
 `;
 
 const TableHeader = styled.div`

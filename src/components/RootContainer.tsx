@@ -12,7 +12,13 @@ const RootContainer = ({ children }: any) => {
     setRedered(true);
   }, []);
 
-  return redered ? <QueryClientProvider client={queryClient}><div style={{ zIndex: 9999, background: 'pink'}}>{children}</div></QueryClientProvider> : <span>렌더안댐</span>;
+  return redered ? (
+    <QueryClientProvider client={queryClient}>
+      <div style={{ zIndex: 9999 }}>{children}</div>
+    </QueryClientProvider>
+  ) : (
+    <span>렌더안댐</span>
+  );
 };
 
 export default RootContainer;

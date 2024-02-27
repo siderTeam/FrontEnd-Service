@@ -1,18 +1,11 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/color";
+import styled from '@emotion/styled';
+import { color } from '@/styles/color';
 
-import { LabelProps } from "@/types/types";
+import { LabelProps } from '@/types/types';
 
-const Label = ({
-  label,
-  require,
-  subText,
-  style,
-  children,
-  isValid,
-}: LabelProps) => {
+const Label = ({ label, require, subText, style, children, isValid }: LabelProps) => {
   return (
     <Container>
       <StyledLabel style={style} location={location}>
@@ -54,5 +47,5 @@ const StyledRequire = styled.span`
 const StyledSubText = styled.p<any>`
   font-size: 0.8em;
   margin-left: 8px;
-  color: ${({ isValid }) => (isValid === true ? "green" : "red")};
+  color: ${({ isValid }) => (isValid === true ? 'green' : 'red')};
 `;

@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/color";
+import styled from '@emotion/styled';
+import { color } from '@/styles/color';
 
-import { ModalProps } from "@/types/types";
-import { useRouter } from "next/navigation";
+import { ModalProps } from '@/types/types';
+import { useRouter } from 'next/navigation';
 
 const Modal = ({ visible, onClose, children, style }: ModalProps) => {
   const router = useRouter();
   return (
     <Container visible={visible} onClick={onClose}>
       <Content style={style} onClick={(e) => e.stopPropagation()}>
-        <div onClick={() => router.replace("/")} className='close'>
-          <img src='/images/icons/X_white.svg' />
+        <div onClick={() => router.replace('/')} className="close">
+          <img src="/images/icons/X_white.svg" />
         </div>
         {children}
       </Content>

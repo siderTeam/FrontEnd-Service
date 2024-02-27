@@ -8,7 +8,7 @@ import Input from '@/components/Input/Input';
 import PositionIcon from '@/components/PositionIcon/PositionIcon';
 
 import styled from '@emotion/styled';
-import { color } from '@/Styles/color';
+import { color } from '@/styles/color';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import Link from 'next/link';

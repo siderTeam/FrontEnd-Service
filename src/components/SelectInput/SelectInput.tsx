@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import SelectBox from '../SelectBox/SelectBox';
 import styled from '@emotion/styled';
-import { color } from '@/Styles/color';
+import { color } from '@/styles/color';
 import { SelectInputProps } from '@/types/types';
 import { useState } from 'react';
 

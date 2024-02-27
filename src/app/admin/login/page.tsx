@@ -1,7 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { color } from '@/Styles/color';
+import { color } from '@/styles/color';
 import Image from 'next/image';
 import Input from '@/components/Input/Input';
 import Checkbox from '@/components/Checkbox/Checkbox';

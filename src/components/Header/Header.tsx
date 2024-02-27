@@ -16,7 +16,11 @@ const Header = () => {
     <StyledHeader>
       <MyPageContainer visible={modal} onClose={handleCloseModal} />
       <Image src="/images/Logo.svg" alt="로고" className="logo" width={167} height={58} />
-      <Profile />
+      <div className="profile-wrap">
+        <Profile />
+        <Image src="/images/icons/Person_white.svg" alt="mypage" width={24} height={24} />
+        <Image src="/images/icons/On_white.svg" alt="logout" width={24} height={24} />
+      </div>
     </StyledHeader>
   );
 };
@@ -33,8 +37,12 @@ const StyledHeader = styled.div`
   box-sizing: border-box;
 
   .logo {
-    width: 60px;
-    height: 33.623px;
     flex-shrink: 0;
+  }
+
+  .profile-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
   }
 `;

@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/color";
-import { useState } from "react";
+import styled from '@emotion/styled';
+import { color } from '@/styles/color';
+import { useState } from 'react';
 
-import { SelectBoxProps } from "@/types/types";
+import { SelectBoxProps } from '@/types/types';
 
 const SelectBox = ({
-  selectedType = "placeholder",
-  optionType = "placeholder",
-  text = "full",
+  selectedType = 'placeholder',
+  optionType = 'placeholder',
+  text = 'full',
   value,
   name,
   options,
@@ -33,15 +33,7 @@ const SelectBox = ({
 
   return (
     <Container>
-      <StyledSelect
-        selectedType={selectedType}
-        optionType={optionType}
-        text={text}
-        value={value}
-        name={name}
-        style={style}
-        onClick={handleClickSelect}
-      >
+      <StyledSelect selectedType={selectedType} optionType={optionType} text={text} value={value} name={name} style={style} onClick={handleClickSelect}>
         {/* <div className={selected.length === 0 ? "value" : "choice-value"}>
           {selected.length === 0 ? placeholder : selected[0].label}
         </div> */}
@@ -49,12 +41,7 @@ const SelectBox = ({
       {visible && (
         <OptionWrapper selectedType={selectedType} optionType={optionType}>
           {options?.map((option) => (
-            <li
-              onClick={() => handleClick(option.value)}
-              style={optionStyle}
-              key={option.value}
-              value={option.label}
-            >
+            <li onClick={() => handleClick(option.value)} style={optionStyle} key={option.value} value={option.label}>
               {option.label}
             </li>
           ))}
@@ -66,31 +53,31 @@ const SelectBox = ({
 
 export default SelectBox;
 const SELECT_TYPE = {
-  ["placeholder"]: {
+  ['placeholder']: {
     border: `1px solid ${color.gray.gray6} `,
   },
-  ["selected"]: {
+  ['selected']: {
     border: `1px solid ${color.gray.gray6} `,
   },
-  ["active"]: {
+  ['active']: {
     border: `1px solid ${color.brand.brandMain}`,
   },
-  ["disabled"]: {
+  ['disabled']: {
     border: `1px solid ${color.gray.gray9}`,
   },
 };
 
 const OPTIONS_TYPE = {
-  ["placeholder"]: {
+  ['placeholder']: {
     border: `1px solid ${color.gray.gray6} `,
   },
-  ["selected"]: {
+  ['selected']: {
     border: `1px solid ${color.gray.gray6} `,
   },
-  ["active"]: {
+  ['active']: {
     border: `1px solid ${color.brand.brandMain}`,
   },
-  ["disabled"]: {
+  ['disabled']: {
     border: `1px solid ${color.gray.gray9}`,
   },
 };
@@ -100,7 +87,7 @@ const Container = styled.div`
 `;
 
 const OptionWrapper = styled.ul<any>`
-  ${({ optionType }) => OPTIONS_TYPE[optionType as "placeholder"]}
+  ${({ optionType }) => OPTIONS_TYPE[optionType as 'placeholder']}
   position: absolute;
   box-sizing: border-box;
   border-radius: 6px;
@@ -108,7 +95,7 @@ const OptionWrapper = styled.ul<any>`
   z-index: 3;
 
   li {
-    ${({ optionType }) => OPTIONS_TYPE[optionType as "placeholder"]}
+    ${({ optionType }) => OPTIONS_TYPE[optionType as 'placeholder']}
 
     display: flex;
     padding: 6px 16px;
@@ -127,7 +114,7 @@ const OptionWrapper = styled.ul<any>`
 `;
 
 const StyledSelect = styled.div<any>`
-  ${({ selectedType }) => SELECT_TYPE[selectedType as "placeholder"]}
+  ${({ selectedType }) => SELECT_TYPE[selectedType as 'placeholder']}
 
   display: flex;
   width: 120px;

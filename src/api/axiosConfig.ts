@@ -13,11 +13,10 @@ const getAuthorization = () => {
     return undefined;
   }
 };
-};
 
 export const API = axios.create({
   headers: {
-    "Content-type": "application/json",
+    'Content-type': 'application/json',
     Authorization: getAuthorization(),
   },
   withCredentials: true,
