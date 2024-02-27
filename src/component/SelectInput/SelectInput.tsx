@@ -4,9 +4,19 @@ import styled from "@emotion/styled";
 import { color } from "../../Styles/CommonStyles";
 import Image from "next/image";
 import { useState } from "react";
+import { SelectInputProps } from "@/type/types";
 
-const SelectInput = () => {
-  const [visible, setVisible] = useState(true);
+const SelectInput = ({
+  value,
+  name,
+  onChange,
+  onKeyDown,
+  onClick,
+  placeholder,
+  style,
+  ...rest
+}: SelectInputProps) => {
+  const [visible, setVisible] = useState(false);
 
   const handleClickSelect = () => {
     setVisible(!visible);
@@ -29,13 +39,21 @@ const SelectInput = () => {
           </OptionWrapper>
         )}
       </div>
-      <StyledInput placeholder="프로젝트 검색" />
+      <StyledInput
+        value={value}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+        name={name}
+        placeholder={placeholder}
+        style={style}
+      />
       <Image
         src={"/images/icons/magnification_green.svg"}
         alt="search"
         width={24}
         height={24}
         style={{ cursor: "pointer" }}
+        onClick={onClick}
       />
     </Container>
   );

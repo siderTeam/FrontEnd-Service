@@ -14,6 +14,7 @@ export type CardProps = {
   startDate: string;
   endDate: string;
   deposit: number;
+  skillCodeList: { skillCode: number, name: string; imageName: string }[];
   children?: any;
   style?: React.CSSProperties;
 };
@@ -36,6 +37,18 @@ export type InputProps = INPUT_STYLE_PROPS &
     name: string;
     placeholder?: string;
     errorText?: string;
+    style?: React.CSSProperties;
+    rest?: any;
+};
+  
+//selectInput
+export type SelectInputProps = INPUT_STYLE_PROPS &
+  INPUT_TYPE & {
+    value?: string;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onClick?: () => void;
+    name: string;
+    placeholder?: string;
     style?: React.CSSProperties;
     rest?: any;
   };
@@ -132,7 +145,7 @@ export type ModalProps = {
 
 //Textarea
 export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
-    textCount?: number;
-    style?: React.CSSProperties;
-    rest?: any;
-  };
+  textCount?: number;
+  style?: React.CSSProperties;
+  rest?: any;
+};
