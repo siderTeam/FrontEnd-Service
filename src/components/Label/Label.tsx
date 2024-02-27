@@ -1,28 +1,53 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
+import { LabelProps } from '@/types/types';
+import { color } from '../../styles/CommonStyles';
 
-import { LabelProps } from "@/types/types";
-
-const Label = ({ label, require, subText, style }: LabelProps) => {
+const Label = ({ location = 'left', label, require, subText, children, style }: LabelProps) => {
   return (
-    <>
+    <Container location={location} style={style}>
       <StyledLabel style={style} location={location}>
         {label}
         {require && <StyledRequire>{require}</StyledRequire>}
       </StyledLabel>
       {subText && <StyledSubText location={location}>{subText}</StyledSubText>}
-    </>
+      {children}
+    </Container>
   );
 };
 export default Label;
 
+const CONTAINER_TYPE = {
+  ['left']: {
+    alignItems: 'center',
+  },
+  ['top']: {
+    flexDirection: 'column',
+    gap: '4px',
+  },
+};
+
+const Container = styled.div<{ location: string }>`
+  display: flex;
+  gap: 10px;
+  ${({ location }) => CONTAINER_TYPE[location as 'left']};
+`;
+
 const StyledLabel = styled.label<any>`
-  font-weight: bold;
+  color: ${color.white};
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 `;
 
 const StyledRequire = styled.span`
-  color: red;
+  color: ${color.brandMain};
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 `;
 
 const StyledSubText = styled.p<any>`

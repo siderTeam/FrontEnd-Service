@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { useQuery } from "@tanstack/react-query";
-import { rest } from "../../api/rest";
-import { getResumeList } from "../../api/api";
-import Paging from "@/component/Paging/Paging";
-import { useState } from "react";
+import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
+import { rest } from '../../api/rest';
+import { getResumeList } from '../../api/api';
+import Paging from '@/components/Paging/Paging';
+import { useState } from 'react';
 
 const Page = () => {
   const [page, setPage] = useState(1);

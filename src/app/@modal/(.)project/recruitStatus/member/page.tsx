@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/CommonStyles";
-import Modal from "@/component/Modal/Modal";
-import MemberCard from "@/component/MemberCard/MemberCard";
-import Button from "@/component/Button/Button";
+import styled from '@emotion/styled';
+import { color } from '@/styles/CommonStyles';
+import Modal from '@/components/Modal/Modal';
+import MemberCard from '@/components/MemberCard/MemberCard';
+import Button from '@/components/Button/Button';
 
 const Page = () => {
   return (

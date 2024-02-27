@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "../../../Styles/CommonStyles";
-import Modal from "@/component/Modal/Modal";
-import Image from "next/image";
-import { useState } from "react";
-import Label from "@/component/Label/Label";
-import Input from "@/component/Input/Input";
-import TextArea from "@/component/TextArea/TextArea";
-import Button from "@/component/Button/Button";
+import styled from '@emotion/styled';
+import { color } from '../../../styles/CommonStyles';
+import Modal from '@/components/Modal/Modal';
+import Image from 'next/image';
+import { useState } from 'react';
+import Label from '@/components/Label/Label';
+import Input from '@/components/Input/Input';
+import TextArea from '@/components/TextArea/TextArea';
+import Button from '@/components/Button/Button';
 
 const Page = () => {
   const [textCount, setTextCount] = useState(0);
-  const [inputTextarea, setInputTextarea] = useState("");
+  const [inputTextarea, setInputTextarea] = useState('');
 
   //textarea onChange
   const handleTextChange = (e: any) => {
@@ -38,12 +38,7 @@ const Page = () => {
     <Modal>
       <Container>
         <ProfileWrap>
-          <Image
-            src={"/images/home/profile.svg"}
-            alt="profile"
-            width={80}
-            height={80}
-          />
+          <Image src={'/images/home/profile.svg'} alt="profile" width={80} height={80} />
           <div className="profileInfo">
             <div className="name">박봉팔</div>
             <div className="info">88년차 프론트엔드</div>
@@ -51,46 +46,19 @@ const Page = () => {
         </ProfileWrap>
         <InputWrap>
           <Label location="top" label="이름" require="*">
-            <Input
-              type="text"
-              name="name"
-              value={"박봉팔"}
-              onChange={handleOnChange}
-              disabled
-            />
+            <Input type="text" name="name" value={'박봉팔'} onChange={handleOnChange} disabled />
           </Label>
           <Label location="top" label="연차" require="*">
-            <Input
-              type="text"
-              name="deposit"
-              value={"88"}
-              onChange={handleOnChange}
-            />
+            <Input type="text" name="deposit" value={'88'} onChange={handleOnChange} />
           </Label>
           <Label location="top" label="닉네임" require="*">
-            <Input
-              type="text"
-              name="nickname"
-              value={"닉네임"}
-              onChange={handleOnChange}
-            />
+            <Input type="text" name="nickname" value={'닉네임'} onChange={handleOnChange} />
           </Label>
           <Label location="top" label="포지션" require="*">
-            <Input
-              type="text"
-              name="position"
-              value={"프론트엔드"}
-              onChange={handleOnChange}
-            />
+            <Input type="text" name="position" value={'프론트엔드'} onChange={handleOnChange} />
           </Label>
           <Label location="top" label="포지션" require="*">
-            <TextArea
-              style={{ width: "702px", height: "112px" }}
-              value={inputTextarea}
-              onChange={handleTextChange}
-              textCount={textCount}
-              maxLength={100}
-            />
+            <TextArea style={{ width: '702px', height: '112px' }} value={inputTextarea} onChange={handleTextChange} textCount={textCount} maxLength={100} />
           </Label>
         </InputWrap>
         <StyledButton>저장</StyledButton>

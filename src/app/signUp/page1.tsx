@@ -1,42 +1,41 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import styled from "@emotion/styled";
-import LabelInput from "@/component/LabelInput/LabelInput";
-import Button from "@/component/Button/Button";
-import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
-import { USER_SIGNUP_REQUEST } from "../api/model";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { getCode, getIdCheck, postUserSignUp } from "../api/api";
-import { rest } from "../api/rest";
-import SelectBox from "@/component/SelectBox/SelectBox";
-import Label from "@/component/Label/Label";
-import Input from "@/component/Input/Input";
+import Image from 'next/image';
+import styled from '@emotion/styled';
+import LabelInput from '@/component/LabelInput/LabelInput';
+import Button from '@/components/Button/Button';
+import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
+import { USER_SIGNUP_REQUEST } from '../api/model';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { getCode, getIdCheck, postUserSignUp } from '../api/api';
+import { rest } from '../api/rest';
+import SelectBox from '@/components/SelectBox/SelectBox';
+import Label from '@/components/Label/Label';
+import Input from '@/components/Input/Input';
 
 const USERNAME_REGEX = /^[a-zA-Z0-9]{4,12}$/;
 const PWD_REGEX = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$/;
 const NAME_REGEX = /^[a-zA-Z가-힣]{2,10}$/;
-const EMAIL_REGEX =
-  /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
+const EMAIL_REGEX = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
 
 const Page = () => {
   const route = useRouter();
-  const [selectJob, setSelectJob] = useState("");
-  const [selectPosition, setSelectPosition] = useState("");
+  const [selectJob, setSelectJob] = useState('');
+  const [selectPosition, setSelectPosition] = useState('');
   const [jobId, setJobId] = useState(0);
-  const [username, setUsername] = useState("");
-  const [passwordCheck, setPasswordCheck] = useState("");
+  const [username, setUsername] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
   const [form, setForm] = useState<USER_SIGNUP_REQUEST>({
-    username: "",
-    name: "",
-    password: "",
-    email: "",
-    nickname: "",
-    bankName: "",
-    bankNo: "",
-    bankUserName: "",
-    phone: "",
+    username: '',
+    name: '',
+    password: '',
+    email: '',
+    nickname: '',
+    bankName: '',
+    bankNo: '',
+    bankUserName: '',
+    phone: '',
     jobCode: 0,
     positionCode: [],
   });
@@ -48,24 +47,24 @@ const Page = () => {
   const [nameValidate, setNameValidate] = useState(false);
   const [emailValidate, setEmailValidate] = useState(false);
   //메시지 출력
-  const [idMessage, setIdMessage] = useState("");
-  const [pwMessage, setPwMessage] = useState("");
-  const [pwCheckMessage, setPwCheckMessage] = useState("");
-  const [nameMessage, setNameMessage] = useState("");
-  const [emailMessage, setEmailMessage] = useState("");
+  const [idMessage, setIdMessage] = useState('');
+  const [pwMessage, setPwMessage] = useState('');
+  const [pwCheckMessage, setPwCheckMessage] = useState('');
+  const [nameMessage, setNameMessage] = useState('');
+  const [emailMessage, setEmailMessage] = useState('');
 
   //form input onChange
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
 
-    if (name === "username") {
+    if (name === 'username') {
       onChangeId(value);
-    } else if (name === "password") {
+    } else if (name === 'password') {
       onChangePassword(value);
-    } else if (name === "name") {
+    } else if (name === 'name') {
       onChangeName(value);
-    } else if (name === "email") {
+    } else if (name === 'email') {
       onChangeEmail(value);
     }
   };
@@ -80,10 +79,10 @@ const Page = () => {
   useEffect(() => {
     if (idCheckData.isSuccess) {
       if (idCheckData.data?.result === true) {
-        setIdMessage("사용 가능한 아이디입니다.");
+        setIdMessage('사용 가능한 아이디입니다.');
         setIdDuplicate(true);
       } else {
-        setIdMessage("중복된 아이디입니다.");
+        setIdMessage('중복된 아이디입니다.');
         setIdDuplicate(false);
       }
     }
@@ -92,29 +91,29 @@ const Page = () => {
   //id onChange
   const onChangeId = useCallback((value: string) => {
     if (USERNAME_REGEX.test(value)) {
-      setIdMessage("올바른 아이디 형식입니다.");
+      setIdMessage('올바른 아이디 형식입니다.');
       setIdValidate(true);
     } else {
-      setIdMessage("4~12자, 영문과 숫자로만 입력해주세요.");
+      setIdMessage('4~12자, 영문과 숫자로만 입력해주세요.');
       setIdValidate(false);
     }
   }, []);
 
   //비밀번호 onChange
   const onChangePassword = useCallback((value: string) => {
-    if (value === "") {
-      setPwMessage("");
+    if (value === '') {
+      setPwMessage('');
       setPwValidate(false);
-      setPwCheckMessage("비밀번호가 일치하지 않습니다");
+      setPwCheckMessage('비밀번호가 일치하지 않습니다');
       setPwCheckValidate(false);
       return;
     }
 
     if (PWD_REGEX.test(value)) {
-      setPwMessage("올바른 비밀번호 형식입니다.");
+      setPwMessage('올바른 비밀번호 형식입니다.');
       setPwValidate(true);
     } else {
-      setPwMessage("8~20자, 영문/숫자/특수문자를 모두 포함해주세요.");
+      setPwMessage('8~20자, 영문/숫자/특수문자를 모두 포함해주세요.');
       setPwValidate(false);
     }
   }, []);
@@ -123,17 +122,17 @@ const Page = () => {
   const handlePasswordChange = (e: any) => {
     setPasswordCheck(e.target.value);
 
-    if (e.target.value === "") {
-      setPwCheckMessage("");
+    if (e.target.value === '') {
+      setPwCheckMessage('');
       setPwCheckValidate(false);
       return;
     }
 
     if (form.password === e.target.value) {
-      setPwCheckMessage("비밀번호가 일치합니다.");
+      setPwCheckMessage('비밀번호가 일치합니다.');
       setPwCheckValidate(true);
     } else {
-      setPwCheckMessage("비밀번호가 일치하지 않습니다.");
+      setPwCheckMessage('비밀번호가 일치하지 않습니다.');
       setPwCheckValidate(false);
     }
   };
@@ -141,10 +140,10 @@ const Page = () => {
   //이름 onChange
   const onChangeName = useCallback((value: string) => {
     if (NAME_REGEX.test(value)) {
-      setNameMessage("올바른 이름 형식입니다.");
+      setNameMessage('올바른 이름 형식입니다.');
       setNameValidate(true);
     } else {
-      setNameMessage("2~10자, 한글, 영문으로 입력해주세요.");
+      setNameMessage('2~10자, 한글, 영문으로 입력해주세요.');
       setNameValidate(false);
     }
   }, []);
@@ -152,10 +151,10 @@ const Page = () => {
   //이메일 onChange
   const onChangeEmail = useCallback((value: string) => {
     if (EMAIL_REGEX.test(value)) {
-      setEmailMessage("올바른 이메일 형식입니다.");
+      setEmailMessage('올바른 이메일 형식입니다.');
       setEmailValidate(true);
     } else {
-      setEmailMessage("올바르지 않은 이메일 형식입니다.");
+      setEmailMessage('올바르지 않은 이메일 형식입니다.');
       setEmailValidate(false);
     }
   }, []);
@@ -176,7 +175,7 @@ const Page = () => {
 
   //직군 onChange
   const handleJobSelectChange = (name: string, value: string) => {
-    setSelectPosition(""); //포지션 초기화
+    setSelectPosition(''); //포지션 초기화
 
     setSelectJob(value);
     setForm({ ...form, [name]: Number(value) });
@@ -185,7 +184,7 @@ const Page = () => {
 
   //포지션 데이터
   const positionData = useQuery({
-    queryKey: ["position", jobId],
+    queryKey: ['position', jobId],
     queryFn: () => getCode(jobId, 2),
   });
 
@@ -200,13 +199,13 @@ const Page = () => {
     mutationFn: postUserSignUp,
     onSuccess: async (data) => {
       if (data.result === true) {
-        alert("회원가입이 완료되었습니다.\n로그인 페이지로 이동합니다.");
+        alert('회원가입이 완료되었습니다.\n로그인 페이지로 이동합니다.');
 
-        route.push("/login");
+        route.push('/login');
       }
     },
     onError: () => {
-      console.log("실패");
+      console.log('실패');
     },
   });
 
@@ -218,124 +217,109 @@ const Page = () => {
       </Logo>
       <SignUpCard>
         <div className="login-wrap">
-          <Label
-            label="아이디"
-            require="*"
-            confirmText={idDuplicate ? idMessage : undefined}
-            errorText={!idDuplicate ? idMessage : undefined}
-          />
+          <Label label="아이디" require="*" confirmText={idDuplicate ? idMessage : undefined} errorText={!idDuplicate ? idMessage : undefined} />
           <InputButton>
-            <Input
-              type="text"
-              name="username"
-              size="full"
-              mode="text"
-              placeholder="아이디를 입력해주세요."
-              onChange={handleChange}
-            />
-            <Button
-              disabled={!idValidate ? true : false}
-              onClick={() => setUsername(form.username)}
-            >
+            <Input type="text" name="username" size="full" mode="text" placeholder="아이디를 입력해주세요." onChange={handleChange} />
+            <Button disabled={!idValidate ? true : false} onClick={() => setUsername(form.username)}>
               중복 확인
             </Button>
           </InputButton>
           <LabelInput
             location="top"
             labelOption={{
-              label: "비밀번호",
-              require: "*",
+              label: '비밀번호',
+              require: '*',
               confirmText: pwValidate ? pwMessage : undefined,
               errorText: !pwValidate ? pwMessage : undefined,
             }}
             inputOption={{
-              type: "password",
-              name: "password",
-              size: "full",
-              mode: "text",
-              placeholder: "비밀번호를 입력해주세요.",
+              type: 'password',
+              name: 'password',
+              size: 'full',
+              mode: 'text',
+              placeholder: '비밀번호를 입력해주세요.',
               onChange: handleChange,
             }}
           />
           <LabelInput
             location="top"
             labelOption={{
-              label: "비밀번호 확인",
-              require: "*",
+              label: '비밀번호 확인',
+              require: '*',
               confirmText: pwCheckValidate ? pwCheckMessage : undefined,
               errorText: !pwCheckValidate ? pwCheckMessage : undefined,
             }}
             inputOption={{
-              type: "password",
-              name: "passwordCheck",
+              type: 'password',
+              name: 'passwordCheck',
               value: passwordCheck,
-              size: "full",
-              mode: "text",
-              placeholder: "비밀번호를 다시 입력해주세요.",
+              size: 'full',
+              mode: 'text',
+              placeholder: '비밀번호를 다시 입력해주세요.',
               onChange: handlePasswordChange,
             }}
           />
           <LabelInput
             location="top"
             labelOption={{
-              label: "이름",
-              require: "*",
+              label: '이름',
+              require: '*',
               confirmText: nameValidate ? nameMessage : undefined,
               errorText: !nameValidate ? nameMessage : undefined,
             }}
             inputOption={{
-              type: "text",
-              name: "name",
-              size: "full",
-              mode: "text",
-              placeholder: "이름을 입력해주세요.",
+              type: 'text',
+              name: 'name',
+              size: 'full',
+              mode: 'text',
+              placeholder: '이름을 입력해주세요.',
               onChange: handleChange,
             }}
           />
           <LabelInput
             location="top"
             labelOption={{
-              label: "이메일",
-              require: "*",
+              label: '이메일',
+              require: '*',
               confirmText: emailValidate ? emailMessage : undefined,
               errorText: !emailValidate ? emailMessage : undefined,
             }}
             inputOption={{
-              type: "email",
-              name: "email",
-              size: "full",
-              mode: "text",
-              placeholder: "이메일을 입력해주세요.",
+              type: 'email',
+              name: 'email',
+              size: 'full',
+              mode: 'text',
+              placeholder: '이메일을 입력해주세요.',
               onChange: handleChange,
             }}
           />
           <LabelInput
             location="top"
             labelOption={{
-              label: "닉네임",
-              require: "*",
+              label: '닉네임',
+              require: '*',
             }}
             inputOption={{
-              type: "text",
-              name: "nickname",
-              size: "full",
-              mode: "text",
-              placeholder: "닉네임을 입력해주세요.",
+              type: 'text',
+              name: 'nickname',
+              size: 'full',
+              mode: 'text',
+              placeholder: '닉네임을 입력해주세요.',
               onChange: handleChange,
             }}
           />
           <LabelInput
             location="top"
             labelOption={{
-              label: "전화번호",
-              require: "*",
+              label: '전화번호',
+              require: '*',
             }}
             inputOption={{
-              type: "text",
-              name: "phone",
-              size: "full",
-              mode: "text",
-              placeholder: "전화번호를 입력해주세요. (숫자만 입력 가능)",
+              type: 'text',
+              name: 'phone',
+              size: 'full',
+              mode: 'text',
+              placeholder: '전화번호를 입력해주세요. (숫자만 입력 가능)',
               onChange: handleChange,
               onKeyPress: handleKeyDown,
               maxLength: 11,

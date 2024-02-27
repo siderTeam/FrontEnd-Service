@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "../../../Styles/CommonStyles";
-import Radio from "@/component/Radio/Radio";
-import { useState } from "react";
-import Button from "@/component/Button/Button";
-import { SignUpProps } from "@/type/types";
+import styled from '@emotion/styled';
+import { color } from '../../../styles/CommonStyles';
+import Radio from '@/components/Radio/Radio';
+import { useState } from 'react';
+import Button from '@/components/Button/Button';
+import { SignUpProps } from '@/types/types';
 
 const FirstContent = ({ onNext }: SignUpProps) => {
   const [radioSelected, setRadioSelected] = useState(false);
@@ -24,70 +24,32 @@ const FirstContent = ({ onNext }: SignUpProps) => {
         동의해 주세요.
       </SubTitle>
       <RadioWrap>
-        <Radio
-          text="모두 동의합니다."
-          name="service"
-          value="all"
-          isChecked={radioSelected}
-          onChange={handleRadioClick}
-        />
+        <Radio text="모두 동의합니다." name="service" value="all" isChecked={radioSelected} onChange={handleRadioClick} />
         <div>
-          <Radio
-            text="이용약관 동의"
-            requireText="(필수)"
-            name="service"
-            value="TOS"
-            isChecked={radioSelected}
-            onChange={handleRadioClick}
-          />
+          <Radio text="이용약관 동의" requireText="(필수)" name="service" value="TOS" isChecked={radioSelected} onChange={handleRadioClick} />
           <div className="explain">
             <p>
-              고구마맛탕에고구마는없고감자만있는사건에대해 알아야하지않겠습니까.
-              이러면 감자맛탕인데 감자맛탕은 내가 살면서 들어본적이 없어요. 이런
-              상황에서 고구마맛탕의 지위는 바닥으로 곤두박질치게 될 것입니다.
-              고구마맛탕에 감자가 왜있냐고요.
-              고구마맛탕에고구마는없고감자만있는사건에대해 알아야하지않겠습니까.
-              이러면 감자맛탕인데 감자맛탕은 내가 살면서 들어본적이 없어요. 이런
-              상황에서 고구마맛탕의 지위는 바닥으로 곤두박질치게 될 것입니다.
-              고구마맛탕에 감자가
-              왜있냐고요.고구마맛탕에고구마는없고감자만있는사건에대해
-              알아야하지않겠습니까. 이러면 감자맛탕인데 감자맛탕은 내가 살면서
-              들어본적이 없어요. 이런 상황에서 고구마맛탕의 지위는 바닥으로
-              곤두박질치게 될 것입니다. 고구마맛탕에 감자가
-              왜있냐고요.고구마맛탕에고구마는없고감자만있는사건에대해
-              알아야하지않겠습니까. 이러면 감자맛탕인데 감자맛탕은 내가 살면서
-              들어본적이 없어요. 이런 상황에서 고구마맛탕의 지위는 바닥으로
-              곤두박질치게 될 것입니다. 고구마맛탕에 감자가 왜있냐고요.
+              고구마맛탕에고구마는없고감자만있는사건에대해 알아야하지않겠습니까. 이러면 감자맛탕인데 감자맛탕은 내가 살면서 들어본적이 없어요. 이런 상황에서
+              고구마맛탕의 지위는 바닥으로 곤두박질치게 될 것입니다. 고구마맛탕에 감자가 왜있냐고요. 고구마맛탕에고구마는없고감자만있는사건에대해
+              알아야하지않겠습니까. 이러면 감자맛탕인데 감자맛탕은 내가 살면서 들어본적이 없어요. 이런 상황에서 고구마맛탕의 지위는 바닥으로 곤두박질치게 될
+              것입니다. 고구마맛탕에 감자가 왜있냐고요.고구마맛탕에고구마는없고감자만있는사건에대해 알아야하지않겠습니까. 이러면 감자맛탕인데 감자맛탕은 내가
+              살면서 들어본적이 없어요. 이런 상황에서 고구마맛탕의 지위는 바닥으로 곤두박질치게 될 것입니다. 고구마맛탕에 감자가
+              왜있냐고요.고구마맛탕에고구마는없고감자만있는사건에대해 알아야하지않겠습니까. 이러면 감자맛탕인데 감자맛탕은 내가 살면서 들어본적이 없어요. 이런
+              상황에서 고구마맛탕의 지위는 바닥으로 곤두박질치게 될 것입니다. 고구마맛탕에 감자가 왜있냐고요.
             </p>
           </div>
         </div>
         <div>
-          <Radio
-            text="개인정보이용약관 동의"
-            requireText="(필수)"
-            name="service"
-            value="info"
-            isChecked={radioSelected}
-            onChange={handleRadioClick}
-          />
+          <Radio text="개인정보이용약관 동의" requireText="(필수)" name="service" value="info" isChecked={radioSelected} onChange={handleRadioClick} />
           <div className="explain">
             <p>
-              고구마맛탕에고구마는없고감자만있는사건에대해 알아야하지않겠습니까.
-              이러면 감자맛탕인데 감자맛탕은 내가 살면서 들어본적이 없어요. 이런
-              상황에서 고구마맛탕의 지위는 바닥으로 곤두박질치게 될 것입니다.
-              고구마맛탕에 감자가 왜있냐고요.
-              고구마맛탕에고구마는없고감자만있는사건에대해 알아야하지않겠습니까.
-              이러면 감자맛탕인데 감자맛탕은 내가 살면서 들어본적이 없어요. 이런
-              상황에서 고구마맛탕의 지위는 바닥으로 곤두박질치게 될 것입니다.
-              고구마맛탕에 감자가
-              왜있냐고요.고구마맛탕에고구마는없고감자만있는사건에대해
-              알아야하지않겠습니까. 이러면 감자맛탕인데 감자맛탕은 내가 살면서
-              들어본적이 없어요. 이런 상황에서 고구마맛탕의 지위는 바닥으로
-              곤두박질치게 될 것입니다. 고구마맛탕에 감자가
-              왜있냐고요.고구마맛탕에고구마는없고감자만있는사건에대해
-              알아야하지않겠습니까. 이러면 감자맛탕인데 감자맛탕은 내가 살면서
-              들어본적이 없어요. 이런 상황에서 고구마맛탕의 지위는 바닥으로
-              곤두박질치게 될 것입니다. 고구마맛탕에 감자가 왜있냐고요.
+              고구마맛탕에고구마는없고감자만있는사건에대해 알아야하지않겠습니까. 이러면 감자맛탕인데 감자맛탕은 내가 살면서 들어본적이 없어요. 이런 상황에서
+              고구마맛탕의 지위는 바닥으로 곤두박질치게 될 것입니다. 고구마맛탕에 감자가 왜있냐고요. 고구마맛탕에고구마는없고감자만있는사건에대해
+              알아야하지않겠습니까. 이러면 감자맛탕인데 감자맛탕은 내가 살면서 들어본적이 없어요. 이런 상황에서 고구마맛탕의 지위는 바닥으로 곤두박질치게 될
+              것입니다. 고구마맛탕에 감자가 왜있냐고요.고구마맛탕에고구마는없고감자만있는사건에대해 알아야하지않겠습니까. 이러면 감자맛탕인데 감자맛탕은 내가
+              살면서 들어본적이 없어요. 이런 상황에서 고구마맛탕의 지위는 바닥으로 곤두박질치게 될 것입니다. 고구마맛탕에 감자가
+              왜있냐고요.고구마맛탕에고구마는없고감자만있는사건에대해 알아야하지않겠습니까. 이러면 감자맛탕인데 감자맛탕은 내가 살면서 들어본적이 없어요. 이런
+              상황에서 고구마맛탕의 지위는 바닥으로 곤두박질치게 될 것입니다. 고구마맛탕에 감자가 왜있냐고요.
             </p>
           </div>
         </div>
@@ -105,7 +67,7 @@ const Progressbar = styled.div`
   width: 100px;
   height: 8px;
   margin-bottom: 56px;
-  background-image: url("/images/progressbar/step1.svg");
+  background-image: url('/images/progressbar/step1.svg');
 `;
 
 const SubTitle = styled.div`

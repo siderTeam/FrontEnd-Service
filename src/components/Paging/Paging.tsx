@@ -1,6 +1,6 @@
-import Pagination from "react-js-pagination";
-import styled from "@emotion/styled";
-import { PaginationProps } from "@/type/types";
+import Pagination from 'react-js-pagination';
+import styled from '@emotion/styled';
+import { PaginationProps } from '@/types/types';
 
 const Paging = ({ page, items, count, setPage }: PaginationProps) => {
   return (
@@ -16,8 +16,8 @@ const Paging = ({ page, items, count, setPage }: PaginationProps) => {
         pageRangeDisplayed={5}
         //페이지가 바뀔 때 핸들링해줄 함수
         onChange={setPage}
-        prevPageText={"‹"}
-        nextPageText={"›"}
+        prevPageText={'‹'}
+        nextPageText={'›'}
       ></Pagination>
     </PaginationBox>
   );

@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
-import { rest } from "./api/rest";
-import { getProject } from "./api/api";
-import { useState } from "react";
-import Card from "@/component/Card/Card";
-import Profile from "@/component/Profile/Profile";
-import { color } from "../Styles/CommonStyles";
-import SelectInput from "@/component/SelectInput/SelectInput";
+import styled from '@emotion/styled';
+import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
+import { rest } from './api/rest';
+import { getProject } from './api/api';
+import { useState } from 'react';
+import Card from '@/components/Card/Card';
+import Profile from '@/components/Profile/Profile';
+import { color } from '../styles/CommonStyles';
+import SelectInput from '@/components/SelectInput/SelectInput';
 
 const Page = () => {
   const [positionCode, setPositionCode] = useState<number | null>(null);
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState('');
   const [keyword, setKeyword] = useState<string | null>(null);
 
   //프로젝트 데이터
@@ -25,9 +25,7 @@ const Page = () => {
 
   //포지션 필터 onClick
   const handleFilterClick = (index: number | null) => {
-    setPositionCode((prevIndex) =>
-      index === positionCode ? prevIndex : index
-    );
+    setPositionCode((prevIndex) => (index === positionCode ? prevIndex : index));
   };
 
   //키워드 input onChange
@@ -42,7 +40,7 @@ const Page = () => {
 
   //키워드 검색 input Enter
   const handleKeywordEnter = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       handleKeywordClick();
     }
   };
@@ -52,30 +50,15 @@ const Page = () => {
       <Container>
         <LogoProfileWrap>
           <Link href="/">
-            <Image
-              src={"/images/logo.svg"}
-              alt="logo"
-              width={170}
-              height={47}
-            />
+            <Image src={'/images/logo.svg'} alt="logo" width={170} height={47} />
           </Link>
           <div className="profileWrap">
             <Profile />
             <Link href="/myPage">
-              <Image
-                src={"/images/icons/person_white.svg"}
-                alt="myPage"
-                width={24}
-                height={24}
-              />
+              <Image src={'/images/icons/person_white.svg'} alt="myPage" width={24} height={24} />
             </Link>
             <Link href="/login">
-              <Image
-                src={"/images/icons/on_white.svg"}
-                alt="myPage"
-                width={24}
-                height={24}
-              />
+              <Image src={'/images/icons/on_white.svg'} alt="myPage" width={24} height={24} />
             </Link>
           </div>
         </LogoProfileWrap>
@@ -83,34 +66,19 @@ const Page = () => {
         <Title>프로젝트</Title>
         <FilterWrap>
           <div className="buttonWrap">
-            <button
-              className={positionCode === null ? "active" : ""}
-              onClick={() => handleFilterClick(null)}
-            >
+            <button className={positionCode === null ? 'active' : ''} onClick={() => handleFilterClick(null)}>
               #전체
             </button>
-            <button
-              className={positionCode === 1 ? "active" : ""}
-              onClick={() => handleFilterClick(1)}
-            >
+            <button className={positionCode === 1 ? 'active' : ''} onClick={() => handleFilterClick(1)}>
               #디자인
             </button>
-            <button
-              className={positionCode === 2 ? "active" : ""}
-              onClick={() => handleFilterClick(2)}
-            >
+            <button className={positionCode === 2 ? 'active' : ''} onClick={() => handleFilterClick(2)}>
               #기획
             </button>
-            <button
-              className={positionCode === 3 ? "active" : ""}
-              onClick={() => handleFilterClick(3)}
-            >
+            <button className={positionCode === 3 ? 'active' : ''} onClick={() => handleFilterClick(3)}>
               #개발
             </button>
-            <button
-              className={positionCode === 4 ? "active" : ""}
-              onClick={() => handleFilterClick(4)}
-            >
+            <button className={positionCode === 4 ? 'active' : ''} onClick={() => handleFilterClick(4)}>
               #모집중
             </button>
           </div>

@@ -1,21 +1,12 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "../../Styles/CommonStyles";
-import Image from "next/image";
-import { useState } from "react";
-import { SelectInputProps } from "@/type/types";
+import styled from '@emotion/styled';
+import { color } from '../../styles/CommonStyles';
+import Image from 'next/image';
+import { useState } from 'react';
+import { SelectInputProps } from '@/types/types';
 
-const SelectInput = ({
-  value,
-  name,
-  onChange,
-  onKeyDown,
-  onClick,
-  placeholder,
-  style,
-  ...rest
-}: SelectInputProps) => {
+const SelectInput = ({ value, name, onChange, onKeyDown, onClick, placeholder, style, ...rest }: SelectInputProps) => {
   const [visible, setVisible] = useState(false);
 
   const handleClickSelect = () => {
@@ -39,22 +30,8 @@ const SelectInput = ({
           </OptionWrapper>
         )}
       </div>
-      <StyledInput
-        value={value}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-        name={name}
-        placeholder={placeholder}
-        style={style}
-      />
-      <Image
-        src={"/images/icons/magnification_green.svg"}
-        alt="search"
-        width={24}
-        height={24}
-        style={{ cursor: "pointer" }}
-        onClick={onClick}
-      />
+      <StyledInput value={value} onChange={onChange} onKeyDown={onKeyDown} name={name} placeholder={placeholder} style={style} />
+      <Image src={'/images/icons/magnification_green.svg'} alt="search" width={24} height={24} style={{ cursor: 'pointer' }} onClick={onClick} />
     </Container>
   );
 };
@@ -85,7 +62,7 @@ const StyledSelect = styled.div`
   cursor: pointer;
 
   &::after {
-    content: url("/images/icons/arrow_down_green.svg");
+    content: url('/images/icons/arrow_down_green.svg');
     margin: 0 16px 0 8px;
   }
 `;

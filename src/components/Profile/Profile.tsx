@@ -1,18 +1,13 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import Image from "next/image";
-import { color } from "../../Styles/CommonStyles";
+import styled from '@emotion/styled';
+import Image from 'next/image';
+import { color } from '../../styles/CommonStyles';
 
 const Profile = () => {
   return (
     <Container>
-      <Image
-        src={"/images/home/profile.svg"}
-        alt="profile"
-        width={40}
-        height={40}
-      />
+      <Image src={'/images/home/profile.svg'} alt="profile" width={40} height={40} />
       <ProfileInfo>
         <span className="username">박봉팔</span>
         <span className="position">n년차 프론트엔드</span>

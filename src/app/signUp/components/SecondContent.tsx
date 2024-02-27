@@ -1,29 +1,29 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "../../../Styles/CommonStyles";
-import { useEffect, useState } from "react";
-import Input from "@/component/Input/Input";
-import { USER_SIGNUP_REQUEST } from "@/app/api/model";
-import Button from "@/component/Button/Button";
-import { SignUpProps } from "@/type/types";
-import { useQuery } from "@tanstack/react-query";
-import { rest } from "@/app/api/rest";
-import { getIdCheck } from "@/app/api/api";
+import styled from '@emotion/styled';
+import { color } from '../../../styles/CommonStyles';
+import { useEffect, useState } from 'react';
+import Input from '@/components/Input/Input';
+import { USER_SIGNUP_REQUEST } from '@/app/api/model';
+import Button from '@/components/Button/Button';
+import { SignUpProps } from '@/types/types';
+import { useQuery } from '@tanstack/react-query';
+import { rest } from '@/app/api/rest';
+import { getIdCheck } from '@/app/api/api';
 
 const SecondContent = ({ onNext }: SignUpProps) => {
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState('');
   const [form, setForm] = useState<USER_SIGNUP_REQUEST>({
-    username: "",
-    name: "",
-    password: "",
-    email: "",
-    nickname: "",
-    bankName: "",
-    bankNo: "",
-    bankUserName: "",
-    phone: "",
+    username: '',
+    name: '',
+    password: '',
+    email: '',
+    nickname: '',
+    bankName: '',
+    bankNo: '',
+    bankUserName: '',
+    phone: '',
     jobCode: 0,
     positionCode: [],
   });
@@ -44,9 +44,9 @@ const SecondContent = ({ onNext }: SignUpProps) => {
   useEffect(() => {
     if (idCheckData.isSuccess) {
       if (idCheckData.data?.result === true) {
-        alert("사용 가능한 아이디입니다.");
+        alert('사용 가능한 아이디입니다.');
       } else {
-        alert("중복된 아이디입니다.");
+        alert('중복된 아이디입니다.');
       }
     }
   }, [idCheckData.data, idCheckData.isSuccess]);
@@ -54,13 +54,7 @@ const SecondContent = ({ onNext }: SignUpProps) => {
   //전화번호 onKeyDown
   const handleKeyDown = (e: React.KeyboardEvent) => {
     // 입력된 키가 숫자, 방향키, backspace, delete가 아니면 이벤트 취소
-    if (
-      !/\d/.test(e.key) &&
-      e.key !== "ArrowLeft" &&
-      e.key !== "ArrowRight" &&
-      e.key !== "Backspace" &&
-      e.key !== "Delete"
-    ) {
+    if (!/\d/.test(e.key) && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight' && e.key !== 'Backspace' && e.key !== 'Delete') {
       e.preventDefault();
     }
   };
@@ -75,57 +69,16 @@ const SecondContent = ({ onNext }: SignUpProps) => {
       </SubTitle>
       <InputWrap>
         <div className="idWrap">
-          <Input
-            type="text"
-            name="username"
-            size="large"
-            placeholder="아이디"
-            onChange={handleChange}
-          />
-          <StyledButton
-            size="in_input"
-            onClick={() => setUsername(form.username)}
-          >
+          <Input type="text" name="username" size="large" placeholder="아이디" onChange={handleChange} />
+          <StyledButton size="in_input" onClick={() => setUsername(form.username)}>
             중복확인
           </StyledButton>
         </div>
-        <Input
-          type="password"
-          name="password"
-          size="large"
-          placeholder="비밀번호"
-          onChange={handleChange}
-        />
-        <Input
-          type="password"
-          name="passwordCheck"
-          size="large"
-          placeholder="비밀번호 확인"
-          onChange={handleChange}
-        />
-        <Input
-          type="text"
-          name="name"
-          size="large"
-          placeholder="이름"
-          onChange={handleChange}
-        />
-        <Input
-          type="text"
-          name="nickname"
-          size="large"
-          placeholder="닉네임"
-          onChange={handleChange}
-        />
-        <Input
-          type="text"
-          name="phone"
-          size="large"
-          placeholder="전화번호"
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          maxLength={11}
-        />
+        <Input type="password" name="password" size="large" placeholder="비밀번호" onChange={handleChange} />
+        <Input type="password" name="passwordCheck" size="large" placeholder="비밀번호 확인" onChange={handleChange} />
+        <Input type="text" name="name" size="large" placeholder="이름" onChange={handleChange} />
+        <Input type="text" name="nickname" size="large" placeholder="닉네임" onChange={handleChange} />
+        <Input type="text" name="phone" size="large" placeholder="전화번호" onChange={handleChange} onKeyDown={handleKeyDown} maxLength={11} />
       </InputWrap>
       <Button size="large" onClick={onNext}>
         다음
@@ -140,7 +93,7 @@ const Progressbar = styled.div`
   width: 100px;
   height: 8px;
   margin-bottom: 56px;
-  background-image: url("/images/progressbar/step2.svg");
+  background-image: url('/images/progressbar/step2.svg');
 `;
 
 const SubTitle = styled.div`

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/CommonStyles";
-import Modal from "@/component/Modal/Modal";
-import Label from "@/component/Label/Label";
-import Input from "@/component/Input/Input";
-import TextArea from "@/component/TextArea/TextArea";
-import Button from "@/component/Button/Button";
+import styled from '@emotion/styled';
+import { color } from '@/styles/CommonStyles';
+import Modal from '@/components/Modal/Modal';
+import Label from '@/components/Label/Label';
+import Input from '@/components/Input/Input';
+import TextArea from '@/components/TextArea/TextArea';
+import Button from '@/components/Button/Button';
 
 const Page = () => {
   return (
@@ -17,16 +17,10 @@ const Page = () => {
             <Input type="text" name="name" placeholder="지원서 이름" />
           </Label>
           <Label location="top" label="자기소개" require="*">
-            <TextArea
-              placeholder="자기소개"
-              style={{ width: "702px", height: "240px" }}
-            />
+            <TextArea placeholder="자기소개" style={{ width: '702px', height: '240px' }} />
           </Label>
           <Label location="top" label="스킬" require="*">
-            <TextArea
-              placeholder="스킬"
-              style={{ width: "702px", height: "80px", fontSize: "16px" }}
-            />
+            <TextArea placeholder="스킬" style={{ width: '702px', height: '80px', fontSize: '16px' }} />
           </Label>
         </div>
         <div className="button">

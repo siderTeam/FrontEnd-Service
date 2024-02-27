@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import Button from "@/component/Button/Button";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { USER_SIGNIN_REQUEST } from "../api/model";
-import { useMutation } from "@tanstack/react-query";
-import { getAccessToken, postUserSignIn } from "../api/api";
-import { setCookie } from "public/lib/util";
-import Input from "@/component/Input/Input";
-import { color } from "../../Styles/CommonStyles";
-import CheckBox from "@/component/CheckBox/CheckBox";
+import styled from '@emotion/styled';
+import Button from '@/components/Button/Button';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { USER_SIGNIN_REQUEST } from '../api/model';
+import { useMutation } from '@tanstack/react-query';
+import { getAccessToken, postUserSignIn } from '../api/api';
+import { setCookie } from 'public/lib/util';
+import Input from '@/components/Input/Input';
+import { color } from '../../styles/CommonStyles';
+import CheckBox from '@/components/CheckBox/CheckBox';
 
 const Page = () => {
   const route = useRouter();
   const [isChecked, setIsChecked] = useState(false);
   const [validate, setValidate] = useState(false);
   const [form, setForm] = useState<USER_SIGNIN_REQUEST>({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   });
 
   const { mutate } = useMutation({
@@ -28,17 +28,17 @@ const Page = () => {
       if (data.result === true) {
         await getAccessToken()
           .then((res) => {
-            setCookie("accessToken", res.data.accessToken);
+            setCookie('accessToken', res.data.accessToken);
           })
           .then(() => {
-            route.push("/");
+            route.push('/');
           });
       } else {
-        alert("로그인 실패하였습니다.\n다시 시도해주시기 바랍니다.");
+        alert('로그인 실패하였습니다.\n다시 시도해주시기 바랍니다.');
       }
     },
     onError: () => {
-      console.log("실패");
+      console.log('실패');
     },
   });
 
@@ -50,8 +50,8 @@ const Page = () => {
 
   //로그인 onClick
   const handleLogin = () => {
-    if (form.username.trim() === "" || form.password.trim() === "") {
-      alert("아이디/비밀번호를 입력해주세요.");
+    if (form.username.trim() === '' || form.password.trim() === '') {
+      alert('아이디/비밀번호를 입력해주세요.');
       return;
     }
     mutate(form);
@@ -68,27 +68,11 @@ const Page = () => {
       <LoginContainer>
         <div className="title">로그인</div>
         <div className="inputWrap">
-          <Input
-            type="text"
-            name="username"
-            size="large"
-            placeholder="아이디"
-            onChange={handleChange}
-          />
-          <Input
-            type="password"
-            name="password"
-            size="large"
-            placeholder="비밀번호"
-            onChange={handleChange}
-          />
+          <Input type="text" name="username" size="large" placeholder="아이디" onChange={handleChange} />
+          <Input type="password" name="password" size="large" placeholder="비밀번호" onChange={handleChange} />
         </div>
         <TextWrap>
-          <CheckBox
-            text="아이디 저장"
-            isChecked={isChecked}
-            onChange={handleChecked}
-          />
+          <CheckBox text="아이디 저장" isChecked={isChecked} onChange={handleChecked} />
           <Link href="" className="findInfo">
             계정정보 찾기
           </Link>
@@ -118,14 +102,8 @@ const Container = styled.div`
     height: 100vh;
     position: absolute;
 
-    background: linear-gradient(
-        90deg,
-        #02060d 6.5%,
-        rgba(0, 0, 0, 0) 52%,
-        #02060d 92%
-      ),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%),
-      url("/images/testImage.png"), lightgray 50% / cover no-repeat;
+    background: linear-gradient(90deg, #02060d 6.5%, rgba(0, 0, 0, 0) 52%, #02060d 92%), linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%),
+      url('/images/testImage.png'), lightgray 50% / cover no-repeat;
   }
 `;
 
@@ -141,12 +119,7 @@ const LoginContainer = styled.div`
 
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.67);
-  background: linear-gradient(
-      144deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(0, 0, 0, 0) 100%
-    ),
-    rgba(2, 6, 13, 0.5);
+  background: linear-gradient(144deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(2, 6, 13, 0.5);
   backdrop-filter: blur(20px);
 
   .title {

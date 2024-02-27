@@ -1,21 +1,10 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { InputProps } from "@/types/types";
+import styled from '@emotion/styled';
+import { InputProps } from '@/types/types';
+import { color } from '@/styles/CommonStyles';
 
-const Input = ({
-  value,
-  onChange,
-  readOnly,
-  type,
-  name,
-  placeholder,
-  errorText,
-  size = "medium",
-  mode = "primary",
-  style,
-  ...rest
-}: InputProps) => {
+const Input = ({ type, value, name, onChange, onClick, readOnly, placeholder, errorText, size = 'medium', mode = 'primary', style, ...rest }: InputProps) => {
   return (
     <Container>
       <StyledInput
@@ -30,35 +19,34 @@ const Input = ({
         style={style}
         {...rest}
       />
-      {errorText && <ErrorText>{errorText}</ErrorText>}
+      {errorText && mode !== 'primary' && <ErrorText mode={mode}>{errorText}</ErrorText>}
     </Container>
   );
 };
+
 export default Input;
 
 const INPUT_TYPE = {
-  ["small"]: {
-    width: 150,
-    height: 30,
+  ['medium']: {
+    width: '331px',
+    height: '40px',
+    padding: '10px 20px',
+    border: `1px solid ${color.gray6}`,
+    borderRadius: '8px',
   },
-  ["medium"]: {
-    width: 250,
-    height: 30,
-  },
-  ["large"]: {
-    width: 400,
-    height: 30,
+  ['large']: {
+    width: '364px',
+    height: '56px',
+    padding: '18px 20px',
+    border: `1px solid ${color.gray6}`,
+    borderRadius: '12px',
   },
 };
 
 const COLOR_TYPE = {
-  ["primary"]: {
-    border: "1px solid #A7A7A7",
-  },
-  ["disabled"]: {
-    background: "#F2F2F2",
-    border: "none",
-  },
+  ['primary']: `${color.gray6}`,
+  ['failed']: `${color.error1}`,
+  ['positive']: `${color.positive1}`,
 };
 
 const Container = styled.div`
@@ -67,22 +55,42 @@ const Container = styled.div`
 `;
 
 const StyledInput = styled.input<any>`
-  ${({ size }) => INPUT_TYPE[size as "medium"]};
-  ${({ mode }) => COLOR_TYPE[mode as "primary"]};
+  ${({ size }) => INPUT_TYPE[size as 'medium']};
+  border: 1px solid ${({ mode }) => COLOR_TYPE[mode as 'primary']};
+  color: ${({ disabled }) => (disabled ? color.gray9 : color.white)};
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 
-  border-radius: 8px;
+  background: none;
+  box-sizing: border-box;
   outline: none;
 
-  font-size: 12px;
+  &::placeholder {
+    color: ${color.gray7};
+  }
 
-  padding: 0 10px;
+  &:disabled {
+    border: 1px solid ${color.gray9};
+    color: ${color.gray8};
+  }
 
-  box-sizing: border-box;
+  //자동완성
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    box-shadow: 0 0 0 1000px ${color.black} inset; //배경색
+    -webkit-text-fill-color: ${color.white}; //글자색
+  }
 `;
 
-const ErrorText = styled.div`
-  color: #ff4e4e;
+const ErrorText = styled.div<{ mode: string }>`
+  color: ${({ mode }) => COLOR_TYPE[mode as 'failed']};
   font-size: 12px;
-
-  padding: 5px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 4px 0 0 10px;
 `;

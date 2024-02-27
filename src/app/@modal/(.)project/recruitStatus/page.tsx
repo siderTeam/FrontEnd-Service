@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/CommonStyles";
-import Modal from "@/component/Modal/Modal";
+import styled from '@emotion/styled';
+import { color } from '@/styles/CommonStyles';
+import Modal from '@/components/Modal/Modal';
 
 const Page = () => {
   return <Modal>모집현황</Modal>;

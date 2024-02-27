@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "../../../Styles/CommonStyles";
-import Button from "@/component/Button/Button";
-import Image from "next/image";
-import Link from "next/link";
+import styled from '@emotion/styled';
+import { color } from '../../../styles/CommonStyles';
+import Button from '@/components/Button/Button';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const LastContent = () => {
   return (
@@ -16,14 +16,9 @@ const LastContent = () => {
         이제 사이드고를 이용할 수 있어요.
       </SubTitle>
       <StyledImage>
-        <Image
-          src={"/images/testImage.png"}
-          alt="image"
-          width={339}
-          height={339}
-        />
+        <Image src={'/images/testImage.png'} alt="image" width={339} height={339} />
       </StyledImage>
-      <Link href={"/login"}>
+      <Link href={'/login'}>
         <Button size="large">고고</Button>
       </Link>
     </>
@@ -36,7 +31,7 @@ const Progressbar = styled.div`
   width: 100px;
   height: 8px;
   margin-bottom: 56px;
-  background-image: url("/images/progressbar/step4.svg");
+  background-image: url('/images/progressbar/step4.svg');
 `;
 
 const SubTitle = styled.div`

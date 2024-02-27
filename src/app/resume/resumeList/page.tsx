@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { useQuery } from "@tanstack/react-query";
-import { rest } from "../../api/rest";
-import { getResumeList } from "../../api/api";
-import Image from "next/image";
-import Paging from "@/component/Paging/Paging";
-import { useState } from "react";
+import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
+import { rest } from '../../api/rest';
+import { getResumeList } from '../../api/api';
+import Image from 'next/image';
+import Paging from '@/components/Paging/Paging';
+import { useState } from 'react';
 
 const Page = () => {
   const [page, setPage] = useState(1);
@@ -31,33 +31,20 @@ const Page = () => {
           <div className="title">지원서 이름</div>
         </TableHeader>
         <TableContent>
-          {resumeData.data
-            ?.slice(items * (page - 1), items * (page - 1) + items)
-            .map((item, index) => (
-              <ul key={item.id}>
-                <li className="number">{index + 1}</li>
-                <li className="title">
-                  <span>{item.name}</span>
-                </li>
-                <li>
-                  <Image
-                    className="delete"
-                    src="/images/trash_gray.svg"
-                    alt="delete"
-                    width={17}
-                    height={16}
-                  />
-                </li>
-              </ul>
-            ))}
+          {resumeData.data?.slice(items * (page - 1), items * (page - 1) + items).map((item, index) => (
+            <ul key={item.id}>
+              <li className="number">{index + 1}</li>
+              <li className="title">
+                <span>{item.name}</span>
+              </li>
+              <li>
+                <Image className="delete" src="/images/trash_gray.svg" alt="delete" width={17} height={16} />
+              </li>
+            </ul>
+          ))}
         </TableContent>
         <PageWrap>
-          <Paging
-            page={page}
-            items={items}
-            count={resumeData.data?.length || 0}
-            setPage={handlePageChange}
-          />
+          <Paging page={page} items={items} count={resumeData.data?.length || 0} setPage={handlePageChange} />
         </PageWrap>
       </TableWrap>
     </Container>
@@ -132,7 +119,7 @@ const TableContent = styled.div`
     }
 
     .delete:hover {
-      content: url("/images/trash_red.svg");
+      content: url('/images/trash_red.svg');
       width: 17px;
       height: 16px;
     }

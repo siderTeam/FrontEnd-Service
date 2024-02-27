@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { color } from "@/Styles/CommonStyles";
-import Modal from "@/component/Modal/Modal";
+import styled from '@emotion/styled';
+import { color } from '@/styles/CommonStyles';
+import Modal from '@/components/Modal/Modal';
 
 const Page = () => {
   return (
@@ -91,12 +91,7 @@ const TableContent = styled.div`
   .content:hover {
     border-radius: 8px;
     border: 1px solid ${color.white};
-    background: linear-gradient(
-        92deg,
-        rgba(255, 255, 255, 0.1) 38.9%,
-        rgba(0, 0, 0, 0) 62.68%
-      ),
-      rgba(2, 6, 13, 0.5);
+    background: linear-gradient(92deg, rgba(255, 255, 255, 0.1) 38.9%, rgba(0, 0, 0, 0) 62.68%), rgba(2, 6, 13, 0.5);
   }
 
   .approve {
