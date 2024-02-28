@@ -2,36 +2,32 @@
 
 import styled from '@emotion/styled';
 import { color } from '@/styles/CommonStyles';
-import Modal from '@/components/Modal/Modal';
 
-const Payment = () => {
+const ResumeList = () => {
   return (
     <Container>
       <TableHeader>
         <div className="title">No.</div>
-        <div className="middleTitle">프로젝트 명</div>
-        <div className="title">결제 일자</div>
-        <div className="title">결제 금액</div>
+        <div className="middleTitle">지원서 이름</div>
+        <div className="title">삭제</div>
       </TableHeader>
       <TableContent>
         <div className="content">
           <div className="title">1</div>
           <div className="middleTitle">고구마 만들래</div>
-          <div className="title">8888.88.88</div>
-          <div className="title">8,888,888</div>
+          <div className="delete title">삭제</div>
         </div>
         <div className="content">
           <div className="title">1</div>
           <div className="middleTitle">고구마 만들래</div>
-          <div className="title">8888.88.88</div>
-          <div className="title">8,888,888</div>
+          <div className="delete title">삭제</div>
         </div>
       </TableContent>
     </Container>
   );
 };
 
-export default Payment;
+export default ResumeList;
 
 const Container = styled.div`
   .title {
@@ -88,5 +84,10 @@ const TableContent = styled.div`
     border-radius: 8px;
     border: 1px solid ${color.white};
     background: linear-gradient(92deg, rgba(255, 255, 255, 0.1) 38.9%, rgba(0, 0, 0, 0) 62.68%), rgba(2, 6, 13, 0.5);
+  }
+
+  .delete {
+    color: ${color.error1};
+    font-size: 12px;
   }
 `;

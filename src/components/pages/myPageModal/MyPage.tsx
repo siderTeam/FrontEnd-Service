@@ -71,10 +71,7 @@ export default MyPage;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 842px;
   height: 100%;
-  box-sizing: border-box;
-  padding: 60px 70px;
 
   .button {
     display: flex;
@@ -117,15 +114,4 @@ const InputWrap = styled.div`
   flex-wrap: wrap;
   gap: 16px 40px;
   margin-top: 40px;
-
-  .wrap {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-`;
-
-const StyledButton = styled(Button)`
-  margin: 0 auto;
 `;

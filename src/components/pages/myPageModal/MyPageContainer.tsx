@@ -7,6 +7,11 @@ import { useState } from 'react';
 import Modal from '@/components/Modal/Modal';
 import MyPage from './MyPage';
 import Payment from './Payment';
+import ResumeCreate from './Resume/ResumeCreate';
+import ResumeList from './Resume/ResumeList';
+import MyProject from './Project/MyProject';
+import ProjectRecruit from './Project/ProjectRecruit';
+import ProjectSupport from './Project/ProjectSupport';
 
 const router = [
   {
@@ -66,13 +71,19 @@ type MyPageProps = {
   onClose: () => void;
 };
 
-type Route = 'MyPage' | 'ResumeList' | 'Payment' | 'Project';
+type Route = 'MyPage' | 'ResumeList' | 'ResumeCreate' | 'Payment' | 'MyProject' | 'ProjectSupport' | 'ProjectRecruit';
 
 const MyPageContainer = ({ visible, onClose }: MyPageProps) => {
   const [activeMenu, setActiveMenu] = useState<Route>('MyPage');
+  const [openMenu, setOpenMenu] = useState('');
 
-  const handleClick = (path: Route) => {
+  const handleClickMenu = (path: Route) => {
     setActiveMenu(path);
+    setOpenMenu('');
+  };
+
+  const handleClickOpen = (path: Route) => {
+    setOpenMenu(path);
   };
 
   return (
@@ -89,19 +100,30 @@ const MyPageContainer = ({ visible, onClose }: MyPageProps) => {
       <Sidebar>
         {router.map((item) => {
           const { subMenu } = item;
-          const isActive = item.path === activeMenu;
+          const isActive = activeMenu.includes(item.path);
+          const openSub = item.path === openMenu;
           const iconPath = `/images/icons/${isActive ? item.activeIconPath : item.iconPath}.svg`;
 
           return (
-            <li className={isActive ? 'menu active' : 'menu'} key={item.path} onClick={() => handleClick(item.path as Route)}>
+            <li
+              className={isActive ? 'menu active' : 'menu'}
+              key={item.path}
+              onClick={subMenu ? () => handleClickOpen(item.path as Route) : () => handleClickMenu(item.path as Route)}
+            >
               <Image src={iconPath} alt={item.label} width={16} height={16} />
               <span>{item.label}</span>
 
               {subMenu && (
-                <StyledMenu height={item.height} isActive={isActive}>
-                  {subMenu?.map((subMenu) => (
-                    <li key={subMenu.path}>{subMenu.label}</li>
-                  ))}
+                <StyledMenu height={item.height} openSub={openSub}>
+                  {subMenu?.map((subMenu) => {
+                    const isSubActive = subMenu.path === activeMenu;
+
+                    return (
+                      <li className={isSubActive ? 'active' : ''} key={subMenu.path} onClick={() => handleClickMenu(subMenu.path as Route)}>
+                        {subMenu.label}
+                      </li>
+                    );
+                  })}
                 </StyledMenu>
               )}
             </li>
@@ -110,7 +132,12 @@ const MyPageContainer = ({ visible, onClose }: MyPageProps) => {
       </Sidebar>
       <Content>
         {activeMenu === 'MyPage' && <MyPage />}
+        {activeMenu === 'ResumeList' && <ResumeList />}
+        {activeMenu === 'ResumeCreate' && <ResumeCreate />}
         {activeMenu === 'Payment' && <Payment />}
+        {activeMenu === 'MyProject' && <MyProject />}
+        {activeMenu === 'ProjectSupport' && <ProjectSupport />}
+        {activeMenu === 'ProjectRecruit' && <ProjectRecruit />}
       </Content>
       <Effect />
     </Modal>
@@ -151,13 +178,13 @@ const Sidebar = styled.ul`
   }
 `;
 
-const StyledMenu = styled.ul<{ isActive: boolean; height: number }>`
+const StyledMenu = styled.ul<{ openSub: boolean; height: number }>`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
 
   gap: 10px;
-  height: ${({ height, isActive }) => (isActive ? height + 13 : 0)}px;
+  height: ${({ height, openSub }) => (openSub ? height + 13 : 0)}px;
   overflow: hidden;
   transition: height 0.2s ease-in;
   transition-property: display 0.2s ease-in;
@@ -182,4 +209,9 @@ const Effect = styled.div`
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0) 100%);
 `;
 
-const Content = styled.div``;
+const Content = styled.div`
+  width: 842px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 60px 70px;
+`;

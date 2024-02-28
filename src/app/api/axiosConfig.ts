@@ -4,7 +4,6 @@ import { rest } from "./rest";
 import { getAccessToken, getNewRefreshToken, postUserSignOut } from "./api";
 
 const getAuthorization = () => {
-  console.log("getAuthorization");
   const accessToken = getCookie("accessToken");
 
   if (accessToken) {
