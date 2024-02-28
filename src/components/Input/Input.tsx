@@ -27,12 +27,20 @@ const Input = ({ type, value, name, onChange, onClick, readOnly, placeholder, er
 export default Input;
 
 const INPUT_TYPE = {
+  ['small']: {
+    width: '111px',
+    padding: '6px 16px',
+    border: `1px solid ${color.gray6}`,
+    borderRadius: '6px',
+    fontSize: '14px',
+  },
   ['medium']: {
     width: '331px',
     height: '40px',
     padding: '10px 20px',
     border: `1px solid ${color.gray6}`,
     borderRadius: '8px',
+    fontSize: '16px',
   },
   ['large']: {
     width: '364px',
@@ -40,11 +48,13 @@ const INPUT_TYPE = {
     padding: '18px 20px',
     border: `1px solid ${color.gray6}`,
     borderRadius: '12px',
+    fontSize: '16px',
   },
 };
 
 const COLOR_TYPE = {
   ['primary']: `${color.gray6}`,
+  ['active']: `${color.brandMain}`,
   ['failed']: `${color.error1}`,
   ['positive']: `${color.positive1}`,
 };
@@ -58,7 +68,6 @@ const StyledInput = styled.input<any>`
   ${({ size }) => INPUT_TYPE[size as 'medium']};
   border: 1px solid ${({ mode }) => COLOR_TYPE[mode as 'primary']};
   color: ${({ disabled }) => (disabled ? color.gray9 : color.white)};
-  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;

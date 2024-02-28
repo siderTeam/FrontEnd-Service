@@ -1,5 +1,5 @@
-import { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
-import { ButtonHTMLAttributes } from "react";
+import { InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 
 //positionSquare
 export type PositionSquareProps = {
@@ -14,18 +14,18 @@ export type CardProps = {
   startDate: string;
   endDate: string;
   deposit: number;
-  skillCodeList: { skillCode: number, name: string; imageName: string }[];
+  skillCodeList: { skillCode: number; name: string; imageName: string }[];
   children?: any;
   style?: React.CSSProperties;
 };
 
 //input
 export type INPUT_STYLE_PROPS = {
-  size?: "medium" | "large";
-  mode?: "primary" | "failed" | "positive";
+  size?: 'small' | 'medium' | 'large';
+  mode?: 'primary' | 'active' | 'failed' | 'positive';
 };
 
-export type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
+export type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>;
 
 export type InputProps = INPUT_STYLE_PROPS &
   INPUT_TYPE & {
@@ -39,8 +39,8 @@ export type InputProps = INPUT_STYLE_PROPS &
     errorText?: string;
     style?: React.CSSProperties;
     rest?: any;
-};
-  
+  };
+
 //selectInput
 export type SelectInputProps = INPUT_STYLE_PROPS &
   INPUT_TYPE & {
@@ -55,8 +55,8 @@ export type SelectInputProps = INPUT_STYLE_PROPS &
 
 //button
 export type BUTTON_STYLE_PROPS = {
-  size?: "medium" | "large" | "in_input";
-  mode?: "primary" | "secondary";
+  size?: 'tiny' | 'small' | 'medium' | 'large' | 'in_input';
+  mode?: 'primary' | 'secondary';
 };
 
 export type ButtonProps = BUTTON_STYLE_PROPS &
@@ -72,7 +72,7 @@ export type ButtonProps = BUTTON_STYLE_PROPS &
 
 //Label
 export type LabelProps = {
-  location: "left" | "top";
+  location: 'left' | 'top';
   label: string;
   require?: string;
   subText?: string;
@@ -82,7 +82,8 @@ export type LabelProps = {
 
 //SelectBox
 export type SELECTBOX_STYLE_PROPS = {
-  size?: "small" | "medium" | "large";
+  size?: 'small';
+  mode?: 'primary' | 'active';
 };
 
 export type SelectBoxProps = SELECTBOX_STYLE_PROPS & {
@@ -117,7 +118,7 @@ export type CheckboxProps = {
 
 //Radio style
 export type RADIO_PROPS = {
-  size?: "small" | "big";
+  size?: 'small' | 'big';
 };
 
 //Radio

@@ -19,6 +19,22 @@ const Button = ({ children, size = 'medium', mode = 'primary', style, onClick, l
 export default Button;
 
 const BUTTON_TYPE = {
+  ['tiny']: {
+    padding: '4px 8px',
+    borderRadius: '4px',
+    gap: '10px',
+
+    fontSize: '12px',
+    fontWeight: 700,
+  },
+  ['small']: {
+    padding: '10px 16px',
+    borderRadius: '6px',
+    gap: '10px',
+
+    fontSize: '14px',
+    fontWeight: 700,
+  },
   ['medium']: {
     padding: '10px 20px',
     borderRadius: '6px',

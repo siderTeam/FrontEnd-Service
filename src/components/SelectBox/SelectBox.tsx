@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { SelectBoxProps } from '@/types/types';
 import { color } from '../../styles/CommonStyles';
 
-const SelectBox = ({ size = 'medium', value, name, options = [], onChange, style, optionStyle, placeholder }: SelectBoxProps) => {
-  const [visible, setVisible] = useState(false);
+const SelectBox = ({ size = 'small', mode = 'primary', value, name, options = [], onChange, style, optionStyle, placeholder }: SelectBoxProps) => {
+  const [visible, setVisible] = useState(true);
 
   const handleClickSelect = () => {
     setVisible(!visible);
@@ -25,11 +25,11 @@ const SelectBox = ({ size = 'medium', value, name, options = [], onChange, style
 
   return (
     <Container tabIndex={0} onBlur={handleBlur}>
-      <StyledSelect size={size} value={value} name={name} style={style} onClick={handleClickSelect}>
-        {selected.length === 0 ? <div>{placeholder}</div> : <div className="value">{selected[0].label}</div>}
+      <StyledSelect size={size} mode={mode} value={value} name={name} style={style} onClick={handleClickSelect}>
+        {selected.length === 0 ? <span className="placeholder">{placeholder}</span> : <span className="value">{selected[0].label}</span>}
       </StyledSelect>
       {visible && (
-        <OptionWrapper>
+        <OptionWrapper size={size}>
           {options?.map((option) => (
             <li onClick={() => handleClick(option.value)} style={optionStyle} key={option.value} value={option.label}>
               {option.label}
@@ -43,45 +43,48 @@ const SelectBox = ({ size = 'medium', value, name, options = [], onChange, style
 
 export default SelectBox;
 
-const Container = styled.div`
-  position: relative;
-  cursor: pointer;
-`;
-
 const SELECT_TYPE = {
   ['small']: {
-    width: 150,
-    height: 30,
-  },
-  ['medium']: {
-    width: 250,
-    height: 30,
-  },
-  ['large']: {
-    width: 400,
-    height: 30,
+    width: '120px',
+    padding: '6px 16px',
+    borderRadius: '8px',
   },
 };
 
+const COLOR_TYPE = {
+  ['primary']: `${color.gray6}`,
+  ['active']: `${color.brandMain}`,
+};
+
+const Container = styled.div`
+  cursor: pointer;
+`;
+
 const StyledSelect = styled.div<any>`
-  //${({ size }) => SELECT_TYPE[size as 'medium']};
+  ${({ size }) => SELECT_TYPE[size as 'small']};
+  border: 1px solid ${({ mode }) => COLOR_TYPE[mode as 'primary']};
   box-sizing: border-box;
-  width: 100%;
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid ${color.gray6};
-  color: ${color.gray7};
+  position: relative;
+
+  color: ${color.white};
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
   &::before {
-    content: '⌵';
+    content: url('/images/selectbox/arrow_down_gray.svg');
     position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 20px;
+    top: 3px;
+    right: 10px;
+  }
+
+  .placeholder {
+    color: ${color.gray7};
   }
 
   .value {
@@ -89,14 +92,16 @@ const StyledSelect = styled.div<any>`
   }
 `;
 
-const OptionWrapper = styled.ul`
+const OptionWrapper = styled.ul<any>`
   position: absolute;
-  width: 100%;
-  color: ${color.gray7};
+  width: ${({ size }) => SELECT_TYPE[size as 'small'].width};
+
+  color: ${color.white};
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+
   box-sizing: border-box;
   background: ${color.black};
   border: 1px solid ${color.gray6};
@@ -118,18 +123,21 @@ const OptionWrapper = styled.ul`
   }
 
   li {
-    display: flex;
-    align-items: center;
     cursor: pointer;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     box-sizing: border-box;
     width: 100%;
-    height: 52px;
-    padding: 0 20px;
+    padding: 6px 16px;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid ${color.gray6};
   }
 
   li:hover {
-    background: ${color.gray8};
-    color: ${color.white};
+    background: ${color.gray9};
   }
 `;
