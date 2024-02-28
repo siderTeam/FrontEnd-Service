@@ -1,6 +1,5 @@
-import '../../public/reset.css';
 import RootContainer from '@/components/RootContainer';
-import '../styles/global.css';
+import RootSidebar from '@/components/RootSidebar';
 
 export const metadata = {
   title: 'Next.js',
@@ -9,10 +8,9 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>
-        <RootContainer>{children}</RootContainer>
-      </body>
-    </html>
+    <div style={{ display: 'flex' }}>
+      <RootSidebar />
+      <RootContainer>{children}</RootContainer>
+    </div>
   );
 }
