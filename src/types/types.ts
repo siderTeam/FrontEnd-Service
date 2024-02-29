@@ -43,7 +43,7 @@ export type LabelProps = {
 //Button
 
 export type BUTTON_STYLE_PROPS = {
-  size?: 'medium' | 'large' | 'in_input';
+  size?: 'tiny' | 'small' | 'medium' | 'large' | 'in_input';
   mode?: 'primary' | 'secondary';
 };
 
@@ -89,6 +89,7 @@ export type ModalProps = {
 //SelectBox
 
 export type SELECTBOX_STYLE_PROPS = {
+  size?: 'small';
   selectedType?: 'placeholder' | 'selected' | 'active' | 'disabled';
   optionType?: 'placeholder' | 'selected' | 'active' | 'disabled';
   text?: 'full';
@@ -97,7 +98,7 @@ export type SELECTBOX_STYLE_PROPS = {
 export type SelectBoxProps = SELECTBOX_STYLE_PROPS & {
   options?: { label: string; value: string }[];
   value?: string;
-  name: string;
+  name?: string;
   onChange?: (name: string, value: string) => void;
   style?: React.CSSProperties;
   optionStyle?: React.CSSProperties;
@@ -164,4 +165,19 @@ export type RadioButtonProps = RADIO_BUTTON_TYPE_PROPS & {
   className?: string;
   disabled?: boolean;
   size?: 'small' | 'big';
+};
+
+//Table
+
+export type TABLE_TYPE_PROPS = {
+  type?: 'headerLeft' | 'headerCenter' | 'headerCheckbox' | 'dataLeft' | 'dataCenter' | 'dataSubtext' | 'dataMore';
+};
+
+export type TableProps = TABLE_TYPE_PROPS & {
+  check?: boolean;
+  children?: any;
+  src?: string;
+  subText?: string;
+  style?: React.CSSProperties;
+  onClick?: () => void;
 };

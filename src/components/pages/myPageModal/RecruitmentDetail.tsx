@@ -3,7 +3,6 @@
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Modal from '@/components/Modal/Modal';
-import Sidebar from '@/app/@modal/components/Sidebar';
 import Input from '@/components/Input/Input';
 import TextArea from '@/components/TextArea/TextArea';
 import Button from '@/components/Button/Button';

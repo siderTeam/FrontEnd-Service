@@ -58,13 +58,19 @@ const router = [
   },
 ];
 
-type Route = 'MyPage' | 'MyApply' | 'ApplyList' | 'ApplyCreate' | 'Payment' | 'Project';
+type Route = 'MyPage' | 'MyApply' | 'ApplyList' | 'ApplyCreate' | 'Payment' | 'Project' | 'MyProject' | 'ApplyStatus' | 'RecruitmentStatus';
 
 const MyPageContainer = ({ visible, onClose }: MyPageProps) => {
-  const [activePath, setActivePath] = useState<Route>('MyPage');
+  const [activeMenu, setActiveMenu] = useState<Route>('MyPage');
+  const [openMenu, setOpenMenu] = useState('');
 
-  const handleClickNav = (nav: Route) => {
-    setActivePath(nav);
+  const handleClickMenu = (path: Route) => {
+    setActiveMenu(path);
+    setOpenMenu('');
+  };
+
+  const handleClickOpen = (path: Route) => {
+    setOpenMenu(path);
   };
 
   return (
@@ -86,33 +92,48 @@ const MyPageContainer = ({ visible, onClose }: MyPageProps) => {
         <SiderBar>
           {router.map((item) => {
             const { subMenu } = item;
-            const isActive = item.path === activePath;
-            const icoPath = `/images/etc/${isActive ? item.activeIconPath : item.iconPath}.svg`;
+            const isActive = activeMenu.includes(item.path);
+            const openSub = item.path === openMenu;
+            const iconPath = `/images/etc/${isActive ? item.activeIconPath : item.iconPath}.svg`;
+
             return (
-              <li className={isActive ? 'menu active' : 'menu'} key={item.path} onClick={() => handleClickNav(item.path as Route)}>
-                <Image src={icoPath} alt={item.label} width={16} height={16} />
+              <li
+                className={isActive ? 'menu active' : 'menu'}
+                key={item.path}
+                onClick={subMenu ? () => handleClickOpen(item.path as Route) : () => handleClickMenu(item.path as Route)}
+              >
+                <Image src={iconPath} alt={item.label} width={16} height={16} />
                 <span>{item.label}</span>
 
-                {subMenu ? (
-                  <StyledSubMenu height={item.height} isActive={isActive}>
-                    {subMenu?.map((subMenu) => (
-                      <li key={subMenu.path}>{subMenu.label}</li>
-                    ))}
+                {subMenu && (
+                  <StyledSubMenu height={item.height} openSub={openSub}>
+                    {subMenu?.map((subMenu) => {
+                      const isSubActive = subMenu.path === activeMenu;
+
+                      return (
+                        <li className={isSubActive ? 'active' : ''} key={subMenu.path} onClick={() => handleClickMenu(subMenu.path as Route)}>
+                          {subMenu.label}
+                        </li>
+                      );
+                    })}
                   </StyledSubMenu>
-                ) : (
-                  <></>
                 )}
               </li>
             );
           })}
+
           <div className="mirror" />
         </SiderBar>
         <Container>
-          {activePath === 'MyPage' && <MyPage />}
-          {activePath === 'MyApply' && <MyApply />}
-          {activePath === 'ApplyList' && <ApplyList />}
-          {activePath === 'Payment' && <Payment />}
-          {activePath === 'Project' && <RecruitmentDetail />}
+          {activeMenu === 'MyPage' && <MyPage />}
+          {activeMenu === 'MyApply' && <MyApply />}
+          {activeMenu === 'ApplyList' && <ApplyList />}
+          {activeMenu === 'ApplyCreate' && <ApplyCreate />}
+          {activeMenu === 'Payment' && <Payment />}
+          {activeMenu === 'Project' && <Project />}
+          {activeMenu === 'MyProject' && <MyProject />}
+          {activeMenu === 'ApplyStatus' && <ApplyStatus />}
+          {activeMenu === 'RecruitmentStatus' && <RecruitmentStatus />}
         </Container>
       </div>
     </Modal>
@@ -170,13 +191,13 @@ const SiderBar = styled.ul`
   }
 `;
 
-const StyledSubMenu = styled.ul<{ isActive: boolean; height: number }>`
+const StyledSubMenu = styled.ul<{ openSub: boolean; height: number }>`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
 
   gap: 10px;
-  height: ${({ height, isActive }) => (isActive ? height + 13 : 0)}px;
+  height: ${({ height, openSub }) => (openSub ? height + 13 : 0)}px;
   overflow: hidden;
   transition: height 0.2s ease-in;
   transition-property: display 0.2s ease-in;

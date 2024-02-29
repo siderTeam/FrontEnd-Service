@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import HeaderContainer from './HeaderContainer';
 
 const RootContainer = ({ children }: any) => {
   const [redered, setRedered] = useState(false);
@@ -14,6 +15,7 @@ const RootContainer = ({ children }: any) => {
 
   return redered ? (
     <QueryClientProvider client={queryClient}>
+      <HeaderContainer />
       <div style={{ zIndex: 9999 }}>{children}</div>
     </QueryClientProvider>
   ) : (

@@ -26,7 +26,8 @@ const Container = styled.div<{ visible: boolean }>`
   display: ${({ visible }) => (visible ? 'flex' : 'none')};
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(2, 6, 13, 0.4);
+  backdrop-filter: blur(25px);
   justify-content: center;
   align-items: center;
   z-index: 9999;

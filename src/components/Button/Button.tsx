@@ -34,6 +34,22 @@ const Button = ({
 export default Button;
 
 const SIZE_TYPE = {
+  ['tiny']: {
+    height: '23px',
+    padding: '4px 8px',
+    borderRadius: '6px',
+
+    fontSize: '12px',
+    fontWeight: 700,
+  },
+  ['small']: {
+    height: '32px',
+    padding: '10px 16px',
+    borderRadius: '6px',
+
+    fontSize: '14px',
+    fontWeight: 700,
+  },
   ['medium']: {
     height: '40px',
     padding: '10px 20px',

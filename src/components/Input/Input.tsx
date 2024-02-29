@@ -56,9 +56,8 @@ export default Input;
 
 const INPUT_TYPE = {
   ['small']: {
-    width: '331px',
-    height: '32px',
-    padding: '7px 237px 7px 16px',
+    width: '111px',
+    padding: '6px 16px',
     borderRadius: '6px',
   },
   ['medium']: {
@@ -131,6 +130,8 @@ const StyledInput = styled.input<any>`
   background: none;
   box-sizing: border-box;
   outline: none;
+
+  box-sizing: border-box;
 
   &::placeholder {
     color: ${({ color }) => COLOR_TYPE[color as 'placeholder']};

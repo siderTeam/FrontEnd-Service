@@ -9,6 +9,9 @@ import Label from '@/components/Label/Label';
 import TextArea from '@/components/TextArea/TextArea';
 import MyProfile from '@/components/MyProfile/MyProfile';
 import Button from '@/components/Button/Button';
+import { useQuery } from '@tanstack/react-query';
+import { rest } from '@/api/rest';
+import { getCode, getProject } from '@/api/api';
 
 const MyPage = () => {
   const [textareaCount, setTextareaCount] = useState(0);
@@ -67,6 +70,7 @@ const Container = styled.div`
   padding-top: 60px;
   padding-right: 70px;
   padding-left: 70px;
+  padding-bottom: 32px;
 
   background: ${color.gray.black};
 
@@ -81,7 +85,5 @@ const Container = styled.div`
     justify-content: center;
     align-items: end;
     flex: 1;
-    gap: 4px;
-    margin-bottom: 32px;
   }
 `;
