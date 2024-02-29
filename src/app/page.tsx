@@ -99,8 +99,8 @@ const Page = () => {
 export default Page;
 
 const Container = styled.div`
-  max-width: 1920px;
-  height: 2561px;
+  max-width: 1280px;
+  margin: 0 auto;
 
   .banner {
     width: 1280px;

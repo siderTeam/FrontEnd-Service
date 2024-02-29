@@ -1,7 +1,10 @@
-import 'public/reset.css';
+// import '/public/reset.css';
 import '@/styles/global.css';
 import RootContainer from '@/components/RootContainer';
 import { color } from '@/styles/color';
+
+import HeaderContainer from '@/components/HeaderContainer';
+import Sidebar from '@/components/Sidebar/Sidebar';
 
 export const metadata = {
   title: 'Next.js',
@@ -10,10 +13,9 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body style={{ background: color.gray.black }}>
-        <RootContainer>{children}</RootContainer>
-      </body>
-    </html>
+    <div style={{ display: 'flex' }}>
+      <Sidebar />
+      <RootContainer>{children}</RootContainer>
+    </div>
   );
 }
