@@ -4,10 +4,12 @@ import Table from '@/components/Table/Table';
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
+import RejectReason from '../RejectReason/RejectReason';
 
 //요구사항 열람 모달
 const RequireRecord = ({ visible, onClose }) => {
+  const [modal, setModal] = useState(false);
   const data = [
     {
       username: 'sidego',
@@ -52,6 +54,14 @@ const RequireRecord = ({ visible, onClose }) => {
       member: '멤버',
     },
   ];
+
+  const handleOpenModal = () => {
+    setModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setModal(false);
+  };
 
   return (
     <>
@@ -135,7 +145,7 @@ const RequireRecord = ({ visible, onClose }) => {
           </div>
 
           <div className="button-wrap">
-            <Button size="small" mode="secondary">
+            <Button size="small" mode="secondary" onClick={handleOpenModal}>
               이전
             </Button>
             <Button size="small" mode="primary">
@@ -144,6 +154,7 @@ const RequireRecord = ({ visible, onClose }) => {
           </div>
         </Container>
       </Modal>
+      <RejectReason visible={modal} onClose={handleCloseModal} />
     </>
   );
 };
