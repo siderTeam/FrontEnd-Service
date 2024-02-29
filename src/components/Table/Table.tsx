@@ -10,8 +10,10 @@ const Table = ({ type = 'dataLeft', children, src, check, subText, style, onClic
   return (
     <Container type={type} style={style} onClick={onClick}>
       {check && <Checkbox />}
-      {children}
-      {subText && <SubText>{subText}</SubText>}
+      <div className="subText-wrap">
+        {children}
+        {subText && <SubText>{subText}</SubText>}
+      </div>
       {src && <Image src={src} width={20} height={20} alt="sort" />}
     </Container>
   );
@@ -99,6 +101,11 @@ const Container = styled.div<TABLE_TYPE_PROPS>`
   box-sizing: border-box;
 
   color: ${color.gray.white};
+
+  .subText-wrap {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const SubText = styled.div`

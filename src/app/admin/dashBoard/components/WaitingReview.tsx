@@ -1,7 +1,7 @@
 import Profile from '@/components/Profile/Profile';
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const WaitingReview = () => {
   const [page, setPage] = useState(1);

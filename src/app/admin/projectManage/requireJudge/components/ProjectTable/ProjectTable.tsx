@@ -2,7 +2,7 @@ import PaginationComponent from '@/components/Pagination/Pagination';
 import Table from '@/components/Table/Table';
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import RejectRecord from '../Modal/RejectRecord/RejectRecord';
 import RequireRecord from '../Modal/RequireRecord/RequireRecord';
 

@@ -3,7 +3,6 @@ import Modal from '@/components/Modal/Modal';
 import TextArea from '@/components/TextArea/TextArea';
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
-import React from 'react';
 
 const RejectReason = ({ visible, onClose }) => {
   return (

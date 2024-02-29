@@ -18,17 +18,13 @@ const Button = ({
   ...rest
 }: ButtonProps) => {
   return (
-    <>
-      {/* <ButtonWrap > */}
-      <StyledButton size={size} mode={mode} style={style} onClick={onClick} className={className} {...rest}>
-        <div className="text_icon_wrap">
-          {leftIcon && <Icon src={leftIcon} style={{ marginRight: '10px' }} />}
-          {children}
-          {rightIcon && <Icon src={rightIcon} style={iconStyle} />}
-        </div>
-      </StyledButton>
-      {/* </ButtonWrap> */}
-    </>
+    <StyledButton size={size} mode={mode} style={style} onClick={onClick} className={className} {...rest}>
+      <div className="text_icon_wrap">
+        {leftIcon && <Icon src={leftIcon} style={{ marginRight: '10px' }} />}
+        {children}
+        {rightIcon && <Icon src={rightIcon} style={iconStyle} />}
+      </div>
+    </StyledButton>
   );
 };
 export default Button;
@@ -101,10 +97,6 @@ const DISABLED_TYPE = {
     color: `${color.gray.gray8}`,
   },
 };
-
-// const ButtonWrap = styled.div`
-//   display: flex;
-// `;
 
 const StyledButton = styled.button<ButtonProps>`
   box-sizing: border-box;

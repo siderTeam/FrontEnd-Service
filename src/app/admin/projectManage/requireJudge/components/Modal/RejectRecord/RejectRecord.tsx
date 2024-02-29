@@ -2,7 +2,6 @@ import Modal from '@/components/Modal/Modal';
 import Table from '@/components/Table/Table';
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
-import React from 'react';
 
 //반려 이력 모달
 const RejectRecord = ({ visible, onClose }) => {

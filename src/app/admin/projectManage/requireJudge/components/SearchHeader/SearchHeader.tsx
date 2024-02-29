@@ -3,7 +3,7 @@ import Input from '@/components/Input/Input';
 import SelectBox from '@/components/SelectBox/SelectBox';
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const SearchHeader = () => {
   const [selectValue, setSelectValue] = useState({

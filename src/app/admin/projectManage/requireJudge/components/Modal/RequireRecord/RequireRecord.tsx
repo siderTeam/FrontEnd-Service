@@ -4,7 +4,7 @@ import Table from '@/components/Table/Table';
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import RejectReason from '../RejectReason/RejectReason';
 
 //요구사항 열람 모달

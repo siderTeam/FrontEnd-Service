@@ -1,6 +1,6 @@
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const ProjectStatus = () => {
   const [page, setPage] = useState(1);

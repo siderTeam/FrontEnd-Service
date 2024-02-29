@@ -1,12 +1,7 @@
 'use client';
 
-import Button from '@/components/Button/Button';
-import Input from '@/components/Input/Input';
-import SelectBox from '@/components/SelectBox/SelectBox';
-
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
-import { useState } from 'react';
 import ProjectTable from './components/ProjectTable/ProjectTable';
 import SearchHeader from './components/SearchHeader/SearchHeader';
 
