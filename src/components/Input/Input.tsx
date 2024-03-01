@@ -59,18 +59,21 @@ const INPUT_TYPE = {
     width: '111px',
     padding: '6px 16px',
     borderRadius: '6px',
+    fontSize: '14px',
   },
   ['medium']: {
     width: '331px',
     height: '40px',
     padding: '10px 20px',
     borderRadius: '8px',
+    fontSize: '16px',
   },
   ['large']: {
     width: '364px',
     height: '56px',
     padding: ' 18px 20px',
     borderRadius: '12px',
+    fontSize: '16px',
   },
 };
 
@@ -120,18 +123,12 @@ const StyledInput = styled.input<any>`
 
   display: flex;
   align-items: center;
-  flex-shrink: 0;
 
-  font-size: 16px;
-  font-style: normal;
   font-weight: 400;
-  line-height: normal;
 
   background: none;
   box-sizing: border-box;
   outline: none;
-
-  box-sizing: border-box;
 
   &::placeholder {
     color: ${({ color }) => COLOR_TYPE[color as 'placeholder']};
