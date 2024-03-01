@@ -3,8 +3,8 @@
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import ProjectStatus from './components/ProjectStatus';
-import WaitingReview from './components/WaitingReview';
+import ProjectStatus from './components/ProjectStatus/ProjectStatus';
+import WaitingReview from './components/WaitingReview/WaitingReview';
 
 const Page = () => {
   return (

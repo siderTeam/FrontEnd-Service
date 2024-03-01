@@ -83,11 +83,11 @@ const RejectRecord = ({ visible, onClose }) => {
 
           {data.map((item) => (
             <>
-              <Tabledate>
+              <TableDate>
                 <Table style={{ width: '160px', height: 'auto' }}>{item.date}</Table>
                 <Table style={{ width: '100px', height: 'auto' }}>{item.name}</Table>
                 <Table style={{ width: '220px', height: 'auto' }}>{item.reject}</Table>
-              </Tabledate>
+              </TableDate>
             </>
           ))}
         </Container>
@@ -113,6 +113,6 @@ const TableHeader = styled.div`
   margin-top: 22px;
 `;
 
-const Tabledate = styled.div`
+const TableDate = styled.div`
   display: flex;
 `;

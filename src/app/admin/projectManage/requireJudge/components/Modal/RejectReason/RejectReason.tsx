@@ -4,6 +4,7 @@ import TextArea from '@/components/TextArea/TextArea';
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
 
+//반려 사유 기입 모달
 const RejectReason = ({ visible, onClose }) => {
   return (
     <>

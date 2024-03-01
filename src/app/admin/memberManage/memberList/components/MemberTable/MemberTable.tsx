@@ -3,7 +3,8 @@ import Table from '@/components/Table/Table';
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import MemberDetail from '../Pages/MemberDetail/MemberDetail';
+import MemberDetail from '../Modal/MemberDetail/MemberDetail';
+
 
 const MemberTable = () => {
   const [modal, setModal] = useState(false);
