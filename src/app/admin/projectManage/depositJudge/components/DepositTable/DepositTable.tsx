@@ -5,6 +5,7 @@ import { color } from '@/styles/color';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import DepositPay from '../Modal/DepositPay/DepositPay';
+import PayStatus from '../Modal/PayStatus/PayStatus';
 
 const DepositTable = () => {
   const [depositPayModal, setDepositPayModal] = useState(false);
@@ -114,7 +115,7 @@ const DepositTable = () => {
             {item.no}
           </Table>
           <Table style={{ width: '560px' }}>{item.project}</Table>
-          <Table style={{ width: '200px', color: colors[index] }} subText="(888/888)">
+          <Table style={{ width: '200px', color: colors[index], cursor: 'pointer' }} subText="(888/888)" onClick={handlePayStatusModal}>
             {item.payStatus}
           </Table>
           <Table style={{ width: '320px' }} subText="{7일 남음)">
@@ -125,6 +126,7 @@ const DepositTable = () => {
       ))}
       <PaginationComponent activePage={page} itemsCountPerPage={items} totalItemsCount={data.length - 1} pageRangeDisplayed={5} onChange={handlePageChange} />
       <DepositPay visible={depositPayModal} onClose={handleCloseModal} />
+      <PayStatus visible={payStatusModal} onClose={handleCloseModal} />
     </Container>
   );
 };

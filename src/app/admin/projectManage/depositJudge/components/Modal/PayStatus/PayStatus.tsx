@@ -8,68 +8,61 @@ import { useState } from 'react';
 import PayToggle from '../../PayToggle/PayToggle';
 import PayInput from '../PayInput/PayInput';
 import { relative } from 'path';
+import Image from 'next/image';
 
 // 보증금 납입처리 모달
-const DepositPay = ({ visible, onClose }) => {
+const PayStatus = ({ visible, onClose }) => {
   const [moreVisibleIndex, setMoreVisibleIndex] = useState<number | null>(null);
   const [visibleInputIndex, setVisibleInputIndex] = useState<number | null>(null);
 
   const data = [
     {
-      no: 1,
-      username: 'sidego',
       name: '사이드',
+      member: '리더',
+      position: '프론트엔드 개발자',
       phone: '010-8888-8888',
       account: '카카오)8888-8888-8888-8888',
-      project: '프로젝트명',
+      payStatus: '완납',
     },
     {
-      no: 1,
-      username: 'sidego',
       name: '사이드',
+      member: '멤버',
+      position: '백엔드 개발자',
       phone: '010-8888-8888',
       account: '카카오)8888-8888-8888-8888',
-      project: '프로젝트명',
+      payStatus: '일부 납부',
     },
     {
-      no: 1,
-      username: 'sidego',
       name: '사이드',
+      member: '멤버',
+      position: '기획자',
       phone: '010-8888-8888',
       account: '카카오)8888-8888-8888-8888',
-      project: '프로젝트명',
+      payStatus: '미납부',
     },
     {
-      no: 1,
-      username: 'sidego',
       name: '사이드',
+      member: '멤버',
+      position: '디자이너',
       phone: '010-8888-8888',
       account: '카카오)8888-8888-8888-8888',
-      project: '프로젝트명',
+      payStatus: '미납부',
     },
     {
-      no: 1,
-      username: 'sidego',
       name: '사이드',
+      member: '멤버',
+      position: '프론트엔드 개발자',
       phone: '010-8888-8888',
       account: '카카오)8888-8888-8888-8888',
-      project: '프로젝트명',
+      payStatus: '일부 납부',
     },
     {
-      no: 1,
-      username: 'sidego',
       name: '사이드',
+      member: '멤버',
+      position: '백엔드 개발자',
       phone: '010-8888-8888',
       account: '카카오)8888-8888-8888-8888',
-      project: '프로젝트명',
-    },
-    {
-      no: 1,
-      username: 'sidego',
-      name: '사이드',
-      phone: '010-8888-8888',
-      account: '카카오)8888-8888-8888-8888',
-      project: '프로젝트명',
+      payStatus: '완납',
     },
   ];
 
@@ -84,6 +77,21 @@ const DepositPay = ({ visible, onClose }) => {
   const handleCloseModal = () => {
     setVisibleInputIndex(null);
   };
+
+  const colors = data.map((item) => {
+    const status = item.payStatus;
+    let statusColor = null;
+
+    if (status === '완납') {
+      statusColor = color.brand.brandMain;
+    } else if (status === '일부 납부') {
+      statusColor = color.brand.brandSub;
+    } else {
+      statusColor = color.secondary.error_1;
+    }
+
+    return statusColor;
+  });
 
   return (
     <>
@@ -103,42 +111,57 @@ const DepositPay = ({ visible, onClose }) => {
         onClose={onClose}
       >
         <Container>
-          <div className="title">보증금 납입처리</div>
-          <SearchHeader />
-          <div className="search-length">검색결과: 22건</div>
+          <div className="title">납부 현황</div>
+          <div className="header">
+            <div className="header-title" style={{ padding: '0 26px' }}>
+              프로젝트 명
+            </div>
+            <div className="text" style={{ width: '360px' }}>
+              프로젝트 이름입니다.
+            </div>
+            <div className="header-title" style={{ padding: '0 32px', borderLeft: '1px solid var(--Stroke, rgba(255, 255, 255, 0.67))' }}>
+              구성 인원
+            </div>
+            <div className="text">88명</div>
+          </div>
           <TableHeader>
-            <Table type="headerCenter" style={{ width: '80px' }}>
-              No.
-            </Table>
-            <Table type="headerLeft" style={{ width: '120px' }}>
-              아이디
-            </Table>
-            <Table type="headerLeft" style={{ width: '80px' }}>
+            <Table type="headerLeft" style={{ width: '100px' }}>
               이름
             </Table>
-            <Table type="headerLeft" style={{ width: '160px' }}>
+            <Table type="headerLeft" style={{ width: '140px' }}>
+              포지션
+            </Table>
+            <Table type="headerLeft" style={{ width: '120px' }}>
               전화번호
             </Table>
             <Table type="headerLeft" style={{ width: '240px' }}>
               계좌번호
             </Table>
-            <Table type="headerLeft" style={{ width: '247px' }}>
-              프로젝트명
+            <Table type="headerLeft" style={{ width: '328px' }}>
+              납부현황
             </Table>
             <Table type="headerLeft" style={{ width: '72px' }}>
               납부처리
             </Table>
           </TableHeader>
           {data.map((item, index) => (
-            <TableData>
-              <Table type="dataCenter" style={{ width: '80px' }}>
-                {item.no}
+            <TableData key={index}>
+              <Table style={{ width: '100px' }}>
+                <div style={{ display: 'flex' }}>
+                  {item.name}
+                  {item.member === '리더' ? (
+                    <Image src="/images/etc/star_green.svg" width={12} height={12} alt="leader" style={{ marginLeft: '8px' }} />
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </Table>
-              <Table style={{ width: '120px' }}>{item.username}</Table>
-              <Table style={{ width: '80px' }}>{item.name}</Table>
-              <Table style={{ width: '160px' }}>{item.phone}</Table>
+              <Table style={{ width: '140px' }}>{item.position}</Table>
+              <Table style={{ width: '120px' }}>{item.phone}</Table>
               <Table style={{ width: '240px' }}>{item.account}</Table>
-              <Table style={{ width: '247px' }}>{item.project}</Table>
+              <Table style={{ width: '328px', color: colors[index] }} subText="(8,888/8,888)">
+                {item.payStatus}
+              </Table>
               <Table
                 type="dataMore"
                 style={{ width: '72px', cursor: 'pointer', position: 'relative' }}
@@ -168,7 +191,7 @@ const DepositPay = ({ visible, onClose }) => {
   );
 };
 
-export default DepositPay;
+export default PayStatus;
 
 const Container = styled.div`
   display: flex;
@@ -182,6 +205,35 @@ const Container = styled.div`
     font-weight: 400;
     margin-bottom: 22px;
   }
+
+  .header {
+    display: flex;
+    height: 40px;
+
+    padding-right: 10px;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--Stroke, rgba(255, 255, 255, 0.67));
+    background: var(--Fill, linear-gradient(144deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(2, 6, 13, 0.5));
+
+    color: ${color.gray.white};
+    font-size: 14px;
+    font-weight: 400;
+
+    box-sizing: border-box;
+
+    margin-bottom: 32px;
+  }
+  .header-title {
+    display: flex;
+    height: 40px;
+
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid var(--Stroke, rgba(255, 255, 255, 0.67));
+  }
+
   .search-length {
     color: ${color.gray.gray6};
     font-size: 12px;
