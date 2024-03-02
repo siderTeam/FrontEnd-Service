@@ -8,8 +8,13 @@ import Checkbox from '@/components/Checkbox/Checkbox';
 import Button from '@/components/Button/Button';
 
 import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { getAccessToken, postUserSignIn } from '@/api/api';
+import { setCookie } from 'public/lib/util';
+import { useRouter } from 'next/navigation';
 
 const page = () => {
+  const route = useRouter();
   const [isChecked, setIsChecked] = useState(false);
   const [usernameColor, setUsernameColor] = useState('placeholder');
   const [passwordColor, setPasswordColor] = useState('placeholder');
@@ -32,6 +37,27 @@ const page = () => {
     setIsChecked(!isChecked);
   };
 
+  const { mutate } = useMutation({
+    mutationFn: postUserSignIn,
+    onSuccess: async (data) => {
+      if (data.result === true) {
+        await getAccessToken()
+          .then((res) => {
+            setCookie('accessToken', res.data.accessToken);
+          })
+          .then(() => {
+            route.push('/admin/dashBoard');
+          });
+      } else if (data.result === false) {
+        setUsernameColor('failed');
+        setPasswordColor('failed');
+      }
+    },
+    onError: () => {
+      console.log('실패');
+    },
+  });
+
   return (
     <Container>
       <Image src="/images/admin_logo.svg" width={133} height={37} alt="logo" />
@@ -44,7 +70,7 @@ const page = () => {
       </div>
 
       <div className="buttonWrap">
-        <Button size="large" mode="primary">
+        <Button size="large" mode="primary" onClick={() => mutate(form)}>
           로그인
         </Button>
       </div>
