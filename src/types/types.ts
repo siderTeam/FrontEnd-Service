@@ -106,12 +106,12 @@ export type PaginationProps = {
 
 //CheckBox
 export type CheckboxProps = {
-  text: string;
+  text?: string;
   requireText?: string;
   isChecked?: boolean;
   disabled?: boolean;
   name?: string;
-  onChange: (e: any) => void;
+  onChange?: (e: any) => void;
   style?: React.CSSProperties;
   requireStyle?: React.CSSProperties;
 };
@@ -152,3 +152,16 @@ export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   style?: React.CSSProperties;
   rest?: any;
 };
+
+
+//Table
+export type TABLE_TYPE_PROPS = {
+  type?: 'headerLeft' | 'headerCenter' | 'headerCheckbox' | 'dataLeft' | 'dataCenter' | 'dataSubtext' | 'dataMore';
+};
+
+export type TableProps = TABLE_TYPE_PROPS & {
+  children: any;
+  check?: boolean;
+  subText?: string;
+  style?: React.CSSProperties;
+}

@@ -21,6 +21,7 @@ export default Button;
 const BUTTON_TYPE = {
   ['tiny']: {
     padding: '4px 8px',
+    height: '23px',
     borderRadius: '4px',
     gap: '10px',
 
@@ -29,6 +30,7 @@ const BUTTON_TYPE = {
   },
   ['small']: {
     padding: '10px 16px',
+    height: '32px',
     borderRadius: '6px',
     gap: '10px',
 
@@ -37,6 +39,7 @@ const BUTTON_TYPE = {
   },
   ['medium']: {
     padding: '10px 20px',
+    height: '40px',
     borderRadius: '6px',
     gap: '4px',
 
@@ -93,8 +96,6 @@ const StyledButton = styled.button<BUTTON_STYLE_PROPS>`
   justify-content: center;
   align-items: center;
   text-align: center;
-  font-style: normal;
-  line-height: normal;
 
   border: none;
   cursor: ${({ disabled }) => !disabled && 'pointer'};

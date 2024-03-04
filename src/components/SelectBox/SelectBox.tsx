@@ -6,7 +6,7 @@ import { SelectBoxProps } from '@/types/types';
 import { color } from '../../styles/CommonStyles';
 
 const SelectBox = ({ size = 'small', mode = 'primary', value, name, options = [], onChange, style, optionStyle, placeholder }: SelectBoxProps) => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   const handleClickSelect = () => {
     setVisible(!visible);
@@ -29,7 +29,7 @@ const SelectBox = ({ size = 'small', mode = 'primary', value, name, options = []
         {selected.length === 0 ? <span className="placeholder">{placeholder}</span> : <span className="value">{selected[0].label}</span>}
       </StyledSelect>
       {visible && (
-        <OptionWrapper size={size}>
+        <OptionWrapper size={size} style={style}>
           {options?.map((option) => (
             <li onClick={() => handleClick(option.value)} style={optionStyle} key={option.value} value={option.label}>
               {option.label}
@@ -68,9 +68,7 @@ const StyledSelect = styled.div<any>`
 
   color: ${color.white};
   font-size: 16px;
-  font-style: normal;
   font-weight: 400;
-  line-height: normal;
 
   overflow: hidden;
   text-overflow: ellipsis;
@@ -98,9 +96,7 @@ const OptionWrapper = styled.ul<any>`
 
   color: ${color.white};
   font-size: 16px;
-  font-style: normal;
   font-weight: 400;
-  line-height: normal;
 
   box-sizing: border-box;
   background: ${color.black};
@@ -134,6 +130,9 @@ const OptionWrapper = styled.ul<any>`
     padding: 6px 16px;
     justify-content: center;
     align-items: center;
+  }
+
+  li:not(:last-child) {
     border-bottom: 1px solid ${color.gray6};
   }
 
