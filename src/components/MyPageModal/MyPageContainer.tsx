@@ -1,3 +1,5 @@
+'use client';
+
 import Modal from '@/components/Modal/Modal';
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
@@ -26,7 +28,7 @@ const router = [
     iconPath: 'paper',
     activeIconPath: 'paper_green',
     subMenu: [
-      { path: 'myapplication/applications', label: '지원서 관리' },
+      { path: 'MyApplyList', label: '지원서 관리' },
       { path: 'myapplication/createapp', label: '지원서 작성' },
     ],
     height: 38,
@@ -56,6 +58,11 @@ type Route = 'MyPage' | 'MyApply' | 'Payment' | 'Project';
 const MyPageContainer = ({ visible, onClose }: MyPageProps) => {
   const [activePath, setActivePath] = useState<Route>('MyPage');
 
+  // const { data, isLoading } = useQuery({
+  //   queryKey: [rest.get.project],
+  //   queryFn: getProject,
+  // });
+
   const handleClickNav = (nav: Route) => {
     setActivePath(nav);
   };
@@ -72,6 +79,7 @@ const MyPageContainer = ({ visible, onClose }: MyPageProps) => {
         padding: 0,
         border: '1px solid rgba(255, 255, 255, 0.60)',
       }}
+      containerStyle={{ backdropFilter: 'blur(25px)' }}
       visible={visible}
       onClose={onClose}
     >
@@ -116,6 +124,13 @@ const Container = styled.div`
   background: black;
   flex: 1;
   color: white;
+
+  backdrop-filter: blur(25px);
+
+  & > div {
+    padding: 60px 70px;
+    box-sizing: border-box;
+  }
 `;
 
 const SiderBar = styled.ul`

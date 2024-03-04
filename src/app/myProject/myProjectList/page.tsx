@@ -1,21 +1,13 @@
-"use client";
+'use client';
 
-import { getResume } from "@/api/api";
-import { rest } from "@/api/rest";
-import PaginationComponent from "@/components/Pagination/Pagination";
-import styled from "@emotion/styled";
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import PaginationComponent from '@/components/Pagination/Pagination';
+import styled from '@emotion/styled';
+import { useState } from 'react';
 
 const Page = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [page, setPage] = useState(1);
   const items = 12;
-
-  // const resumeData = useQuery({
-  //   queryKey: [rest.get.resume],
-  //   queryFn: getResume,
-  // });
 
   const handlePageChange = (page) => {
     setPage(page);
@@ -25,37 +17,37 @@ const Page = () => {
     {
       id: 1,
       no: 1,
-      title: "마실커피",
-      period: "23.11.18~23.12.18",
-      status: "심사 완료",
+      title: '마실커피',
+      period: '23.11.18~23.12.18',
+      status: '심사 완료',
     },
     {
       id: 1,
       no: 1,
-      title: "마실커피",
-      period: "23.11.18~23.12.18",
-      status: "심사 완료",
+      title: '마실커피',
+      period: '23.11.18~23.12.18',
+      status: '심사 완료',
     },
     {
       id: 1,
       no: 1,
-      title: "마실커피",
-      period: "23.11.18~23.12.18",
-      status: "심사중",
+      title: '마실커피',
+      period: '23.11.18~23.12.18',
+      status: '심사중',
     },
     {
       id: 1,
       no: 1,
-      title: "마실커피",
-      period: "23.11.18~23.12.18",
-      status: "반려",
+      title: '마실커피',
+      period: '23.11.18~23.12.18',
+      status: '반려',
     },
     {
       id: 1,
       no: 1,
-      title: "마실커피",
-      period: "23.11.18~23.12.18",
-      status: "심사중",
+      title: '마실커피',
+      period: '23.11.18~23.12.18',
+      status: '심사중',
     },
   ];
 
@@ -71,13 +63,7 @@ const Page = () => {
           <div className="refunds">환급 여부</div>
         </TableHeader>
         <TableContent></TableContent>
-        <PaginationComponent
-          activePage={page}
-          itemsCountPerPage={items}
-          totalItemsCount={data.length}
-          pageRangeDisplayed={10}
-          onChange={handlePageChange}
-        />
+        <PaginationComponent activePage={page} itemsCountPerPage={items} totalItemsCount={data.length} pageRangeDisplayed={10} onChange={handlePageChange} />
       </div>
     </Container>
   );

@@ -4,9 +4,9 @@ import styled from '@emotion/styled';
 import { ModalProps } from '@/types/types';
 import Image from 'next/image';
 
-const Modal = ({ visible, onClose, children, style }: ModalProps) => {
+const Modal = ({ visible, onClose, children, style, containerStyle }: ModalProps) => {
   return (
-    <Container visible={visible} onClick={onClose}>
+    <Container visible={visible} onClick={onClose} style={containerStyle}>
       <Content style={style} onClick={(e) => e.stopPropagation()}>
         <div onClick={onClose} className="close">
           <Image width={14} height={14} src="/images/x/x_white.svg" alt="close" />
@@ -31,7 +31,6 @@ const Container = styled.div<{ visible: boolean }>`
   align-items: center;
   z-index: 9999;
 `;
-
 
 const Content = styled.div`
   position: relative;

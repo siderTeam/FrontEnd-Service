@@ -32,13 +32,7 @@ export type USER_SIGNUP_REQUEST = {
   positionCode: number[];
 };
 
-export type USER_RESUME_RESPONSE = {
-  id: number;
-  name: string;
-  contents: string;
-  skill: string;
-  positionCodeValueList: number[];
-};
+
 
 export type USER_ID_RESPONSE = {
   id: string;

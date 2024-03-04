@@ -1,30 +1,28 @@
-"use client";
+'use client';
 
-import { CardProps } from "@/types/types";
-import styled from "@emotion/styled";
-import Profile from "../Profile/Profile";
-import Image from "next/image";
-import { color } from "@/styles/color";
+import { CardProps } from '@/types/types';
+import styled from '@emotion/styled';
+import Profile from '../Profile/Profile';
+import Image from 'next/image';
+import { color } from '@/styles/color';
+import { useQuery } from '@tanstack/react-query';
+import { rest } from '@/api/rest';
+import { getProject } from '@/api/api';
 
-const Card = ({
-  children,
-  id,
-  title = "날아라 사이드킥",
-  projectPeriod = "2024.01.20 ~ 2024.02.20",
-  deposit = "10만원",
-}: CardProps) => {
+const Card = ({ children, id, title = '날아라 사이드킥', projectPeriod = '2024.01.20 ~ 2024.02.20', deposit = '10만원' }: CardProps) => {
+
+  const { data, isLoading } = useQuery({
+    queryKey: [rest.get.project],
+    queryFn: getProject,
+  });
+
   return (
     <Container id={id}>
       <span className="endDate">모집 마감일 8888.88.88</span>
       <div className="iconContianer">
         {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((_, index) => (
           <div key={index} className="iconWrapper">
-            <Image
-              src={"/images/skills/git.svg"}
-              alt="git"
-              width={28}
-              height={26}
-            />
+            <Image src={'/images/skills/git.svg'} alt="git" width={28} height={26} />
           </div>
         ))}
       </div>
@@ -56,27 +54,17 @@ const Container = styled.div`
   position: relative;
   overflow: hidden;
   border-radius: 10px;
-  background: linear-gradient(
-      180deg,
-      rgba(153, 19, 41, 0.15) 0%,
-      rgba(0, 0, 0, 0) 100%
-    ),
-    linear-gradient(
-      140deg,
-      rgba(255, 255, 255, 0.001) 0%,
-      rgba(0, 0, 0, 0) 100%
-    ),
-    rgba(2, 6, 13, 0.7);
+  background: linear-gradient(180deg, rgba(153, 19, 41, 0.15) 0%, rgba(0, 0, 0, 0) 100%),
+    linear-gradient(140deg, rgba(255, 255, 255, 0.001) 0%, rgba(0, 0, 0, 0) 100%), rgba(2, 6, 13, 0.7);
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     border-radius: 10px;
     padding: 1px;
     background: linear-gradient(-45deg, #9b1226, #242323);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
   }
@@ -89,17 +77,8 @@ const Container = styled.div`
     height: 342.62px;
     transform: rotate(-30deg);
     flex-shrink: 0;
-    background: linear-gradient(
-        180deg,
-        rgba(255, 0, 42, 0.23) 0%,
-        rgba(0, 0, 0, 0) 100%
-      ),
-      linear-gradient(
-        140deg,
-        rgba(255, 255, 255, 0.1) 0%,
-        rgba(0, 0, 0, 0) 100%
-      ),
-      rgba(2, 6, 13, 0.6);
+    background: linear-gradient(180deg, rgba(255, 0, 42, 0.23) 0%, rgba(0, 0, 0, 0) 100%),
+      linear-gradient(140deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(2, 6, 13, 0.6);
     z-index: -1;
   }
 

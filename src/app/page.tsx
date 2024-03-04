@@ -9,7 +9,7 @@ import Input from '@/components/Input/Input';
 import Modal from '@/components/Modal/Modal';
 import PositionIcon from '@/components/PositionIcon/PositionIcon';
 import Profile from '@/components/Profile/Profile';
-import MyPage from '@/components/pages/myPageModal/MyPageContainer';
+import MyPage from '@/components/MyPageModal/MyPageContainer';
 import { color } from '@/styles/color';
 
 import styled from '@emotion/styled';

@@ -1,8 +1,7 @@
 import { color } from '@/styles/color';
 import '../../public/reset.css';
-import RootContainer from '@/components/RootContainer';
 import '../styles/global.css';
-import Header from '@/components/Header/Header';
+import Provider from '@/components/Container/RootContainer';
 
 export const metadata = {
   title: 'Next.js',
@@ -13,10 +12,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body style={{ background: color.gray.black }}>
-        <Header />
-        <RootContainer>
+        <Provider>
           <div style={{ display: 'flex', justifyContent: 'center' }}>{children}</div>
-        </RootContainer>
+        </Provider>
       </body>
     </html>
   );

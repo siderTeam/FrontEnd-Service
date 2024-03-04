@@ -3,7 +3,7 @@ import {
   CODE_RESPONSE,
   USER_SIGNIN_REQUEST,
   USER_SIGNUP_REQUEST,
-  USER_RESUME_RESPONSE,
+  
 } from "./model";
 import { rest } from "./rest";
 import { API } from "./axiosConfig";
@@ -72,14 +72,3 @@ export const getUserId = async (username: string) => {
   return response.data;
 };
 
-//이력서 목록 가져오기
-export const getResume = async (): Promise<USER_RESUME_RESPONSE[]> => {
-  const response = await API.get(`${rest.get.resume}`, {
-    params: {
-      page: 1,
-      perPage: 50,
-    },
-  });
-
-  return response.data.data;
-};

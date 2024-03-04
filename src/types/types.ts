@@ -84,6 +84,7 @@ export type ModalProps = {
   onClose?: () => void;
   children?: any;
   style?: React.CSSProperties;
+  containerStyle?:React.CSSProperties;
 };
 
 //SelectBox

@@ -2,12 +2,25 @@
 
 import styled from '@emotion/styled';
 import Profile from '../Profile/Profile';
-import MyPageContainer from '../pages/myPageModal/MyPageContainer';
-import { useState } from 'react';
+import MyPageContainer from '../MyPageModal/MyPageContainer';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useQuery } from '@tanstack/react-query';
+import { rest } from '@/api/rest';
+import { getProject } from '@/api/api';
 
 const Header = () => {
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
+
+  const { data, isLoading } = useQuery({
+    queryKey: [rest.get.project],
+    queryFn: getProject,
+  });
+
+
+  useEffect(() => {
+    setModal(true)
+  }, [])
 
   const handleCloseModal = () => {
     setModal(false);
