@@ -80,18 +80,6 @@ const ProjectStatus = () => {
         <div className="deposit">보증금</div>
         <div className="status">상태</div>
       </TableHeader>
-      <TableContent>
-        {resumeData?.slice(items * (page - 1), items * (page - 1) + items).map((content, index) => (
-          <ul>
-            {/* <li className='number'>{(page - 1) * items + index + 1}</li> */}
-            <li className="number">{content.number}</li>
-            <li className="project">{content.name}</li>
-            <li className="member">{content.member}</li>
-            <li className="deposit">{content.deposit}</li>
-            <li className="status">{content.status}</li>
-          </ul>
-        ))}
-      </TableContent>
     </Container>
   );
 };

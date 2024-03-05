@@ -13,7 +13,7 @@ import { getAccessToken, postUserSignIn } from '@/api/api';
 import { setCookie } from 'public/lib/util';
 import { useRouter } from 'next/navigation';
 
-const page = () => {
+const Page = () => {
   const route = useRouter();
   const [isChecked, setIsChecked] = useState(false);
   const [usernameColor, setUsernameColor] = useState('placeholder');
@@ -62,15 +62,15 @@ const page = () => {
     <Container>
       <Image src="/images/admin_logo.svg" width={133} height={37} alt="logo" />
       <div className="inputWrap">
-        <Input size="large" color={usernameColor} placeholder="아이디" name="username" onChange={handleChange} />
-        <Input size="large" color={passwordColor} placeholder="비밀번호" name="password" onChange={handleChange} type="password" />
+        <Input size="large" placeholder="아이디" name="username" onChange={handleChange} />
+        <Input size="large" placeholder="비밀번호" name="password" onChange={handleChange} type="password" />
         <div className="save">
           <Checkbox type={isChecked ? 'checked' : 'unchecked'} className="checkbox" text="아이디 저장" checked={isChecked} onClick={handleChecked} />
         </div>
       </div>
 
       <div className="buttonWrap">
-        <Button size="large" mode="primary" onClick={() => mutate(form)}>
+        <Button size="large" variant="primary" onClick={() => mutate(form)}>
           로그인
         </Button>
       </div>
@@ -78,7 +78,7 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
 
 const Container = styled.div`
   display: flex;

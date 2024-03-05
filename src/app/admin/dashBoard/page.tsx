@@ -38,10 +38,10 @@ const Page = () => {
       <button onClick={handleAlert}>test</button>
       <Alert visible={visible} text="메인 텍스트" subText="서브 텍스트">
         <div style={{ display: 'flex', gap: '8px' }}>
-          <Button size="small" mode="secondary">
+          <Button size="small" variant="secondary">
             text
           </Button>
-          <Button size="small" mode="primary">
+          <Button size="small" variant="primary">
             text
           </Button>
         </div>

@@ -51,8 +51,12 @@ const router = [
         path: '/projectCompletion',
         label: '프로젝트 준공 심사',
       },
+      {
+        path: '/depositReturn',
+        label: '보증금 반환',
+      },
     ],
-    height: 100,
+    height: 125,
   },
 ];
 
