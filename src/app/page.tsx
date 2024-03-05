@@ -1,26 +1,18 @@
 'use client';
 
 import { rest } from '@/api/rest';
-import Button from '@/components/Button/Button';
 import Card from '@/components/Card/Card';
-
-import Input from '@/components/Input/Input';
 import PositionIcon from '@/components/PositionIcon/PositionIcon';
 
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import Link from 'next/link';
-import Modal from '@/components/Modal/Modal';
-import Image from 'next/image';
-import SelectBox from '@/components/SelectBox/SelectBox';
 import SelectInput from '@/components/SelectInput/SelectInput';
 import { getCode, getProject } from '@/api/api';
 
 const Page = () => {
   const [filterType, setFilterType] = useState('all');
-  const [visible, setVisible] = useState(false);
   const [selectJob, setSelectJob] = useState('몇글자지');
 
   const projectData = useQuery({
