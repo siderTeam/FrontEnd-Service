@@ -37,24 +37,6 @@ export type LabelProps = {
   isValid?: boolean;
 };
 
-//Button
-
-export type BUTTON_STYLE_PROPS = {
-  size?: 'tiny' | 'small' | 'medium' | 'large' | 'in_input';
-  mode?: 'primary' | 'secondary';
-};
-
-export type ButtonProps = BUTTON_STYLE_PROPS & {
-  children: any;
-  style?: React.CSSProperties;
-  onClick?: () => void;
-  rightIcon?: string;
-  leftIcon?: string;
-  iconStyle?: React.CSSProperties;
-  className?: string;
-  disabled?: any;
-};
-
 //CheckBox
 
 export type CHECKBOX_TYPE_PROPS = {

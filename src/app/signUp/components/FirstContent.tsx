@@ -89,7 +89,7 @@ const FirstContent = ({ onClick }: Props) => {
       </div>
 
       <div className="button-wrapper">
-        <Button mode="primary" onClick={onClick} style={{ width: '100%' }} disabled={!checkForm.all}>
+        <Button variant="primary" onClick={onClick} style={{ width: '100%' }} disabled={!checkForm.all}>
           다음
         </Button>
       </div>

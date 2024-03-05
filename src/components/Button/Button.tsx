@@ -1,24 +1,37 @@
 'use client';
-
-import { ButtonProps } from '@/types/types';
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 
+export type BUTTON_STYLE_PROPS = {
+  size?: 'tiny' | 'small' | 'medium' | 'large' | 'in_input';
+  variant?: 'primary' | 'secondary';
+};
+
+export type ButtonProps = BUTTON_STYLE_PROPS & {
+  children: any;
+  style?: React.CSSProperties;
+  onClick?: () => void;
+  rightIcon?: string;
+  leftIcon?: string;
+  iconStyle?: React.CSSProperties;
+  className?: string;
+  disabled?: any;
+};
+
 const Button = ({
   children,
-  size = 'large',
-  mode = 'primary',
+  size = 'medium',
+  variant = 'primary',
   style,
   iconStyle,
   onClick,
   rightIcon,
   leftIcon,
-
   className,
   ...rest
 }: ButtonProps) => {
   return (
-    <StyledButton size={size} mode={mode} style={style} onClick={onClick} className={className} {...rest}>
+    <StyledButton size={size} variant={variant} style={style} onClick={onClick} className={className} {...rest}>
       <div className="text_icon_wrap">
         {leftIcon && <Icon src={leftIcon} style={{ marginRight: '10px' }} />}
         {children}
@@ -106,18 +119,15 @@ const StyledButton = styled.button<ButtonProps>`
   text-align: center;
   font-style: normal;
   line-height: normal;
-
   cursor: pointer;
-
   border: none;
-
   cursor: ${({ disabled }) => !disabled && 'pointer'};
-
+  white-space: nowrap;
   ${({ size }) => SIZE_TYPE[size as 'medium']};
-  ${({ mode }) => COLOR_TYPE[mode as 'primary']};
+  ${({ variant }) => COLOR_TYPE[variant as 'primary']};
 
   &:disabled {
-    ${({ mode }) => DISABLED_TYPE[mode as 'primary']};
+    ${({ variant }) => DISABLED_TYPE[variant as 'primary']};
   }
 
   &:hover:not(:disabled) {

@@ -11,7 +11,11 @@ import { getUserId, postUserSignUp } from '@/api/api';
 import { useRouter } from 'next/navigation';
 import { rest } from '@/api/rest';
 
-const SecondContent = ({ onClick }) => {
+interface Props {
+  onClick: () => void;
+}
+
+const SecondContent = ({ onClick }: Props) => {
   const route = useRouter();
   const [form, setForm] = useState<USER_SIGNUP_REQUEST>({
     username: '',
@@ -74,17 +78,17 @@ const SecondContent = ({ onClick }) => {
       </div>
 
       <div className="input-wrap">
-        <Input size="large" placeholder="아이디" name="username" errorText="dd" buttonText="중복확인" />
+        <SecondContentInput size="large" placeholder="아이디" name="username" errorText="dd" buttonText="중복확인" />
 
-        <Input placeholder="비밀번호" name="password" type="password" />
-        <Input placeholder="비밀번호 확인" name="passwordConfirm" type="password" />
-        <Input placeholder="이름" name="name" />
-        <Input placeholder="닉네임" name="nickname" />
-        <Input placeholder="전화번호" name="phone" />
+        <SecondContentInput placeholder="비밀번호" name="password" type="password" />
+        <SecondContentInput placeholder="비밀번호 확인" name="passwordConfirm" type="password" />
+        <SecondContentInput placeholder="이름" name="name" />
+        <SecondContentInput placeholder="닉네임" name="nickname" />
+        <SecondContentInput placeholder="전화번호" name="phone" />
       </div>
 
       <div className="button-wrapper">
-        <Button mode="primary" onClick={onClick} style={{ width: '100%' }}>
+        <Button variant="primary" onClick={onClick} style={{ width: '100%' }}>
           다음
         </Button>
       </div>
@@ -98,20 +102,15 @@ export default SecondContent;
 const SignupContainer = styled.div`
   display: flex;
   flex-direction: column;
-
   width: 624px;
   height: 785px;
   flex-shrink: 0;
-
   padding: 56px;
-
   box-sizing: border-box;
-
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.67);
   background: linear-gradient(144deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(2, 6, 13, 0.5);
   backdrop-filter: blur(20px);
-
   overflow: hidden;
   position: relative;
 
@@ -121,9 +120,7 @@ const SignupContainer = styled.div`
     transform: rotate(-30deg);
     flex-shrink: 0;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0) 100%);
-
     position: absolute;
-    /* overflow: hidden; */
     right: 120px;
     top: -50px;
 
@@ -133,11 +130,8 @@ const SignupContainer = styled.div`
     width: 100px;
     height: 8px;
     flex-shrink: 0;
-
     background-color: ${color.gray.gray8};
-
     border-radius: 26px;
-
     margin-bottom: 56px;
     position: relative;
 
@@ -145,21 +139,17 @@ const SignupContainer = styled.div`
       width: 50%;
       height: 8px;
       flex-shrink: 0;
-
       background-color: ${color.brand.brandMain};
-
       border-radius: 26px 0 0 26px;
       position: absolute;
     }
   }
   .text {
     color: ${color.gray.gray3};
-
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-
     margin-bottom: 32px;
   }
 
@@ -168,13 +158,11 @@ const SignupContainer = styled.div`
     flex-direction: column;
     gap: 12px;
     position: relative;
-
     box-sizing: border-box;
   }
 
   .button {
     position: absolute;
-
     top: 3px;
     right: 3px;
   }
@@ -185,4 +173,8 @@ const SignupContainer = styled.div`
     justify-content: flex-end;
     align-items: end;
   }
+`;
+
+const SecondContentInput = styled(Input)`
+  width: 100%;
 `;

@@ -43,7 +43,7 @@ const Input = ({
         {icon && <img src={icon} className="search" />}
 
         {buttonText && (
-          <Button size="in_input" mode="primary" onClick={onClick} className="button" disabled>
+          <Button size="in_input" variant="primary" onClick={onClick} className="button" disabled>
             {buttonText}
           </Button>
         )}
@@ -120,7 +120,6 @@ const StyledInput = styled.input<any>`
   outline: none;
 
   &::placeholder {
-    border: 1px solid ${color.gray.gray6};
     color: ${color.gray.gray7};
   }
 
