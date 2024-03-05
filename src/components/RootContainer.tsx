@@ -1,25 +1,25 @@
 'use client';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import HeaderContainer from './HeaderContainer';
+import RootHeader from './RootHeader';
 
 const RootContainer = ({ children }: any) => {
-  const [redered, setRedered] = useState(false);
+  const [rendered, setRendered] = useState(false);
   const queryClient = new QueryClient();
 
   useEffect(() => {
-    setRedered(true);
+    setRendered(true);
   }, []);
 
-  return redered ? (
-    <QueryClientProvider client={queryClient}>
-      <HeaderContainer />
-      <div style={{ zIndex: 9999 }}>{children}</div>
-    </QueryClientProvider>
-  ) : (
-    <span>렌더안댐</span>
+  return (
+    rendered && (
+      <QueryClientProvider client={queryClient}>
+        <RootHeader />
+        {children}
+      </QueryClientProvider>
+    )
   );
 };
 

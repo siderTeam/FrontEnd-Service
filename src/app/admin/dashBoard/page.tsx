@@ -5,8 +5,16 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import ProjectStatus from './components/ProjectStatus/ProjectStatus';
 import WaitingReview from './components/WaitingReview/WaitingReview';
+import Calendar from '@/components/Calendar/Calendar';
+import Alert from '@/components/Alert/Alert';
+import Button from '@/components/Button/Button';
 
 const Page = () => {
+  const [visible, setVisible] = useState(false);
+
+  const handleAlert = () => {
+    setVisible(true);
+  };
   return (
     <Container>
       <div style={{ display: 'flex', gap: '20px' }}>
@@ -14,6 +22,9 @@ const Page = () => {
           <div className="graph-wrap">전체 회원 수</div>
           <div className="graph-wrap">금일 방문자 수</div>
         </div>
+
+        <Calendar />
+
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div className="list-wrap">
             <ProjectStatus />
@@ -23,6 +34,18 @@ const Page = () => {
           </div>
         </div>
       </div>
+
+      <button onClick={handleAlert}>test</button>
+      <Alert visible={visible} text="메인 텍스트" subText="서브 텍스트">
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <Button size="small" mode="secondary">
+            text
+          </Button>
+          <Button size="small" mode="primary">
+            text
+          </Button>
+        </div>
+      </Alert>
     </Container>
   );
 };

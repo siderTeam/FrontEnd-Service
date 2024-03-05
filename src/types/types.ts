@@ -181,3 +181,14 @@ export type TableProps = TABLE_TYPE_PROPS & {
   style?: React.CSSProperties;
   onClick?: () => void;
 };
+
+//Alert
+
+export type AlertProps = {
+  visible?: boolean;
+  onClick?: () => void;
+  children?: any;
+  style?: React.CSSProperties;
+  text?: string;
+  subText?: string;
+};
