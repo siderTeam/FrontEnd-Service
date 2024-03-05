@@ -5,15 +5,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import MyPage from './MyPage';
 import MyApply from './MyApply';
-import Payment from './Payment';
 import Project from './Proejct';
-import ApplyList from './ApplyList';
-import ApplyCreate from './ApplyCreate';
-import ApplyDetail from './ApplyDetail';
-import MyProject from './MyProject';
-import ApplyStatus from './ApplyStatus';
-import RecruitmentStatus from './RecruitmentStatus';
-import RecruitmentDetail from './RecruitmentDetail';
 
 interface MyPageProps {
   visible: boolean;
@@ -32,33 +24,18 @@ const router = [
     label: '내 지원서',
     iconPath: 'paper',
     activeIconPath: 'paper_green',
-    subMenu: [
-      { path: 'ApplyList', label: '지원서 관리' },
-      { path: 'ApplyCreate', label: '지원서 작성' },
-    ],
     height: 38,
-  },
-  {
-    path: 'Payment',
-    label: '결제 내역',
-    iconPath: 'paper',
-    activeIconPath: 'paper_green',
   },
   {
     path: 'Project',
     label: '프로젝트',
     iconPath: 'monitor',
     activeIconPath: 'monitor_green',
-    subMenu: [
-      { path: 'MyProject', label: '내 프로젝트' },
-      { path: 'ApplyStatus', label: '지원 현황' },
-      { path: 'RecruitmentStatus', label: '모집 현황' },
-    ],
     height: 62,
   },
 ];
 
-type Route = 'MyPage' | 'MyApply' | 'ApplyList' | 'ApplyCreate' | 'Payment' | 'Project' | 'MyProject' | 'ApplyStatus' | 'RecruitmentStatus';
+type Route = 'MyPage' | 'MyApply' | 'Project';
 
 const MyPageContainer = ({ visible, onClose }: MyPageProps) => {
   const [activeMenu, setActiveMenu] = useState<Route>('MyPage');
@@ -91,33 +68,14 @@ const MyPageContainer = ({ visible, onClose }: MyPageProps) => {
       <div style={{ display: 'flex', height: '100%' }}>
         <SiderBar>
           {router.map((item) => {
-            const { subMenu } = item;
             const isActive = activeMenu.includes(item.path);
             const openSub = item.path === openMenu;
             const iconPath = `/images/etc/${isActive ? item.activeIconPath : item.iconPath}.svg`;
 
             return (
-              <li
-                className={isActive ? 'menu active' : 'menu'}
-                key={item.path}
-                onClick={subMenu ? () => handleClickOpen(item.path as Route) : () => handleClickMenu(item.path as Route)}
-              >
+              <li className={isActive ? 'menu active' : 'menu'} key={item.path} onClick={() => handleClickMenu(item.path as Route)}>
                 <Image src={iconPath} alt={item.label} width={16} height={16} />
                 <span>{item.label}</span>
-
-                {subMenu && (
-                  <StyledSubMenu height={item.height} openSub={openSub}>
-                    {subMenu?.map((subMenu) => {
-                      const isSubActive = subMenu.path === activeMenu;
-
-                      return (
-                        <li className={isSubActive ? 'active' : ''} key={subMenu.path} onClick={() => handleClickMenu(subMenu.path as Route)}>
-                          {subMenu.label}
-                        </li>
-                      );
-                    })}
-                  </StyledSubMenu>
-                )}
               </li>
             );
           })}
@@ -127,13 +85,7 @@ const MyPageContainer = ({ visible, onClose }: MyPageProps) => {
         <Container>
           {activeMenu === 'MyPage' && <MyPage />}
           {activeMenu === 'MyApply' && <MyApply />}
-          {activeMenu === 'ApplyList' && <ApplyList />}
-          {activeMenu === 'ApplyCreate' && <ApplyCreate />}
-          {activeMenu === 'Payment' && <Payment />}
           {activeMenu === 'Project' && <Project />}
-          {activeMenu === 'MyProject' && <MyProject />}
-          {activeMenu === 'ApplyStatus' && <ApplyStatus />}
-          {activeMenu === 'RecruitmentStatus' && <RecruitmentStatus />}
         </Container>
       </div>
     </Modal>

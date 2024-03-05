@@ -7,7 +7,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 const Header = () => {
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(true);
 
   const handleCloseModal = () => {
     setModal(false);

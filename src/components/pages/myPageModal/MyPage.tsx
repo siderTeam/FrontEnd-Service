@@ -47,7 +47,7 @@ const MyPage = () => {
         <TextArea size="full" color="primary" style={{ marginTop: '4px' }} onChange={onTextareaHandler} maxLength={100} textareaCount={textareaCount} />
       </Label>
       <div className="button-wrap">
-        <Button size="medium" mode="primary">
+        <Button size="medium" variant="primary">
           저장
         </Button>
       </div>

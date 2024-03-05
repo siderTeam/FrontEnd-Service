@@ -29,7 +29,7 @@ const RecruitmentDetail = () => {
       </div>
       <div className="delete">강제 퇴장</div>
       <div className="button-wrap">
-        <Button size="medium" mode="secondary">
+        <Button size="medium" variant="secondary">
           이전
         </Button>
       </div>
