@@ -111,7 +111,7 @@ const InputContainer = styled.div`
 
 const StyledInput = styled.input<any>`
   ${({ size }) => INPUT_TYPE[size as 'large']};
-  ${({ color }) => COLOR_TYPE[color as 'placeholder']};
+  ${({ color }) => COLOR_TYPE[color as 'primary']};
   display: flex;
   align-items: center;
   font-weight: 400;

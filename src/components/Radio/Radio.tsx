@@ -1,37 +1,38 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import { RADIO_BUTTON_TYPE_PROPS, RadioButtonProps } from "@/types/types";
-import { color } from "@/styles/color";
+import styled from '@emotion/styled';
+import { color } from '@/styles/color';
 
-const Radio = ({
-  text,
-  requireText,
-  className,
-  onChange,
-  onClick,
-  style,
-  requireStyle,
-  disabled,
-  size = "small",
-  isChecked,
-}: RadioButtonProps) => {
+export type RadioButtonProps = {
+  text?: string;
+  requireText?: string;
+  isChecked?: boolean;
+  name?: string;
+  onChange?: (e: any) => void;
+  onClick?: () => void;
+  style?: React.CSSProperties;
+  requireStyle?: React.CSSProperties;
+  radioStyle?: React.CSSProperties;
+  className?: string;
+  disabled?: boolean;
+  size?: 'small' | 'big';
+};
+
+const Radio = ({ text, requireText, className, onChange, onClick, style, radioStyle, requireStyle, disabled, size = 'small', isChecked }: RadioButtonProps) => {
   return (
-    <Container>
+    <Container style={style}>
       <StyledRadio
-        type='checkbox'
+        type="checkbox"
         disabled={disabled}
         onChange={onChange}
         onClick={onClick}
-        style={style}
+        style={radioStyle}
         className={className}
         size={size as never}
         checked={isChecked}
       />
       <StyledLabel>{text}</StyledLabel>
-      {requireText && (
-        <StyledRequire style={requireStyle}>{requireText}</StyledRequire>
-      )}
+      {requireText && <StyledRequire style={requireStyle}>{requireText}</StyledRequire>}
     </Container>
   );
 };
@@ -49,13 +50,13 @@ const SIZE = {
   },
 };
 
-const Container = styled.div`
+const Container = styled.label`
   display: flex;
   align-items: center;
 `;
 
-const StyledRadio = styled.input<RADIO_BUTTON_TYPE_PROPS>`
-  ${({ size }) => SIZE[size]}
+const StyledRadio = styled.input<RadioButtonProps>`
+  ${({ size }) => SIZE[size as unknown as 'big' | 'small']}
   border-radius: 100%;
   background-color: transparent;
   border: 1px solid ${color.gray.gray4};
@@ -73,17 +74,17 @@ const StyledRadio = styled.input<RADIO_BUTTON_TYPE_PROPS>`
   }
 
   &:checked {
-    background-image: url("/images/radio/Checked_Big.svg");
+    background-image: url('/images/radio/Checked_Big.svg');
     border: none;
   }
 
   &:disabled {
-    background-image: url("/images/radio/Disabled_Big.svg");
+    background-image: url('/images/radio/Disabled_Big.svg');
     border: none;
   }
 
   &:checked&:disabled {
-    background-image: url("/images/radio/DisabledCheck_Big.svg");
+    background-image: url('/images/radio/DisabledCheck_Big.svg');
     border: none;
   }
 `;
