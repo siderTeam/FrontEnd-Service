@@ -92,7 +92,9 @@ const TableRow = styled.div`
   }
 `;
 
-const TableHeader = styled.div``;
+const TableHeader = styled.div`
+  font-size: 30px;
+`;
 
 const TableBody = styled.div<{ useMinHeight: boolean }>`
   min-height: ${({ useMinHeight }) => (useMinHeight ? '560px' : 'auto')};
