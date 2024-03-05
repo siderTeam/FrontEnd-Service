@@ -2,9 +2,7 @@
 
 import styled from '@emotion/styled';
 import { AlertProps } from '@/types/types';
-import Image from 'next/image';
 import { color } from '@/styles/color';
-import Button from '../Button/Button';
 
 const Alert = ({ visible, onClick, children, style, text, subText }: AlertProps) => {
   return (
