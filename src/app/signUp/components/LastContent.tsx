@@ -3,12 +3,8 @@
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Button from '@/components/Button/Button';
-import SelectBox from '@/components/SelectBox/SelectBox';
-import Input from '@/components/Input/Input';
-import { useQuery } from '@tanstack/react-query';
-import { getCode } from '@/api/api';
-import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const LastContent = () => {
   return (
@@ -22,7 +18,7 @@ const LastContent = () => {
         이제 사이드고를 이용할 수 있어요.
       </div>
 
-      <img src="/images/다운로드.jpg" alt="이미지" className="image" />
+      <Image src="/images/다운로드.jpg" alt="이미지" className="image" />
 
       <div className="button-wrapper">
         <Link href="/" style={{ width: '100%' }}>
@@ -39,17 +35,12 @@ export default LastContent;
 const SignupContainer = styled.div`
   display: flex;
   flex-direction: column;
-
   width: 624px;
   height: 785px;
   flex-shrink: 0;
-
   overflow: hidden;
-
   padding: 56px;
-
   box-sizing: border-box;
-
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.67);
   background: linear-gradient(144deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(2, 6, 13, 0.5);
@@ -61,9 +52,7 @@ const SignupContainer = styled.div`
     transform: rotate(-30deg);
     flex-shrink: 0;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0) 100%);
-
     position: absolute;
-    /* overflow: hidden; */
     right: 120px;
     top: -50px;
   }
@@ -71,11 +60,8 @@ const SignupContainer = styled.div`
     width: 100px;
     height: 8px;
     flex-shrink: 0;
-
     background-color: ${color.gray.gray8};
-
     border-radius: 26px;
-
     margin-bottom: 56px;
     position: relative;
 
@@ -83,30 +69,24 @@ const SignupContainer = styled.div`
       width: 100%;
       height: 8px;
       flex-shrink: 0;
-
       background-color: ${color.brand.brandMain};
-
       border-radius: 26px;
       position: absolute;
     }
   }
   .text {
     color: ${color.gray.gray3};
-
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-
     margin-bottom: 32px;
   }
   .image {
     display: flex;
-
     margin-top: 56px;
     margin-left: 88px;
     margin-bottom: 56px;
-
     width: 339px;
     height: 339px;
     flex-shrink: 0;

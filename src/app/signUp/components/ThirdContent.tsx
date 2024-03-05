@@ -3,13 +3,13 @@
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Button from '@/components/Button/Button';
-import SelectBox from '@/components/SelectBox/SelectBox';
 import Input from '@/components/Input/Input';
-import { useQuery } from '@tanstack/react-query';
-import { getCode } from '@/api/api';
-import { useState } from 'react';
 
-const ThirdContent = ({ onClick }) => {
+interface Props {
+  onClick: () => void;
+}
+
+const ThirdContent = ({ onClick }: Props) => {
   // //포지션 데이터
   // const positionData = useQuery({
   //   queryKey: ["position", jobId],
@@ -39,7 +39,7 @@ const ThirdContent = ({ onClick }) => {
       <div className="complete-text">거의 다 왔어요!</div>
 
       <div className="button-wrapper">
-        <Button mode="primary" onClick={onClick} style={{ width: '100%' }}>
+        <Button variant="primary" onClick={onClick} style={{ width: '100%' }}>
           다음
         </Button>
       </div>
