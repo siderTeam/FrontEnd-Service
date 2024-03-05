@@ -11,6 +11,8 @@ import Calendar from '@/components/Calendar/Calendar';
 const SearchHeader = () => {
   const [inputValue, setInputValue] = useState('');
   const [selectValue, setSelectValue] = useState('');
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date());
 
   //검색어 selectbox
   const handleSelectChange = (name: string, value: string) => {
@@ -25,7 +27,11 @@ const SearchHeader = () => {
   return (
     <SearchWrap>
       <div className="subtitle">반환 요청일(기간)</div>
-      <Calendar />
+      <DatePickerWrap>
+        <Calendar selectedDate={startDate} setSelectedDate={setStartDate} />
+        <div className="dash">-</div>
+        <Calendar selectedDate={endDate} setSelectedDate={setEndDate} />
+      </DatePickerWrap>
 
       <div className="subtitle status">환급현황</div>
       <SelectBox
@@ -103,5 +109,25 @@ const SearchWrap = styled.div`
     justify-content: end;
     gap: 4px;
     margin-right: 4px;
+  }
+`;
+
+const DatePickerWrap = styled.div`
+  display: flex;
+  width: 265px;
+  height: 30px;
+  box-sizing: border-box;
+  padding: 6px 16px;
+  justify-content: space-between;
+  align-items: center;
+
+  border-radius: 6px;
+  border: 1px solid ${color.gray6};
+
+  .dash {
+    color: ${color.gray7};
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0 17px 0 17px;
   }
 `;

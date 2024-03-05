@@ -2,34 +2,52 @@
 
 import styled from '@emotion/styled';
 import { color } from '@/styles/CommonStyles';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/locale'; //한국어 설정
 import Image from 'next/image';
 
-const formatDate = (d: Date) => {
-  const date = new Date(d);
+type DateProps = {
+  selectedDate: Date;
+  setSelectedDate: Dispatch<SetStateAction<Date>>;
+};
+
+const formatDate = (value: Date) => {
+  const date = new Date(value);
   const month = date.getMonth() + 1;
 
   return `${`0${month}`.slice(-2)}월`;
 };
 
-const Calendar = () => {
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [endDate, setEndDate] = useState<Date>(new Date());
+const Calendar = ({ selectedDate, setSelectedDate }: DateProps) => {
+  //선택 날짜로부터 마이너스 날짜(-7일, -30일)
+  const handleClickMinus = (day: number) => {
+    const start = new Date(selectedDate);
+    start.setDate(start.getDate() - day);
+
+    setSelectedDate(start);
+  };
 
   return (
     <Container>
-      <StyledDatePicker // DatePicker의 styled-component명
+      <StyledDatePicker
         locale={ko}
         showPopperArrow={false}
         dateFormat="yyyy / MM / dd"
-        selected={startDate}
-        onChange={(date: Date) => setStartDate(date)}
-        renderCustomHeader={({ date, changeMonth, decreaseMonth, increaseMonth, prevMonthButtonDisabled, nextMonthButtonDisabled }) => (
+        selected={selectedDate}
+        onChange={(date: Date) => setSelectedDate(date)}
+        renderCustomHeader={({ date, decreaseMonth, increaseMonth, prevMonthButtonDisabled, nextMonthButtonDisabled }) => (
           <div className="customHeaderContainer">
-            <div></div>
+            <ButtonWrap>
+              <button className="button">전체</button>
+              <button className="button" onClick={() => handleClickMinus(7)}>
+                -7일
+              </button>
+              <button className="button" onClick={() => handleClickMinus(30)}>
+                -30일
+              </button>
+            </ButtonWrap>
             <div>
               <button className="monthButton" onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
                 {<Image src={'/images/icons/arrow_left_white.svg'} alt="arrow_left" width={5} height={9} />}
@@ -42,8 +60,6 @@ const Calendar = () => {
           </div>
         )}
       />
-      <span className="dash">-</span>
-      <StyledDatePicker locale={ko} showPopperArrow={false} dateFormat="yyyy / MM / dd" selected={endDate} onChange={(date: Date) => setEndDate(date)} />
     </Container>
   );
 };
@@ -51,24 +67,6 @@ const Calendar = () => {
 export default Calendar;
 
 const Container = styled.div`
-  display: flex;
-  width: 265px;
-  height: 30px;
-  box-sizing: border-box;
-  padding: 6px 16px;
-  justify-content: space-between;
-  align-items: center;
-
-  border-radius: 6px;
-  border: 1px solid ${color.gray6};
-
-  .dash {
-    color: ${color.gray7};
-    font-size: 14px;
-    font-weight: 400;
-    margin: 0 17px 0 17px;
-  }
-
   .customHeaderContainer {
     display: flex;
     justify-content: space-between;
@@ -97,7 +95,6 @@ const Container = styled.div`
     font-weight: 400;
 
     width: 265px;
-    height: 189px;
 
     border-radius: 0px 0px 6px 6px;
     border-right: 1px solid ${color.gray6};
@@ -116,10 +113,6 @@ const Container = styled.div`
     .react-datepicker__week {
       display: flex;
       justify-content: space-between;
-
-      .react-datepicker__day {
-        margin: 2px;
-      }
     }
 
     .react-datepicker__header {
@@ -136,12 +129,16 @@ const Container = styled.div`
 
     .react-datepicker__day,
     .react-datepicker__day-name {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
       box-sizing: border-box;
       padding: 2px;
       width: 19px;
       height: 19px;
       line-height: normal;
-      margin: 0;
+      margin: 2px;
     }
 
     .react-datepicker__day-name {
@@ -152,7 +149,7 @@ const Container = styled.div`
       color: ${color.white};
     }
 
-    .react-datepicker__day:hover {
+    .react-datepicker__day:hover:not(.react-datepicker__day--selected) {
       background: ${color.gray9};
     }
 
@@ -166,6 +163,10 @@ const Container = styled.div`
       background: ${color.gray9};
       border-radius: 4px;
     }
+
+    .react-datepicker__day--outside-month {
+      color: ${color.gray6};
+    }
   }
 `;
 
@@ -176,6 +177,30 @@ const StyledDatePicker = styled(DatePicker)`
 
   font-size: 14px;
   font-weight: 400;
-  color: ${color.gray7};
+  //color: ${color.gray7};
+  color: ${color.white};
   text-align: center;
+`;
+
+const ButtonWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 4px 8px;
+
+    border-radius: 6px;
+    border: none;
+    background: ${color.gray9};
+    cursor: pointer;
+
+    color: ${color.white};
+    font-size: 12px;
+    font-weight: 400;
+  }
 `;
