@@ -14,7 +14,7 @@ const Input = ({
   placeholder,
   errorText,
   size = 'large',
-  color = 'placeholder',
+  color = 'primary',
   icon,
   style,
   buttonText,
@@ -78,29 +78,21 @@ const INPUT_TYPE = {
 };
 
 const COLOR_TYPE = {
-  ['placeholder']: {
-    border: ` 1px solid ${color.gray.gray6}`,
-    color: color.gray.gray7,
-  },
-  ['filled']: {
+  ['primary']: {
     border: ` 1px solid ${color.gray.gray6}`,
     color: color.gray.white,
   },
-  ['active']: {
+  ['success']: {
     border: ` 1px solid ${color.brand.brandMain}`,
     color: color.gray.white,
   },
-  ['failed']: {
+  ['error']: {
     border: ` 1px solid ${color.secondary.error_1}`,
     color: color.gray.white,
   },
   ['positive']: {
     border: ` 1px solid ${color.secondary.positive_1}`,
     color: color.gray.white,
-  },
-  ['disabled']: {
-    border: ` 1px solid ${color.gray.gray9}`,
-    color: color.gray.gray8,
   },
 };
 
@@ -120,18 +112,21 @@ const InputContainer = styled.div`
 const StyledInput = styled.input<any>`
   ${({ size }) => INPUT_TYPE[size as 'large']};
   ${({ color }) => COLOR_TYPE[color as 'placeholder']};
-
   display: flex;
   align-items: center;
-
   font-weight: 400;
-
   background: none;
   box-sizing: border-box;
   outline: none;
 
   &::placeholder {
-    color: ${({ color }) => COLOR_TYPE[color as 'placeholder']};
+    border: 1px solid ${color.gray.gray6};
+    color: ${color.gray.gray7};
+  }
+
+  &:disabled {
+    border: 1px solid ${color.gray.gray9};
+    color: ${color.gray.gray8};
   }
 
   .search {
@@ -140,7 +135,7 @@ const StyledInput = styled.input<any>`
 `;
 
 const ErrorText = styled.div<InputProps>`
-  color: ${(props) => (props.color === 'failed' ? color.secondary.error_1 : props.color === 'positive' ? color.secondary.positive_1 : '')};
+  color: ${(props) => (props.color === 'error' ? color.secondary.error_1 : props.color === 'positive' ? color.secondary.positive_1 : '')};
 
   font-size: 12px;
   font-style: normal;

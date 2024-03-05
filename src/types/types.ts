@@ -1,12 +1,9 @@
 import { InputHTMLAttributes } from 'react';
-import { ButtonHTMLAttributes } from 'react';
 import { TextareaHTMLAttributes } from 'react';
-
-//Input
 
 export type INPUT_STYLE_PROPS = {
   size?: 'small' | 'medium' | 'large';
-  color?: string;
+  color?: 'primary' | 'success' | 'error' | 'positive';
 };
 
 export type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>;

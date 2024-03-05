@@ -16,8 +16,10 @@ import { useRouter } from 'next/navigation';
 const Page = () => {
   const route = useRouter();
   const [isChecked, setIsChecked] = useState(false);
-  const [usernameColor, setUsernameColor] = useState('placeholder');
-  const [passwordColor, setPasswordColor] = useState('placeholder');
+  const [status, setStatus] = useState({
+    username: false,
+    password: false,
+  });
   const [form, setForm] = useState<USER_SIGNIN_REQUEST>({
     username: '',
     password: '',
@@ -26,11 +28,6 @@ const Page = () => {
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
-    if (name === 'username') {
-      setUsernameColor(value.length !== 0 ? 'filled' : 'placeholder');
-    } else if (name === 'password') {
-      setPasswordColor(value.length !== 0 ? 'filled' : 'placeholder');
-    }
   };
 
   const handleChecked = () => {
@@ -49,8 +46,10 @@ const Page = () => {
             route.push('/');
           });
       } else if (data.result === false) {
-        setUsernameColor('failed');
-        setPasswordColor('failed');
+        setStatus({
+          username: true,
+          password: true,
+        })
       }
     },
     onError: () => {
