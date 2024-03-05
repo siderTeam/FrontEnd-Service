@@ -1,12 +1,15 @@
 import Button from '@/components/Button/Button';
-import Input from '@/components/Input/Input';
 import Modal from '@/components/Modal/Modal';
-import SelectBox from '@/components/SelectBox/SelectBox';
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
 
+interface Props {
+  visible: boolean;
+  onClose: () => void;
+}
+
 //회원 정보 모달
-const MemberDetail = ({ visible, onClose }) => {
+const MemberDetail = ({ visible, onClose }: Props) => {
   const data = [
     {
       status: '정상',
@@ -102,10 +105,10 @@ const MemberDetail = ({ visible, onClose }) => {
           </TwoGridContainer>
 
           <div className="button-wrap">
-            <Button size="small" mode="secondary">
+            <Button size="small" variant="secondary">
               이전
             </Button>
-            <Button size="small" mode="primary">
+            <Button size="small" variant="primary">
               저장
             </Button>
           </div>

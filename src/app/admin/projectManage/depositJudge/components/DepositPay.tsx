@@ -1,16 +1,12 @@
 import Button from '@/components/Button/Button';
 import Modal from '@/components/Modal/Modal';
 import { color } from '@/styles/color';
+import { ModalPageProps } from '@/types/types';
 import styled from '@emotion/styled';
-import SearchHeader from '../../SearchHeader/SearchHeader';
-import Table from '@/components/Table/Table';
 import { useState } from 'react';
-import PayToggle from '../../PayToggle/PayToggle';
-import PayInput from '../PayInput/PayInput';
-import { relative } from 'path';
 
 // 보증금 납입처리 모달
-const DepositPay = ({ visible, onClose }) => {
+const DepositPay = ({ visible, onClose }: ModalPageProps) => {
   const [moreVisibleIndex, setMoreVisibleIndex] = useState<number | null>(null);
   const [visibleInputIndex, setVisibleInputIndex] = useState<number | null>(null);
 
@@ -104,61 +100,14 @@ const DepositPay = ({ visible, onClose }) => {
       >
         <Container>
           <div className="title">보증금 납입처리</div>
-          <SearchHeader />
+
           <div className="search-length">검색결과: 22건</div>
-          <TableHeader>
-            <Table type="headerCenter" style={{ width: '80px' }}>
-              No.
-            </Table>
-            <Table type="headerLeft" style={{ width: '120px' }}>
-              아이디
-            </Table>
-            <Table type="headerLeft" style={{ width: '80px' }}>
-              이름
-            </Table>
-            <Table type="headerLeft" style={{ width: '160px' }}>
-              전화번호
-            </Table>
-            <Table type="headerLeft" style={{ width: '240px' }}>
-              계좌번호
-            </Table>
-            <Table type="headerLeft" style={{ width: '247px' }}>
-              프로젝트명
-            </Table>
-            <Table type="headerLeft" style={{ width: '72px' }}>
-              납부처리
-            </Table>
-          </TableHeader>
-          {data.map((item, index) => (
-            <TableData>
-              <Table type="dataCenter" style={{ width: '80px' }}>
-                {item.no}
-              </Table>
-              <Table style={{ width: '120px' }}>{item.username}</Table>
-              <Table style={{ width: '80px' }}>{item.name}</Table>
-              <Table style={{ width: '160px' }}>{item.phone}</Table>
-              <Table style={{ width: '240px' }}>{item.account}</Table>
-              <Table style={{ width: '247px' }}>{item.project}</Table>
-              <Table
-                type="dataMore"
-                style={{ width: '72px', cursor: 'pointer', position: 'relative' }}
-                src="/images/more/more.svg"
-                onClick={() => handleMoreToggle(index)}
-              >
-                {moreVisibleIndex === index ? (
-                  <PayToggle onClick={() => handleInputToggle(index)} />
-                ) : (
-                  visibleInputIndex === index && <PayInput visible={true} onClose={handleCloseModal} />
-                )}
-              </Table>
-            </TableData>
-          ))}
 
           <div className="button-wrap">
-            <Button size="small" mode="secondary">
+            <Button size="small" variant="secondary">
               이전
             </Button>
-            <Button size="small" mode="primary">
+            <Button size="small" variant="primary">
               저장
             </Button>
           </div>

@@ -11,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body style={{ background: color.gray.black }}>
+      <body style={{ background: color.gray.black, maxWidth: '100vw', overflowY: 'scroll' }}>
         <RootContainer>{children}</RootContainer>
       </body>
     </html>

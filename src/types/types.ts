@@ -65,6 +65,8 @@ export type ModalProps = {
   style?: React.CSSProperties;
 };
 
+export type ModalPageProps = Pick<ModalProps, 'onClose' | 'visible'>
+
 //SelectBox
 
 export type SELECTBOX_STYLE_PROPS = {

@@ -1,7 +1,7 @@
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
-import PayInput from '../Modal/PayInput/PayInput';
+import PayInput from './PayInput';
 
 type Props = {
   onClick?: () => void;

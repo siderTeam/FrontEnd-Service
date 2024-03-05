@@ -1,16 +1,14 @@
 'use client';
 
 import styled from '@emotion/styled';
-import ProjectTable from './components/ProjectTable/ProjectTable';
-import SearchHeader from '../requireJudge/components/SearchHeader/SearchHeader';
 import { color } from '@/styles/color';
 
 const Page = () => {
   return (
     <Container>
       <h1 className="title">보증금 반환</h1>
-      <SearchHeader />
-      <ProjectTable />
+      {/* <SearchHeader />
+      <ProjectTable /> */}
     </Container>
   );
 };

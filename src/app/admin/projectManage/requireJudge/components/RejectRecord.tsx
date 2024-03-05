@@ -1,10 +1,11 @@
 import Modal from '@/components/Modal/Modal';
 import Table from '@/components/Table/Table';
 import { color } from '@/styles/color';
+import { ModalPageProps } from '@/types/types';
 import styled from '@emotion/styled';
 
 //반려 이력 모달
-const RejectRecord = ({ visible, onClose }) => {
+const RejectRecord = ({ visible, onClose }: ModalPageProps) => {
   const data = [
     {
       date: '8888.88.88 88:88:88',
@@ -68,28 +69,6 @@ const RejectRecord = ({ visible, onClose }) => {
       >
         <Container>
           <div className="title">반려 이력</div>
-
-          <TableHeader>
-            <Table type="headerLeft" style={{ width: '160px' }}>
-              반려일시
-            </Table>
-            <Table type="headerLeft" style={{ width: '100px' }}>
-              작업자
-            </Table>
-            <Table type="headerLeft" style={{ width: '220px' }}>
-              반려사유
-            </Table>
-          </TableHeader>
-
-          {data.map((item) => (
-            <>
-              <TableDate>
-                <Table style={{ width: '160px', height: 'auto' }}>{item.date}</Table>
-                <Table style={{ width: '100px', height: 'auto' }}>{item.name}</Table>
-                <Table style={{ width: '220px', height: 'auto' }}>{item.reject}</Table>
-              </TableDate>
-            </>
-          ))}
         </Container>
       </Modal>
     </>

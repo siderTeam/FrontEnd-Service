@@ -3,11 +3,20 @@
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import ProjectStatus from './components/ProjectStatus/ProjectStatus';
-import WaitingReview from './components/WaitingReview/WaitingReview';
+import ProjectStatus from './components/ProjectStatus';
+import WaitingReview from './components/WaitingReview';
 import Calendar from '@/components/Calendar/Calendar';
 import Alert from '@/components/Alert/Alert';
 import Button from '@/components/Button/Button';
+import Table from '@/components/Table/Table';
+import { ColumnDef } from '@tanstack/react-table';
+
+interface imsiType {
+  number: number;
+  name: string;
+  deposit: string;
+  status: string;
+}
 
 const Page = () => {
   const [visible, setVisible] = useState(false);
@@ -15,6 +24,80 @@ const Page = () => {
   const handleAlert = () => {
     setVisible(true);
   };
+
+  const resumeData = [
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
+
+      deposit: '88만원',
+      status: '모집중',
+    },
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
+
+      deposit: '88만원',
+      status: '모집중',
+    },
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
+
+      deposit: '88만원',
+      status: '모집완료',
+    },
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
+
+      deposit: '88만원',
+      status: '모집중',
+    },
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
+
+      deposit: '88만원',
+      status: '모집완료',
+    },
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
+
+      deposit: '88만원',
+      status: '모집완료',
+    },
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
+
+      deposit: '88만원',
+      status: '모집중',
+    },
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
+
+      deposit: '88만원',
+      status: '모집완료',
+    },
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
+      deposit: '88만원',
+      status: '모집중',
+      
+    },
+  ];
+
+  const column: ColumnDef<imsiType>[] = [
+    { id: 'No.', header: 'No.', accessorKey: 'number', size: 40 },
+    { id: 'name', header: '프로젝트 명', accessorKey: 'name', size: 300 },
+    { id: 'deposit', header: '결제 일자', accessorKey: 'deposit'},
+    { id: 'status', header: '결제 금액', accessorKey: 'name' },
+  ];
+
   return (
     <Container>
       <div style={{ display: 'flex', gap: '20px' }}>
@@ -27,7 +110,7 @@ const Page = () => {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div className="list-wrap">
-            <ProjectStatus />
+            <Table columns={column} data={resumeData} />
           </div>
           <div className="list-wrap">
             <WaitingReview />

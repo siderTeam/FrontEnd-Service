@@ -2,16 +2,11 @@ import Button from '@/components/Button/Button';
 import Modal from '@/components/Modal/Modal';
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
-import SearchHeader from '../../SearchHeader/SearchHeader';
-import Table from '@/components/Table/Table';
 import { useState } from 'react';
-import PayToggle from '../../PayToggle/PayToggle';
-import PayInput from '../PayInput/PayInput';
-import { relative } from 'path';
-import Image from 'next/image';
+import { ModalPageProps } from '@/types/types';
 
 // 보증금 납입처리 모달
-const PayStatus = ({ visible, onClose }) => {
+const PayStatus = ({ visible, onClose }: ModalPageProps) => {
   const [moreVisibleIndex, setMoreVisibleIndex] = useState<number | null>(null);
   const [visibleInputIndex, setVisibleInputIndex] = useState<number | null>(null);
 
@@ -124,64 +119,12 @@ const PayStatus = ({ visible, onClose }) => {
             </div>
             <div className="text">88명</div>
           </div>
-          <TableHeader>
-            <Table type="headerLeft" style={{ width: '100px' }}>
-              이름
-            </Table>
-            <Table type="headerLeft" style={{ width: '140px' }}>
-              포지션
-            </Table>
-            <Table type="headerLeft" style={{ width: '120px' }}>
-              전화번호
-            </Table>
-            <Table type="headerLeft" style={{ width: '240px' }}>
-              계좌번호
-            </Table>
-            <Table type="headerLeft" style={{ width: '328px' }}>
-              납부현황
-            </Table>
-            <Table type="headerLeft" style={{ width: '72px' }}>
-              납부처리
-            </Table>
-          </TableHeader>
-          {data.map((item, index) => (
-            <TableData key={index}>
-              <Table style={{ width: '100px' }}>
-                <div style={{ display: 'flex' }}>
-                  {item.name}
-                  {item.member === '리더' ? (
-                    <Image src="/images/etc/star_green.svg" width={12} height={12} alt="leader" style={{ marginLeft: '8px' }} />
-                  ) : (
-                    <></>
-                  )}
-                </div>
-              </Table>
-              <Table style={{ width: '140px' }}>{item.position}</Table>
-              <Table style={{ width: '120px' }}>{item.phone}</Table>
-              <Table style={{ width: '240px' }}>{item.account}</Table>
-              <Table style={{ width: '328px', color: colors[index] }} subText="(8,888/8,888)">
-                {item.payStatus}
-              </Table>
-              <Table
-                type="dataMore"
-                style={{ width: '72px', cursor: 'pointer', position: 'relative' }}
-                src="/images/more/more.svg"
-                onClick={() => handleMoreToggle(index)}
-              >
-                {moreVisibleIndex === index ? (
-                  <PayToggle onClick={() => handleInputToggle(index)} />
-                ) : (
-                  visibleInputIndex === index && <PayInput visible={true} onClose={handleCloseModal} />
-                )}
-              </Table>
-            </TableData>
-          ))}
 
           <div className="button-wrap">
-            <Button size="small" mode="secondary">
+            <Button size="small" variant="secondary">
               이전
             </Button>
-            <Button size="small" mode="primary">
+            <Button size="small" variant="primary">
               저장
             </Button>
           </div>

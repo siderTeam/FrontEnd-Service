@@ -1,4 +1,3 @@
-import RootContainer from '@/components/RootContainer';
 import RootSidebar from '@/components/RootSidebar';
 
 export const metadata = {
@@ -8,9 +7,9 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ display: 'inline-flex' }}>
+    <div style={{ display: 'flex' }} >
       <RootSidebar />
-      <RootContainer>{children}</RootContainer>
+      {children}
     </div>
   );
 }

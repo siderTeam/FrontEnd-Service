@@ -1,23 +1,22 @@
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';
-import Modal from '@/components/Modal/Modal';
 import { color } from '@/styles/color';
-import { ModalProps } from '@/types/types';
+import { ModalPageProps } from '@/types/types';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import React from 'react';
 
-const PayInput = ({ visible, onClose, children, style }: ModalProps) => {
+const PayInput = ({ visible, onClose }: ModalPageProps) => {
   return (
     <Container visible={visible} onClick={onClose}>
-      <Content style={style} onClick={(e) => e.stopPropagation()}>
+      <Content onClick={(e) => e.stopPropagation()}>
         <div onClick={onClose} className="close">
           <Image width={12} height={12} src="/images/x/x_white.svg" alt="close" />
         </div>
         <div className="text">직접 입력</div>
         <div className="wrap">
-          <Input size="small" color="active" style={{ width: '132px', height: '32px' }} />
-          <Button size="small" mode="primary">
+          <Input size="small" color="success" style={{ width: '132px', height: '32px' }} />
+          <Button size="small" variant="primary">
             납입
           </Button>
         </div>
@@ -28,7 +27,7 @@ const PayInput = ({ visible, onClose, children, style }: ModalProps) => {
 
 export default PayInput;
 
-const Container = styled.div<{ visible: boolean }>`
+const Container = styled.div<{ visible?: boolean }>`
   position: absolute;
   top: 30px;
   right: 25px;
