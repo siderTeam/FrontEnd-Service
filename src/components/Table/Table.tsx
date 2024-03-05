@@ -1,118 +1,109 @@
-'use client';
-
+import { ColumnDef, getCoreRowModel, useReactTable, flexRender, Row } from '@tanstack/react-table';
 import styled from '@emotion/styled';
-import { color } from '@/styles/color';
-import Image from 'next/image';
-import { TABLE_TYPE_PROPS, TableProps } from '@/types/types';
-import Checkbox from '../Checkbox/Checkbox';
+import { Fragment } from 'react';
 
-const Table = ({ type = 'dataLeft', children, src, check, subText, style, onClick }: TableProps) => {
-  return (
-    <Container type={type} style={style} onClick={onClick}>
-      {check && <Checkbox />}
-      <div className="subText-wrap">
-        {children}
-        {subText && <SubText>{subText}</SubText>}
-      </div>
-      {src && <Image src={src} width={20} height={20} alt="sort" />}
-    </Container>
-  );
+export type TableProps<T> = {
+  data: T[];
+  columns: ColumnDef<T>[];
+  noDataMessage?: string;
+  useMinHeight?: boolean;
 };
+export type TableRenderSubRowComponent<T> = (props: { row: Row<T> }) => React.ReactElement;
+
+function Table<T>(props: TableProps<T>) {
+  const { useMinHeight = true, data, columns, noDataMessage } = props;
+  const table = useReactTable<T>({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
+  const { getHeaderGroups, getRowModel } = table;
+
+  const isNoData = getRowModel()?.rows?.length === 0;
+
+  return (
+    <TableContainer>
+      {getHeaderGroups().map((headerGroup) => (
+        <TableHeader className="row" key={headerGroup.id}>
+          {headerGroup.headers.map((header) =>
+            header.isPlaceholder ? null : (
+              <TableCell key={header.id} width={header.column.getSize()}>
+                {flexRender(header.column.columnDef.header, header.getContext())}
+              </TableCell>
+            ),
+          )}
+        </TableHeader>
+      ))}
+      <TableBody useMinHeight={useMinHeight}>
+        {isNoData ? (
+          <NoDataComponent useMinHeight={useMinHeight}>{noDataMessage}</NoDataComponent>
+        ) : (
+          getRowModel().rows.map((row) => (
+            <Fragment key={row.id}>
+              <TableRow className="row">
+                {row.getVisibleCells().map((cell) => {
+                  return (
+                    <TableCell key={cell.id} width={cell.column.getSize()}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            </Fragment>
+          ))
+        )}
+      </TableBody>
+    </TableContainer>
+  );
+}
 
 export default Table;
 
-const TABLE_TYPE = {
-  ['headerLeft']: {
-    width: '160px',
-    padding: '13px 8px',
-
-    fontSize: '14px',
-    fontWeight: 500,
-
-    background: color.gray.gray9,
-    alignItems: 'center',
-  },
-  ['headerCenter']: {
-    width: '160px',
-    padding: '13px 8px',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    fontSize: '14px',
-    fontWeight: 500,
-
-    background: color.gray.gray9,
-  },
-  ['headerCheckbox']: {
-    width: '36px',
-    padding: '10px 8px',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    background: color.gray.gray9,
-  },
-  ['dataLeft']: {
-    width: '160px',
-    padding: '10px 8px',
-    borderBottom: ` 1px solid ${color.gray.gray6}`,
-    alignItems: 'center',
-
-    fontSize: '14px',
-
-    fontWeight: 400,
-  },
-  ['dataCenter']: {
-    width: '160px',
-    padding: '10px 8px',
-    borderBottom: ` 1px solid ${color.gray.gray6}`,
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    fontSize: '14px',
-
-    fontWeight: 400,
-  },
-  ['dataSubtext']: {
-    width: '160px',
-    padding: '2px 8px',
-    borderBottom: ` 1px solid ${color.gray.gray6}`,
-    flexDirection: 'column',
-    justifyContent: 'center',
-
-    fontSize: '14px',
-
-    fontWeight: 400,
-  },
-  ['dataMore']: {
-    width: '36px',
-    borderBottom: ` 1px solid ${color.gray.gray6}`,
-    padding: '10px 8px',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-};
-
-const Container = styled.div<TABLE_TYPE_PROPS>`
-  ${({ type }) => TABLE_TYPE[type as 'headerLeft']};
+const TableContainer = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
+  flex-direction: column;
+  font-size: 14px;
 
-  height: 40px;
-
-  box-sizing: border-box;
-
-  color: ${color.gray.white};
-
-  .subText-wrap {
+  .row {
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
   }
 `;
 
-const SubText = styled.div`
-  color: ${color.gray.gray5};
+const TableCell = styled.div<{ width: number }>`
+  display: flex;
+  padding: 13px 8px;
+  box-sizing: border-box;
+  color: white;
 
-  font-size: 10px;
+  width: ${({ width }) => width}px;
+  flex: ${({ width }) => width === 150 && 1};
+  align-items: center;
+  word-break: break-all;
+`;
 
-  font-weight: 400;
-  line-height: 14px;
+const TableRow = styled.div`
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+`;
+
+const TableHeader = styled.div``;
+
+const TableBody = styled.div<{ useMinHeight: boolean }>`
+  min-height: ${({ useMinHeight }) => (useMinHeight ? '560px' : 'auto')};
+  display: flex;
+  flex-direction: column;
+`;
+
+const NoDataComponent = styled.div<{ useMinHeight: boolean }>`
+  width: 100%;
+  height: ${({ useMinHeight }) => (useMinHeight ? '560px' : 'auto')};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
