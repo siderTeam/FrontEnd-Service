@@ -17,6 +17,7 @@ const Page = () => {
   const route = useRouter();
   const [isChecked, setIsChecked] = useState(false);
   const [status, setStatus] = useState({
+    showErrorText: false,
     username: false,
     password: false,
   });
@@ -45,11 +46,17 @@ const Page = () => {
           .then(() => {
             route.push('/');
           });
-      } else if (data.result === false) {
         setStatus({
+          showErrorText: true,
           username: true,
           password: true,
-        })
+        });
+      } else if (data.result === false) {
+        setStatus({
+          showErrorText: true,
+          username: false,
+          password: false,
+        });
       }
     },
     onError: () => {
@@ -63,12 +70,25 @@ const Page = () => {
       <LoginContainer>
         <div className="title">로그인</div>
         <div className="inputWrap">
-          {usernameColor === 'failed' ? <span className="error-text">응가</span> : ''}
-          <Input size="large" color={usernameColor} placeholder="아이디" name="username" onChange={handleChange} />
-          <Input size="large" color={passwordColor} placeholder="비밀번호" name="password" onChange={handleChange} type="password" />
+          {status.showErrorText && status.username === false ? <span className="error-text">응가</span> : ''}
+          <Input
+            size="large"
+            color={status.showErrorText && status.username === false ? 'error' : 'primary'}
+            placeholder="아이디"
+            name="username"
+            onChange={handleChange}
+          />
+          <Input
+            size="large"
+            color={status.showErrorText && status.username === false ? 'error' : 'primary'}
+            placeholder="비밀번호"
+            name="password"
+            onChange={handleChange}
+            type="password"
+          />
         </div>
         <div className="wrap">
-          <Checkbox type={isChecked ? 'checked' : 'unchecked'} className="checkbox" text="아이디 저장" checked={isChecked} onClick={handleChecked} />
+          <Checkbox type={isChecked ? 'checked' : 'unchecked'} className="checkbox" text="아이디 저장" checked={isChecked} onChange={handleChecked} />
           <div className="find">계정정보 찾기</div>
         </div>
         <div className="buttonWrap">
@@ -99,15 +119,6 @@ const Container = styled.div`
     height: 100vh;
     flex-shrink: 0;
     position: absolute;
-
-    /* background: linear-gradient(
-        90deg,
-        #02060d 6.5%,
-        rgba(0, 0, 0, 0) 52%,
-        #02060d 92%
-      ),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%),
-      lightgray 50% / cover no-repeat; */
   }
 
   .title {

@@ -16,15 +16,15 @@ const Checkbox = ({ text, disabled, checked, requireText, className, onChange, o
 
 export default Checkbox;
 
-const Container = styled.div`
+const Container = styled.label`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const StyledCheckbox = styled.input`
   width: 16px;
   height: 16px;
-  cursor: pointer;
   border: 1px solid ${color.gray.gray4};
   appearance: none;
   margin-right: 8px;
