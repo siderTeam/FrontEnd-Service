@@ -1,15 +1,12 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { color } from '@/styles/color';
-import Radio from '@/components/RadioButton/Radio';
 import { useState } from 'react';
-import Button from '@/components/Button/Button';
-
 import SecondContent from './components/SecondContent';
 import FirstContent from './components/FirstContent';
 import ThirdContent from './components/ThirdContent';
 import LastContent from './components/LastContent';
+import Image from 'next/image';
 
 const Page = () => {
   const [currentContent, setCurrentContent] = useState('first');
@@ -32,7 +29,7 @@ const Page = () => {
 
   return (
     <Container>
-      <img src="/images/Logo_signup.svg" alt="로고" className="logo" />
+      <Image src="/images/Logo_signup.svg" alt="로고" className="logo" width={204} height={56} />
       {currentContent === 'first' && <FirstContent onClick={handleNextButtonClick} />}
       {currentContent === 'second' && <SecondContent onClick={handleNextButtonClick} />}
       {currentContent === 'third' && <ThirdContent onClick={handleNextButtonClick} />}
@@ -48,10 +45,9 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   margin: 96px 0;
 
   .logo {
-    margin-bottom: 46.92px;
+    margin-bottom: 48px;
   }
 `;

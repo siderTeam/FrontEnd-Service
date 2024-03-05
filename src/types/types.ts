@@ -144,26 +144,6 @@ export type CardProps = {
   style?: React.CSSProperties;
 };
 
-//Radio
-
-export type RADIO_BUTTON_TYPE_PROPS = {
-  size?: 'small' | 'big';
-};
-
-export type RadioButtonProps = RADIO_BUTTON_TYPE_PROPS & {
-  text?: string;
-  requireText?: string;
-  isChecked?: boolean;
-  name?: string;
-  onChange?: (e: any) => void;
-  onClick?: () => void;
-  style?: React.CSSProperties;
-  requireStyle?: React.CSSProperties;
-  className?: string;
-  disabled?: boolean;
-  size?: 'small' | 'big';
-};
-
 //Table
 
 export type TABLE_TYPE_PROPS = {

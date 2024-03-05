@@ -61,7 +61,7 @@ const FirstContent = ({ onClick }) => {
       </div>
 
       <div className="radio1">
-        <Radio size="big" className="radio" text="모두 동의합니다." isChecked={checkForm.all} onClick={handleAgreeAll} />
+        <Radio style={{ gap: 12 }} size="big" className="radio" text="모두 동의합니다." isChecked={checkForm.all} onClick={handleAgreeAll} />
       </div>
 
       <div className="radio2">
