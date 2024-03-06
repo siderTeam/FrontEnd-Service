@@ -4,6 +4,8 @@ export const rest = {
     code: "/code",
     resume: "/resume",
     userId: "/user/id",
+
+    auditList: '/admin/project/audit'
   },
   post: {
     userSignIn: "/user/signIn",
