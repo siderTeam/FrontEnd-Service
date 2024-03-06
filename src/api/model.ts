@@ -32,6 +32,10 @@ export type USER_SIGNUP_REQUEST = {
   positionCode: number[];
 };
 
+// export type NEWAC_REQUEST = {
+//   data: string;
+// };
+
 export type USER_RESUME_RESPONSE = {
   id: number;
   name: string;

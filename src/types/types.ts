@@ -1,15 +1,12 @@
-import { InputHTMLAttributes } from "react";
-import { ButtonHTMLAttributes } from "react";
-import { TextareaHTMLAttributes } from "react";
-
-//Input
+import { InputHTMLAttributes } from 'react';
+import { TextareaHTMLAttributes } from 'react';
 
 export type INPUT_STYLE_PROPS = {
-  size?: "small" | "full";
-  text?: "primary";
+  size?: 'small' | 'medium' | 'large';
+  color?: 'primary' | 'success' | 'error' | 'positive';
 };
 
-export type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
+export type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>;
 
 export type InputProps = INPUT_STYLE_PROPS &
   INPUT_TYPE & {
@@ -20,7 +17,7 @@ export type InputProps = INPUT_STYLE_PROPS &
     name?: string;
     placeholder?: string;
     errorText?: string;
-    icon?: boolean;
+    icon?: string;
     style?: React.CSSProperties;
     rest?: any;
     buttonText?: string;
@@ -40,34 +37,18 @@ export type LabelProps = {
   isValid?: boolean;
 };
 
-//Button
-
-export type BUTTON_STYLE_PROPS = {
-  size?: "full";
-  mode?: "primary" | "primary-reverse";
-};
-
-export type ButtonProps = BUTTON_STYLE_PROPS & {
-  children: any;
-  style?: React.CSSProperties;
-  onClick?: () => void;
-  rightIcon?: string;
-  LeftIcon?: string;
-  type?: string;
-  iconStyle?: React.CSSProperties;
-};
-
 //CheckBox
 
 export type CHECKBOX_TYPE_PROPS = {
-  type?: "unchecked" | "hover" | "checked" | "disabled" | "disabledCheck";
+  type?: 'unchecked' | 'hover' | 'checked' | 'disabled' | 'disabledCheck';
 };
 
 export type CheckboxProps = CHECKBOX_TYPE_PROPS & {
-  text: string;
+  text?: string;
+  checked?: boolean;
   requireText?: string;
-  isChecked?: boolean;
   name?: string;
+  disabled?: boolean;
   onChange?: (e: any) => void;
   onClick?: () => void;
   style?: React.CSSProperties;
@@ -78,23 +59,20 @@ export type CheckboxProps = CHECKBOX_TYPE_PROPS & {
 //Modal
 
 export type ModalProps = {
-  visible: boolean;
-  onClose: () => void;
-  children: any;
+  visible?: boolean;
+  onClose?: () => void;
+  children?: any;
   style?: React.CSSProperties;
 };
 
-//SelectBox
+export type ModalPageProps = Pick<ModalProps, 'onClose' | 'visible'>
 
-export type SELECTBOX_STYLE_PROPS = {
-  selectedType?: "primary";
-  optionType?: "primary";
-  text?: "primary";
-};
 
-export type SelectBoxProps = SELECTBOX_STYLE_PROPS & {
-  options: { label: string; value: string }[];
-  value: string;
+//SelectInput
+
+export type SelectInputProps = {
+  options?: { label: string; value: string }[];
+  value?: string;
   name: string;
   onChange?: (name: string, value: string) => void;
   style?: React.CSSProperties;
@@ -105,28 +83,55 @@ export type SelectBoxProps = SELECTBOX_STYLE_PROPS & {
 //Textarea
 
 export type TEXTAREA_STYLE_PROPS = {
-  size?: "medium" | "large";
+  size?: 'full' | 'medium' | 'large';
+  color?: 'primary';
 };
 
 export type TextareaProps = TEXTAREA_STYLE_PROPS &
   TextareaHTMLAttributes<HTMLTextAreaElement> & {
     style?: React.CSSProperties;
     rest?: any;
+    textareaCount?: number;
   };
 
 //LabelInput
 
 export type LABELINPUT_STYLE_PROPS = {
-  location: "left" | "top";
+  location: 'left' | 'top';
 };
 
-//Card
-
+//card
 export type CardProps = {
+  title: string;
+  startDate: string;
+  endDate: string;
+  deposit: number;
   children?: any;
-  id?: string;
-  title?: string;
-  projectPeriod?: string | number;
-  deposit?: string | number;
-  necessaryPeriod?: string | number;
+  style?: React.CSSProperties;
+};
+
+//Table
+
+export type TABLE_TYPE_PROPS = {
+  type?: 'headerLeft' | 'headerCenter' | 'headerCheckbox' | 'dataLeft' | 'dataCenter' | 'dataSubtext' | 'dataMore';
+};
+
+export type TableProps = TABLE_TYPE_PROPS & {
+  check?: boolean;
+  children?: any;
+  src?: string;
+  subText?: string;
+  style?: React.CSSProperties;
+  onClick?: () => void;
+};
+
+//Alert
+
+export type AlertProps = {
+  visible?: boolean;
+  onClick?: () => void;
+  children?: any;
+  style?: React.CSSProperties;
+  text?: string;
+  subText?: string;
 };
