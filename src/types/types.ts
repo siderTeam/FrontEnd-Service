@@ -67,24 +67,6 @@ export type ModalProps = {
 
 export type ModalPageProps = Pick<ModalProps, 'onClose' | 'visible'>
 
-//SelectBox
-
-export type SELECTBOX_STYLE_PROPS = {
-  size?: 'small';
-  selectedType?: 'placeholder' | 'selected' | 'active' | 'disabled';
-  optionType?: 'placeholder' | 'selected' | 'active' | 'disabled';
-  text?: 'full';
-};
-
-export type SelectBoxProps = SELECTBOX_STYLE_PROPS & {
-  options?: { label: string; value: string }[];
-  value?: string;
-  name?: string;
-  onChange?: (name: string, value: string) => void;
-  style?: React.CSSProperties;
-  optionStyle?: React.CSSProperties;
-  placeholder?: string;
-};
 
 //SelectInput
 

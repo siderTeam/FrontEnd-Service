@@ -3,11 +3,26 @@
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import { useState } from 'react';
-
-import { SelectBoxProps } from '@/types/types';
 import Image from 'next/image';
 
-const SelectBox = ({
+export type SELECTBOX_STYLE_PROPS = {
+  size?: 'small';
+  selectedType?: 'placeholder' | 'selected' | 'active' | 'disabled';
+  optionType?: 'placeholder' | 'selected' | 'active' | 'disabled';
+  text?: 'full';
+};
+
+export type SelectBoxProps<T> = SELECTBOX_STYLE_PROPS & {
+  options: { label: string; value: T | any }[];
+  value: T;
+  name?: string;
+  onChange: (name: string, value: T | any) => void;
+  style?: React.CSSProperties;
+  optionStyle?: React.CSSProperties;
+  placeholder?: string;
+};
+
+const SelectBox = <T,>({
   size = 'small',
   selectedType = 'placeholder',
   optionType = 'placeholder',
@@ -19,19 +34,19 @@ const SelectBox = ({
   style,
   optionStyle,
   placeholder,
-}: SelectBoxProps) => {
+}: SelectBoxProps<T>) => {
   const [visible, setVisible] = useState(false);
 
   const handleClickSelect = () => {
     setVisible(!visible);
   };
 
-  const handleClick = (value: string) => {
-    onChange(name, value);
+  const handleClick = (value: T) => {
+    onChange(name as string, value);
     setVisible(false);
   };
 
-  const selected = options?.filter((option) => option.value === value);
+  const selected = options.filter((option) => option.value === value);
 
   return (
     <Container>
@@ -45,8 +60,8 @@ const SelectBox = ({
       </StyledSelect>
       {visible && (
         <OptionWrapper size={size} selectedType={selectedType} optionType={optionType}>
-          {options?.map((option) => (
-            <li onClick={() => handleClick(option.value)} style={optionStyle} key={option.value} value={option.label}>
+          {options?.map((option, index) => (
+            <li onClick={() => handleClick(option.value)} style={optionStyle} key={`${option.value}_${index}`} value={option.label}>
               {option.label}
             </li>
           ))}
