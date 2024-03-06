@@ -10,7 +10,7 @@ const getAuthorization = () => {
     return `Bearer ${cookie}`;
   } else {
     return undefined;
-    return undefined;
+    
   }
 };
 
