@@ -1,6 +1,7 @@
 import { ColumnDef, getCoreRowModel, useReactTable, flexRender, Row } from '@tanstack/react-table';
 import styled from '@emotion/styled';
 import { Fragment } from 'react';
+import { color } from '@/styles/color';
 
 export type TableProps<T> = {
   data: T[];
@@ -93,7 +94,9 @@ const TableRow = styled.div`
 `;
 
 const TableHeader = styled.div`
-  font-size: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: ${color.gray.gray9};
 `;
 
 const TableBody = styled.div<{ useMinHeight: boolean }>`
