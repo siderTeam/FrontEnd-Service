@@ -75,7 +75,7 @@ const StyledSelect = styled.div<any>`
   white-space: nowrap;
 
   &::before {
-    content: url('/images/selectbox/arrow_down_gray.svg');
+    content: url('/images/selectbox/arrow_down_gray6.svg');
     position: absolute;
     top: 3px;
     right: 10px;
