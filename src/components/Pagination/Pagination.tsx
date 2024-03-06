@@ -2,21 +2,27 @@ import Pagination from 'react-js-pagination';
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 
-const PaginationComponent = ({ activePage, itemsCountPerPage, totalItemsCount, pageRangeDisplayed, onChange }) => {
+interface PAGINATION_PROPS {
+  activePage: number;
+  itemsCountPerPage: number;
+  totalItemsCount: number;
+  pageRangeDisplayed: number;
+  onChange: (e: number) => void;
+}
+
+const PaginationComponent = ({ activePage, itemsCountPerPage, totalItemsCount, pageRangeDisplayed, onChange }: PAGINATION_PROPS) => {
   return (
-    <div>
-      <PaginationBox>
-        <Pagination
-          activePage={activePage}
-          itemsCountPerPage={itemsCountPerPage}
-          totalItemsCount={totalItemsCount}
-          pageRangeDisplayed={pageRangeDisplayed}
-          onChange={onChange}
-          prevPageText={'‹'}
-          nextPageText={'›'}
-        ></Pagination>
-      </PaginationBox>
-    </div>
+    <PaginationBox>
+      <Pagination
+        activePage={activePage}
+        itemsCountPerPage={itemsCountPerPage}
+        totalItemsCount={totalItemsCount}
+        pageRangeDisplayed={pageRangeDisplayed}
+        onChange={onChange}
+        prevPageText={'‹'}
+        nextPageText={'›'}
+      ></Pagination>
+    </PaginationBox>
   );
 };
 
@@ -24,6 +30,7 @@ const PaginationBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100px;
   .pagination {
     display: flex;
     justify-content: center;
