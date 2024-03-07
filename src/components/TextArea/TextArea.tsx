@@ -2,15 +2,17 @@
 
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
-
 import { TextareaProps } from '@/types/types';
-import { kMaxLength } from 'buffer';
 
-const TextArea = ({ size = 'full', color = 'primary', style, textareaCount, ...rest }: TextareaProps) => {
+const TextArea = ({ size = 'full', color = 'primary', style, textareaCount, maxLength, onChange, value, ...rest }: TextareaProps) => {
   return (
-    <Container>
-      <StyledTextArea size={size} color={color} style={style} {...rest} />
-      {textareaCount && <div className="text-length">{textareaCount}/100</div>}
+    <Container size={size}>
+      <StyledTextArea color={color} style={style} onChange={onChange} value={value} {...rest} />
+      {textareaCount !== undefined && (
+        <div className="text-length">
+          {textareaCount}/{maxLength}
+        </div>
+      )}
     </Container>
   );
 };
@@ -18,24 +20,11 @@ export default TextArea;
 
 const TEXTAREA_TYPE = {
   ['full']: {
-    display: 'flex',
-    width: '100%',
-    height: '112px',
     padding: '10px 20px',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    gap: '4px',
 
     borderRadius: '8px',
     border: `1px solid ${color.gray.gray6}`,
     background: 'none',
-  },
-  ['medium']: {
-    width: 250,
-  },
-  ['large']: {
-    width: 400,
   },
 };
 
@@ -43,26 +32,33 @@ const COLOR_TYPE = {
   ['primary']: {
     color: color.gray.white,
     fontSize: '14px',
-    fontStyle: 'normal',
+    fontWeight: 400,
+    lineHeight: 'normal',
+  },
+  ['disabled']: {
+    color: color.gray.gray7,
+    fontSize: '14px',
     fontWeight: 400,
     lineHeight: 'normal',
   },
 };
 
 const Container = styled.div<any>`
-  position: relative;
+  ${({ size }) => TEXTAREA_TYPE[size as 'full']};
+  box-sizing: border-box;
 
   .text-length {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
+    color: ${color.gray.white};
+    font-size: 14px;
+    font-weight: 400;
+    text-align: end;
   }
 `;
 
 const StyledTextArea = styled.textarea<any>`
-  ${({ size }) => TEXTAREA_TYPE[size as 'medium']};
   ${({ color }) => COLOR_TYPE[color as 'primary']};
-  box-sizing: border-box;
+
+  border: none;
 
   width: 100%;
   box-sizing: border-box;
