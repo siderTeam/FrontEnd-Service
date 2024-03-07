@@ -5,18 +5,28 @@ import Profile from '../Profile/Profile';
 import MyPageContainer from '../pages/myPageModal/MyPageContainer';
 import { useState } from 'react';
 import Image from 'next/image';
+import Button from '../Button/Button';
+import { useRouter } from 'next/navigation';
 
 const Header = () => {
-  const [modal, setModal] = useState(true);
+  const route = useRouter();
+  const [modal, setModal] = useState(false);
 
   const handleCloseModal = () => {
     setModal(false);
+  };
+
+  const handleClickCreateRecruitment = () => {
+    route.push('/createRecruitment');
   };
   return (
     <StyledHeader>
       <MyPageContainer visible={modal} onClose={handleCloseModal} />
       <Image src="/images/Logo.svg" alt="로고" className="logo" width={167} height={58} />
       <div className="profile-wrap">
+        <Button size="medium" mode="primary" onClick={handleClickCreateRecruitment}>
+          모집글 등록
+        </Button>
         <Profile />
         <Image src="/images/icons/Person_white.svg" alt="mypage" width={24} height={24} />
         <Image src="/images/icons/On_white.svg" alt="logout" width={24} height={24} />
