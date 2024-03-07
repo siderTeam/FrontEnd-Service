@@ -120,8 +120,8 @@ export type SelectInputProps = {
 //Textarea
 
 export type TEXTAREA_STYLE_PROPS = {
-  size?: 'full' | 'medium' | 'large';
-  color?: 'primary';
+  size?: 'full';
+  color?: 'primary' | 'disabled';
 };
 
 export type TextareaProps = TEXTAREA_STYLE_PROPS &
@@ -129,6 +129,9 @@ export type TextareaProps = TEXTAREA_STYLE_PROPS &
     style?: React.CSSProperties;
     rest?: any;
     textareaCount?: number;
+    maxLength?: number;
+    onChange?: (e: any) => void;
+    value?: string;
   };
 
 //LabelInput
