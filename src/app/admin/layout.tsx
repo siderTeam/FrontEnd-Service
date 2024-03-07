@@ -10,7 +10,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <div style={{ display: 'inline-flex' }}>
       <RootSidebar />
-      <RootContainer>{children}</RootContainer>
+      {children}
     </div>
   );
 }
