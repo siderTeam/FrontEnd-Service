@@ -19,38 +19,40 @@ const ProjectTitle = () => {
 
   //지원현황 모달
   const handleCloseApplyStatusModal = () => {
-    setApplyModal(false);
+    setApplyStatusModal(false);
   };
 
   return (
-    <Container>
+    <>
       <Apply visible={applyModal} onClose={handleCloseApplyModal} />
       <ApplyStatus visible={applyStatusModal} onClose={handleCloseApplyStatusModal} />
-      <div className="before">
-        <Image src={'/images/icons/arrow_left_gray6.svg'} alt="arrow" width={5} height={9} />
-        <span>이전 페이지로</span>
-      </div>
-      <div className="title-wrap top">
-        <div className="info">
-          <span>닉네임</span>
-          <span>8888.88.88</span>
-          <span className="status">모집중</span>
+      <Container>
+        <div className="before">
+          <Image src={'/images/icons/arrow_left_gray6.svg'} alt="arrow" width={5} height={9} />
+          <span>이전 페이지로</span>
         </div>
-        <div className="seen">
-          <Image src={'/images/icons/security_gray5.svg'} alt="security" width={12} height={7} />
-          <span>888,888,888</span>
+        <div className="title-wrap top">
+          <div className="info">
+            <span>닉네임</span>
+            <span>8888.88.88</span>
+            <span className="status">모집중</span>
+          </div>
+          <div className="seen">
+            <Image src={'/images/icons/security_gray5.svg'} alt="security" width={12} height={7} />
+            <span>888,888,888</span>
+          </div>
         </div>
-      </div>
-      <div className="title-wrap">
-        <h1 className="project-title">프로젝트 모집글 제목</h1>
-        <div className="button">
-          <Button mode="secondary" onClick={() => setApplyStatusModal(true)}>
-            지원현황
-          </Button>
-          <Button onClick={() => setApplyModal(true)}>지원하기</Button>
+        <div className="title-wrap">
+          <h1 className="project-title">프로젝트 모집글 제목</h1>
+          <div className="button">
+            <Button mode="secondary" onClick={() => setApplyStatusModal(true)}>
+              지원현황
+            </Button>
+            <Button onClick={() => setApplyModal(true)}>지원하기</Button>
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </>
   );
 };
 
