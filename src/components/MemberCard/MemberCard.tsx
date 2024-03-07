@@ -4,15 +4,26 @@ import styled from '@emotion/styled';
 import { color } from '@/styles/CommonStyles';
 import Image from 'next/image';
 
-const MemberCard = () => {
+type props = {
+  src: string;
+  name: string;
+  position: string;
+  userid: string;
+  varient?: 'primary' | 'success' | 'error';
+};
+
+const MemberCard = ({ src, name, position, userid, varient = 'primary' }: props) => {
+  const iconPath = `/images/icons/circle_${varient === 'success' ? 'green' : varient === 'error' && 'red'}.svg`;
+
   return (
     <>
-      <Container>
-        <Image src={'/images/home/profile.svg'} alt="profile" width={80} height={80} />
+      <Container varient={varient}>
+        {varient !== 'primary' && <CircleImage src={iconPath} alt="circle" width={8} height={8} />}
+        <ProfileImage src={src} alt="profile" width={80} height={80} varient={varient} />
         <div>
-          <div className="name">박봉팔</div>
-          <div className="position">Frontend Developer</div>
-          <div className="id">samsunglions</div>
+          <div className="name">{name}</div>
+          <div className="position">{position}</div>
+          <div className="id">{userid}</div>
         </div>
         <Effect />
       </Container>
@@ -22,7 +33,13 @@ const MemberCard = () => {
 
 export default MemberCard;
 
-const Container = styled.div`
+const COLOR_TYPE = {
+  ['primary']: 'var(--Stroke, rgba(255, 255, 255, 0.67))',
+  ['success']: `${color.brandMain}`,
+  ['error']: `${color.error1}`,
+};
+
+const Container = styled.div<{ varient: string }>`
   position: relative;
   overflow: hidden;
 
@@ -37,11 +54,11 @@ const Container = styled.div`
   height: 194px;
 
   border-radius: 8px;
-  border: 1px solid var(--Stroke, rgba(255, 255, 255, 0.67));
+  border: 1px solid ${({ varient }) => COLOR_TYPE[varient as 'primary']};
   background: var(--Fill, linear-gradient(144deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(2, 6, 13, 0.5));
 
   .name {
-    color: ${color.white};
+    color: ${({ varient }) => (varient === 'error' ? color.gray7 : color.white)};
     text-align: center;
     font-size: 16px;
     font-style: normal;
@@ -50,7 +67,7 @@ const Container = styled.div`
   }
 
   .position {
-    color: ${color.gray5};
+    color: ${({ varient }) => (varient === 'error' ? color.gray8 : color.gray5)};
     text-align: center;
     font-size: 14px;
     font-style: normal;
@@ -59,13 +76,23 @@ const Container = styled.div`
   }
 
   .id {
-    color: ${color.gray7};
+    color: ${({ varient }) => (varient === 'error' ? color.gray9 : color.gray7)};
     text-align: center;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
   }
+`;
+
+const CircleImage = styled(Image)`
+  position: absolute;
+  top: 8px;
+  right: 8px;
+`;
+
+const ProfileImage = styled(Image)<{ varient: string }>`
+  filter: ${({ varient }) => varient === 'error' && 'brightness(0.3)'};
 `;
 
 const Effect = styled.div`
