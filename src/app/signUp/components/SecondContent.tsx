@@ -74,13 +74,12 @@ const SecondContent = ({ onClick }) => {
       </div>
 
       <div className="input-wrap">
-        <Input size="large" placeholder="아이디" name="username" errorText="dd" buttonText="중복확인" />
-
-        <Input placeholder="비밀번호" name="password" type="password" />
-        <Input placeholder="비밀번호 확인" name="passwordConfirm" type="password" />
-        <Input placeholder="이름" name="name" />
-        <Input placeholder="닉네임" name="nickname" />
-        <Input placeholder="전화번호" name="phone" />
+        <Input placeholder="아이디" name="username" errorText="dd" buttonText="중복확인" style={{ width: '100%' }} />
+        <Input placeholder="비밀번호" name="password" type="password" style={{ width: '100%' }} />
+        <Input placeholder="비밀번호 확인" name="passwordConfirm" type="password" style={{ width: '100%' }} />
+        <Input placeholder="이름" name="name" style={{ width: '100%' }} />
+        <Input placeholder="닉네임" name="nickname" style={{ width: '100%' }} />
+        <Input placeholder="전화번호" name="phone" style={{ width: '100%' }} />
       </div>
 
       <div className="button-wrapper">
