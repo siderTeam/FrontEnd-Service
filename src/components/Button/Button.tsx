@@ -18,18 +18,7 @@ export type ButtonProps = BUTTON_STYLE_PROPS & {
   disabled?: any;
 };
 
-const Button = ({
-  children,
-  size = 'medium',
-  variant = 'primary',
-  style,
-  iconStyle,
-  onClick,
-  rightIcon,
-  leftIcon,
-  className,
-  ...rest
-}: ButtonProps) => {
+const Button = ({ children, size = 'medium', variant = 'primary', style, iconStyle, onClick, rightIcon, leftIcon, className, ...rest }: ButtonProps) => {
   return (
     <StyledButton size={size} variant={variant} style={style} onClick={onClick} className={className} {...rest}>
       <div className="text_icon_wrap">
@@ -83,7 +72,7 @@ const SIZE_TYPE = {
     borderRadius: '10px',
 
     fontSize: '16px',
-    fontWeight: 500,
+    fontWeight: 600,
   },
 };
 

@@ -1,31 +1,4 @@
-import { InputHTMLAttributes } from 'react';
 import { TextareaHTMLAttributes } from 'react';
-
-export type INPUT_STYLE_PROPS = {
-  size?: 'small' | 'medium' | 'large';
-  color?: 'primary' | 'success' | 'error' | 'positive';
-};
-
-export type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>;
-
-export type InputProps = INPUT_STYLE_PROPS &
-  INPUT_TYPE & {
-    value?: string | number | undefined;
-    onChange?: (e: any, id: string) => void;
-    readOnly?: boolean;
-    type?: string;
-    name?: string;
-    placeholder?: string;
-    errorText?: string;
-    icon?: string;
-    style?: React.CSSProperties;
-    rest?: any;
-    buttonText?: string;
-    onClick?: () => void;
-    ref?: any;
-    isValid?: boolean;
-  };
-
 //Label
 
 export type LabelProps = {

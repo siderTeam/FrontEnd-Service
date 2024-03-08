@@ -18,11 +18,11 @@ const LastContent = () => {
         이제 사이드고를 이용할 수 있어요.
       </div>
 
-      <Image src="/images/다운로드.jpg" alt="이미지" className="image" />
+      <Image src="/images/Logo.svg" alt="이미지" className="image"  width={339} height={339}/>
 
       <div className="button-wrapper">
         <Link href="/" style={{ width: '100%' }}>
-          <Button style={{ width: '100%' }}>시작하기</Button>
+          <Button style={{ width: '100%' }}>ㄱㄱ!!!</Button>
         </Link>
       </div>
       <div className="mirror"></div>
