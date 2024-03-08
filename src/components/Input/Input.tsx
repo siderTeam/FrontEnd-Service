@@ -4,6 +4,7 @@ import { InputProps } from '@/types/types';
 import styled from '@emotion/styled';
 import Button from '../Button/Button';
 import { color } from '@/styles/color';
+import Image from 'next/image';
 
 const Input = ({
   value,
@@ -19,6 +20,7 @@ const Input = ({
   style,
   buttonText,
   onClick,
+  onClickIcon,
   ref,
   isValid,
   ...rest
@@ -40,7 +42,7 @@ const Input = ({
           ref={ref}
           {...rest}
         />
-        {icon && <img src={icon} className="search" />}
+        {icon && <Image src={icon} width={16} height={16} alt="icon" className="icon" onClick={onClickIcon} />}
 
         {buttonText && (
           <Button size="in_input" variant="primary" onClick={onClick} className="button" disabled>
@@ -107,6 +109,14 @@ const InputContainer = styled.div`
     right: 2px;
     top: 2px;
   }
+
+  .icon {
+    cursor: pointer;
+
+    position: absolute;
+    right: 40px;
+    top: 8px;
+  }
 `;
 
 const StyledInput = styled.input<any>`
@@ -118,6 +128,7 @@ const StyledInput = styled.input<any>`
   background: none;
   box-sizing: border-box;
   outline: none;
+  position: relative;
 
   &::placeholder {
     color: ${color.gray.gray7};
@@ -126,10 +137,6 @@ const StyledInput = styled.input<any>`
   &:disabled {
     border: 1px solid ${color.gray.gray9};
     color: ${color.gray.gray8};
-  }
-
-  .search {
-    cursor: pointer;
   }
 `;
 
