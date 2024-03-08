@@ -4,7 +4,7 @@ import Button from '@/components/Button/Button';
 import Calendar from '@/components/Calendar/Calendar';
 import Input from '@/components/Input/Input';
 import PositionModal from '@/components/PositionModal/PositionModal';
-import useHandleModal from '@/hook/usehandleModal';
+import useHandleModal from '@/hook/useHandleModal';
 
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
