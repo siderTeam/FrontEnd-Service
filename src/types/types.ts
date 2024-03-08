@@ -22,6 +22,7 @@ export type InputProps = INPUT_STYLE_PROPS &
     rest?: any;
     buttonText?: string;
     onClick?: () => void;
+    onClickIcon?: () => void;
     ref?: any;
     isValid?: boolean;
   };
@@ -65,8 +66,7 @@ export type ModalProps = {
   style?: React.CSSProperties;
 };
 
-export type ModalPageProps = Pick<ModalProps, 'onClose' | 'visible'>
-
+export type ModalPageProps = Pick<ModalProps, 'onClose' | 'visible'>;
 
 //SelectInput
 
