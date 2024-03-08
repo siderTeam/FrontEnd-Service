@@ -3,9 +3,61 @@ import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 import { ModalPageProps } from '@/types/types';
 import { color } from '@/styles/color';
-import Checkbox from '../Checkbox/Checkbox';
+import { useState } from 'react';
+
+const router = [
+  {
+    id: 1,
+    label: '전체',
+  },
+  {
+    id: 2,
+    label: '프론트엔드',
+  },
+  {
+    id: 3,
+    label: '백엔드',
+  },
+  {
+    id: 4,
+    label: '모바일',
+  },
+  {
+    id: 5,
+    label: '기타',
+  },
+];
+
+const skills = [
+  {
+    id: 1,
+    label: 'JavaSript',
+  },
+  {
+    id: 2,
+    label: 'TypeSript',
+  },
+  {
+    id: 3,
+    label: 'React',
+  },
+  {
+    id: 4,
+    label: 'VueJS',
+  },
+  {
+    id: 5,
+    label: 'NextJS',
+  },
+];
 
 const SkillModal = ({ visible, onClose }: ModalPageProps) => {
+  const [activePosition, setActivePosition] = useState('전체');
+
+  const handleClickMenu = (position: string) => {
+    setActivePosition(position);
+  };
+
   return (
     <>
       <Modal
@@ -24,7 +76,29 @@ const SkillModal = ({ visible, onClose }: ModalPageProps) => {
         onClose={onClose}
       >
         <Container>
-          <div className="title">포지션</div>
+          <div className="title">스킬</div>
+
+          <Content>
+            <LeftSection>
+              {router.map((route) => {
+                const isActive = activePosition === route.label;
+                return (
+                  <div style={isActive ? { display: 'flex', gap: '8px', alignItems: 'center' } : { marginLeft: '10px' }}>
+                    {isActive && <div style={{ width: '2px', height: '20px', background: color.brand.brandMain }} />}
+                    <div className={isActive ? 'choice' : 'label'} onClick={() => handleClickMenu(route.label)}>
+                      {route.label}
+                    </div>
+                  </div>
+                );
+              })}
+            </LeftSection>
+            <div style={{ width: '1px', height: '316px', background: color.gray.gray6 }} />
+            <RightSection>
+              {skills.map((skill) => (
+                <div className="label">{skill.label}</div>
+              ))}
+            </RightSection>
+          </Content>
           <div className="button-wrap">
             <Button size="medium" variant="primary">
               선택
@@ -66,5 +140,44 @@ const Container = styled.div`
   .button-wrap {
     display: flex;
     justify-content: center;
+  }
+`;
+
+const Content = styled.div`
+  display: flex;
+`;
+
+const LeftSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 16px;
+
+  .choice {
+    color: ${color.gray.white};
+    font-size: 16px;
+    font-weight: 700;
+    line-height: normal;
+    cursor: default;
+  }
+  .label {
+    color: ${color.gray.gray5};
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+  }
+`;
+
+const RightSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 56px;
+  .label {
+    color: ${color.gray.white};
+    font-size: 16px;
+    font-weight: 700;
+    line-height: normal;
   }
 `;
