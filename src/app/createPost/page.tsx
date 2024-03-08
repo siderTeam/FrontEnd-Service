@@ -5,10 +5,10 @@ import Calendar from '@/components/Calendar/Calendar';
 import Input from '@/components/Input/Input';
 import PositionModal from '@/components/PositionModal/PositionModal';
 import useHandleModal from '@/hook/usehandleModal';
+
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import { useState } from 'react';
 
 const Page = () => {
   const { handleModal, handleModalClose, visible } = useHandleModal(false);
