@@ -41,7 +41,6 @@ const Page = () => {
     },
   });
 
-
   const handleNextButtonClick = (callback?: any) => {
     switch (currentContent) {
       case 'first':
@@ -58,7 +57,6 @@ const Page = () => {
         mutate({
           ...params,
           ...callback,
-          email: 'zmf1111@gmail.com',
         });
         break;
       default:
