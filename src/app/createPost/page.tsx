@@ -4,6 +4,7 @@ import Button from '@/components/Button/Button';
 import Calendar from '@/components/Calendar/Calendar';
 import Input from '@/components/Input/Input';
 import PositionModal from '@/components/PositionModal/PositionModal';
+import TextEditor from '@/components/TextEditor/TextEditor';
 import useHandleModal from '@/hook/useHandleModal';
 
 import { color } from '@/styles/color';
@@ -75,7 +76,9 @@ const Page = () => {
           <EditorWrap>
             <div className="title">프로젝트 명</div>
             <Input size="small" style={{ width: '1140px' }} placeholder="프로젝트 명을 입력하세요. (5~50자 이하)" />
-            <div className="editor">에디터 자리에용</div>
+            <div>
+              <TextEditor />
+            </div>
           </EditorWrap>
         </ProjectIntroduce>
 
