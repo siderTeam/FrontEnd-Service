@@ -8,7 +8,7 @@ import Button from '@/components/Button/Button';
 import Apply from './Modal/Apply';
 import ApplyStatusContainer from './Modal/ApplyStatusModal/ApplyStatusContainer';
 
-const ProjectTitle = () => {
+const ProjectTitle = ({ element }: any) => {
   const [applyModal, setApplyModal] = useState(false);
   const [applyStatusModal, setApplyStatusModal] = useState(false);
 
@@ -26,10 +26,16 @@ const ProjectTitle = () => {
     <>
       <Apply visible={applyModal} onClose={handleCloseApplyModal} />
       <ApplyStatusContainer visible={applyStatusModal} onClose={handleCloseApplyStatusModal} />
-      <Container>
-        <div className="before">
-          <Image src={'/images/arrow/arrow_left_gray6.svg'} alt="arrow" width={5} height={9} />
-          <span>이전 페이지로</span>
+      <Container ref={element}>
+        <div className="header">
+          <div className="before">
+            <Image src={'/images/arrow/arrow_left_gray6.svg'} alt="arrow" width={5} height={9} />
+            <span>이전 페이지로</span>
+          </div>
+          <div className="edit">
+            <Image src={'/images/edit/edit_gray6.svg'} alt="edit" width={22} height={22} />
+            <Image src={'/images/trash/trash_gray6.svg'} alt="trash" width={20} height={22} />
+          </div>
         </div>
         <div className="title-wrap top">
           <div className="info">
@@ -64,13 +70,19 @@ const Container = styled.div`
   padding: 32px 0 40px 0;
   background: ${color.gray.black};
 
-  position: sticky;
+  //position: sticky;
   top: 0;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+  }
 
   .before {
     display: flex;
     align-items: center;
-    margin-bottom: 40px;
 
     span {
       color: ${color.gray.gray6};
@@ -79,6 +91,12 @@ const Container = styled.div`
 
       margin-left: 8px;
     }
+  }
+
+  .edit {
+    display: flex;
+    align-items: center;
+    gap: 18px;
   }
 
   .top {

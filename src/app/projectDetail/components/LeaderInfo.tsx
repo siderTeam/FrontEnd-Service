@@ -4,9 +4,9 @@ import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Image from 'next/image';
 
-const LeaderInfo = () => {
+const LeaderInfo = ({ element }: any) => {
   return (
-    <Container>
+    <Container ref={element}>
       <div className="subtitle">
         <Image src={'/images/person/person_gray5.svg'} alt="person" width={20} height={20} />
         <span>프로젝트 리더정보</span>

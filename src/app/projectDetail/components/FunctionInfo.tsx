@@ -4,14 +4,59 @@ import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Image from 'next/image';
 
-const FunctionInfo = () => {
+const FunctionInfo = ({ element }: any) => {
   return (
-    <Container>
+    <Container ref={element}>
       <div className="subtitle">
         <Image src={'/images/checkCircle/checkCircle_gray5.svg'} alt="checkCircle" width={20} height={20} />
         <span>기능 요구사항</span>
       </div>
       <div className="function-wrap">
+        <div className="function">
+          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
+          <hr className="dash" />
+          <span className="score">10점</span>
+        </div>
+        <div className="function">
+          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
+          <hr className="dash" />
+          <span className="score">10점</span>
+        </div>
+        <div className="function">
+          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
+          <hr className="dash" />
+          <span className="score">10점</span>
+        </div>
+        <div className="function">
+          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
+          <hr className="dash" />
+          <span className="score">10점</span>
+        </div>
+        <div className="function">
+          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
+          <hr className="dash" />
+          <span className="score">10점</span>
+        </div>
+        <div className="function">
+          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
+          <hr className="dash" />
+          <span className="score">10점</span>
+        </div>
+        <div className="function">
+          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
+          <hr className="dash" />
+          <span className="score">10점</span>
+        </div>
+        <div className="function">
+          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
+          <hr className="dash" />
+          <span className="score">10점</span>
+        </div>
+        <div className="function">
+          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
+          <hr className="dash" />
+          <span className="score">10점</span>
+        </div>
         <div className="function">
           <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
           <hr className="dash" />

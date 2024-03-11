@@ -5,9 +5,9 @@ import { color } from '@/styles/color';
 import Image from 'next/image';
 import Button from '@/components/Button/Button';
 
-const DeadlineInfo = () => {
+const DeadlineInfo = ({element}:any) => {
   return (
-    <Container>
+    <Container ref={element}>
       <div className="subtitle">
         <Image src={'/images/calendar/calendar_gray5.svg'} alt="calendar" width={20} height={20} />
         <span>프로젝트 모집마감</span>
@@ -15,7 +15,7 @@ const DeadlineInfo = () => {
       <div className="deadline-wrap">
         <div className="count-wrap">
           <span>남은기간</span>
-          <span className="count">88일 88:88:88</span>
+          <span className="count">88일</span>
         </div>
         <div>
           <div className="date-wrap">
