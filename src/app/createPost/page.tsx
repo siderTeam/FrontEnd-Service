@@ -10,9 +10,33 @@ import useHandleModal from '@/hook/useHandleModal';
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
 import Image from 'next/image';
+import { useState } from 'react';
 
 const Page = () => {
   const { handleModal, handleModalClose, visible } = useHandleModal(false);
+  const [requirements, setRequirements] = useState([{ requirement: '', score: '' }]);
+
+  const handleAddRequirement = () => {
+    if (requirements.length < 7) {
+      setRequirements([...requirements, { requirement: '', score: '' }]);
+    }
+  };
+
+  const handleRequirementChange = (index: number, value: string, type: string) => {
+    const updatedRequirements = [...requirements];
+    if (type === 'requirement') {
+      updatedRequirements[index].requirement = value;
+    } else if (type === 'score') {
+      updatedRequirements[index].score = value;
+    }
+    setRequirements(updatedRequirements);
+  };
+
+  const handleDeleteRequirement = (index: number) => {
+    const updatedRequirements = [...requirements];
+    updatedRequirements.splice(index, 1);
+    setRequirements(updatedRequirements);
+  };
 
   return (
     <Container>
@@ -105,31 +129,53 @@ const Page = () => {
                 <Input size="small" style={{ width: '960px' }} placeholder="요구사항을 입력하세요. (필수)" />
                 <Input size="small" style={{ width: '100px' }} placeholder="배점 입력" />
               </div>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <Input size="small" style={{ width: '960px', marginRight: '40px' }} placeholder="요구사항을 입력하세요." />
-                <Input size="small" style={{ width: '100px', marginRight: '16px' }} placeholder="배점 입력" />
-                <Image src="/images/bin/bin.svg" width={24} height={24} alt="delete" style={{ cursor: 'pointer' }} />
-              </div>
+              {requirements.map((item, index) => (
+                <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
+                  <Input
+                    size="small"
+                    style={{ width: '960px', marginRight: '40px' }}
+                    placeholder="요구사항을 입력하세요."
+                    value={item.requirement}
+                    onChange={(e) => handleRequirementChange(index, e.target.value, 'requirement')}
+                  />
+                  <Input
+                    size="small"
+                    style={{ width: '100px', marginRight: '16px' }}
+                    placeholder="배점 입력"
+                    value={item.score}
+                    onChange={(e) => handleRequirementChange(index, e.target.value, 'score')}
+                  />
+                  <Image
+                    src="/images/bin/bin.svg"
+                    width={24}
+                    height={24}
+                    alt="delete"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => handleDeleteRequirement(index)}
+                  />
+                </div>
+              ))}
             </div>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Button size="medium" variant="secondary" style={{ marginTop: '16px' }}>
-                <Image src="/images/plus/plus_green.svg" width={16} height={16} alt="plus" />
-                요구사항 추가
-              </Button>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
+              {requirements.length < 7 && (
+                <Button size="medium" variant="secondary" onClick={handleAddRequirement} leftIcon="/images/plus/plus_green.svg">
+                  요구사항 추가
+                </Button>
+              )}
             </div>
           </ContentWrap>
         </RequireFunction>
-
-        <div className="button-wrap">
-          <Button size="medium" variant="secondary">
-            취소
-          </Button>
-          <Button size="medium" variant="primary">
-            등록
-          </Button>
-        </div>
-        <PositionModal visible={visible} onClose={handleModalClose} />
       </RecruitmentContainer>
+
+      <div className="button-wrap">
+        <Button size="medium" variant="secondary">
+          취소
+        </Button>
+        <Button size="medium" variant="primary">
+          등록
+        </Button>
+      </div>
+      <PositionModal visible={visible} onClose={handleModalClose} />
     </Container>
   );
 };
@@ -138,9 +184,19 @@ export default Page;
 
 const Container = styled.div`
   width: 100%;
-
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  .button-wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 44px;
+    padding-bottom: 80px;
+  }
 `;
 
 const RecruitmentContainer = styled.div`
@@ -149,22 +205,13 @@ const RecruitmentContainer = styled.div`
   align-items: center;
 
   width: 1280px;
-  height: 1421px;
+  min-height: 1421px;
 
   border: 1px solid ${color.gray.gray9};
 
   box-sizing: border-box;
 
   padding: 32px 32px 50px 32px;
-
-  .button-wrap {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    margin-top: 44px;
-    padding-bottom: 80px;
-  }
 `;
 
 const Line = styled.div`
@@ -230,7 +277,7 @@ const RequireFunction = styled.div`
 `;
 
 const ContentWrap = styled.div`
-  padding: 40px 38px 50px 38px;
+  padding: 40px 38px 0 38px;
 
   .description {
     color: ${color.gray.gray7};
