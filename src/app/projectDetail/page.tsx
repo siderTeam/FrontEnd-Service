@@ -11,10 +11,11 @@ import LeaderInfo from './components/LeaderInfo';
 import CommentWrite from './components/CommentWrite';
 import Comment from './components/Comment';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useObserver } from '@/hook/useObserver';
 
 const Page = () => {
+  const titleRef = useRef<HTMLDivElement>(null);
   const [isFocused, setIsfocused] = useState('first');
   const router = [
     {
@@ -49,8 +50,11 @@ const Page = () => {
 
   const onScroll = (refcurrent: React.RefObject<HTMLDivElement>, name: string) => {
     if (refcurrent.current) {
-      refcurrent.current.scrollIntoView({ behavior: 'smooth' });
-      //setIsfocused(name);
+      const currentTop = refcurrent.current.offsetTop;
+      const titleHeight = titleRef.current?.offsetHeight || 0;
+      const top = name === 'first' ? 0 : currentTop - titleHeight;
+
+      window.scrollTo({ top: top, behavior: 'smooth' });
     }
   };
 
@@ -75,7 +79,8 @@ const Page = () => {
         </SdieMenu>
       </div>
       <div className="project-container">
-        <ProjectTitle element={router[0].observe} />
+        <div ref={router[0].observe} />
+        <ProjectTitle element={titleRef} />
         <RecruitInfo />
         <ProjectInfo />
         <FunctionInfo element={router[1].observe} />

@@ -70,7 +70,7 @@ const Container = styled.div`
   padding: 32px 0 40px 0;
   background: ${color.gray.black};
 
-  //position: sticky;
+  position: sticky;
   top: 0;
 
   .header {
