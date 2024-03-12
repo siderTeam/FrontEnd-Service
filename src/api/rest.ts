@@ -15,6 +15,7 @@ export const rest = {
     userSignUp: '/user/signUp',
     getAccessToken: '/user/newAc',
     getChoBiSangToken: '/user/newRf',
+    createProject: '/project',
   },
   put: {},
   delete: {},

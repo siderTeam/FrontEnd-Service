@@ -1,19 +1,42 @@
 'use client';
 
+import { postCreateProject } from '@/api/createPost/api';
+import { CREATE_PROJECT_REQUEST } from '@/api/createPost/model';
 import Button from '@/components/Button/Button';
 import Calendar from '@/components/Calendar/Calendar';
 import Input from '@/components/Input/Input';
 import PositionModal from '@/components/PositionModal/PositionModal';
 import TextEditor from '@/components/TextEditor/TextEditor';
+import useChangeInputs from '@/hook/useChangeInputs';
 import useHandleModal from '@/hook/useHandleModal';
 
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useState } from 'react';
 
+const initialParams: CREATE_PROJECT_REQUEST = {
+  count: 0,
+  connect: '',
+  positionCodeList: null,
+  skillCodeList: [0],
+  recruitEndDate: '',
+  month: 0,
+  deposit: 0,
+  requiredContentsList: [
+    {
+      content: '',
+      point: 0,
+    },
+  ],
+  name: '',
+  content: '',
+};
+
 const Page = () => {
   const { handleModal, handleModalClose, visible } = useHandleModal(false);
+  const { inputs, onChange, setInputs } = useChangeInputs(initialParams);
   const [requirements, setRequirements] = useState([{ requirement: '', score: '' }]);
 
   const handleAddRequirement = () => {
@@ -38,6 +61,18 @@ const Page = () => {
     setRequirements(updatedRequirements);
   };
 
+  const { mutate } = useMutation({
+    mutationFn: postCreateProject,
+    onSuccess: async (data) => {
+      if (data.result === true) {
+        console.log('성공');
+      }
+    },
+    onError: () => {
+      console.log('실패');
+    },
+  });
+
   return (
     <Container>
       <RecruitmentContainer>
@@ -49,13 +84,28 @@ const Page = () => {
             <div className="wrap">
               <div className="title">모집 인원</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <Input size="small" style={{ width: '500px' }} placeholder="프로젝트를 함께할 인원 수를 입력해주세요. (2명 이상)" />
+                <Input
+                  name="count"
+                  size="small"
+                  style={{ width: '500px' }}
+                  placeholder="프로젝트를 함께할 인원 수를 입력해주세요. (2명 이상)"
+                  type="number"
+                  onChange={onChange}
+                  value={inputs.count}
+                />
                 <span style={{ color: color.gray.gray5 }}>명</span>
               </div>
             </div>
             <div className="wrap">
               <div className="title">연락방법</div>
-              <Input size="small" style={{ width: '540px' }} placeholder="오픈 카카오톡 링크, 메일, 전화번호 등 연락받을 방법을 입력해주세요." />
+              <Input
+                name="connect"
+                size="small"
+                style={{ width: '540px' }}
+                placeholder="오픈 카카오톡 링크, 메일, 전화번호 등 연락받을 방법을 입력해주세요."
+                onChange={onChange}
+                value={inputs.connect}
+              />
             </div>
           </div>
 
@@ -63,9 +113,10 @@ const Page = () => {
             <div className="wrap">
               <div className="title">모집 포지션</div>
               <Input
+                name="position"
                 size="small"
                 style={{ width: '540px' }}
-                placeholder="프로젝트를 함께할 인원 수를 입력해주세요. (2명 이상)"
+                placeholder="프로젝트에 필요한 포지션을 선택해주세요."
                 icon="/images/plus/plus_gray6.svg"
                 onClickIcon={handleModal}
               />
@@ -73,9 +124,10 @@ const Page = () => {
             <div className="wrap">
               <div className="title">스킬</div>
               <Input
+                name="skill"
                 size="small"
                 style={{ width: '540px' }}
-                placeholder="오픈 카카오톡 링크, 메일, 전화번호 등 연락받을 방법을 입력해주세요."
+                placeholder="프로젝트에 필요한 스킬을 선택해주세요."
                 icon="/images/plus/plus_gray6.svg"
               />
             </div>
@@ -88,7 +140,15 @@ const Page = () => {
             </div>
             <div className="wrap">
               <div className="title">보증금 (1인)</div>
-              <Input size="small" style={{ width: '540px' }} placeholder="1인 보증금을 입력해주세요." />
+              <Input
+                name="deposit"
+                size="small"
+                style={{ width: '540px' }}
+                placeholder="1인 보증금을 입력해주세요."
+                type="number"
+                onChange={onChange}
+                value={inputs.deposit}
+              />
             </div>
           </div>
         </CommonInfo>
@@ -99,7 +159,7 @@ const Page = () => {
 
           <EditorWrap>
             <div className="title">프로젝트 명</div>
-            <Input size="small" style={{ width: '1140px' }} placeholder="프로젝트 명을 입력하세요. (5~50자 이하)" />
+            <Input size="small" style={{ width: '1140px' }} placeholder="프로젝트 명을 입력하세요. (5~50자 이하)" onChange={onChange} value={inputs.name} />
             <div>
               <TextEditor />
             </div>
@@ -118,20 +178,21 @@ const Page = () => {
             </div>
             <div className="input-wrap">
               <div style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
-                <Input size="small" style={{ width: '960px' }} placeholder="요구사항을 입력하세요. (필수)" />
-                <Input size="small" style={{ width: '100px' }} placeholder="배점 입력" />
+                <Input name="content" size="small" style={{ width: '960px' }} placeholder="요구사항을 입력하세요. (필수)" />
+                <Input name="point" size="small" style={{ width: '100px' }} placeholder="배점 입력" type="number" />
               </div>
               <div style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
-                <Input size="small" style={{ width: '960px' }} placeholder="요구사항을 입력하세요. (필수)" />
-                <Input size="small" style={{ width: '100px' }} placeholder="배점 입력" />
+                <Input name="content" size="small" style={{ width: '960px' }} placeholder="요구사항을 입력하세요. (필수)" />
+                <Input name="point" size="small" style={{ width: '100px' }} placeholder="배점 입력" />
               </div>
               <div style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
-                <Input size="small" style={{ width: '960px' }} placeholder="요구사항을 입력하세요. (필수)" />
-                <Input size="small" style={{ width: '100px' }} placeholder="배점 입력" />
+                <Input name="content" size="small" style={{ width: '960px' }} placeholder="요구사항을 입력하세요. (필수)" />
+                <Input name="point" size="small" style={{ width: '100px' }} placeholder="배점 입력" />
               </div>
               {requirements.map((item, index) => (
                 <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
                   <Input
+                    name="content"
                     size="small"
                     style={{ width: '960px', marginRight: '40px' }}
                     placeholder="요구사항을 입력하세요."
@@ -139,6 +200,7 @@ const Page = () => {
                     onChange={(e) => handleRequirementChange(index, e.target.value, 'requirement')}
                   />
                   <Input
+                    name="point"
                     size="small"
                     style={{ width: '100px', marginRight: '16px' }}
                     placeholder="배점 입력"
