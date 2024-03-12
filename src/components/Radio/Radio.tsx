@@ -24,7 +24,7 @@ const Radio = ({ text, requireText, className, onChange, onClick, style, radioSt
       <StyledRadio
         type="checkbox"
         disabled={disabled}
-        onChange={onChange}
+        onChange={onChange ? onChange : () => {}}
         onClick={onClick}
         style={radioStyle}
         className={className}

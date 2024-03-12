@@ -7,20 +7,57 @@ import FirstContent from './components/FirstContent';
 import ThirdContent from './components/ThirdContent';
 import LastContent from './components/LastContent';
 import Image from 'next/image';
+import { SIGN_UP_REQUEST } from '@/api/auth/model';
+import { postUserSignUp } from '@/api/api';
+import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+
+const initialParams: SIGN_UP_REQUEST = {
+  username: '',
+  name: '',
+  password: '',
+  nickname: '',
+  career: 0,
+  phone: '',
+  positionCode: null,
+};
 
 const Page = () => {
+  const route = useRouter();
   const [currentContent, setCurrentContent] = useState('first');
+  const [params, setParams] = useState(initialParams);
 
-  const handleNextButtonClick = () => {
+  const { mutate } = useMutation({
+    mutationFn: postUserSignUp,
+    onSuccess: async (data) => {
+      if (data.result === true) {
+        setCurrentContent('last');
+      } else {
+        alert('회원가입 불가');
+      }
+    },
+    onError: () => {
+      console.log('실패');
+    },
+  });
+
+  const handleNextButtonClick = (callback?: any) => {
     switch (currentContent) {
       case 'first':
         setCurrentContent('second');
         break;
       case 'second':
         setCurrentContent('third');
+        setParams({
+          ...params,
+          ...callback,
+        } as unknown as SIGN_UP_REQUEST);
         break;
       case 'third':
-        setCurrentContent('last');
+        mutate({
+          ...params,
+          ...callback,
+        });
         break;
       default:
         break;

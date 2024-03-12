@@ -72,7 +72,7 @@ const SIZE_TYPE = {
     borderRadius: '10px',
 
     fontSize: '16px',
-    fontWeight: 500,
+    fontWeight: 600,
   },
 };
 
