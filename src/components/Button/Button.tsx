@@ -4,7 +4,7 @@ import { color } from '@/styles/color';
 
 export type BUTTON_STYLE_PROPS = {
   size?: 'tiny' | 'small' | 'medium' | 'large' | 'in_input';
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'error' | 'error_secondary';
 };
 
 export type ButtonProps = BUTTON_STYLE_PROPS & {
@@ -18,18 +18,7 @@ export type ButtonProps = BUTTON_STYLE_PROPS & {
   disabled?: any;
 };
 
-const Button = ({
-  children,
-  size = 'medium',
-  variant = 'primary',
-  style,
-  iconStyle,
-  onClick,
-  rightIcon,
-  leftIcon,
-  className,
-  ...rest
-}: ButtonProps) => {
+const Button = ({ children, size = 'medium', variant = 'primary', style, iconStyle, onClick, rightIcon, leftIcon, className, ...rest }: ButtonProps) => {
   return (
     <StyledButton size={size} variant={variant} style={style} onClick={onClick} className={className} {...rest}>
       <div className="text_icon_wrap">
@@ -97,6 +86,15 @@ const COLOR_TYPE = {
     border: `1px solid ${color.brand.brandMain}`,
     color: `${color.brand.brandMain}`,
   },
+  ['error']: {
+    background: `${color.secondary.error_1}`,
+    color: `${color.gray.black}`,
+  },
+  ['error_secondary']: {
+    background: 'none',
+    border: `1px solid ${color.secondary.error_1}`,
+    color: `${color.secondary.error_1}`,
+  },
 };
 
 const DISABLED_TYPE = {
@@ -131,7 +129,7 @@ const StyledButton = styled.button<ButtonProps>`
   }
 
   &:hover:not(:disabled) {
-    box-shadow: 0px 0px 6px 0px ${color.brand.brandMain};
+    box-shadow: 0px 0px 6px 0px ${({ variant }) => (variant?.includes('error') ? color.secondary.error_1 : color.brand.brandMain)};
   }
 
   .text_icon_wrap {
