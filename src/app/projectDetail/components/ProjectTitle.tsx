@@ -7,8 +7,14 @@ import Image from 'next/image';
 import Button from '@/components/Button/Button';
 import Apply from './Modal/Apply';
 import ApplyStatusContainer from './Modal/ApplyStatusModal/ApplyStatusContainer';
+import { PROJECT_DETAIL_RESPONSE } from '@/api/projectDetail/model';
 
-const ProjectTitle = ({ element }: any) => {
+type Props = {
+  element: any;
+  data: PROJECT_DETAIL_RESPONSE | undefined;
+};
+
+const ProjectTitle = ({ element, data }: Props) => {
   const [applyModal, setApplyModal] = useState(false);
   const [applyStatusModal, setApplyStatusModal] = useState(false);
 
@@ -39,17 +45,17 @@ const ProjectTitle = ({ element }: any) => {
         </div>
         <div className="title-wrap top">
           <div className="info">
-            <span>닉네임</span>
-            <span>8888.88.88</span>
-            <span className="status">모집중</span>
+            <span>{data?.createUser.nickname}</span>
+            <span>{data?.createdDate.replace(/-/g, '.').slice(0, 10)}</span>
+            <span className="status">{data?.status}</span>
           </div>
           <div className="seen">
             <Image src={'/images/security/security_gray5.svg'} alt="security" width={12} height={7} />
-            <span>888,888,888</span>
+            <span>{data?.view}</span>
           </div>
         </div>
         <div className="title-wrap">
-          <h1 className="project-title">프로젝트 모집글 제목</h1>
+          <h1 className="project-title">{data?.name}</h1>
           <div className="button">
             <Button variant="secondary" onClick={() => setApplyStatusModal(true)}>
               지원현황

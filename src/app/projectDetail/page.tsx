@@ -13,6 +13,9 @@ import Comment from './components/Comment';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { useObserver } from '@/hook/useObserver';
+import { useQuery } from '@tanstack/react-query';
+import { rest } from '@/api/rest';
+import { getProjectDetail } from '@/api/projectDetail/api';
 
 const Page = () => {
   const titleRef = useRef<HTMLDivElement>(null);
@@ -48,6 +51,11 @@ const Page = () => {
     },
   ];
 
+  const { data } = useQuery({
+    queryKey: [rest.get.projectDetail],
+    queryFn: () => getProjectDetail(64),
+  });
+
   const onScroll = (refcurrent: React.RefObject<HTMLDivElement>, name: string) => {
     if (refcurrent.current) {
       const currentTop = refcurrent.current.offsetTop;
@@ -80,13 +88,13 @@ const Page = () => {
       </div>
       <div className="project-container">
         <div ref={router[0].observe} />
-        <ProjectTitle element={titleRef} />
-        <RecruitInfo />
-        <ProjectInfo />
-        <FunctionInfo element={router[1].observe} />
-        <DeadlineInfo element={router[2].observe} />
-        <LeaderInfo element={router[3].observe} />
-        <CommentWrite />
+        <ProjectTitle element={titleRef} data={data} />
+        <RecruitInfo data={data} />
+        <ProjectInfo content={data?.content || ''} />
+        <FunctionInfo element={router[1].observe} data={data} />
+        <DeadlineInfo element={router[2].observe} data={data} />
+        <LeaderInfo element={router[3].observe} data={data} />
+        <CommentWrite replyCount={data?.projectReplies.length || 0} />
         <Comment />
       </div>
     </Container>
@@ -140,7 +148,6 @@ const SdieMenu = styled.div`
     align-items: center;
     gap: 9px;
 
-    width: 100px;
     height: 50px;
     box-sizing: border-box;
     padding-right: 14px;

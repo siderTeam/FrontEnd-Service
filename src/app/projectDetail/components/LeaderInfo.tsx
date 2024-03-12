@@ -3,8 +3,14 @@
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Image from 'next/image';
+import { PROJECT_DETAIL_RESPONSE } from '@/api/projectDetail/model';
 
-const LeaderInfo = ({ element }: any) => {
+type Props = {
+  element: any;
+  data: PROJECT_DETAIL_RESPONSE | undefined;
+};
+
+const LeaderInfo = ({ element, data }: Props) => {
   return (
     <Container ref={element}>
       <div className="subtitle">
@@ -15,18 +21,22 @@ const LeaderInfo = ({ element }: any) => {
         <Image src={'/images/user_profile_dummy.svg'} alt="profile" width={140} height={140} />
         <div className="leader-info">
           <div className="title">닉네임</div>
-          <div className="content">홍길동</div>
+          <div className="content">{data?.createUser.nickname}</div>
           <div className="title">포지션</div>
-          <div className="content">디자이너</div>
+          <div className="content">{data?.createUser.position.name}</div>
           <div className="title">연차</div>
-          <div className="content">88년차</div>
+          <div className="content">{data?.createUser.career}년차</div>
           <div className="title">스킬</div>
           <div className="content">
-            Figma, Java, Html, CSS, JavaScript, Oracle, MySQL, Figma, Java, Html, CSS, JavaScript, Oracle, MySQL, Figma, Java, Html, CSS, JavaScript, Oracle,
-            MySQL
+            {data?.createUser.memberSkillList.map((skill, index) => (
+              <span key={skill.skillCode}>
+                {index > 0 && ', '}
+                {skill.name}
+              </span>
+            ))}
           </div>
           <div className="title">자기소개</div>
-          <div className="content">홍길동의 자기소개입니다.</div>
+          <div className="content">{data?.createUser.introduction}</div>
         </div>
       </div>
     </Container>

@@ -3,8 +3,14 @@
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Image from 'next/image';
+import { PROJECT_DETAIL_RESPONSE } from '@/api/projectDetail/model';
 
-const FunctionInfo = ({ element }: any) => {
+type Props = {
+  element: any;
+  data: PROJECT_DETAIL_RESPONSE | undefined;
+};
+
+const FunctionInfo = ({ element, data }: Props) => {
   return (
     <Container ref={element}>
       <div className="subtitle">
@@ -12,61 +18,15 @@ const FunctionInfo = ({ element }: any) => {
         <span>기능 요구사항</span>
       </div>
       <div className="function-wrap">
-        <div className="function">
-          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
-          <hr className="dash" />
-          <span className="score">10점</span>
-        </div>
-        <div className="function">
-          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
-          <hr className="dash" />
-          <span className="score">10점</span>
-        </div>
-        <div className="function">
-          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
-          <hr className="dash" />
-          <span className="score">10점</span>
-        </div>
-        <div className="function">
-          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
-          <hr className="dash" />
-          <span className="score">10점</span>
-        </div>
-        <div className="function">
-          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
-          <hr className="dash" />
-          <span className="score">10점</span>
-        </div>
-        <div className="function">
-          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
-          <hr className="dash" />
-          <span className="score">10점</span>
-        </div>
-        <div className="function">
-          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
-          <hr className="dash" />
-          <span className="score">10점</span>
-        </div>
-        <div className="function">
-          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
-          <hr className="dash" />
-          <span className="score">10점</span>
-        </div>
-        <div className="function">
-          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
-          <hr className="dash" />
-          <span className="score">10점</span>
-        </div>
-        <div className="function">
-          <div className="require">1. 고구마 에어프라이어에 좀 돌려보신 분</div>
-          <hr className="dash" />
-          <span className="score">10점</span>
-        </div>
-        <div className="function">
-          <div className="require">2. 고구마고구마고구마고구마고구마고구마고구마고구마 에어프라이어에 좀 돌려보신 분</div>
-          <hr className="dash" />
-          <span className="score">10점</span>
-        </div>
+        {data?.audit.detailList.map((item, index) => (
+          <div className="function" key={index}>
+            <div className="require">
+              {index}. {item.contents}
+            </div>
+            <hr className="dash" />
+            <span className="score">{item.point}점</span>
+          </div>
+        ))}
       </div>
     </Container>
   );

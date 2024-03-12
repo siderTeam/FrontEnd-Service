@@ -4,32 +4,55 @@ import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Image from 'next/image';
 import Button from '@/components/Button/Button';
+import { PROJECT_DETAIL_RESPONSE } from '@/api/projectDetail/model';
+import Apply from './Modal/Apply';
+import { useState } from 'react';
 
-const DeadlineInfo = ({element}:any) => {
+type Props = {
+  element: any;
+  data: PROJECT_DETAIL_RESPONSE | undefined;
+};
+
+const DeadlineInfo = ({ element, data }: Props) => {
+  const [applyModal, setApplyModal] = useState(false);
+  //남은기간 계산
+  const today = new Date();
+  const endDate = new Date(data?.recruitEndDate || '');
+  let period = endDate.getTime() - today.getTime();
+  period = period < 0 ? 0 : Math.ceil(period / (1000 * 60 * 60 * 24));
+
+  //지원하기 모달
+  const handleCloseApplyModal = () => {
+    setApplyModal(false);
+  };
+
   return (
-    <Container ref={element}>
-      <div className="subtitle">
-        <Image src={'/images/calendar/calendar_gray5.svg'} alt="calendar" width={20} height={20} />
-        <span>프로젝트 모집마감</span>
-      </div>
-      <div className="deadline-wrap">
-        <div className="count-wrap">
-          <span>남은기간</span>
-          <span className="count">88일</span>
+    <>
+      <Apply visible={applyModal} onClose={handleCloseApplyModal} />
+      <Container ref={element}>
+        <div className="subtitle">
+          <Image src={'/images/calendar/calendar_gray5.svg'} alt="calendar" width={20} height={20} />
+          <span>프로젝트 모집마감</span>
         </div>
-        <div>
-          <div className="date-wrap">
-            <span className="date">시작일</span>
-            <span>8888.88.88 88:88</span>
+        <div className="deadline-wrap">
+          <div className="count-wrap">
+            <span>남은기간</span>
+            <span className="count">{period}일</span>
           </div>
-          <div className="date-wrap green">
-            <span className="date">마감일</span>
-            <span>8888.88.88 88:88</span>
+          <div>
+            <div className="date-wrap">
+              <span className="date">시작일</span>
+              <span>{data?.recruitStartDate.replace(/-/g, '.')}</span>
+            </div>
+            <div className="date-wrap green">
+              <span className="date">마감일</span>
+              <span>{data?.recruitEndDate.replace(/-/g, '.')}</span>
+            </div>
           </div>
+          <Button onClick={() => setApplyModal(true)}>지원하기</Button>
         </div>
-        <Button>지원하기</Button>
-      </div>
-    </Container>
+      </Container>
+    </>
   );
 };
 

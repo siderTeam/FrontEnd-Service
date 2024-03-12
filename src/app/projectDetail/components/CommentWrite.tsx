@@ -7,7 +7,11 @@ import TextArea from '@/components/TextArea/TextArea';
 import Button from '@/components/Button/Button';
 import { useState } from 'react';
 
-const CommentWrite = () => {
+type Props = {
+  replyCount: number;
+};
+
+const CommentWrite = ({ replyCount }: Props) => {
   const [textCount, setTextCount] = useState(0);
   const [inputTextarea, setInputTextarea] = useState('');
 
@@ -34,7 +38,7 @@ const CommentWrite = () => {
       <div className="subtitle">
         <Image src={'/images/edit/edit_gray5.svg'} alt="edit" width={20} height={20} />
         <span>댓글</span>
-        <span style={{ color: `${color.secondary.positive_1}` }}>2</span>
+        <span style={{ color: `${color.secondary.positive_1}` }}>{replyCount}</span>
       </div>
       <TextArea style={{ width: '100%', height: 78 }} value={inputTextarea} onChange={handleTextChange} textareaCount={textCount} maxLength={200} />
       <div className="button">
