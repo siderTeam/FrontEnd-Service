@@ -138,6 +138,11 @@ const StyledInput = styled.input<any>`
     border: 1px solid ${color.gray.gray9};
     color: ${color.gray.gray8};
   }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
 `;
 
 const ErrorText = styled.div<InputProps>`
