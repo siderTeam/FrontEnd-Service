@@ -1,9 +1,9 @@
 'use client';
 
 import styled from '@emotion/styled';
-import Button from '../Button/Button';
 import { color } from '@/styles/color';
 import { InputHTMLAttributes } from 'react';
+import Image from 'next/image';
 
 export type INPUT_STYLE_PROPS = {
   size?: 'small' | 'medium' | 'large' | 'full';
@@ -30,6 +30,7 @@ export type InputProps = INPUT_STYLE_PROPS &
     ref?: any;
     isValid?: boolean;
     suffix?: any;
+    onClickIcon?: () => void;
   };
 
 const Input = ({
@@ -46,6 +47,7 @@ const Input = ({
   style,
   buttonText,
   onClick,
+  onClickIcon,
   ref,
   isValid,
   suffix,
@@ -70,7 +72,7 @@ const Input = ({
           ref={ref}
           {...rest}
         />
-        {icon && <img src={icon} className="search" />}
+        {icon && <Image src={icon} width={16} height={16} alt="icon" className="icon" onClick={onClickIcon} />}
 
         {suffix && <div className="suffix">{suffix}</div>}
         {subText && <SubText color={status}>{subText}</SubText>}
@@ -136,6 +138,14 @@ const InputContainer = styled.div`
     right: 2px;
     top: 2px;
   }
+
+  .icon {
+    cursor: pointer;
+
+    position: absolute;
+    right: 40px;
+    top: 8px;
+  }
 `;
 
 const StyledInput = styled.input<any>`
@@ -147,6 +157,7 @@ const StyledInput = styled.input<any>`
   background: none;
   box-sizing: border-box;
   outline: none;
+  position: relative;
 
   &[type='number']::-webkit-outer-spin-button,
   &[type='number']::-webkit-inner-spin-button {
@@ -163,12 +174,13 @@ const StyledInput = styled.input<any>`
     color: ${color.gray.gray8};
   }
 
-  .search {
-    cursor: pointer;
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
   }
 `;
 
-const SubText = styled.div<InputProps>`
+const SubText = styled.div<any>`
   color: ${(props) => (props.color === 'error' ? color.secondary.error_1 : props.color === 'success' ? color.secondary.positive_1 : '')};
 
   font-size: 12px;

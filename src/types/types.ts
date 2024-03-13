@@ -38,8 +38,7 @@ export type ModalProps = {
   style?: React.CSSProperties;
 };
 
-export type ModalPageProps = Pick<ModalProps, 'onClose' | 'visible'>
-
+export type ModalPageProps = Pick<ModalProps, 'onClose' | 'visible'>;
 
 //SelectInput
 
