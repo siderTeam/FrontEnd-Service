@@ -7,7 +7,15 @@ import styled from '@emotion/styled';
 const Checkbox = ({ text, disabled, checked, requireText, className, onChange, onClick, style, requireStyle }: CheckboxProps) => {
   return (
     <Container>
-      <StyledCheckbox disabled={disabled} type="checkbox" checked={checked} onChange={onChange} onClick={onClick} style={style} className={className} />
+      <StyledCheckbox
+        disabled={disabled}
+        type="checkbox"
+        checked={checked}
+        onChange={onChange ? onChange : () => {}}
+        onClick={onClick}
+        style={style}
+        className={className}
+      />
       <StyledLabel>{text}</StyledLabel>
       {requireText && <StyledRequire style={requireStyle}>{requireText}</StyledRequire>}
     </Container>

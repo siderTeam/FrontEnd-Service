@@ -33,7 +33,6 @@ const SelectBox = <T,>({
   onChange,
   style,
   optionStyle,
-  placeholder,
 }: SelectBoxProps<T>) => {
   const [visible, setVisible] = useState(false);
 
@@ -49,13 +48,13 @@ const SelectBox = <T,>({
   const selected = options.filter((option) => option.value === value);
 
   return (
-    <Container>
+    <Container onClick={handleClickSelect}>
       <StyledSelect size={size} selectedType={selectedType} optionType={optionType} text={text} value={value} name={name} style={style}>
-        <div className={selected.length === 0 ? 'value' : 'choice-value'}>{selected.length === 0 ? placeholder : selected[0].label}</div>
+        <div className={selected.length === 0 ? 'value' : 'choice-value'}>{selected[0].label}</div>
         {selectedType === 'disabled' ? (
-          <Image src="/images/arrow/arrow_down_gray9.svg" width={16} height={16} alt="arrow" onClick={handleClickSelect} style={{ cursor: 'pointer' }} />
+          <Image src="/images/arrow/arrow_down_gray9.svg" width={16} height={16} alt="arrow" style={{ cursor: 'pointer' }} />
         ) : (
-          <Image src="/images/arrow/arrow_down_gray6.svg" width={16} height={16} alt="arrow" onClick={handleClickSelect} style={{ cursor: 'pointer' }} />
+          <Image src="/images/arrow/arrow_down_gray6.svg" width={16} height={16} alt="arrow" style={{ cursor: 'pointer' }} />
         )}
       </StyledSelect>
       {visible && (
@@ -122,28 +121,26 @@ const OPTIONS_TYPE = {
 
 const Container = styled.div`
   position: relative;
+  cursor: pointer;
 `;
 
 const StyledSelect = styled.div<any>`
   ${({ selectedType }) => SELECT_TYPE[selectedType as 'placeholder']}
   ${({ size }) => SIZE_TYPE[size as 'small']}
-
+  
   display: flex;
   width: 120px;
   padding: 6px 10px 6px 16px;
-
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
   border-radius: 8px;
-
   box-sizing: border-box;
 
   .value {
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
   }
 
@@ -151,9 +148,8 @@ const StyledSelect = styled.div<any>`
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    color: white;
+    color: ${({ value }) => !!value ? color.gray.white : color.gray.gray7};
     font-weight: bold;
   }
 `;

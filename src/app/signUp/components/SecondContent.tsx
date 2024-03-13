@@ -4,67 +4,127 @@ import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Input from '@/components/Input/Input';
 import Button from '@/components/Button/Button';
-import { useState } from 'react';
-import { USER_SIGNUP_REQUEST } from '@/api/model';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { getUserId, postUserSignUp } from '@/api/api';
-import { useRouter } from 'next/navigation';
-import { rest } from '@/api/rest';
+import { useEffect, useState } from 'react';
+import { getUserId } from '@/api/api';
+import { SIGN_UP_REQUEST } from '@/api/auth/model';
+import useChangeInputs from '@/hook/useChangeInputs';
+import { InputSubMessageProps } from '@/components/Input/InputSubMessage';
+import useInfoMessage, { INFO_MESSAGE } from '@/components/hooks/useInfoMessage';
+import { getPasswordCheckValidateMessage, getPasswordValidateMessage, getUserIDValidateMessage } from '@/app/util/auth';
+import { autoHyphen } from 'public/lib/util';
+
+type Callback = Omit<SIGN_UP_REQUEST, 'positionCode' | 'introduction' | 'career'>;
 
 interface Props {
-  onClick: () => void;
+  onClick: (params: Callback) => void;
 }
 
+const initialInputs = {
+  username: '',
+  password: '',
+  passwordCheck: '',
+  name: '',
+  nickname: '',
+  phone: '',
+};
+
+interface INFO_MESSAGE_TYPE {
+  username: InputSubMessageProps;
+  password: InputSubMessageProps;
+  passwordCheck: InputSubMessageProps;
+}
+
+const initialInfoMessages: INFO_MESSAGE<INFO_MESSAGE_TYPE> = {
+  username: {
+    children: '',
+    status: 'error',
+    validate: getUserIDValidateMessage as any,
+  }, // 유저 아이디
+  password: {
+    children: '',
+    status: 'error',
+    validate: getPasswordValidateMessage as any,
+  }, // 비밀번호 변경
+  passwordCheck: {
+    children: '',
+    status: 'error',
+    validate: (value, params) => getPasswordCheckValidateMessage(value, params, 'password') as any,
+  }, // 비밀번호 재확인
+};
+
 const SecondContent = ({ onClick }: Props) => {
-  const route = useRouter();
-  const [form, setForm] = useState<USER_SIGNUP_REQUEST>({
-    username: '',
-    password: '',
+  const { inputs, onChange, setInputs } = useChangeInputs(initialInputs);
+  const { infoMessages, setInfoMessages, onChangeInfoMessage } = useInfoMessage(initialInfoMessages);
+  const [duplicateCheck, setDuplicateCheck] = useState({
     name: '',
-    email: '',
-    nickname: '',
-    bankName: '',
-    bankNo: '',
-    bankUserName: '',
-    phone: '',
-    jobCode: 0,
-    positionCode: [],
+    status: false,
   });
 
-  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [disabled, setDisabled] = useState(true);
 
-  //아이디 중복 데이터
-  const idCheckData = useQuery({
-    queryKey: [rest.get.userId, form.username],
-    queryFn: () => getUserId(form.username),
-    enabled: !!form.username, //id값이 존재하지 않을 경우 false를 변경해줌으로써 자동 실행을 막을 수 있음
-  });
+  useEffect(() => {
+    if (
+      !!inputs.username.length === true &&
+      !!inputs.password.length === true &&
+      !!inputs.passwordCheck.length === true &&
+      !!inputs.name.length === true &&
+      !!inputs.nickname.length === true &&
+      !!inputs.phone.length === true &&
+      !!infoMessages.password.status === true &&
+      !!infoMessages.passwordCheck.status === true &&
+      !!infoMessages.username.status === true
+    ) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [infoMessages, inputs]);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+
+    if (name === 'username' || name === 'password' || name === 'passwordCheck') {
+      onChangeInfoMessage(value, name, inputs);
+    }
+
+    if (name === 'phone') {
+      setInputs({
+        ...inputs,
+        phone: autoHyphen(e.target),
+      });
+      return;
+    }
+
+    onChange(e);
+  };
+  1;
+  //아이디 중복 데이터
+  const handleClickDuplicate = async () => {
+    const response = await getUserId(inputs.username);
+
+    setDuplicateCheck({
+      name: inputs.username,
+      status: response.data,
+    });
+    setInfoMessages({
+      ...infoMessages,
+      username: {
+        ...infoMessages.username,
+        children: '사용 가능한 아이디입니다.',
+        status: 'success',
+      },
+    });
   };
 
-  //비밀번호 확인 onChange
-  const handlePwConfirmChange = (e: any) => {
-    setPasswordConfirm(e.target.value);
-  };
+  const [duplicateTextStatus, setDuplicateCheckTextStatus] = useState(false);
 
-  const { mutate } = useMutation({
-    mutationFn: postUserSignUp,
-    onSuccess: async (data) => {
-      if (data.result === true) {
-        alert('회원가입이 완료되었습니다.\n로그인 페이지로 이동합니다.');
-
-        route.push('/login');
-      } else {
-        alert('회원가입 불가');
-      }
-    },
-    onError: () => {
-      console.log('실패');
-    },
-  });
+  useEffect(() => {
+    if (duplicateCheck.status && inputs.username === duplicateCheck.name) {
+      setDuplicateCheckTextStatus(true);
+    } else {
+      setDuplicateCheckTextStatus(false);
+    }
+  }, [duplicateCheck, inputs.username]);
 
   return (
     <SignupContainer>
@@ -78,17 +138,48 @@ const SecondContent = ({ onClick }: Props) => {
       </div>
 
       <div className="input-wrap">
-        <SecondContentInput size="large" placeholder="아이디" name="username" errorText="dd" buttonText="중복확인" />
-
-        <SecondContentInput placeholder="비밀번호" name="password" type="password" />
-        <SecondContentInput placeholder="비밀번호 확인" name="passwordConfirm" type="password" />
-        <SecondContentInput placeholder="이름" name="name" />
-        <SecondContentInput placeholder="닉네임" name="nickname" />
-        <SecondContentInput placeholder="전화번호" name="phone" />
+        <Input
+          subText={duplicateTextStatus ? infoMessages.username.children : ''}
+          status={infoMessages.username.status}
+          suffix={
+            <Button onClick={handleClickDuplicate} size="in_input">
+              중복확인
+            </Button>
+          }
+          onChange={handleChange}
+          size="full"
+          placeholder="아이디"
+          value={inputs.username}
+          name="username"
+          buttonText="중복확인"
+        />
+        <Input
+          subText={infoMessages.password.children}
+          status={infoMessages.password.status}
+          onChange={handleChange}
+          size="full"
+          placeholder="비밀번호"
+          value={inputs.password}
+          name="password"
+          type="password"
+        />
+        <Input
+          subText={infoMessages.passwordCheck.children}
+          status={infoMessages.passwordCheck.status}
+          onChange={handleChange}
+          size="full"
+          placeholder="비밀번호 확인"
+          value={inputs.passwordCheck}
+          name="passwordCheck"
+          type="password"
+        />
+        <Input onChange={handleChange} size="full" placeholder="이름" value={inputs.name} name="name" />
+        <Input onChange={handleChange} size="full" placeholder="닉네임" value={inputs.nickname} name="nickname" />
+        <Input onChange={handleChange} size="full" placeholder="전화번호" value={inputs.phone} name="phone" />
       </div>
 
       <div className="button-wrapper">
-        <Button variant="primary" onClick={onClick} style={{ width: '100%' }}>
+        <Button disabled={disabled} variant="primary" onClick={() => onClick(inputs)} style={{ width: '100%' }}>
           다음
         </Button>
       </div>
@@ -173,8 +264,4 @@ const SignupContainer = styled.div`
     justify-content: flex-end;
     align-items: end;
   }
-`;
-
-const SecondContentInput = styled(Input)`
-  width: 100%;
 `;

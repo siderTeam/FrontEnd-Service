@@ -1,7 +1,8 @@
 'use client';
 
-import { postCreateProject } from '@/api/createPost/api';
-import { CREATE_PROJECT_REQUEST } from '@/api/createPost/model';
+import { CREATE_PROJECT_REQUEST } from '@/api/project/model';
+import { postCreateProject } from '@/api/project/api';
+
 import Button from '@/components/Button/Button';
 import Calendar from '@/components/Calendar/Calendar';
 import Input from '@/components/Input/Input';
