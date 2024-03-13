@@ -1,4 +1,4 @@
-import { POSITION_CODE } from 'public/enum';
+import { POSITION_CODE } from "public/lib/enum";
 
 export type CREATE_PROJECT_REQUEST = {
   count: number;

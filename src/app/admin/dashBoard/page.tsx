@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import ProjectStatus from './components/ProjectStatus';
 import WaitingReview from './components/WaitingReview';
-import Calendar from '@/components/Calendar/Calendar';
+import Calendar from '@/components/Calendar/DateRangePicker';
 import Alert from '@/components/Alert/Alert';
 import Button from '@/components/Button/Button';
 import Table from '@/components/Table/Table';

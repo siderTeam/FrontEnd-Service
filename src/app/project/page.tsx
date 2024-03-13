@@ -1,12 +1,16 @@
 'use client';
 
-import { postCreateProject } from '@/api/createPost/api';
-import { CREATE_PROJECT_REQUEST } from '@/api/createPost/model';
+import { postCreateProject } from '@/api/project/api';
+import { CREATE_PROJECT_REQUEST } from '@/api/project/model';
 import Button from '@/components/Button/Button';
-import Calendar from '@/components/Calendar/Calendar';
+import DateRangePicker from '@/components/Calendar/DateRangePicker';
+import Calendar from '@/components/Calendar/DateRangePicker';
 import Input from '@/components/Input/Input';
 import PositionModal from '@/components/PositionModal/PositionModal';
+import { OPTION_TYPE } from '@/components/SelectBox/SelectBox';
+import SkillModal, { SKILL_TYPE } from '@/components/SkillModal/SkillModal';
 import TextEditor from '@/components/TextEditor/TextEditor';
+import useChangeDateRange from '@/hook/useChangeDateRange';
 import useChangeInputs from '@/hook/useChangeInputs';
 import useHandleModal from '@/hook/useHandleModal';
 
@@ -36,22 +40,25 @@ const initialParams: CREATE_PROJECT_REQUEST = {
 
 const Page = () => {
   const { handleModal, handleModalClose, visible } = useHandleModal(false);
+  const { handleModal: handleSkillModal, handleModalClose: handleModalCloseSkill, visible: skillModalVisbile } = useHandleModal(false);
 
   const { inputs, onChange, setInputs } = useChangeInputs(initialParams);
-  const [requirements, setRequirements] = useState([{ requirement: '', score: '' }]);
+  const [ positionCodeList, setPositionCodeList ] = useState<OPTION_TYPE[]>([])
+  const [ skillList, setSkillList ] = useState<SKILL_TYPE[]>([])
+  const [requirements, setRequirements] = useState([{ content: '', point: '' }]);
 
   const handleAddRequirement = () => {
     if (requirements.length < 7) {
-      setRequirements([...requirements, { requirement: '', score: '' }]);
+      setRequirements([...requirements, { content: '', point: '' }]);
     }
   };
 
   const handleRequirementChange = (index: number, value: string, type: string) => {
     const updatedRequirements = [...requirements];
-    if (type === 'requirement') {
-      updatedRequirements[index].requirement = value;
-    } else if (type === 'score') {
-      updatedRequirements[index].score = value;
+    if (type === 'content') {
+      updatedRequirements[index].content = value;
+    } else if (type === 'point') {
+      updatedRequirements[index].point = value;
     }
     setRequirements(updatedRequirements);
   };
@@ -73,6 +80,22 @@ const Page = () => {
       console.log('실패');
     },
   });
+
+  const handleClickPost = () => {
+    console.log("등록", inputs)
+  }
+
+  const handleClickChoice = (callback: OPTION_TYPE[] | SKILL_TYPE[], type?: 'skill' | 'position') => {
+    if(type === "skill") {
+      setSkillList(callback as SKILL_TYPE[])
+    } else {
+      setPositionCodeList(callback as OPTION_TYPE[])
+    }
+    
+    handleModalClose()
+  }
+
+  const { date, onChange: onChangeDate } = useChangeDateRange();
 
   return (
     <Container>
@@ -130,6 +153,7 @@ const Page = () => {
                 style={{ width: '540px' }}
                 placeholder="프로젝트에 필요한 스킬을 선택해주세요."
                 icon="/images/plus/plus_gray6.svg"
+                onClickIcon={handleSkillModal}
               />
             </div>
           </div>
@@ -137,7 +161,7 @@ const Page = () => {
           <div className="two-grid-wrap" style={{ marginTop: '30px' }}>
             <div className="wrap">
               <div className="title">모집 마감일</div>
-              <Calendar />
+              <DateRangePicker date={date} onChange={onChangeDate}/>
             </div>
             <div className="wrap">
               <div className="title">보증금 (1인)</div>
@@ -197,16 +221,16 @@ const Page = () => {
                     size="small"
                     style={{ width: '960px', marginRight: '40px' }}
                     placeholder="요구사항을 입력하세요."
-                    value={item.requirement}
-                    onChange={(e) => handleRequirementChange(index, e.target.value, 'requirement')}
+                    value={item.content}
+                    onChange={(e) => handleRequirementChange(index, e.target.value, 'content')}
                   />
                   <Input
                     name="point"
                     size="small"
                     style={{ width: '100px', marginRight: '16px' }}
                     placeholder="배점 입력"
-                    value={item.score}
-                    onChange={(e) => handleRequirementChange(index, e.target.value, 'score')}
+                    value={item.point}
+                    onChange={(e) => handleRequirementChange(index, e.target.value, 'point')}
                   />
                   <Image
                     src="/images/bin/bin.svg"
@@ -234,11 +258,12 @@ const Page = () => {
         <Button size="medium" variant="secondary">
           취소
         </Button>
-        <Button size="medium" variant="primary">
+        <Button onClick={handleClickPost} size="medium" variant="primary">
           등록
         </Button>
       </div>
-      <PositionModal visible={visible} onClose={handleModalClose} />
+      <PositionModal visible={visible} onClose={handleModalClose} onClickChoice={handleClickChoice} />
+      <SkillModal visible={skillModalVisbile} onClose={handleModalCloseSkill} onClickChoice={handleClickChoice} />
     </Container>
   );
 };

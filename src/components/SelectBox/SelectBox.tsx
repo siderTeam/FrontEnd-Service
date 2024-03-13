@@ -12,6 +12,8 @@ export type SELECTBOX_STYLE_PROPS = {
   text?: 'full';
 };
 
+export type OPTION_TYPE = { label: string; value: any }
+
 export type SelectBoxProps<T> = SELECTBOX_STYLE_PROPS & {
   options: { label: string; value: T | any }[];
   value: T;
