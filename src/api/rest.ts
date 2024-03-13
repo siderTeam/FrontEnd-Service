@@ -6,6 +6,8 @@ export const rest = {
     userId: '/user/id',
 
     auditList: '/admin/project/audit',
+    completionList: '/admin/project',
+    depositJudgeList: '/deposit',
     projectDetail: '/project/detail',
     IncreaseProjectView: '/project/view',
   },

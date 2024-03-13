@@ -1,9 +1,9 @@
 'use client';
 
 import styled from '@emotion/styled';
-import Button from '../Button/Button';
 import { color } from '@/styles/color';
 import { InputHTMLAttributes } from 'react';
+import Image from 'next/image';
 
 export type INPUT_STYLE_PROPS = {
   size?: 'small' | 'medium' | 'large' | 'full';
@@ -27,6 +27,7 @@ export type InputProps = INPUT_STYLE_PROPS &
     rest?: any;
     buttonText?: string;
     onClick?: () => void;
+    onClickIcon?: () => void;
     ref?: any;
     isValid?: boolean;
     suffix?: any;
@@ -46,6 +47,7 @@ const Input = ({
   style,
   buttonText,
   onClick,
+  onClickIcon,
   ref,
   isValid,
   suffix,
@@ -70,7 +72,7 @@ const Input = ({
           ref={ref}
           {...rest}
         />
-        {icon && <img src={icon} className="search" />}
+        {icon && <Image src={icon} className="icon" width={16} height={16} alt="icon" onClick={onClickIcon} />}
 
         {suffix && <div className="suffix">{suffix}</div>}
         {subText && <SubText color={status}>{subText}</SubText>}
@@ -136,6 +138,14 @@ const InputContainer = styled.div`
     right: 2px;
     top: 2px;
   }
+
+  .icon {
+    position: absolute;
+    top: 8px;
+    right: 40px;
+
+    cursor: pointer;
+  }
 `;
 
 const StyledInput = styled.input<any>`
@@ -161,10 +171,6 @@ const StyledInput = styled.input<any>`
   &:disabled {
     border: 1px solid ${color.gray.gray9};
     color: ${color.gray.gray8};
-  }
-
-  .search {
-    cursor: pointer;
   }
 `;
 

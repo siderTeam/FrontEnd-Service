@@ -1,3 +1,4 @@
+import { color } from '@/styles/color';
 import styled from '@emotion/styled';
 
 export type InputSubMessageProps = {
@@ -7,8 +8,8 @@ export type InputSubMessageProps = {
 };
 
 const INFO_MESSAGE_STATUS = {
-  error: `red`,
-  success: 'green',
+  error: color.secondary.error_1,
+  success: color.brand.brandMain,
 };
 
 const InputSubMessage = ({ children, status }: InputSubMessageProps) => {

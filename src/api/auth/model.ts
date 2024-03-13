@@ -1,4 +1,4 @@
-import { POSITION_CODE } from "public/enum";
+import { POSITION_CODE } from 'public/enum';
 
 export interface SIGN_UP_REQUEST {
   username: string;
@@ -9,4 +9,3 @@ export interface SIGN_UP_REQUEST {
   phone: string;
   positionCode: POSITION_CODE | null;
 }
-

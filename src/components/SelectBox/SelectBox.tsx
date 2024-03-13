@@ -16,7 +16,7 @@ export type SelectBoxProps<T> = SELECTBOX_STYLE_PROPS & {
   options: { label: string; value: T | any }[];
   value: T;
   name?: string;
-  onChange: (name: string, value: T | any) => void;
+  onChange?: (name: string, value: T | any) => void;
   style?: React.CSSProperties;
   optionStyle?: React.CSSProperties;
   placeholder?: string;
