@@ -4,18 +4,47 @@ import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';
+import useChangeInput from '@/hook/useChangeInput';
+import useChangeSelect from '@/hook/useChangeSelect';
+import { SIGN_UP_REQUEST } from '@/api/auth/model';
+import { POSITION_CODE } from 'public/enum';
+import SelectBox from '@/components/SelectBox/SelectBox';
+import { POSITION_CODE_ARRAY } from 'public/static/requireJudge/static';
+import { useEffect, useState } from 'react';
 
 interface Props {
-  onClick: () => void;
+  onClick: (callback: Callback) => void;
 }
 
-const ThirdContent = ({ onClick }: Props) => {
-  // //포지션 데이터
-  // const positionData = useQuery({
-  //   queryKey: ["position", jobId],
-  //   queryFn: () => getCode(jobId, 2),
-  // });
+type Callback = Pick<SIGN_UP_REQUEST, 'positionCode' | 'career'>;
 
+const ThirdContent = ({ onClick }: Props) => {
+  const { input, onChange } = useChangeInput('');
+  const { select, onChange: onChangeSelect } = useChangeSelect(null);
+  const [ disabled, setDisabled ] = useState(true);
+
+  useEffect(() => {
+    if(!!select && !!input) {
+      setDisabled(false)
+    }
+  }, [select, input])
+
+  const positionOption = [
+    { label: '포지션', value: null },
+    ...POSITION_CODE_ARRAY.map((item) => {
+      return {
+        label: item.name,
+        value: item.id,
+      };
+    }),
+  ];
+
+  const handleclickNext = () => {
+    onClick({
+      positionCode: select as unknown as POSITION_CODE,
+      career: Number(input),
+    });
+  };
   return (
     <SignupContainer>
       <div className="complete-bar">
@@ -27,19 +56,20 @@ const ThirdContent = ({ onClick }: Props) => {
         당신의 능력에 대해 설명해주세요.
       </div>
 
-      <div>
-        {/* <SelectBox
-          name='positionCode'
-          value='dd'
-          placeholder='포지션을 선택해주세요.'
-        /> */}
-        <Input placeholder="연차" name="year" />
-      </div>
+      <SelectBox
+        name="positionCode"
+        value={select}
+        placeholder="포지션"
+        onChange={onChangeSelect}
+        options={positionOption}
+        style={{ width: '100%', height: 56 }}
+      />
+      <Input onChange={onChange} placeholder="연차" name="carear" type="number" size="full" style={{ marginTop: 12 }} />
 
       <div className="complete-text">거의 다 왔어요!</div>
 
       <div className="button-wrapper">
-        <Button variant="primary" onClick={onClick} style={{ width: '100%' }}>
+        <Button disabled={disabled} variant="primary" onClick={handleclickNext} style={{ width: '100%' }}>
           다음
         </Button>
       </div>
@@ -81,6 +111,7 @@ const SignupContainer = styled.div`
     /* overflow: hidden; */
     right: 120px;
     top: -50px;
+    z-index: -1;
   }
   .complete-bar {
     width: 100px;

@@ -3,8 +3,8 @@ import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 import { ModalPageProps } from '@/types/types';
 import { color } from '@/styles/color';
-import Radio from '../Radio/Radio';
 import Checkbox from '../Checkbox/Checkbox';
+import { POSITION_CODE_ARRAY } from 'public/static/requireJudge/static';
 
 const PositionModal = ({ visible, onClose }: ModalPageProps) => {
   return (
@@ -27,44 +27,12 @@ const PositionModal = ({ visible, onClose }: ModalPageProps) => {
         <Container>
           <div className="title">포지션</div>
           <div className="position-wrap">
-            <div className="position">
-              <Checkbox />
-              기획자
-            </div>
-            <div className="position">
-              <Checkbox />
-              디자이너
-            </div>
-
-            <div className="position">
-              <Checkbox />
-              백엔드 개발자
-            </div>
-
-            <div className="position">
-              <Checkbox />
-              프론트엔드 개발자
-            </div>
-
-            <div className="position">
-              <Checkbox />
-              DB 엔지니어
-            </div>
-
-            <div className="position">
-              <Checkbox />
-              서버/인프라 엔지니어
-            </div>
-
-            <div className="position">
-              <Checkbox />
-              IOS 개발자
-            </div>
-
-            <div className="position">
-              <Checkbox />
-              안드로이드 개발자
-            </div>
+            {POSITION_CODE_ARRAY.map((position) => (
+              <div className="position">
+                <Checkbox />
+                {position.name}
+              </div>
+            ))}
           </div>
           <div className="button-wrap">
             <Button size="medium" variant="primary">

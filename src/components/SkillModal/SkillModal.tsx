@@ -4,6 +4,7 @@ import Modal from '../Modal/Modal';
 import { ModalPageProps } from '@/types/types';
 import { color } from '@/styles/color';
 import { useState } from 'react';
+import { SKILLS } from 'public/static/requireJudge/static';
 
 const router = [
   {
@@ -25,29 +26,6 @@ const router = [
   {
     id: 5,
     label: '기타',
-  },
-];
-
-const skills = [
-  {
-    id: 1,
-    label: 'JavaSript',
-  },
-  {
-    id: 2,
-    label: 'TypeSript',
-  },
-  {
-    id: 3,
-    label: 'React',
-  },
-  {
-    id: 4,
-    label: 'VueJS',
-  },
-  {
-    id: 5,
-    label: 'NextJS',
   },
 ];
 
@@ -94,8 +72,10 @@ const SkillModal = ({ visible, onClose }: ModalPageProps) => {
             </LeftSection>
             <div style={{ width: '1px', height: '316px', background: color.gray.gray6 }} />
             <RightSection>
-              {skills.map((skill) => (
-                <div className="label">{skill.label}</div>
+              {SKILLS.map((skill) => (
+                <>
+                  <div className="label">{skill.name}</div>
+                </>
               ))}
             </RightSection>
           </Content>

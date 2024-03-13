@@ -15,3 +15,10 @@ export const deleteCookie = (name: string) => {
   expireDate.setDate(expireDate.getDate() - 1);
   document.cookie = name + '= ' + '; expires=' + expireDate.toUTCString() + '; path=/';
 };
+
+export const autoHyphen = (target: any) => {
+  return target.value
+    .replace(/[^0-9]/g, '')
+    .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
+    .replace(/(\-{1,2})$/g, '');
+};

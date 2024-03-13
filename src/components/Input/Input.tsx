@@ -1,10 +1,37 @@
 'use client';
 
-import { InputProps } from '@/types/types';
 import styled from '@emotion/styled';
-import Button from '../Button/Button';
 import { color } from '@/styles/color';
+import { InputHTMLAttributes } from 'react';
 import Image from 'next/image';
+
+export type INPUT_STYLE_PROPS = {
+  size?: 'small' | 'medium' | 'large' | 'full';
+  color?: 'primary' | 'success' | 'error';
+};
+
+export type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>;
+
+export type InputProps = INPUT_STYLE_PROPS &
+  INPUT_TYPE & {
+    value?: string | number | undefined;
+    onChange?: (e: any, id: string) => void;
+    readOnly?: boolean;
+    type?: string;
+    name?: string;
+    placeholder?: string;
+    subText?: string;
+    status?: 'success' | 'error';
+    icon?: string;
+    style?: React.CSSProperties;
+    rest?: any;
+    buttonText?: string;
+    onClick?: () => void;
+    onClickIcon?: () => void;
+    ref?: any;
+    isValid?: boolean;
+    suffix?: any;
+  };
 
 const Input = ({
   value,
@@ -13,7 +40,7 @@ const Input = ({
   type,
   name,
   placeholder,
-  errorText,
+  subText,
   size = 'large',
   color = 'primary',
   icon,
@@ -23,6 +50,8 @@ const Input = ({
   onClickIcon,
   ref,
   isValid,
+  suffix,
+  status,
   ...rest
 }: InputProps) => {
   return (
@@ -31,7 +60,7 @@ const Input = ({
         <StyledInput
           size={size}
           isValid={isValid}
-          color={color}
+          color={status || color}
           value={value}
           onChange={onChange}
           readOnly={readOnly}
@@ -39,17 +68,14 @@ const Input = ({
           name={name}
           placeholder={placeholder}
           style={style}
+          status={status}
           ref={ref}
           {...rest}
         />
-        {icon && <Image src={icon} width={16} height={16} alt="icon" className="icon" onClick={onClickIcon} />}
+        {icon && <Image src={icon} className="icon" width={16} height={16} alt="icon" onClick={onClickIcon} />}
 
-        {buttonText && (
-          <Button size="in_input" variant="primary" onClick={onClick} className="button" disabled>
-            {buttonText}
-          </Button>
-        )}
-        {errorText && <ErrorText color={color}>{errorText}</ErrorText>}
+        {suffix && <div className="suffix">{suffix}</div>}
+        {subText && <SubText color={status}>{subText}</SubText>}
       </InputContainer>
     </>
   );
@@ -77,6 +103,13 @@ const INPUT_TYPE = {
     borderRadius: '12px',
     fontSize: '16px',
   },
+  ['full']: {
+    width: '100%',
+    height: '56px',
+    padding: ' 18px 20px',
+    borderRadius: '12px',
+    fontSize: '16px',
+  },
 };
 
 const COLOR_TYPE = {
@@ -85,15 +118,11 @@ const COLOR_TYPE = {
     color: color.gray.white,
   },
   ['success']: {
-    border: ` 1px solid ${color.brand.brandMain}`,
+    border: ` 1px solid ${color.secondary.positive_1}`,
     color: color.gray.white,
   },
   ['error']: {
     border: ` 1px solid ${color.secondary.error_1}`,
-    color: color.gray.white,
-  },
-  ['positive']: {
-    border: ` 1px solid ${color.secondary.positive_1}`,
     color: color.gray.white,
   },
 };
@@ -104,18 +133,18 @@ const InputContainer = styled.div`
 
   position: relative;
 
-  .button {
+  .suffix {
     position: absolute;
     right: 2px;
     top: 2px;
   }
 
   .icon {
-    cursor: pointer;
-
     position: absolute;
-    right: 40px;
     top: 8px;
+    right: 40px;
+
+    cursor: pointer;
   }
 `;
 
@@ -128,7 +157,12 @@ const StyledInput = styled.input<any>`
   background: none;
   box-sizing: border-box;
   outline: none;
-  position: relative;
+
+  &[type='number']::-webkit-outer-spin-button,
+  &[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
   &::placeholder {
     color: ${color.gray.gray7};
@@ -138,15 +172,10 @@ const StyledInput = styled.input<any>`
     border: 1px solid ${color.gray.gray9};
     color: ${color.gray.gray8};
   }
-
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
 `;
 
-const ErrorText = styled.div<InputProps>`
-  color: ${(props) => (props.color === 'error' ? color.secondary.error_1 : props.color === 'positive' ? color.secondary.positive_1 : '')};
+const SubText = styled.div<InputProps>`
+  color: ${(props) => (props.color === 'error' ? color.secondary.error_1 : props.color === 'success' ? color.secondary.positive_1 : '')};
 
   font-size: 12px;
   font-style: normal;
