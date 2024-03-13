@@ -15,7 +15,7 @@ import { useRef, useState } from 'react';
 import { useObserver } from '@/hook/useObserver';
 import { useQuery } from '@tanstack/react-query';
 import { rest } from '@/api/rest';
-import { getProjectDetail } from '@/api/projectDetail/api';
+import { IncreaseProjectView, getProjectDetail } from '@/api/projectDetail/api';
 
 const Page = () => {
   const titleRef = useRef<HTMLDivElement>(null);
@@ -51,9 +51,16 @@ const Page = () => {
     },
   ];
 
+  //프로젝트 단건 조회
   const { data } = useQuery({
     queryKey: [rest.get.projectDetail],
     queryFn: () => getProjectDetail(64),
+  });
+
+  //프로젝트 조회수 올리기(조회수 증가 로직 구현 필요)
+  const projectView = useQuery({
+    queryKey: [rest.get.IncreaseProjectView],
+    queryFn: () => IncreaseProjectView(64),
   });
 
   const onScroll = (refcurrent: React.RefObject<HTMLDivElement>, name: string) => {
