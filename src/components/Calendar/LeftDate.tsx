@@ -204,6 +204,8 @@ const Container = styled.div`
       background: ${color.gray.gray9};
 
       box-sizing: border-box;
+
+      cursor: pointer;
     }
   }
 
