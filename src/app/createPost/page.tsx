@@ -36,6 +36,7 @@ const initialParams: CREATE_PROJECT_REQUEST = {
 
 const Page = () => {
   const { handleModal, handleModalClose, visible } = useHandleModal(false);
+
   const { inputs, onChange, setInputs } = useChangeInputs(initialParams);
   const [requirements, setRequirements] = useState([{ requirement: '', score: '' }]);
 
@@ -102,7 +103,7 @@ const Page = () => {
                 name="connect"
                 size="small"
                 style={{ width: '540px' }}
-                placeholder="오픈 카카오톡 링크, 메일, 전화번호 등 연락받을 방법을 입력해주세요."
+                placeholder="오픈 카카오톡 링크, 메일, 전화번호 등 연락을 위한 링크 및 번호를 입력해주세요."
                 onChange={onChange}
                 value={inputs.connect}
               />
