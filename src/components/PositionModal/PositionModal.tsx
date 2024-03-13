@@ -3,10 +3,26 @@ import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 import { ModalPageProps } from '@/types/types';
 import { color } from '@/styles/color';
-import Radio from '../Radio/Radio';
 import Checkbox from '../Checkbox/Checkbox';
+import { useState } from 'react';
+import { POSITION_CODE_ARRAY } from 'public/static/requireJudge/static';
+import { OPTION_TYPE } from '../SelectBox/SelectBox';
 
-const PositionModal = ({ visible, onClose }: ModalPageProps) => {
+const PositionModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { onClickChoice: (callback: OPTION_TYPE[], type: 'skill') => void }) => {
+  const [checked, setChecked] = useState<OPTION_TYPE[]>([]);
+
+  const handleChangeChceck = (e: any, position: OPTION_TYPE) => {
+    setChecked((prev) => {
+      const checkedValue = prev.map((item) => item.value);
+
+      if (checkedValue.includes(position.value)) {
+        return prev.filter((item) => item.value !== position.value);
+      } else {
+        return prev.concat(position);
+      }
+    });
+  };
+
   return (
     <>
       <Modal
@@ -27,47 +43,14 @@ const PositionModal = ({ visible, onClose }: ModalPageProps) => {
         <Container>
           <div className="title">포지션</div>
           <div className="position-wrap">
-            <div className="position">
-              <Checkbox />
-              기획자
-            </div>
-            <div className="position">
-              <Checkbox />
-              디자이너
-            </div>
-
-            <div className="position">
-              <Checkbox />
-              백엔드 개발자
-            </div>
-
-            <div className="position">
-              <Checkbox />
-              프론트엔드 개발자
-            </div>
-
-            <div className="position">
-              <Checkbox />
-              DB 엔지니어
-            </div>
-
-            <div className="position">
-              <Checkbox />
-              서버/인프라 엔지니어
-            </div>
-
-            <div className="position">
-              <Checkbox />
-              IOS 개발자
-            </div>
-
-            <div className="position">
-              <Checkbox />
-              안드로이드 개발자
-            </div>
+            {POSITION_CODE_ARRAY.map((position) => (
+              <div className="position" key={position.value}>
+                <Checkbox onChange={(e) => handleChangeChceck(e, position)} name={position.label} text={position.label} />
+              </div>
+            ))}
           </div>
           <div className="button-wrap">
-            <Button size="medium" variant="primary">
+            <Button onClick={() => onClickChoice(checked, 'skill')} size="medium" variant="primary">
               선택
             </Button>
           </div>
