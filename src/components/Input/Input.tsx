@@ -30,7 +30,7 @@ export type InputProps = INPUT_STYLE_PROPS &
     ref?: any;
     isValid?: boolean;
     suffix?: any;
-    onClickIcon: () => void;
+    onClickIcon?: () => void;
   };
 
 const Input = ({
