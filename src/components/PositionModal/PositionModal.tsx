@@ -4,9 +4,25 @@ import Modal from '../Modal/Modal';
 import { ModalPageProps } from '@/types/types';
 import { color } from '@/styles/color';
 import Checkbox from '../Checkbox/Checkbox';
+import { useState } from 'react';
 import { POSITION_CODE_ARRAY } from 'public/static/requireJudge/static';
+import { OPTION_TYPE } from '../SelectBox/SelectBox';
 
-const PositionModal = ({ visible, onClose }: ModalPageProps) => {
+const PositionModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { onClickChoice: (callback: OPTION_TYPE[], type: 'skill') => void }) => {
+  const [checked, setChecked] = useState<OPTION_TYPE[]>([]);
+
+  const handleChangeChceck = (e: any, position: OPTION_TYPE) => {
+    setChecked((prev) => {
+      const checkedValue = prev.map((item) => item.value);
+
+      if (checkedValue.includes(position.value)) {
+        return prev.filter((item) => item.value !== position.value);
+      } else {
+        return prev.concat(position);
+      }
+    });
+  };
+
   return (
     <>
       <Modal
@@ -28,14 +44,13 @@ const PositionModal = ({ visible, onClose }: ModalPageProps) => {
           <div className="title">포지션</div>
           <div className="position-wrap">
             {POSITION_CODE_ARRAY.map((position) => (
-              <div className="position">
-                <Checkbox />
-                {position.name}
+              <div className="position" key={position.value}>
+                <Checkbox onChange={(e) => handleChangeChceck(e, position)} name={position.label} text={position.label} />
               </div>
             ))}
           </div>
           <div className="button-wrap">
-            <Button size="medium" variant="primary">
+            <Button onClick={() => onClickChoice(checked, 'skill')} size="medium" variant="primary">
               선택
             </Button>
           </div>

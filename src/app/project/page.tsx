@@ -1,33 +1,65 @@
 'use client';
 
+import { CREATE_PROJECT_REQUEST } from '@/api/project/model';
+import { postCreateProject } from '@/api/project/api';
+
 import Button from '@/components/Button/Button';
-import Calendar from '@/components/Calendar/Calendar';
+import DateRangePicker from '@/components/Calendar/DateRangePicker';
+import Calendar from '@/components/Calendar/DateRangePicker';
 import Input from '@/components/Input/Input';
 import PositionModal from '@/components/PositionModal/PositionModal';
+import { OPTION_TYPE } from '@/components/SelectBox/SelectBox';
+import SkillModal, { SKILL_TYPE } from '@/components/SkillModal/SkillModal';
 import TextEditor from '@/components/TextEditor/TextEditor';
+import useChangeDateRange from '@/hook/useChangeDateRange';
+import useChangeInputs from '@/hook/useChangeInputs';
 import useHandleModal from '@/hook/useHandleModal';
 
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useState } from 'react';
 
+const initialParams: CREATE_PROJECT_REQUEST = {
+  count: 0,
+  connect: '',
+  positionCodeList: null,
+  skillCodeList: [0],
+  recruitEndDate: '',
+  month: 0,
+  deposit: 0,
+  requiredContentsList: [
+    {
+      content: '',
+      point: 0,
+    },
+  ],
+  name: '',
+  content: '',
+};
+
 const Page = () => {
   const { handleModal, handleModalClose, visible } = useHandleModal(false);
-  const [requirements, setRequirements] = useState([{ requirement: '', score: '' }]);
+  const { handleModal: handleSkillModal, handleModalClose: handleModalCloseSkill, visible: skillModalVisbile } = useHandleModal(false);
+
+  const { inputs, onChange, setInputs } = useChangeInputs(initialParams);
+  const [ positionCodeList, setPositionCodeList ] = useState<OPTION_TYPE[]>([])
+  const [ skillList, setSkillList ] = useState<SKILL_TYPE[]>([])
+  const [requirements, setRequirements] = useState([{ content: '', point: '' }]);
 
   const handleAddRequirement = () => {
     if (requirements.length < 7) {
-      setRequirements([...requirements, { requirement: '', score: '' }]);
+      setRequirements([...requirements, { content: '', point: '' }]);
     }
   };
 
   const handleRequirementChange = (index: number, value: string, type: string) => {
     const updatedRequirements = [...requirements];
-    if (type === 'requirement') {
-      updatedRequirements[index].requirement = value;
-    } else if (type === 'score') {
-      updatedRequirements[index].score = value;
+    if (type === 'content') {
+      updatedRequirements[index].content = value;
+    } else if (type === 'point') {
+      updatedRequirements[index].point = value;
     }
     setRequirements(updatedRequirements);
   };
@@ -37,6 +69,34 @@ const Page = () => {
     updatedRequirements.splice(index, 1);
     setRequirements(updatedRequirements);
   };
+
+  const { mutate } = useMutation({
+    mutationFn: postCreateProject,
+    onSuccess: async (data) => {
+      if (data.result === true) {
+        console.log('성공');
+      }
+    },
+    onError: () => {
+      console.log('실패');
+    },
+  });
+
+  const handleClickPost = () => {
+    console.log("등록", inputs)
+  }
+
+  const handleClickChoice = (callback: OPTION_TYPE[] | SKILL_TYPE[], type?: 'skill' | 'position') => {
+    if(type === "skill") {
+      setSkillList(callback as SKILL_TYPE[])
+    } else {
+      setPositionCodeList(callback as OPTION_TYPE[])
+    }
+    
+    handleModalClose()
+  }
+
+  const { date, onChange: onChangeDate } = useChangeDateRange();
 
   return (
     <Container>
@@ -49,13 +109,28 @@ const Page = () => {
             <div className="wrap">
               <div className="title">모집 인원</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <Input size="small" style={{ width: '500px' }} placeholder="프로젝트를 함께할 인원 수를 입력해주세요. (2명 이상)" />
+                <Input
+                  name="count"
+                  size="small"
+                  style={{ width: '500px' }}
+                  placeholder="프로젝트를 함께할 인원 수를 입력해주세요. (2명 이상)"
+                  type="number"
+                  onChange={onChange}
+                  value={inputs.count}
+                />
                 <span style={{ color: color.gray.gray5 }}>명</span>
               </div>
             </div>
             <div className="wrap">
               <div className="title">연락방법</div>
-              <Input size="small" style={{ width: '540px' }} placeholder="오픈 카카오톡 링크, 메일, 전화번호 등 연락받을 방법을 입력해주세요." />
+              <Input
+                name="connect"
+                size="small"
+                style={{ width: '540px' }}
+                placeholder="오픈 카카오톡 링크, 메일, 전화번호 등 연락을 위한 링크 및 번호를 입력해주세요."
+                onChange={onChange}
+                value={inputs.connect}
+              />
             </div>
           </div>
 
@@ -63,9 +138,10 @@ const Page = () => {
             <div className="wrap">
               <div className="title">모집 포지션</div>
               <Input
+                name="position"
                 size="small"
                 style={{ width: '540px' }}
-                placeholder="프로젝트를 함께할 인원 수를 입력해주세요. (2명 이상)"
+                placeholder="프로젝트에 필요한 포지션을 선택해주세요."
                 icon="/images/plus/plus_gray6.svg"
                 onClickIcon={handleModal}
               />
@@ -73,10 +149,12 @@ const Page = () => {
             <div className="wrap">
               <div className="title">스킬</div>
               <Input
+                name="skill"
                 size="small"
                 style={{ width: '540px' }}
-                placeholder="오픈 카카오톡 링크, 메일, 전화번호 등 연락받을 방법을 입력해주세요."
+                placeholder="프로젝트에 필요한 스킬을 선택해주세요."
                 icon="/images/plus/plus_gray6.svg"
+                onClickIcon={handleSkillModal}
               />
             </div>
           </div>
@@ -84,11 +162,19 @@ const Page = () => {
           <div className="two-grid-wrap" style={{ marginTop: '30px' }}>
             <div className="wrap">
               <div className="title">모집 마감일</div>
-              <Calendar />
+              <DateRangePicker date={date} onChange={onChangeDate}/>
             </div>
             <div className="wrap">
               <div className="title">보증금 (1인)</div>
-              <Input size="small" style={{ width: '540px' }} placeholder="1인 보증금을 입력해주세요." />
+              <Input
+                name="deposit"
+                size="small"
+                style={{ width: '540px' }}
+                placeholder="1인 보증금을 입력해주세요."
+                type="number"
+                onChange={onChange}
+                value={inputs.deposit}
+              />
             </div>
           </div>
         </CommonInfo>
@@ -99,7 +185,7 @@ const Page = () => {
 
           <EditorWrap>
             <div className="title">프로젝트 명</div>
-            <Input size="small" style={{ width: '1140px' }} placeholder="프로젝트 명을 입력하세요. (5~50자 이하)" />
+            <Input size="small" style={{ width: '1140px' }} placeholder="프로젝트 명을 입력하세요. (5~50자 이하)" onChange={onChange} value={inputs.name} />
             <div>
               <TextEditor />
             </div>
@@ -118,32 +204,34 @@ const Page = () => {
             </div>
             <div className="input-wrap">
               <div style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
-                <Input size="small" style={{ width: '960px' }} placeholder="요구사항을 입력하세요. (필수)" />
-                <Input size="small" style={{ width: '100px' }} placeholder="배점 입력" />
+                <Input name="content" size="small" style={{ width: '960px' }} placeholder="요구사항을 입력하세요. (필수)" />
+                <Input name="point" size="small" style={{ width: '100px' }} placeholder="배점 입력" type="number" />
               </div>
               <div style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
-                <Input size="small" style={{ width: '960px' }} placeholder="요구사항을 입력하세요. (필수)" />
-                <Input size="small" style={{ width: '100px' }} placeholder="배점 입력" />
+                <Input name="content" size="small" style={{ width: '960px' }} placeholder="요구사항을 입력하세요. (필수)" />
+                <Input name="point" size="small" style={{ width: '100px' }} placeholder="배점 입력" />
               </div>
               <div style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
-                <Input size="small" style={{ width: '960px' }} placeholder="요구사항을 입력하세요. (필수)" />
-                <Input size="small" style={{ width: '100px' }} placeholder="배점 입력" />
+                <Input name="content" size="small" style={{ width: '960px' }} placeholder="요구사항을 입력하세요. (필수)" />
+                <Input name="point" size="small" style={{ width: '100px' }} placeholder="배점 입력" />
               </div>
               {requirements.map((item, index) => (
                 <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
                   <Input
+                    name="content"
                     size="small"
                     style={{ width: '960px', marginRight: '40px' }}
                     placeholder="요구사항을 입력하세요."
-                    value={item.requirement}
-                    onChange={(e) => handleRequirementChange(index, e.target.value, 'requirement')}
+                    value={item.content}
+                    onChange={(e) => handleRequirementChange(index, e.target.value, 'content')}
                   />
                   <Input
+                    name="point"
                     size="small"
                     style={{ width: '100px', marginRight: '16px' }}
                     placeholder="배점 입력"
-                    value={item.score}
-                    onChange={(e) => handleRequirementChange(index, e.target.value, 'score')}
+                    value={item.point}
+                    onChange={(e) => handleRequirementChange(index, e.target.value, 'point')}
                   />
                   <Image
                     src="/images/bin/bin.svg"
@@ -171,11 +259,12 @@ const Page = () => {
         <Button size="medium" variant="secondary">
           취소
         </Button>
-        <Button size="medium" variant="primary">
+        <Button onClick={handleClickPost} size="medium" variant="primary">
           등록
         </Button>
       </div>
-      <PositionModal visible={visible} onClose={handleModalClose} />
+      <PositionModal visible={visible} onClose={handleModalClose} onClickChoice={handleClickChoice} />
+      <SkillModal visible={skillModalVisbile} onClose={handleModalCloseSkill} onClickChoice={handleClickChoice} />
     </Container>
   );
 };

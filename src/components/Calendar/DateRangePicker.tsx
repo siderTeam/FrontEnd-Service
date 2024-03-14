@@ -1,21 +1,26 @@
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
-import LeftDate from './LeftDate';
-import RightDate from './RightDate';
+import Calender from './Calender';
+import { DateRangeType } from '@/hook/useChangeDateRange';
 
-const Calendar = () => {
+interface DateRangeProps {
+  onChange: (e: Date, type: 'start' | 'end') => void;
+  date: DateRangeType;
+}
+
+const DateRangePicker = ({date, onChange}: DateRangeProps) => {
   return (
     <Container>
-      <LeftDate />
+      <Calender date={date.start} type="start" onChange={onChange} />
 
       <Dash>-</Dash>
 
-      <RightDate />
+      <Calender date={date.end} type="end" onChange={onChange} />
     </Container>
   );
 };
 
-export default Calendar;
+export default DateRangePicker;
 
 const Container = styled.div`
   display: flex;

@@ -31,6 +31,7 @@ export type InputProps = INPUT_STYLE_PROPS &
     ref?: any;
     isValid?: boolean;
     suffix?: any;
+    onClickIcon?: () => void;
   };
 
 const Input = ({
@@ -174,7 +175,7 @@ const StyledInput = styled.input<any>`
   }
 `;
 
-const SubText = styled.div<InputProps>`
+const SubText = styled.div<any>`
   color: ${(props) => (props.color === 'error' ? color.secondary.error_1 : props.color === 'success' ? color.secondary.positive_1 : '')};
 
   font-size: 12px;

@@ -33,15 +33,18 @@ const formats = ['header', 'font', 'size', 'bold', 'italic', 'underline', 'strik
 
 const TextEditor = () => {
   const [content, setContent] = useState('');
+  const [maxLength] = useState(5000); // 최대 글자수 설정
+  const handleContentChange = (text: string) => {
+    if (text.length <= maxLength) {
+      setContent(text);
+    }
+  };
   return (
     <Container>
-      <QuillWrapper
-        modules={modules}
-        formats={formats}
-        value={content}
-        onChange={setContent}
-        // ref={quillRef}
-      />
+      <QuillWrapper modules={modules} formats={formats} value={content} onChange={handleContentChange} />
+      <div style={{ color: 'white', position: 'absolute', bottom: '-70px', right: '180px;' }}>
+        {content.length}/{maxLength}
+      </div>
     </Container>
   );
 };
