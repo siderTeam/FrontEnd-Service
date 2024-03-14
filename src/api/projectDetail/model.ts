@@ -71,3 +71,7 @@ export type PROJECT_DETAIL_RESPONSE = {
   createdDate: string;
   view: number;
 };
+
+export type REPLY_REQUEST = {
+  content: string;
+};

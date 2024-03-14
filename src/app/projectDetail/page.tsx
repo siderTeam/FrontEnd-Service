@@ -15,7 +15,7 @@ import { useRef, useState } from 'react';
 import { useObserver } from '@/hook/useObserver';
 import { useQuery } from '@tanstack/react-query';
 import { rest } from '@/api/rest';
-import { IncreaseProjectView, getProjectDetail } from '@/api/projectDetail/api';
+import { increaseProjectView, getProjectDetail } from '@/api/projectDetail/api';
 
 const Page = () => {
   const titleRef = useRef<HTMLDivElement>(null);
@@ -59,8 +59,8 @@ const Page = () => {
 
   //프로젝트 조회수 올리기(조회수 증가 로직 구현 필요)
   const projectView = useQuery({
-    queryKey: [rest.get.IncreaseProjectView],
-    queryFn: () => IncreaseProjectView(64),
+    queryKey: [rest.get.increaseProjectView],
+    queryFn: () => increaseProjectView(64),
   });
 
   const onScroll = (refcurrent: React.RefObject<HTMLDivElement>, name: string) => {
@@ -101,8 +101,12 @@ const Page = () => {
         <FunctionInfo element={router[1].observe} data={data} />
         <DeadlineInfo element={router[2].observe} data={data} />
         <LeaderInfo element={router[3].observe} data={data} />
-        <CommentWrite replyCount={data?.projectReplies.length || 0} />
-        <Comment />
+        <CommentWrite replyCount={data?.projectReplies.length || 0} projectId={data?.id || 0} />
+        {data?.projectReplies.map((reply, index) => (
+          <div key={index}>
+            <Comment data={reply} />
+          </div>
+        ))}
       </div>
     </Container>
   );

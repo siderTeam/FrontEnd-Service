@@ -9,7 +9,7 @@ export const rest = {
     completionList: '/admin/project',
     depositJudgeList: '/deposit',
     projectDetail: '/project/detail',
-    IncreaseProjectView: '/project/view',
+    increaseProjectView: '/project/view',
   },
   post: {
     userSignIn: '/user/signIn',
@@ -18,6 +18,7 @@ export const rest = {
     getAccessToken: '/user/newAc',
     getChoBiSangToken: '/user/newRf',
     createProject: '/project',
+    createReply: '/reply/project',
   },
   put: {},
   delete: {},

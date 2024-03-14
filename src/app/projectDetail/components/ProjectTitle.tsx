@@ -75,6 +75,7 @@ const Container = styled.div`
   box-sizing: border-box;
   padding: 32px 0 40px 0;
   background: ${color.gray.black};
+  z-index: 1;
 
   position: sticky;
   top: 0;

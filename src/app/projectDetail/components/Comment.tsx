@@ -3,8 +3,13 @@
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Image from 'next/image';
+import { PROJECT_DETAIL_RESPONSE } from '@/api/projectDetail/model';
 
-const Comment = () => {
+type Props = {
+  data: PROJECT_DETAIL_RESPONSE["projectReplies"][0];
+};
+
+const Comment = ({ data }: Props) => {
   return (
     <Container>
       <div className="profile">
@@ -17,7 +22,7 @@ const Comment = () => {
           <div className="date">8888.88.88 88:88:88</div>
         </div>
       </div>
-      <div className="comment">댓글입니다.</div>
+      <div className="comment">{data.content}</div>
     </Container>
   );
 };
