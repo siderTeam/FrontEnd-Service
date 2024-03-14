@@ -87,14 +87,13 @@ const Page = () => {
       name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
       deposit: '88만원',
       status: '모집중',
-      
     },
   ];
 
   const column: ColumnDef<imsiType>[] = [
     { id: 'No.', header: 'No.', accessorKey: 'number', size: 40 },
     { id: 'name', header: '프로젝트 명', accessorKey: 'name', size: 300 },
-    { id: 'deposit', header: '결제 일자', accessorKey: 'deposit'},
+    { id: 'deposit', header: '결제 일자', accessorKey: 'deposit' },
     { id: 'status', header: '결제 금액', accessorKey: 'name' },
   ];
 
@@ -106,8 +105,6 @@ const Page = () => {
           <div className="graph-wrap">금일 방문자 수</div>
         </div>
 
-        <Calendar />
-
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div className="list-wrap">
             <Table columns={column} data={resumeData} />
@@ -117,18 +114,6 @@ const Page = () => {
           </div>
         </div>
       </div>
-
-      <button onClick={handleAlert}>test</button>
-      <Alert visible={visible} text="메인 텍스트" subText="서브 텍스트">
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <Button size="small" variant="secondary">
-            text
-          </Button>
-          <Button size="small" variant="primary">
-            text
-          </Button>
-        </div>
-      </Alert>
     </Container>
   );
 };

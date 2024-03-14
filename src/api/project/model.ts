@@ -1,4 +1,4 @@
-import { POSITION_CODE } from "public/lib/enum";
+import { POSITION_CODE } from 'public/lib/enum';
 
 export type CREATE_PROJECT_REQUEST = {
   count: number;
@@ -16,4 +16,14 @@ export type CREATE_PROJECT_REQUEST = {
   ];
   name: string;
   content: string;
+};
+
+export type PROJECT_RESPONSE = {
+  id: number;
+  name: string;
+  recruitStartDate: string;
+  recruitEndDate: string;
+  content: string;
+  deposit: number;
+  count: number;
 };

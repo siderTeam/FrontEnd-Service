@@ -2,18 +2,6 @@ import { PROJECT_RESPONSE, CODE_RESPONSE, USER_SIGNIN_REQUEST, USER_SIGNUP_REQUE
 import { rest } from './rest';
 import { API } from './axiosConfig';
 
-//프로젝트 가져오기
-export const getProject = async (): Promise<PROJECT_RESPONSE[]> => {
-  const response = await API.get(`${rest.get.project}`, {
-    params: {
-      page: 0,
-      size: 20,
-    },
-  });
-
-  return response.data.data.content;
-};
-
 //코드 가져오기
 export const getCode = async (groupId: number, depth: number): Promise<CODE_RESPONSE[]> => {
   const response = await API.get(`${rest.get.code}/${groupId}?depth=${depth}`);

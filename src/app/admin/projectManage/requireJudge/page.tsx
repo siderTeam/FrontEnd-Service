@@ -40,12 +40,12 @@ const Page = () => {
       header: 'No.',
     },
     {
-      accessorKey: 'name',
-      header: '이름',
+      accessorKey: 'createdDate',
+      header: '제출 일시',
     },
     {
-      accessorKey: 'week',
-      header: '날짜',
+      accessorKey: 'status',
+      header: '심사현황',
     },
   ];
 

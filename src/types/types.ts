@@ -41,18 +41,6 @@ export type ModalProps = {
 
 export type ModalPageProps = Pick<ModalProps, 'onClose' | 'visible'>;
 
-//SelectInput
-
-export type SelectInputProps = {
-  options?: { label: string; value: string }[];
-  value?: string;
-  name: string;
-  onChange?: (name: string, value: string) => void;
-  style?: React.CSSProperties;
-  optionStyle?: React.CSSProperties;
-  placeholder?: string;
-};
-
 //Textarea
 
 export type TEXTAREA_STYLE_PROPS = {

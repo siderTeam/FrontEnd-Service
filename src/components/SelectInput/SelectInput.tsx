@@ -2,10 +2,22 @@ import Image from 'next/image';
 import SelectBox from '../SelectBox/SelectBox';
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
-import { SelectInputProps } from '@/types/types';
+
 import { useState } from 'react';
 
-const SelectInput = ({ value, name, style, options, onChange, placeholder }: SelectInputProps) => {
+//SelectInput
+
+export type SelectInputProps<T> = {
+  options: { label: string; value: T | any }[];
+  value?: string;
+  name: string;
+  onChange?: (name: string, value: string) => void;
+  style?: React.CSSProperties;
+  optionStyle?: React.CSSProperties;
+  placeholder?: string;
+};
+
+const SelectInput = <T,>({ value, name, style, options, onChange, placeholder }: SelectInputProps<T>) => {
   const [visible, setVisible] = useState(false);
 
   const handleClickSelect = (e: any) => {
@@ -13,9 +25,8 @@ const SelectInput = ({ value, name, style, options, onChange, placeholder }: Sel
     setVisible(!visible);
   };
 
-  const handleClick = (e: any, value: string) => {
-    e.preventDefault();
-    onChange(name, value);
+  const handleClick = (e: any, value: T) => {
+    onChange(name as string, value);
     setVisible(false);
   };
 
@@ -49,7 +60,7 @@ const SelectInput = ({ value, name, style, options, onChange, placeholder }: Sel
         />
 
         <input className="input" />
-        <Image src="/images/icons/Magnification_green.svg" alt="magnification" width={20} height={20} style={{ marginLeft: '20px' }} />
+        <Image src="/images/icons/Magnification_green.svg" alt="magnification" width={20} height={20} style={{ marginLeft: '10px', cursor: 'pointer' }} />
       </div>
     </Container>
   );
@@ -75,6 +86,10 @@ const Container = styled.div`
       position: relative;
     }
 
+    .choice-value {
+      width: 100%;
+    }
+
     .input {
       outline: none;
       border: none;
@@ -92,12 +107,8 @@ const Container = styled.div`
   }
 `;
 
-// const SelectWrap = styled.div`
-
-// `;
-
 const SelectStyle = styled.div`
-  width: 65px;
+  width: 80px;
   color: ${color.gray.white};
 
   font-size: 16px;
