@@ -11,7 +11,7 @@ import { OPTION_TYPE } from '../SelectBox/SelectBox';
 const PositionModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { onClickChoice: (callback: OPTION_TYPE[], type: 'skill') => void }) => {
   const [checked, setChecked] = useState<OPTION_TYPE[]>([]);
 
-  const handleChangeChceck = (e: any, position: OPTION_TYPE) => {
+  const handleChangeCheck = (e: any, position: OPTION_TYPE) => {
     setChecked((prev) => {
       const checkedValue = prev.map((item) => item.value);
 
@@ -45,7 +45,12 @@ const PositionModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { o
           <div className="position-wrap">
             {POSITION_CODE_ARRAY.map((position) => (
               <div className="position" key={position.value}>
-                <Checkbox onChange={(e) => handleChangeChceck(e, position)} name={position.label} text={position.label} />
+                <Checkbox
+                  onChange={(e) => handleChangeCheck(e, position)}
+                  name={position.label}
+                  text={position.label}
+                  labelStyle={{ color: color.gray.white, fontSize: '24px', fontWeight: 400 }}
+                />
               </div>
             ))}
           </div>
