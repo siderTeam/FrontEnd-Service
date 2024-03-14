@@ -6,12 +6,13 @@ import { color } from '@/styles/color';
 import { useState } from 'react';
 import { POSITION_SKILLS } from 'public/static/common';
 import { OPTION_TYPE } from '../SelectBox/SelectBox';
+import Image from 'next/image';
 
 export type SKILL_TYPE = {
   id: number;
   name: string;
   imageName: string;
-}
+};
 
 const SkillModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { onClickChoice: (callback: OPTION_TYPE[]) => void }) => {
   const [activePosition, setActivePosition] = useState<keyof typeof POSITION_SKILLS>('전체');
@@ -68,11 +69,21 @@ const SkillModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { onCl
           </LeftSection>
           <div style={{ width: '1px', height: '316px', background: color.gray.gray6 }} />
           <RightSection>
-            {POSITION_SKILLS[activePosition].map((skill) => (
-              <div style={{ color: checked.map((item) => item.id).includes(skill.id) ? 'green' : 'white'}} onClick={() => handleChangeChceck(skill)} key={skill.id} className="label">
-                {skill.name}
-              </div>
-            ))}
+            <div className="grid">
+              {POSITION_SKILLS[activePosition].map((skill) => (
+                <>
+                  <Image src={`/images/skillIcons/${skill.imageName}.svg`} width={24} height={24} alt="skill" />
+                  <div
+                    style={{ color: checked.map((item) => item.id).includes(skill.id) ? color.brand.brandMain : color.gray.white, cursor: 'pointer' }}
+                    onClick={() => handleChangeChceck(skill)}
+                    key={skill.id}
+                    className="label"
+                  >
+                    {skill.name}
+                  </div>
+                </>
+              ))}
+            </div>
           </RightSection>
         </Content>
         <div className="button-wrap">
@@ -126,6 +137,7 @@ const Content = styled.div`
 const LeftSection = styled.div`
   display: flex;
   flex-direction: column;
+  width: 130px;
   gap: 8px;
   padding-right: 16px;
 
@@ -148,10 +160,28 @@ const LeftSection = styled.div`
 const RightSection = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-left: 56px;
+  width: 100%;
+
+  margin-left: 40px;
   overflow-y: scroll;
   height: 100%;
+
+  &::-webkit-scrollbar {
+    width: 12px; /* 스크롤바의 너비 */
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${color.gray.gray5}; /* 스크롤바의 색상 */
+    border-radius: 28px;
+
+    background-clip: padding-box;
+    border: 4px solid transparent;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 24px 1fr 24px 1fr;
+    gap: 15px;
+  }
   .label {
     color: ${color.gray.white};
     font-size: 16px;
