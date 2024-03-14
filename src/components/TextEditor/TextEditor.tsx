@@ -31,19 +31,17 @@ const modules = {
 
 const formats = ['header', 'font', 'size', 'bold', 'italic', 'underline', 'strike', 'blockquote', 'list', 'bullet', 'indent', 'link', 'image', 'video'];
 
-const TextEditor = () => {
-  const [content, setContent] = useState('');
-  const [maxLength] = useState(5000); // 최대 글자수 설정
-  const handleContentChange = (text: string) => {
-    if (text.length <= maxLength) {
-      setContent(text);
-    }
-  };
+export interface EditorProps {
+  value: string;
+  onChange: (text: string) => void;
+}
+
+const TextEditor = ({ value, onChange }: EditorProps) => {
   return (
     <Container>
-      <QuillWrapper modules={modules} formats={formats} value={content} onChange={handleContentChange} />
-      <div style={{ color: 'white', position: 'absolute', bottom: '-70px', right: '180px;' }}>
-        {content.length}/{maxLength}
+      <QuillWrapper modules={modules} formats={formats} value={value} onChange={onChange} />
+      <div style={{ color: 'white', position: 'absolute', bottom: '10px', right: '20px' }}>
+        {value.length}/{5000}
       </div>
     </Container>
   );
@@ -52,6 +50,7 @@ const TextEditor = () => {
 export default TextEditor;
 
 const Container = styled.div`
+  position: relative;
   .quill {
     border-radius: 6px;
   }

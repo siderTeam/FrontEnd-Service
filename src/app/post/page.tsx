@@ -4,11 +4,9 @@ import { CREATE_PROJECT_REQUEST } from '@/api/project/model';
 import { postCreateProject } from '@/api/project/api';
 
 import Button from '@/components/Button/Button';
-import DateRangePicker from '@/components/Calendar/DateRangePicker';
-import Calendar from '@/components/Calendar/DateRangePicker';
 import Input from '@/components/Input/Input';
 import PositionModal from '@/components/PositionModal/PositionModal';
-import { OPTION_TYPE } from '@/components/SelectBox/SelectBox';
+import SelectBox, { OPTION_TYPE } from '@/components/SelectBox/SelectBox';
 import SkillModal, { SKILL_TYPE } from '@/components/SkillModal/SkillModal';
 import TextEditor from '@/components/TextEditor/TextEditor';
 import useChangeDateRange from '@/hook/useChangeDateRange';
@@ -20,46 +18,70 @@ import styled from '@emotion/styled';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useState } from 'react';
+import { numExp } from 'public/regex';
+import Calender from '@/components/Calendar/Calender';
+import useChangeSelect from '@/hook/useChangeSelect';
+import { MONTH } from 'public/static/requireJudge/static';
+import { format } from 'date-fns';
 
 const initialParams: CREATE_PROJECT_REQUEST = {
-  count: 0,
+  count: '' as unknown as number,
   connect: '',
-  positionCodeList: null,
-  skillCodeList: [0],
+  positionCodeList: [],
+  skillCodeList: [],
   recruitEndDate: '',
-  month: 0,
-  deposit: 0,
+  month: '' as unknown as number,
+  deposit: '' as unknown as number,
   requiredContentsList: [
     {
       content: '',
-      point: 0,
+      point: '' as unknown as number,
+    },
+    {
+      content: '',
+      point: '' as unknown as number,
+    },
+    {
+      content: '',
+      point: '' as unknown as number,
     },
   ],
   name: '',
   content: '',
 };
 
+const initialInputs = {
+  count: initialParams.count,
+  connect: initialParams.connect,
+  deposit: initialParams.deposit,
+  name: initialParams.name,
+  content: initialParams.content,
+};
+
 const Page = () => {
   const { handleModal, handleModalClose, visible } = useHandleModal(false);
   const { handleModal: handleSkillModal, handleModalClose: handleModalCloseSkill, visible: skillModalVisbile } = useHandleModal(false);
 
-  const { inputs, onChange, setInputs } = useChangeInputs(initialParams);
-  const [ positionCodeList, setPositionCodeList ] = useState<OPTION_TYPE[]>([])
-  const [ skillList, setSkillList ] = useState<SKILL_TYPE[]>([])
-  const [requirements, setRequirements] = useState([{ content: '', point: '' }]);
+  const { inputs, onChange, setInputs } = useChangeInputs(initialInputs);
+  const { select, onChange: onChangeSelect } = useChangeSelect(1);
+  const [positionCodeList, setPositionCodeList] = useState<OPTION_TYPE[]>([]);
+  const [skillList, setSkillList] = useState<SKILL_TYPE[]>([]);
+  const [requirements, setRequirements] = useState<{ content: string; point: number }[]>(initialParams.requiredContentsList);
 
   const handleAddRequirement = () => {
     if (requirements.length < 7) {
-      setRequirements([...requirements, { content: '', point: '' }]);
+      setRequirements([...requirements, { content: '', point: '' as unknown as number }]);
     }
   };
 
   const handleRequirementChange = (index: number, value: string, type: string) => {
+    const numberValue = value.replace(numExp, '');
+
     const updatedRequirements = [...requirements];
     if (type === 'content') {
       updatedRequirements[index].content = value;
     } else if (type === 'point') {
-      updatedRequirements[index].point = value;
+      updatedRequirements[index].point = numberValue as unknown as number;
     }
     setRequirements(updatedRequirements);
   };
@@ -83,20 +105,40 @@ const Page = () => {
   });
 
   const handleClickPost = () => {
-    console.log("등록", inputs)
-  }
+    const params = {
+      ...inputs,
+      positionCodeList: positionCodeList.map((item) => item.value),
+      skillCodeList: skillList.map((item) => item.id),
+      recruitEndDate: format(date.end, 'yyyy-MM-dd'),
+      month: select,
+      requiredContentsList: requirements,
+    };
+
+    mutate(params);
+  };
 
   const handleClickChoice = (callback: OPTION_TYPE[] | SKILL_TYPE[], type?: 'skill' | 'position') => {
-    if(type === "skill") {
-      setSkillList(callback as SKILL_TYPE[])
+    if (type === 'skill') {
+      setSkillList(callback as SKILL_TYPE[]);
+      handleModalCloseSkill();
     } else {
-      setPositionCodeList(callback as OPTION_TYPE[])
+      setPositionCodeList(callback as OPTION_TYPE[]);
+      handleModalClose();
     }
-    
-    handleModalClose()
-  }
+  };
 
   const { date, onChange: onChangeDate } = useChangeDateRange();
+
+  const handleContentChange = (text: string) => {
+    if (text.length <= 5000) {
+      setInputs((prev) => {
+        return {
+          ...prev,
+          content: text,
+        };
+      });
+    }
+  };
 
   return (
     <Container>
@@ -112,7 +154,8 @@ const Page = () => {
                 <Input
                   name="count"
                   size="small"
-                  style={{ width: '500px' }}
+                  style={{ width: '100%' }}
+                  containerStyle={{ flex: 1 }}
                   placeholder="프로젝트를 함께할 인원 수를 입력해주세요. (2명 이상)"
                   type="number"
                   onChange={onChange}
@@ -126,7 +169,7 @@ const Page = () => {
               <Input
                 name="connect"
                 size="small"
-                style={{ width: '540px' }}
+                style={{ width: '100% ' }}
                 placeholder="오픈 카카오톡 링크, 메일, 전화번호 등 연락을 위한 링크 및 번호를 입력해주세요."
                 onChange={onChange}
                 value={inputs.connect}
@@ -138,31 +181,40 @@ const Page = () => {
             <div className="wrap">
               <div className="title">모집 포지션</div>
               <Input
+                value={positionCodeList.map((item) => item.label).join(', ')}
                 name="position"
                 size="small"
-                style={{ width: '540px' }}
+                style={{ width: '540px', border: `1px solid ${color.gray.gray6}`, color: color.gray.white }}
                 placeholder="프로젝트에 필요한 포지션을 선택해주세요."
                 icon="/images/plus/plus_gray6.svg"
-                onClickIcon={handleModal}
+                onClick={handleModal}
               />
             </div>
             <div className="wrap">
               <div className="title">스킬</div>
               <Input
+                value={skillList.map((item) => item.name).join(', ')}
                 name="skill"
                 size="small"
-                style={{ width: '540px' }}
+                style={{ width: '100% ' }}
                 placeholder="프로젝트에 필요한 스킬을 선택해주세요."
                 icon="/images/plus/plus_gray6.svg"
-                onClickIcon={handleSkillModal}
+                onClick={handleSkillModal}
               />
             </div>
           </div>
 
           <div className="two-grid-wrap" style={{ marginTop: '30px' }}>
-            <div className="wrap">
-              <div className="title">모집 마감일</div>
-              <DateRangePicker date={date} onChange={onChangeDate}/>
+            <div style={{ display: 'flex' }}>
+              <div className="wrap" style={{ flex: 1 }}>
+                <div className="title">모집 마감일</div>
+                <Calender onChange={onChangeDate} date={date.end} type="end" />
+              </div>
+
+              <div className="wrap" style={{ flex: 1 }}>
+                <div className="title">진행 기간</div>
+                <SelectBox optionStyle={{ width: '100%' }} style={{ width: '100%' }} options={MONTH} onChange={onChangeSelect} value={select} />
+              </div>
             </div>
             <div className="wrap">
               <div className="title">보증금 (1인)</div>
@@ -185,10 +237,15 @@ const Page = () => {
 
           <EditorWrap>
             <div className="title">프로젝트 명</div>
-            <Input size="small" style={{ width: '1140px' }} placeholder="프로젝트 명을 입력하세요. (5~50자 이하)" onChange={onChange} value={inputs.name} />
-            <div>
-              <TextEditor />
-            </div>
+            <Input
+              size="small"
+              style={{ width: '1140px' }}
+              placeholder="프로젝트 명을 입력하세요. (5~50자 이하)"
+              onChange={onChange}
+              value={inputs.name}
+              name="name"
+            />
+            <TextEditor onChange={handleContentChange} value={inputs.content} />
           </EditorWrap>
         </ProjectIntroduce>
 
@@ -203,18 +260,6 @@ const Page = () => {
               2. 점수의 총 합계가 100점이 되도록 입력해주세요. (0점은 입력할 수 없습니다.)
             </div>
             <div className="input-wrap">
-              <div style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
-                <Input name="content" size="small" style={{ width: '960px' }} placeholder="요구사항을 입력하세요. (필수)" />
-                <Input name="point" size="small" style={{ width: '100px' }} placeholder="배점 입력" type="number" />
-              </div>
-              <div style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
-                <Input name="content" size="small" style={{ width: '960px' }} placeholder="요구사항을 입력하세요. (필수)" />
-                <Input name="point" size="small" style={{ width: '100px' }} placeholder="배점 입력" />
-              </div>
-              <div style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
-                <Input name="content" size="small" style={{ width: '960px' }} placeholder="요구사항을 입력하세요. (필수)" />
-                <Input name="point" size="small" style={{ width: '100px' }} placeholder="배점 입력" />
-              </div>
               {requirements.map((item, index) => (
                 <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
                   <Input
@@ -232,15 +277,19 @@ const Page = () => {
                     placeholder="배점 입력"
                     value={item.point}
                     onChange={(e) => handleRequirementChange(index, e.target.value, 'point')}
+                    type="number"
                   />
-                  <Image
-                    src="/images/bin/bin.svg"
-                    width={24}
-                    height={24}
-                    alt="delete"
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => handleDeleteRequirement(index)}
-                  />
+
+                  {index > 2 && (
+                    <Image
+                      src="/images/bin/bin.svg"
+                      width={24}
+                      height={24}
+                      alt="delete"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleDeleteRequirement(index)}
+                    />
+                  )}
                 </div>
               ))}
             </div>
@@ -324,6 +373,7 @@ const CommonInfo = styled.div`
     display: flex;
     flex-direction: column;
     gap: 8px;
+    padding-right: 30px;
   }
   .title {
     color: ${color.gray.gray5};

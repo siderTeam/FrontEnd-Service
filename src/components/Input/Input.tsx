@@ -15,7 +15,7 @@ export type INPUT_TYPE = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>;
 export type InputProps = INPUT_STYLE_PROPS &
   INPUT_TYPE & {
     value?: string | number | undefined;
-    onChange?: (e: any, id: string) => void;
+    onChange?: (e: any, type?: string) => void;
     readOnly?: boolean;
     type?: string;
     name?: string;
@@ -31,6 +31,7 @@ export type InputProps = INPUT_STYLE_PROPS &
     isValid?: boolean;
     suffix?: any;
     onClickIcon?: () => void;
+    containerStyle?: React.CSSProperties;
   };
 
 const Input = ({
@@ -52,32 +53,42 @@ const Input = ({
   isValid,
   suffix,
   status,
+  containerStyle,
   ...rest
 }: InputProps) => {
-  return (
-    <>
-      <InputContainer>
-        <StyledInput
-          size={size}
-          isValid={isValid}
-          color={status || color}
-          value={value}
-          onChange={onChange}
-          readOnly={readOnly}
-          type={type}
-          name={name}
-          placeholder={placeholder}
-          style={style}
-          status={status}
-          ref={ref}
-          {...rest}
-        />
-        {icon && <Image src={icon} width={16} height={16} alt="icon" className="icon" onClick={onClickIcon} />}
+  const handleChangeInput = (e: any) => {
+    if (onChange) {
+      if (type === 'number') {
+        onChange(e, type);
+      } else {
+        onChange(e);
+      }
+    }
+  };
 
-        {suffix && <div className="suffix">{suffix}</div>}
-        {subText && <SubText color={status}>{subText}</SubText>}
-      </InputContainer>
-    </>
+  return (
+    <InputContainer style={containerStyle}>
+      <StyledInput
+        onClick={onClick}
+        size={size}
+        isValid={isValid}
+        color={status || color}
+        value={type === "number" ? Number(value).toLocaleString() : value}
+        onChange={handleChangeInput}
+        readOnly={readOnly}
+        type={type === 'number' ? 'string' : type}
+        name={name}
+        placeholder={placeholder}
+        style={style}
+        status={status}
+        ref={ref}
+        {...rest}
+      />
+      {icon && <Image src={icon} width={16} height={16} alt="icon" className="icon" onClick={onClickIcon} />}
+
+      {suffix && <div className="suffix">{suffix}</div>}
+      {subText && <SubText color={status}>{subText}</SubText>}
+    </InputContainer>
   );
 };
 export default Input;
@@ -114,15 +125,15 @@ const INPUT_TYPE = {
 
 const COLOR_TYPE = {
   ['primary']: {
-    border: ` 1px solid ${color.gray.gray6}`,
+    border: `1px solid ${color.gray.gray6}`,
     color: color.gray.white,
   },
   ['success']: {
-    border: ` 1px solid ${color.secondary.positive_1}`,
+    border: `1px solid ${color.secondary.positive_1}`,
     color: color.gray.white,
   },
   ['error']: {
-    border: ` 1px solid ${color.secondary.error_1}`,
+    border: `1px solid ${color.secondary.error_1}`,
     color: color.gray.white,
   },
 };
@@ -130,7 +141,6 @@ const COLOR_TYPE = {
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-
   position: relative;
 
   .suffix {
@@ -143,7 +153,7 @@ const InputContainer = styled.div`
     cursor: pointer;
 
     position: absolute;
-    right: 40px;
+    right: 10px;
     top: 8px;
   }
 `;

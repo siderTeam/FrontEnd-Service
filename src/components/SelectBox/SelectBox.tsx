@@ -12,7 +12,7 @@ export type SELECTBOX_STYLE_PROPS = {
   text?: 'full';
 };
 
-export type OPTION_TYPE = { label: string; value: any }
+export type OPTION_TYPE = { label: string; value: any };
 
 export type SelectBoxProps<T> = SELECTBOX_STYLE_PROPS & {
   options: { label: string; value: T | any }[];
@@ -43,8 +43,10 @@ const SelectBox = <T,>({
   };
 
   const handleClick = (value: T) => {
-    onChange(name as string, value);
-    setVisible(false);
+    if (onChange) {
+      onChange(name as string, value);
+      setVisible(false);
+    }
   };
 
   const selected = options.filter((option) => option.value === value);
@@ -60,7 +62,7 @@ const SelectBox = <T,>({
         )}
       </StyledSelect>
       {visible && (
-        <OptionWrapper size={size} selectedType={selectedType} optionType={optionType}>
+        <OptionWrapper style={style} size={size} selectedType={selectedType} optionType={optionType}>
           {options?.map((option, index) => (
             <li onClick={() => handleClick(option.value)} style={optionStyle} key={`${option.value}_${index}`} value={option.label}>
               {option.label}
@@ -151,7 +153,7 @@ const StyledSelect = styled.div<any>`
     height: 100%;
     display: flex;
     align-items: center;
-    color: ${({ value }) => !!value ? color.gray.white : color.gray.gray7};
+    color: ${({ value }) => (!!value ? color.gray.white : color.gray.gray7)};
     font-weight: bold;
   }
 `;

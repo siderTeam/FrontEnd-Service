@@ -169,3 +169,14 @@ export const DEPOSIT_STATUS_ARRAY = [
   },
 ];
 
+
+
+/**
+ * [개월]
+ */
+export const MONTH = [1,2,3,4,5,6,7,8,9,10,11,12].map((item) => {
+  return {
+    label: `${item}개월`,
+    value: item
+  }
+})

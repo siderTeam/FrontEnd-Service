@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { POSITION_CODE_ARRAY } from 'public/static/requireJudge/static';
 import { OPTION_TYPE } from '../SelectBox/SelectBox';
 
-const PositionModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { onClickChoice: (callback: OPTION_TYPE[], type: 'skill') => void }) => {
+const PositionModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { onClickChoice: (callback: OPTION_TYPE[], type: 'position') => void }) => {
   const [checked, setChecked] = useState<OPTION_TYPE[]>([]);
 
   const handleChangeCheck = (e: any, position: OPTION_TYPE) => {
@@ -55,7 +55,7 @@ const PositionModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { o
             ))}
           </div>
           <div className="button-wrap">
-            <Button onClick={() => onClickChoice(checked, 'skill')} size="medium" variant="primary">
+            <Button onClick={() => onClickChoice(checked, 'position')} size="medium" variant="primary">
               선택
             </Button>
           </div>

@@ -5,7 +5,6 @@ import { ModalPageProps } from '@/types/types';
 import { color } from '@/styles/color';
 import { useState } from 'react';
 import { POSITION_SKILLS } from 'public/static/common';
-import { OPTION_TYPE } from '../SelectBox/SelectBox';
 import Image from 'next/image';
 
 export type SKILL_TYPE = {
@@ -14,7 +13,7 @@ export type SKILL_TYPE = {
   imageName: string;
 };
 
-const SkillModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { onClickChoice: (callback: OPTION_TYPE[]) => void }) => {
+const SkillModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { onClickChoice: (callback: SKILL_TYPE[], type: 'skill') => void }) => {
   const [activePosition, setActivePosition] = useState<keyof typeof POSITION_SKILLS>('전체');
   const [checked, setChecked] = useState<SKILL_TYPE[]>([]);
 
@@ -87,7 +86,7 @@ const SkillModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { onCl
           </RightSection>
         </Content>
         <div className="button-wrap">
-          <Button size="medium" variant="primary">
+          <Button onClick={() => onClickChoice(checked, 'skill')} size="medium" variant="primary">
             선택
           </Button>
         </div>

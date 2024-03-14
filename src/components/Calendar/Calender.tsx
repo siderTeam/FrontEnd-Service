@@ -15,8 +15,6 @@ interface CalenderProps {
 const Calender = ({ date, onChange, type }: CalenderProps) => {
   const MONTHS = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
 
-  console.log('date', date, type);
-
   return (
     <Container>
       <StyledDatePicker // DatePicker의 styled-component명
