@@ -7,7 +7,7 @@ import TextArea from '@/components/TextArea/TextArea';
 import Button from '@/components/Button/Button';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { createRely } from '@/api/projectDetail/api';
+import { createReply } from '@/api/projectDetail/api';
 
 type Props = {
   replyCount: number;
@@ -20,7 +20,7 @@ const CommentWrite = ({ replyCount, projectId }: Props) => {
   const [isActive, setIsActive] = useState(true);
 
   const { mutate } = useMutation({
-    mutationFn: () => createRely(projectId, { content: inputTextarea }),
+    mutationFn: () => createReply(projectId, { content: inputTextarea }),
     onSuccess: async (data) => {
       if (data.result === true) {
         alert('댓글 작성 성공!');

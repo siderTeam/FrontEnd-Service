@@ -1,6 +1,6 @@
 import { API } from '../axiosConfig';
 import { rest } from '../rest';
-import { PROJECT_DETAIL_RESPONSE, REPLY_REQUEST } from './model';
+import { APPLY_PROJECT_REQUEST, PROJECT_DETAIL_RESPONSE, REPLY_REQUEST } from './model';
 
 //프로젝트 단건 조회
 export const getProjectDetail = async (projectId: number): Promise<PROJECT_DETAIL_RESPONSE> => {
@@ -17,8 +17,15 @@ export const increaseProjectView = async (projectId: number) => {
 };
 
 //프로젝트 댓글 작성
-export const createRely = async (projectId: number, params: REPLY_REQUEST) => {
+export const createReply = async (projectId: number, params: REPLY_REQUEST) => {
   const response = await API.post(`${rest.post.createReply}/${projectId}`, params);
 
   return response.data;
 };
+
+//프로젝트 지원
+export const applyProject = async (params: APPLY_PROJECT_REQUEST) => {
+  const response = await API.post(`${rest.post.applyProject}`, params);
+
+  return response.data;
+}

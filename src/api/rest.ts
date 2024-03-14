@@ -19,6 +19,7 @@ export const rest = {
     getChoBiSangToken: '/user/newRf',
     createProject: '/project',
     createReply: '/reply/project',
+    applyProject: '/join',
   },
   put: {},
   delete: {},

@@ -75,3 +75,8 @@ export type PROJECT_DETAIL_RESPONSE = {
 export type REPLY_REQUEST = {
   content: string;
 };
+
+export type APPLY_PROJECT_REQUEST = {
+  projectId: number;
+  content: string;
+};

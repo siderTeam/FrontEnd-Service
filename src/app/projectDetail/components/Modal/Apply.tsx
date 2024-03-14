@@ -7,6 +7,9 @@ import { useState } from 'react';
 import Button from '@/components/Button/Button';
 import TextArea from '@/components/TextArea/TextArea';
 import Input from '@/components/Input/Input';
+import { useMutation } from '@tanstack/react-query';
+import { applyProject } from '@/api/projectDetail/api';
+import { APPLY_PROJECT_REQUEST } from '@/api/projectDetail/model';
 
 type ModalProps = {
   visible: boolean;
@@ -14,6 +17,42 @@ type ModalProps = {
 };
 
 const Apply = ({ visible, onClose }: ModalProps) => {
+  const [isActive, setIsActive] = useState(true);
+  const [form, setForm] = useState<APPLY_PROJECT_REQUEST>({
+    projectId: 64, //수정필요
+    content: '',
+  });
+
+  const { mutate } = useMutation({
+    mutationFn: () => applyProject(form),
+    onSuccess: async (data) => {
+      if (data.result === true) {
+        alert('지원 성공!');
+      } else {
+        alert('지원 실패');
+      }
+    },
+    onError: () => {
+      console.error('실패');
+    },
+  });
+
+  const handlChange = (e: any) => {
+    const { value } = e.target;
+
+    setForm({
+      ...form,
+      ['content']: value,
+    });
+
+    //제출 버튼 active
+    if (value.trim().length > 0) {
+      setIsActive(false);
+    } else {
+      setIsActive(true);
+    }
+  };
+
   return (
     <Modal
       style={{
@@ -43,11 +82,13 @@ const Apply = ({ visible, onClose }: ModalProps) => {
           </div>
           <div>
             <span className="subtitle">지원 사유</span>
-            <TextArea placeholder="지원 사유를 입력하세요." style={{ width: '100%', height: 180 }} />
+            <TextArea value={form.content} onChange={handlChange} placeholder="지원 사유를 입력하세요." style={{ width: '100%', height: 180 }} />
           </div>
         </div>
         <div className="button">
-          <Button>제출</Button>
+          <Button disabled={isActive} onClick={() => mutate()}>
+            제출
+          </Button>
         </div>
       </Container>
     </Modal>
