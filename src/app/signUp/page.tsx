@@ -8,9 +8,9 @@ import ThirdContent from './components/ThirdContent';
 import LastContent from './components/LastContent';
 import Image from 'next/image';
 import { SIGN_UP_REQUEST } from '@/api/auth/model';
-import { postUserSignUp } from '@/api/api';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import { postUserSignUp } from '@/api/auth/api';
 
 const initialParams: SIGN_UP_REQUEST = {
   username: '',
@@ -66,7 +66,7 @@ const Page = () => {
 
   return (
     <Container>
-      <Image src="/images/Logo_signup.svg" alt="로고" className="logo" width={204} height={56} />
+      <Image src="/images/Logo.svg" alt="로고" className="logo" width={204} height={56} />
       {currentContent === 'first' && <FirstContent onClick={handleNextButtonClick} />}
       {currentContent === 'second' && <SecondContent onClick={handleNextButtonClick} />}
       {currentContent === 'third' && <ThirdContent onClick={handleNextButtonClick} />}

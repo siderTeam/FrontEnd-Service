@@ -73,7 +73,7 @@ const Input = ({
         size={size}
         isValid={isValid}
         color={status || color}
-        value={type === "number" ? Number(value).toLocaleString() : value}
+        value={type === 'number' ? Number(value).toLocaleString() : value}
         onChange={handleChangeInput}
         readOnly={readOnly}
         type={type === 'number' ? 'string' : type}
@@ -150,11 +150,11 @@ const InputContainer = styled.div`
   }
 
   .icon {
-    cursor: pointer;
-
     position: absolute;
     right: 10px;
     top: 8px;
+
+    cursor: pointer;
   }
 `;
 
@@ -167,7 +167,6 @@ const StyledInput = styled.input<any>`
   background: none;
   box-sizing: border-box;
   outline: none;
-  position: relative;
 
   &[type='number']::-webkit-outer-spin-button,
   &[type='number']::-webkit-inner-spin-button {
@@ -182,11 +181,6 @@ const StyledInput = styled.input<any>`
   &:disabled {
     border: 1px solid ${color.gray.gray9};
     color: ${color.gray.gray8};
-  }
-
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
   }
 `;
 

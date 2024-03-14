@@ -8,6 +8,8 @@ export const rest = {
     auditList: '/admin/project/audit',
     completionList: '/admin/project',
     depositJudgeList: '/deposit',
+    projectDetail: '/project/detail',
+    increaseProjectView: '/project/view',
   },
   post: {
     userSignIn: '/user/signIn',
@@ -16,6 +18,8 @@ export const rest = {
     getAccessToken: '/user/newAc',
     getChoBiSangToken: '/user/newRf',
     createProject: '/project',
+    createReply: '/reply/project',
+    applyProject: '/join',
   },
   put: {},
   delete: {},
