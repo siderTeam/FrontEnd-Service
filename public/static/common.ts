@@ -91,6 +91,7 @@ export const POSITION_SKILLS = {
     { id: 3, name: 'JavaScript', imageName: 'js' },
     { id: 7, name: 'Java', imageName: 'java' },
     { id: 5, name: 'Next.js', imageName: 'nextjs' },
+    { id: 8, name: 'Spring', imageName: 'spring' },
     { id: 9, name: 'Node.js', imageName: 'node_js' },
     { id: 10, name: 'Nest.js', imageName: 'nestjs' },
     { id: 11, name: 'Go', imageName: 'go' },

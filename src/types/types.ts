@@ -27,6 +27,7 @@ export type CheckboxProps = CHECKBOX_TYPE_PROPS & {
   style?: React.CSSProperties;
   requireStyle?: React.CSSProperties;
   className?: string;
+  labelStyle?: React.CSSProperties;
 };
 
 //Modal
