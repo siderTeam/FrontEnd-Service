@@ -4,7 +4,7 @@ const useHandleModal = (defaultValue: boolean) => {
   const [visible, setVisible] = useState(defaultValue);
 
   const handleModal = () => {
-    setVisible(true);
+    setVisible(!defaultValue);
   };
 
   const handleModalClose = () => {

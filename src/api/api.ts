@@ -37,13 +37,6 @@ export const getNewRefreshToken = async () => {
   return response.data;
 };
 
-//회원가입
-export const postUserSignUp = async (params: USER_SIGNUP_REQUEST) => {
-  const response = await API.post(`${rest.post.userSignUp}`, params);
-
-  return response.data;
-};
-
 //유저 아이디 가져오기 (아이디 중복 확인)
 export const getUserId = async (username: string) => {
   const response = await API.get(`${rest.get.userId}?id=${username}`);

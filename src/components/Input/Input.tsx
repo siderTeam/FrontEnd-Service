@@ -27,6 +27,7 @@ export type InputProps = INPUT_STYLE_PROPS &
     rest?: any;
     buttonText?: string;
     onClick?: () => void;
+    onClickIcon?: () => void;
     ref?: any;
     isValid?: boolean;
     suffix?: any;
@@ -72,7 +73,7 @@ const Input = ({
           ref={ref}
           {...rest}
         />
-        {icon && <Image src={icon} width={16} height={16} alt="icon" className="icon" onClick={onClickIcon} />}
+        {icon && <Image src={icon} className="icon" width={16} height={16} alt="icon" onClick={onClickIcon} />}
 
         {suffix && <div className="suffix">{suffix}</div>}
         {subText && <SubText color={status}>{subText}</SubText>}
@@ -140,11 +141,11 @@ const InputContainer = styled.div`
   }
 
   .icon {
-    cursor: pointer;
-
     position: absolute;
-    right: 40px;
     top: 8px;
+    right: 40px;
+
+    cursor: pointer;
   }
 `;
 
@@ -157,7 +158,6 @@ const StyledInput = styled.input<any>`
   background: none;
   box-sizing: border-box;
   outline: none;
-  position: relative;
 
   &[type='number']::-webkit-outer-spin-button,
   &[type='number']::-webkit-inner-spin-button {
@@ -172,11 +172,6 @@ const StyledInput = styled.input<any>`
   &:disabled {
     border: 1px solid ${color.gray.gray9};
     color: ${color.gray.gray8};
-  }
-
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
   }
 `;
 
