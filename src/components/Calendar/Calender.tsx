@@ -1,9 +1,7 @@
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/locale';
-import { getMonth, getYear } from 'date-fns';
-
-import { useState } from 'react';
+import { getMonth } from 'date-fns';
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Image from 'next/image';
@@ -17,7 +15,7 @@ interface CalenderProps {
 const Calender = ({ date, onChange, type }: CalenderProps) => {
   const MONTHS = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
 
-  console.log("date", date, type)
+  console.log('date', date, type);
 
   return (
     <Container>
@@ -48,7 +46,6 @@ const Calender = ({ date, onChange, type }: CalenderProps) => {
         )}
         ///////////////////////
         dayClassName={(_date: Date) => {
-          
           // 현재 선택된 월의 날짜인지 확인
           const isCurrentMonth = _date.getMonth() === date!.getMonth();
 
