@@ -2,16 +2,12 @@
 
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
-import Modal from '@/components/Modal/Modal';
 import { useState } from 'react';
 import Input from '@/components/Input/Input';
 import Label from '@/components/Label/Label';
 import TextArea from '@/components/TextArea/TextArea';
 import MyProfile from '@/components/MyProfile/MyProfile';
 import Button from '@/components/Button/Button';
-import { useQuery } from '@tanstack/react-query';
-import { rest } from '@/api/rest';
-import { getCode, getProject } from '@/api/api';
 
 const MyPage = () => {
   const [textareaCount, setTextareaCount] = useState(0);

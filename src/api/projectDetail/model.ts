@@ -1,3 +1,5 @@
+import { PROJECT_STATUS } from "public/lib/enum";
+
 export type PROJECT_DETAIL_RESPONSE = {
   id: number;
   name: string;
@@ -67,7 +69,7 @@ export type PROJECT_DETAIL_RESPONSE = {
       ];
     },
   ];
-  status: number;
+  status: PROJECT_STATUS;
   createdDate: string;
   view: number;
 };

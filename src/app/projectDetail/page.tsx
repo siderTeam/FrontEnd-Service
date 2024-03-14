@@ -52,7 +52,7 @@ const Page = () => {
   ];
 
   //프로젝트 단건 조회
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: [rest.get.projectDetail],
     queryFn: () => getProjectDetail(64),
   });
@@ -101,7 +101,7 @@ const Page = () => {
         <FunctionInfo element={router[1].observe} data={data} />
         <DeadlineInfo element={router[2].observe} data={data} />
         <LeaderInfo element={router[3].observe} data={data} />
-        <CommentWrite replyCount={data?.projectReplies.length || 0} projectId={data?.id || 0} />
+        <CommentWrite refetch={refetch} replyCount={data?.projectReplies.length || 0} projectId={data?.id || 0} />
         {data?.projectReplies.map((reply, index) => (
           <div key={index}>
             <Comment data={reply} />

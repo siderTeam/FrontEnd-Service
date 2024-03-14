@@ -2,15 +2,24 @@
 
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
-
 import { TextareaProps } from '@/types/types';
-import { kMaxLength } from 'buffer';
+
 
 const TextArea = ({ size = 'full', color = 'primary', style, textareaCount, ...rest }: TextareaProps) => {
   return (
     <Container>
       <StyledTextArea size={size} color={color} style={style} {...rest} />
-      {textareaCount && <div className="text-length">{textareaCount}/100</div>}
+      {
+        <div className="text-length">
+          {textareaCount !== undefined ? (
+            <>
+              {textareaCount}/{rest?.maxLength}
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
+      }
     </Container>
   );
 };

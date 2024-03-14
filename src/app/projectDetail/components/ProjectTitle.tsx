@@ -8,10 +8,11 @@ import Button from '@/components/Button/Button';
 import Apply from './Modal/Apply';
 import ApplyStatusContainer from './Modal/ApplyStatusModal/ApplyStatusContainer';
 import { PROJECT_DETAIL_RESPONSE } from '@/api/projectDetail/model';
+import { formatForProjectStatus } from 'public/lib/formatForEnum';
 
 type Props = {
   element: any;
-  data: PROJECT_DETAIL_RESPONSE | undefined;
+  data?: PROJECT_DETAIL_RESPONSE;
 };
 
 const ProjectTitle = ({ element, data }: Props) => {
@@ -47,7 +48,7 @@ const ProjectTitle = ({ element, data }: Props) => {
           <div className="info">
             <span>{data?.createUser.nickname}</span>
             <span>{data?.createdDate.replace(/-/g, '.').slice(0, 10)}</span>
-            <span className="status">{data?.status}</span>
+            <span className="status">{data && formatForProjectStatus(data?.status)}</span>
           </div>
           <div className="seen">
             <Image src={'/images/security/security_gray5.svg'} alt="security" width={12} height={7} />

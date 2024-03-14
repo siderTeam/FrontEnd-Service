@@ -12,9 +12,10 @@ import { createReply } from '@/api/projectDetail/api';
 type Props = {
   replyCount: number;
   projectId: number;
+  refetch: () => void;
 };
 
-const CommentWrite = ({ replyCount, projectId }: Props) => {
+const CommentWrite = ({ replyCount, projectId, refetch }: Props) => {
   const [textCount, setTextCount] = useState(0);
   const [inputTextarea, setInputTextarea] = useState('');
   const [isActive, setIsActive] = useState(true);
@@ -27,6 +28,9 @@ const CommentWrite = ({ replyCount, projectId }: Props) => {
       } else {
         alert('댓글 작성 실패');
       }
+
+      refetch()
+      setInputTextarea('')
     },
     onError: () => {
       console.error('실패');
