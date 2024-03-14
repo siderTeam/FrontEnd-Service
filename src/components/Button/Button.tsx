@@ -22,7 +22,7 @@ const Button = ({ children, size = 'medium', variant = 'primary', style, iconSty
   return (
     <StyledButton size={size} variant={variant} style={style} onClick={onClick} className={className} {...rest}>
       <div className="text_icon_wrap">
-        {leftIcon && <Icon src={leftIcon} style={{ marginRight: '10px' }} />}
+        {leftIcon && <Icon src={leftIcon} style={{ marginRight: '4px' }} />}
         {children}
         {rightIcon && <Icon src={rightIcon} style={iconStyle} />}
       </div>

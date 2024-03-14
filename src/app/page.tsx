@@ -9,20 +9,31 @@ import { color } from '@/styles/color';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import SelectInput from '@/components/SelectInput/SelectInput';
-import { getCode, getProject } from '@/api/api';
+import Image from 'next/image';
+import { getProject } from '@/api/project/api';
+
+const SEARCH_ARRAY = [
+  {
+    label: '제목',
+    value: 1,
+  },
+  {
+    label: '내용',
+    value: 2,
+  },
+  {
+    label: '제목+내용',
+    value: 3,
+  },
+];
 
 const Page = () => {
   const [filterType, setFilterType] = useState('all');
-  const [selectJob, setSelectJob] = useState('몇글자지');
+  const [select, setSelect] = useState('제목');
 
   const projectData = useQuery({
     queryKey: [rest.get.project],
     queryFn: getProject,
-  });
-
-  const jobData = useQuery({
-    queryKey: [rest.get.code],
-    queryFn: () => getCode(10, 2),
   });
 
   const handleFilterClick = (type: any) => {
@@ -30,47 +41,48 @@ const Page = () => {
   };
 
   const handleJobSelectChange = (name: string, value: string) => {
-    setSelectJob(value);
+    setSelect(value);
   };
 
   return (
     <Container>
       <div className="banner">배너</div>
 
+      <div className="title">새로 등록된 프로젝트</div>
+
+      <CardContainer>
+        <Imsi>
+          {projectData.data?.map((item) => (
+            <Card key={item.id} title={item.name} startDate={item.recruitStartDate} endDate={item.recruitEndDate} deposit={item.deposit}>
+              <PositionIcon color="designer" icon="designer" />
+              <PositionIcon color="projectManager" icon="projectManager" />
+              <PositionIcon color="feDeveloper" icon="feDeveloper" />
+              <PositionIcon color="beDeveloper" icon="beDeveloper" />
+            </Card>
+          ))}
+        </Imsi>
+      </CardContainer>
+
       <div className="title">프로젝트</div>
       <FilterWrap>
         <div className="buttonWrap">
           <div className={filterType === 'all' ? 'choice' : 'basic'} onClick={() => handleFilterClick('all')}>
-            #전체
+            전체
           </div>
-          <div className={filterType === 'design' ? 'choice' : 'basic'} onClick={() => handleFilterClick('design')}>
-            #디자인
+          <div className={filterType === 'recruiting' ? 'choice' : 'basic'} onClick={() => handleFilterClick('recruiting')}>
+            모집중인 프로젝트만 보기
           </div>
-          <div className={filterType === 'pm' ? 'choice' : 'basic'} onClick={() => handleFilterClick('pm')}>
-            #기획
+          <div className={filterType === 'position' ? 'choice' : 'basic'} onClick={() => handleFilterClick('position')}>
+            포지션
+            {/* <Image src="/images/arrow/arrow_down.svg" width={16} height={16} alt="arrow" /> */}
           </div>
-          <div className={filterType === 'develop' ? 'choice' : 'basic'} onClick={() => handleFilterClick('develop')}>
-            #개발
-          </div>
-          <div className={filterType === 'recruitment' ? 'choice' : 'basic'} onClick={() => handleFilterClick('recruitment')}>
-            #모집중
+          <div className={filterType === 'skill' ? 'choice' : 'basic'} onClick={() => handleFilterClick('skill')}>
+            스킬
+            {/* <Image src="/images/arrow/arrow_down.svg" width={16} height={16} alt="arrow" /> */}
           </div>
         </div>
 
-        <SelectInput
-          options={
-            jobData.data?.map(({ id, name }) => {
-              return {
-                label: name,
-                value: id as unknown as string,
-              };
-            }) || []
-          }
-          name="select"
-          onChange={handleJobSelectChange}
-          value={selectJob}
-          placeholder="몇글자지"
-        />
+        <SelectInput options={SEARCH_ARRAY} name="select" onChange={handleJobSelectChange} value={select} placeholder={select} />
       </FilterWrap>
       <CardContainer>
         <Imsi>
