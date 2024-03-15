@@ -19,6 +19,7 @@ export const API = axios.create({
     'Content-type': 'application/json',
     Authorization: getAuthorization(),
   },
+  baseURL: 'http://13.124.249.174:8080',
   withCredentials: true,
 });
 

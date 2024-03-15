@@ -14,12 +14,13 @@ import { APPLY_PROJECT_REQUEST } from '@/api/projectDetail/model';
 type ModalProps = {
   visible: boolean;
   onClose: () => void;
+  postId: number;
 };
 
-const Apply = ({ visible, onClose }: ModalProps) => {
+const Apply = ({ visible, onClose, postId }: ModalProps) => {
   const [isActive, setIsActive] = useState(true);
   const [form, setForm] = useState<APPLY_PROJECT_REQUEST>({
-    projectId: 64, //수정필요
+    projectId: postId, //수정필요
     content: '',
   });
 
