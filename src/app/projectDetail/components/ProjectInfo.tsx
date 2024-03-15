@@ -15,7 +15,7 @@ const ProjectInfo = ({ content }: Props) => {
         <Image src={'/images/notice/notice_gray5.svg'} alt="notice" width={20} height={18} />
         <span>프로젝트 소개</span>
       </div>
-      <div className="introduction">{content}</div>
+      <div className="introduction" dangerouslySetInnerHTML={{ __html: content }} />
     </Container>
   );
 };
@@ -28,7 +28,6 @@ const Container = styled.div`
   padding: 44px 0 44px 0;
 
   .introduction {
-    white-space: pre-wrap;
     margin: 0 12px 0 11px;
 
     font-size: 18px;

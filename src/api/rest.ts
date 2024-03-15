@@ -10,6 +10,7 @@ export const rest = {
     depositJudgeList: '/deposit',
     projectDetail: '/project/detail',
     increaseProjectView: '/project/view',
+    applyProjectUser: '/join/project',
   },
   post: {
     userSignIn: '/user/signIn',
