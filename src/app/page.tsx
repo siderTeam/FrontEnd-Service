@@ -11,6 +11,10 @@ import { useState } from 'react';
 import SelectInput from '@/components/SelectInput/SelectInput';
 import Image from 'next/image';
 import { getProject } from '@/api/project/api';
+import PositionModal from '@/components/PositionModal/PositionModal';
+import useHandleModal from '@/hook/useHandleModal';
+import { OPTION_TYPE } from '@/components/SelectBox/SelectBox';
+import SkillModal, { SKILL_TYPE } from '@/components/SkillModal/SkillModal';
 
 const SEARCH_ARRAY = [
   {
@@ -30,6 +34,10 @@ const SEARCH_ARRAY = [
 const Page = () => {
   const [filterType, setFilterType] = useState('all');
   const [select, setSelect] = useState('제목');
+  const { handleModal, handleModalClose, visible } = useHandleModal(false);
+  const { handleModal: handleSkillModal, handleModalClose: handleModalCloseSkill, visible: skillModalVisbile } = useHandleModal(false);
+  const [positionCodeList, setPositionCodeList] = useState<OPTION_TYPE[]>([]);
+  const [skillList, setSkillList] = useState<SKILL_TYPE[]>([]);
 
   const projectData = useQuery({
     queryKey: [rest.get.project],
@@ -38,6 +46,17 @@ const Page = () => {
 
   const handleFilterClick = (type: any) => {
     setFilterType(type);
+  };
+
+  const handleClickChoice = (callback: OPTION_TYPE[] | SKILL_TYPE[], type?: 'skill' | 'position') => {
+    if (type === 'skill' || type === 'position') {
+      setSkillList(callback as SKILL_TYPE[]);
+      handleModalCloseSkill();
+      setFilterType(type);
+    } else {
+      setPositionCodeList(callback as OPTION_TYPE[]);
+      handleModalClose();
+    }
   };
 
   const handleJobSelectChange = (name: string, value: string) => {
@@ -72,11 +91,11 @@ const Page = () => {
           <div className={filterType === 'recruiting' ? 'choice' : 'basic'} onClick={() => handleFilterClick('recruiting')}>
             모집중인 프로젝트만 보기
           </div>
-          <div className={filterType === 'position' ? 'choice' : 'basic'} onClick={() => handleFilterClick('position')}>
+          <div className={filterType === 'position' ? 'choice' : 'basic'} onClick={handleModal}>
             포지션
             {/* <Image src="/images/arrow/arrow_down.svg" width={16} height={16} alt="arrow" /> */}
           </div>
-          <div className={filterType === 'skill' ? 'choice' : 'basic'} onClick={() => handleFilterClick('skill')}>
+          <div className={filterType === 'skill' ? 'choice' : 'basic'} onClick={handleSkillModal}>
             스킬
             {/* <Image src="/images/arrow/arrow_down.svg" width={16} height={16} alt="arrow" /> */}
           </div>
@@ -96,6 +115,8 @@ const Page = () => {
           ))}
         </Imsi>
       </CardContainer>
+      <PositionModal visible={visible} onClose={handleModalClose} onClickChoice={handleClickChoice} />
+      <SkillModal visible={skillModalVisbile} onClose={handleModalCloseSkill} onClickChoice={handleClickChoice} />
     </Container>
   );
 };

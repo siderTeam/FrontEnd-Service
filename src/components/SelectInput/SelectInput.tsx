@@ -5,13 +5,11 @@ import { color } from '@/styles/color';
 
 import { useState } from 'react';
 
-//SelectInput
-
 export type SelectInputProps<T> = {
   options: { label: string; value: T | any }[];
   value?: string;
   name: string;
-  onChange?: (name: string, value: string) => void;
+  onChange?: (name: string, value: T | any) => void;
   style?: React.CSSProperties;
   optionStyle?: React.CSSProperties;
   placeholder?: string;
@@ -21,13 +19,14 @@ const SelectInput = <T,>({ value, name, style, options, onChange, placeholder }:
   const [visible, setVisible] = useState(false);
 
   const handleClickSelect = (e: any) => {
-    e.preventDefault();
     setVisible(!visible);
   };
 
-  const handleClick = (e: any, value: T) => {
-    onChange(name as string, value);
-    setVisible(false);
+  const handleClick = (value: T) => {
+    if (onChange) {
+      onChange(name as string, value);
+      setVisible(false);
+    }
   };
 
   const selected = options.filter((option) => option.value === value);
@@ -43,7 +42,7 @@ const SelectInput = <T,>({ value, name, style, options, onChange, placeholder }:
           {visible && (
             <OptionWrapper>
               {options?.map((option) => (
-                <li onClick={(e) => handleClick(e, option.value)} key={option.value} value={option.label}>
+                <li onClick={() => handleClick(option.value)} key={option.value} value={option.label}>
                   {option.label}
                 </li>
               ))}
@@ -59,7 +58,7 @@ const SelectInput = <T,>({ value, name, style, options, onChange, placeholder }:
           onClick={handleClickSelect}
         />
 
-        <input className="input" />
+        <input className="input" placeholder="프로젝트 검색 ㄱ?" />
         <Image src="/images/icons/Magnification_green.svg" alt="magnification" width={20} height={20} style={{ marginLeft: '10px', cursor: 'pointer' }} />
       </div>
     </Container>
@@ -88,6 +87,7 @@ const Container = styled.div`
 
     .choice-value {
       width: 100%;
+      text-align: center;
     }
 
     .input {
@@ -98,16 +98,22 @@ const Container = styled.div`
 
       width: 250px;
 
-      color: ${color.gray.gray7};
+      color: ${color.gray.white};
 
       font-size: 16px;
 
       font-weight: 400;
+
+      &::placeholder {
+        color: ${color.gray.gray7};
+        font-size: 16px;
+        font-weight: 400;
+      }
     }
   }
 `;
 
-const SelectStyle = styled.div`
+const SelectStyle = styled.div<any>`
   width: 80px;
   color: ${color.gray.white};
 
@@ -121,14 +127,16 @@ const SelectStyle = styled.div`
 
 const OptionWrapper = styled.ul`
   position: absolute;
-  width: 100px;
+  width: 110px;
   top: 40px;
-  left: 10px;
+  left: 5px;
+
   box-sizing: border-box;
 
   z-index: 3;
 
   li {
+    text-align: center;
     padding: 10px;
     box-sizing: border-box;
     cursor: pointer;
@@ -139,9 +147,19 @@ const OptionWrapper = styled.ul`
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+
+    background-color: ${color.gray.black};
   }
 
+  li:first-child {
+    border-radius: 8px 8px 0 0;
+  }
+
+  li:last-child {
+    border-radius: 0 0 8px 8px;
+  }
   li:hover {
-    border: 1px solid #b8b8b8;
+    background-color: ${color.gray.gray8};
+    color: ${color.brand.brandMain};
   }
 `;
