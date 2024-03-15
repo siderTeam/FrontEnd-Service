@@ -1,4 +1,4 @@
-import { PROJECT_STATUS } from "public/lib/enum";
+import { PROJECT_REQUIRE_JOIN_STATUS, PROJECT_STATUS } from 'public/lib/enum';
 
 export type PROJECT_DETAIL_RESPONSE = {
   id: number;
@@ -116,3 +116,23 @@ export type APPLY_PROJECT_REQUEST = {
   projectId: number;
   content: string;
 };
+
+export type APPLY_PROJECT_USER_RESPONSE = [
+  {
+    id: number;
+    resumeSelectResult: {
+      id: number;
+      contents: string;
+      career: number;
+      skillCodeList: [
+        {
+          skillCode: number;
+          name: string;
+          imageName: string;
+        },
+      ];
+      positionCode: number;
+    };
+    status: PROJECT_REQUIRE_JOIN_STATUS;
+  },
+];
