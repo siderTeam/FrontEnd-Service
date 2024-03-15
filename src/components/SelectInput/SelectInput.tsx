@@ -83,6 +83,7 @@ const Container = styled.div`
 
     .select {
       position: relative;
+      text-align: center;
     }
 
     .choice-value {

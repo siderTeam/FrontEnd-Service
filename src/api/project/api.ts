@@ -1,15 +1,14 @@
 import { API } from '../axiosConfig';
 import { rest } from '../rest';
+<<<<<<< HEAD
+import { CREATE_PROJECT_REQUEST, PROJECT_REQUEST, PROJECT_RESPONSE } from './model';
+=======
 import { APPLY_PROJECT_REQUEST, APPLY_PROJECT_USER_RESPONSE, CREATE_PROJECT_REQUEST, PROJECT_DETAIL_RESPONSE, PROJECT_RESPONSE, REPLY_REQUEST } from './model';
+>>>>>>> 0fed47f95efcbae0c76a3bfba63a274253f48265
 
 //프로젝트 가져오기
-export const getProject = async (): Promise<PROJECT_RESPONSE[]> => {
-  const response = await API.get(`${rest.get.project}`, {
-    params: {
-      page: 1,
-      size: 50,
-    },
-  });
+export const getProject = async (params: PROJECT_REQUEST): Promise<PROJECT_RESPONSE[]> => {
+  const response = await API.get(`${rest.get.project}`, { params });
 
   return response.data.data.content;
 };

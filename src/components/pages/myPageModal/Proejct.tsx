@@ -5,68 +5,65 @@ import { color } from '@/styles/color';
 import { useState } from 'react';
 
 const Proejct = () => {
-  const [page, setPage] = useState(1);
-  const items = 12;
+  const [filterType, setFilterType] = useState('전체');
 
   // const resumeData = useQuery({
   //   queryKey: [rest.get.resume],
   //   queryFn: getResume,
   // });
 
+  const handleFilterClick = (type: string) => {
+    setFilterType(type);
+  };
+
   const resumeData = [
     {
       number: 1,
+      status: '입금대기',
       project: '프로젝트 이름이시다.',
-      period: '8888.88.88~8888.88.88',
-      refund: '심사중',
-    },
-    {
-      number: 1,
-      project: '프로젝트 이름이시다.',
-      period: '8888.88.88~8888.88.88',
-      refund: '심사중',
-    },
-    {
-      number: 1,
-      project: '프로젝트 이름이시다.',
-      period: '8888.88.88~8888.88.88',
-      refund: '심사중',
-    },
-    {
-      number: 1,
-      project: '프로젝트 이름이시다.',
-      period: '8888.88.88~8888.88.88',
-      refund: '심사중',
-    },
-    {
-      number: 1,
-      project: '프로젝트 이름이시다.',
-      period: '8888.88.88~8888.88.88',
-      refund: '심사중',
-    },
-    {
-      number: 1,
-      project: '프로젝트 이름이시다.',
-      period: '8888.88.88~8888.88.88',
-      refund: '심사중',
+      start: '8888.88.88',
+      end: '8888.88.88',
+      done: '납입 완료',
+      deposit: '888,888',
+      refund: '환급 완료',
     },
   ];
 
   return (
     <Container>
+      <div className="filter-wrap">
+        <div className={filterType === '전체' ? 'choice' : 'basic'} onClick={() => handleFilterClick('전체')}>
+          전체보기
+        </div>
+        <div className={filterType === '내가쓴글' ? 'choice' : 'basic'} onClick={() => handleFilterClick('내가쓴글')}>
+          내가 쓴 글만보기
+        </div>
+        <div className={filterType === '진행중' ? 'choice' : 'basic'} onClick={() => handleFilterClick('진행중')}>
+          진행중인 프로젝트만 보기
+        </div>
+      </div>
       <TableHeader>
         <div className="number">No.</div>
+        <div className="status">진행상태</div>
         <div className="project">프로젝트 명</div>
-        <div className="period">프로젝트 진행 기간</div>
-        <div className="refund">환급 여부</div>
+        <div className="period">진행 기간</div>
+        <div className="done">보증금 납입</div>
+        <div className="refund">보증금 환급</div>
       </TableHeader>
       <TableContent>
-        {resumeData?.slice(items * (page - 1), items * (page - 1) + items).map((content, index) => (
+        {resumeData?.map((content, index) => (
           <ul key={`${content.number}_${index}`}>
-            {/* <li className='number'>{(page - 1) * items + index + 1}</li> */}
             <li className="number">{content.number}</li>
+            <li className="status">{content.status}</li>
             <li className="project">{content.project}</li>
-            <li className="period">{content.period}</li>
+            <li className="period">
+              {content.start}
+              <br />~{content.end}
+            </li>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <li className="done">{content.done}</li>
+              <span>{content.deposit}</span>
+            </div>
             <li className="refund">{content.refund}</li>
           </ul>
         ))}
@@ -88,17 +85,38 @@ const Container = styled.div`
   padding-left: 70px;
 
   background: ${color.gray.black};
+
+  .filter-wrap {
+    display: flex;
+    gap: 18px;
+    margin-top: 60px;
+  }
+
+  .basic {
+    color: ${color.gray.gray5};
+    font-size: 16px;
+    font-weight: 400;
+
+    cursor: pointer;
+  }
+  .choice {
+    color: ${color.brand.brandMain};
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+  }
 `;
 
 const TableHeader = styled.div`
   display: grid;
-  grid-template-columns: 120px 1fr 180px 120px;
+  grid-template-columns: 60px 80px 1fr 100px 95px 95px;
 
   height: 40px;
   background: none;
   border-bottom: 1px solid ${color.gray.white};
 
-  margin-top: 70px;
+  margin-top: 30px;
   margin-bottom: 20px;
 
   color: ${color.gray.white};
@@ -109,8 +127,10 @@ const TableHeader = styled.div`
   line-height: normal;
 
   .number,
+  .status,
   .project,
   .period,
+  .done,
   .refund {
     display: flex;
     justify-content: center;
@@ -125,7 +145,7 @@ const TableContent = styled.div`
 
   ul {
     display: grid;
-    grid-template-columns: 120px 1fr 180px 120px;
+    grid-template-columns: 60px 80px 1fr 100px 95px 95px;
 
     height: 52px;
     border-radius: 8px;
@@ -153,8 +173,10 @@ const TableContent = styled.div`
     }
 
     .number,
+    .status,
     .project,
     .period,
+    .done,
     .refund {
       display: flex;
       justify-content: center;

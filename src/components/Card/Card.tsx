@@ -1,12 +1,21 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { CardProps } from '../../types/types';
 import Image from 'next/image';
 import Profile from '../Profile/Profile';
 import { black } from '@/styles/color';
+import { PROJECT_RESPONSE } from '@/api/project/model';
 
 const color = ['red', 'yellow', 'purple', 'green', 'blue'];
+
+export type CardProps = {
+  title: string;
+  startDate: string;
+  endDate: string;
+  deposit: number;
+  children?: any;
+  style?: React.CSSProperties;
+};
 
 const ProjectCard = ({ title, startDate, endDate, deposit, style }: CardProps) => {
   const cardColor = color[Math.floor(Math.random() * color.length)];
@@ -14,7 +23,7 @@ const ProjectCard = ({ title, startDate, endDate, deposit, style }: CardProps) =
   return (
     <Container className={cardColor}>
       <CardWrap>
-        <div className="subTitle">모집 마감일 8888.88.88</div>
+        <div className="subTitle">모집 마감일 {endDate}</div>
         <div className="skillWrap">
           <Image src={'/images/skillIcons/figma.svg'} alt="profile" width={32} height={32} />
         </div>

@@ -2,12 +2,11 @@
 
 import { rest } from '@/api/rest';
 import Card from '@/components/Card/Card';
-import PositionIcon from '@/components/PositionIcon/PositionIcon';
 
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SelectInput from '@/components/SelectInput/SelectInput';
 import Image from 'next/image';
 import { getProject } from '@/api/project/api';
@@ -15,6 +14,8 @@ import PositionModal from '@/components/PositionModal/PositionModal';
 import useHandleModal from '@/hook/useHandleModal';
 import { OPTION_TYPE } from '@/components/SelectBox/SelectBox';
 import SkillModal, { SKILL_TYPE } from '@/components/SkillModal/SkillModal';
+import { PROJECT_REQUEST } from '@/api/project/model';
+import { PROJECT_STATUS } from 'public/lib/enum';
 
 const SEARCH_ARRAY = [
   {
@@ -31,20 +32,39 @@ const SEARCH_ARRAY = [
   },
 ];
 
+const initialParams = {
+  page: 1,
+  size: 20,
+  keyword: null,
+  positionCode: null,
+  skillCode: null,
+  status: null,
+};
+
 const Page = () => {
+  const [params, setParams] = useState(initialParams);
   const [filterType, setFilterType] = useState('all');
   const [select, setSelect] = useState('제목');
   const { handleModal, handleModalClose, visible } = useHandleModal(false);
-  const { handleModal: handleSkillModal, handleModalClose: handleModalCloseSkill, visible: skillModalVisbile } = useHandleModal(false);
+  const { handleModal: handleSkillModal, handleModalClose: handleModalCloseSkill, visible: skillModalVisible } = useHandleModal(false);
   const [positionCodeList, setPositionCodeList] = useState<OPTION_TYPE[]>([]);
   const [skillList, setSkillList] = useState<SKILL_TYPE[]>([]);
 
-  const projectData = useQuery({
-    queryKey: [rest.get.project],
-    queryFn: getProject,
+  const { data } = useQuery({
+    queryKey: [rest.get.project, params],
+    queryFn: ({ queryKey }) => getProject(queryKey[1] as unknown as PROJECT_REQUEST),
   });
 
   const handleFilterClick = (type: string) => {
+    setFilterType(type);
+    setParams(initialParams);
+  };
+
+  const handleRecruitingClick = (type: string) => {
+    setParams({
+      ...params,
+      status: PROJECT_STATUS.RECRUITING,
+    });
     setFilterType(type);
   };
 
@@ -60,6 +80,24 @@ const Page = () => {
     }
   };
 
+  useEffect(() => {
+    if (skillList.length > 0) {
+      setParams({
+        ...params,
+        skillCode: skillList[0].id,
+      });
+    }
+  }, [skillList]);
+
+  useEffect(() => {
+    if (positionCodeList.length > 0) {
+      setParams({
+        ...params,
+        positionCode: positionCodeList[0].value,
+      });
+    }
+  }, [positionCodeList]);
+
   const handleJobSelectChange = (name: string, value: string) => {
     setSelect(value);
   };
@@ -72,13 +110,8 @@ const Page = () => {
 
       <CardContainer>
         <Imsi>
-          {projectData.data?.map((item) => (
-            <Card key={item.id} title={item.name} startDate={item.recruitStartDate} endDate={item.recruitEndDate} deposit={item.deposit}>
-              <PositionIcon color="designer" icon="designer" />
-              <PositionIcon color="projectManager" icon="projectManager" />
-              <PositionIcon color="feDeveloper" icon="feDeveloper" />
-              <PositionIcon color="beDeveloper" icon="beDeveloper" />
-            </Card>
+          {data?.map((item) => (
+            <Card key={item.id} title={item.name} startDate={item.recruitStartDate} endDate={item.recruitEndDate} deposit={item.deposit} />
           ))}
         </Imsi>
       </CardContainer>
@@ -89,7 +122,7 @@ const Page = () => {
           <div className={filterType === 'all' ? 'choice' : 'basic'} onClick={() => handleFilterClick('all')}>
             전체
           </div>
-          <div className={filterType === 'recruiting' ? 'choice' : 'basic'} onClick={() => handleFilterClick('recruiting')}>
+          <div className={filterType === 'recruiting' ? 'choice' : 'basic'} onClick={() => handleRecruitingClick('recruiting')}>
             모집중인 프로젝트만 보기
           </div>
           <div className={filterType === 'position' ? 'choice' : 'basic'} onClick={handleModal}>
@@ -107,7 +140,7 @@ const Page = () => {
               : skillList
                   .map((item) => item.name)
                   .join(', ')
-                  .slice(0, 40) + '...'}
+                  .slice(0, 30) + '...'}
 
             <Image src="/images/arrow/arrow_down.svg" width={16} height={16} alt="arrow" />
           </div>
@@ -117,18 +150,13 @@ const Page = () => {
       </FilterWrap>
       <CardContainer>
         <Imsi>
-          {projectData.data?.map((item) => (
-            <Card key={item.id} title={item.name} startDate={item.recruitStartDate} endDate={item.recruitEndDate} deposit={item.deposit}>
-              <PositionIcon color="designer" icon="designer" />
-              <PositionIcon color="projectManager" icon="projectManager" />
-              <PositionIcon color="feDeveloper" icon="feDeveloper" />
-              <PositionIcon color="beDeveloper" icon="beDeveloper" />
-            </Card>
+          {data?.map((item) => (
+            <Card key={item.id} title={item.name} startDate={item.recruitStartDate} endDate={item.recruitEndDate} deposit={item.deposit} />
           ))}
         </Imsi>
       </CardContainer>
       <PositionModal visible={visible} onClose={handleModalClose} onClickChoice={handleClickChoice} />
-      <SkillModal visible={skillModalVisbile} onClose={handleModalCloseSkill} onClickChoice={handleClickChoice} />
+      <SkillModal visible={skillModalVisible} onClose={handleModalCloseSkill} onClickChoice={handleClickChoice} />
     </Container>
   );
 };
@@ -160,31 +188,10 @@ const Container = styled.div`
   }
 `;
 
-const Header = styled.div`
-  display: inline-flex;
-  height: 124px;
-  padding: 42px 0px;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 810px;
-  flex-shrink: 0;
-  box-sizing: border-box;
-
-  .logo {
-    width: 170px;
-    height: 47px;
-  }
-
-  .profile-wrap {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-`;
-
 const FilterWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 36px;
 
   .filter-wrap {

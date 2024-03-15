@@ -61,16 +61,6 @@ export type LABELINPUT_STYLE_PROPS = {
   location: 'left' | 'top';
 };
 
-//card
-export type CardProps = {
-  title: string;
-  startDate: string;
-  endDate: string;
-  deposit: number;
-  children?: any;
-  style?: React.CSSProperties;
-};
-
 //Table
 
 export type TABLE_TYPE_PROPS = {
