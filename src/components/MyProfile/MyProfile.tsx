@@ -11,8 +11,6 @@ type ProfileProps = {
 };
 
 const MyProfile = ({ style, name, career, position }: ProfileProps) => {
-  console.log(name, career, position);
-
   return (
     <Profile style={style}>
       <img src="/images/profile_dummy2.svg" style={{ width: 80, boxSizing: 'border-box' }} className="img" />

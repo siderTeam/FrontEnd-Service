@@ -15,8 +15,8 @@ import { useRef, useState } from 'react';
 import { useObserver } from '@/hook/useObserver';
 import { useQuery } from '@tanstack/react-query';
 import { rest } from '@/api/rest';
-import { increaseProjectView, getProjectDetail } from '@/api/projectDetail/api';
 import { useParams } from 'next/navigation';
+import { getProjectDetail, increaseProjectView } from '@/api/project/api';
 
 const Page = () => {
   const { postId } = useParams();

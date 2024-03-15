@@ -64,8 +64,6 @@ const Sidebar = () => {
     setArcodian(false);
   };
 
-  console.log(arcodian);
-
   return (
     <Container>
       <div className="top">

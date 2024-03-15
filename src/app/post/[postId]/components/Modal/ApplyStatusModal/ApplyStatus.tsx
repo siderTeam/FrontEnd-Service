@@ -6,24 +6,24 @@ import UserCard from '@/components/UserCard/UserCard';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { rest } from '@/api/rest';
-import { getApplyProjectUser } from '@/api/projectDetail/api';
 import { PROJECT_REQUIRE_JOIN_STATUS } from 'public/lib/enum';
+import { getApplyProjectUser } from '@/api/project/api';
 
 type props = {
   onClick: () => void;
+  postId: number;
 };
 
 const STATUS_APPROVED = PROJECT_REQUIRE_JOIN_STATUS.APPROVED;
 const STATUS_REJECTED = PROJECT_REQUIRE_JOIN_STATUS.REJECTED;
 
-const ApplyStatus = ({ onClick }: props) => {
+const ApplyStatus = ({ onClick, postId }: props) => {
   const [selectMenu, setSelectMenu] = useState<string>('all');
 
   const { data } = useQuery({
     queryKey: [rest.get.applyProjectUser],
-    queryFn: () => getApplyProjectUser(67), //수정필요
+    queryFn: () => getApplyProjectUser(postId), //수정필요
   });
-  console.log(data);
 
   //포지션 필터 onClick
   const handleMenuClick = (value: string) => {

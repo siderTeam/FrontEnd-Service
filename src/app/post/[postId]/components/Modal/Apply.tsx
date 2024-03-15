@@ -8,8 +8,8 @@ import Button from '@/components/Button/Button';
 import TextArea from '@/components/TextArea/TextArea';
 import Input from '@/components/Input/Input';
 import { useMutation } from '@tanstack/react-query';
-import { applyProject } from '@/api/projectDetail/api';
-import { APPLY_PROJECT_REQUEST } from '@/api/projectDetail/model';
+import { applyProject } from '@/api/project/api';
+import { APPLY_PROJECT_REQUEST } from '@/api/project/model';
 
 type ModalProps = {
   visible: boolean;
@@ -18,7 +18,7 @@ type ModalProps = {
 };
 
 const Apply = ({ visible, onClose, postId }: ModalProps) => {
-  const [isActive, setIsActive] = useState(true);
+  const [disabled, setDisabled] = useState(true);
   const [form, setForm] = useState<APPLY_PROJECT_REQUEST>({
     projectId: postId, //수정필요
     content: '',
@@ -42,15 +42,15 @@ const Apply = ({ visible, onClose, postId }: ModalProps) => {
     const { value } = e.target;
 
     setForm({
-      ...form,
-      ['content']: value,
+      projectId: Number(postId),
+      content: value,
     });
 
     //제출 버튼 active
     if (value.trim().length > 0) {
-      setIsActive(false);
+      setDisabled(false);
     } else {
-      setIsActive(true);
+      setDisabled(true);
     }
   };
 
@@ -87,7 +87,7 @@ const Apply = ({ visible, onClose, postId }: ModalProps) => {
           </div>
         </div>
         <div className="button">
-          <Button disabled={isActive} onClick={() => mutate(form)}>
+          <Button disabled={disabled} onClick={() => mutate(form)}>
             제출
           </Button>
         </div>

@@ -7,7 +7,7 @@ import TextArea from '@/components/TextArea/TextArea';
 import Button from '@/components/Button/Button';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { createReply } from '@/api/projectDetail/api';
+import { createReply } from '@/api/project/api';
 
 type Props = {
   replyCount: number;
@@ -29,8 +29,8 @@ const CommentWrite = ({ replyCount, projectId, refetch }: Props) => {
         alert('댓글 작성 실패');
       }
 
-      refetch()
-      setInputTextarea('')
+      refetch();
+      setInputTextarea('');
     },
     onError: () => {
       console.error('실패');
