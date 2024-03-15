@@ -3,13 +3,24 @@
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 
-const MyProfile = ({ style }) => {
+type ProfileProps = {
+  style?: React.CSSProperties;
+  name: string;
+  career: number;
+  position: string;
+};
+
+const MyProfile = ({ style, name, career, position }: ProfileProps) => {
+  console.log(name, career, position);
+
   return (
     <Profile style={style}>
       <img src="/images/profile_dummy2.svg" style={{ width: 80, boxSizing: 'border-box' }} className="img" />
       <div className="profile-text">
-        <div className="name">박봉팔</div>
-        <div className="position">88년차 포지션</div>
+        <div className="name">{name}</div>
+        <div className="position">
+          {career}년차 {position}
+        </div>
       </div>
     </Profile>
   );

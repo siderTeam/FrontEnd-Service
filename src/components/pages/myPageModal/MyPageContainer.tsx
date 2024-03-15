@@ -21,17 +21,15 @@ const router = [
   },
   {
     path: 'MyApply',
-    label: '내 지원서',
+    label: '지원현황',
     iconPath: 'paper',
     activeIconPath: 'paper_green',
-    height: 38,
   },
   {
     path: 'Project',
     label: '프로젝트',
     iconPath: 'monitor',
     activeIconPath: 'monitor_green',
-    height: 62,
   },
 ];
 

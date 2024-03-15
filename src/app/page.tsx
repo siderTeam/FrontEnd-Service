@@ -44,18 +44,19 @@ const Page = () => {
     queryFn: getProject,
   });
 
-  const handleFilterClick = (type: any) => {
+  const handleFilterClick = (type: string) => {
     setFilterType(type);
   };
 
   const handleClickChoice = (callback: OPTION_TYPE[] | SKILL_TYPE[], type?: 'skill' | 'position') => {
-    if (type === 'skill' || type === 'position') {
+    if (type === 'skill') {
       setSkillList(callback as SKILL_TYPE[]);
       handleModalCloseSkill();
       setFilterType(type);
-    } else {
+    } else if (type === 'position') {
       setPositionCodeList(callback as OPTION_TYPE[]);
       handleModalClose();
+      setFilterType(type);
     }
   };
 
@@ -84,7 +85,7 @@ const Page = () => {
 
       <div className="title">프로젝트</div>
       <FilterWrap>
-        <div className="buttonWrap">
+        <div className="filter-wrap">
           <div className={filterType === 'all' ? 'choice' : 'basic'} onClick={() => handleFilterClick('all')}>
             전체
           </div>
@@ -92,12 +93,23 @@ const Page = () => {
             모집중인 프로젝트만 보기
           </div>
           <div className={filterType === 'position' ? 'choice' : 'basic'} onClick={handleModal}>
-            포지션
-            {/* <Image src="/images/arrow/arrow_down.svg" width={16} height={16} alt="arrow" /> */}
+            {positionCodeList.length === 0
+              ? '포지션'
+              : positionCodeList
+                  .map((item) => item.label)
+                  .join(', ')
+                  .slice(0, 10) + '...'}
+            <Image src="/images/arrow/arrow_down.svg" width={16} height={16} alt="arrow" />
           </div>
           <div className={filterType === 'skill' ? 'choice' : 'basic'} onClick={handleSkillModal}>
-            스킬
-            {/* <Image src="/images/arrow/arrow_down.svg" width={16} height={16} alt="arrow" /> */}
+            {skillList.length === 0
+              ? '스킬'
+              : skillList
+                  .map((item) => item.name)
+                  .join(', ')
+                  .slice(0, 40) + '...'}
+
+            <Image src="/images/arrow/arrow_down.svg" width={16} height={16} alt="arrow" />
           </div>
         </div>
 
@@ -175,7 +187,7 @@ const FilterWrap = styled.div`
   justify-content: space-between;
   margin-bottom: 36px;
 
-  .buttonWrap {
+  .filter-wrap {
     display: inline-flex;
     align-items: center;
     gap: 8px;
