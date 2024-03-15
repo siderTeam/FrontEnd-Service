@@ -65,8 +65,42 @@ export type PROJECT_DETAIL_RESPONSE = {
       reReplyList: [
         {
           content: string;
+          member: {
+            nickname: string;
+            position: {
+              id: number;
+              name: string;
+            };
+            career: number;
+            memberSkillList: [
+              {
+                skillCode: number;
+                name: string;
+                imageName: string;
+              },
+            ];
+            introduction: string;
+          };
+          createdDate: string;
         },
       ];
+      member: {
+        nickname: string;
+        position: {
+          id: number;
+          name: string;
+        };
+        career: number;
+        memberSkillList: [
+          {
+            skillCode: number;
+            name: string;
+            imageName: string;
+          },
+        ];
+        introduction: string;
+      };
+      createdDate: string;
     },
   ];
   status: PROJECT_STATUS;
