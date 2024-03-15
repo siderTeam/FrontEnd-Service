@@ -24,7 +24,7 @@ const Apply = ({ visible, onClose }: ModalProps) => {
   });
 
   const { mutate } = useMutation({
-    mutationFn: () => applyProject(form),
+    mutationFn: applyProject,
     onSuccess: async (data) => {
       if (data.result === true) {
         alert('지원 성공!');
@@ -86,7 +86,7 @@ const Apply = ({ visible, onClose }: ModalProps) => {
           </div>
         </div>
         <div className="button">
-          <Button disabled={isActive} onClick={() => mutate()}>
+          <Button disabled={isActive} onClick={() => mutate(form)}>
             제출
           </Button>
         </div>
