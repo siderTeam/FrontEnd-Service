@@ -69,7 +69,7 @@ const Page = () => {
   const [requirements, setRequirements] = useState<{ content: string; point: number }[]>(initialParams.requiredContentsList);
 
   const handleAddRequirement = () => {
-    if (requirements.length < 7) {
+    if (requirements.length < 10) {
       setRequirements([...requirements, { content: '', point: '' as unknown as number }]);
     }
   };
@@ -296,7 +296,7 @@ const Page = () => {
               ))}
             </div>
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
-              {requirements.length < 7 && (
+              {requirements.length < 10 && (
                 <Button size="medium" variant="secondary" onClick={handleAddRequirement} leftIcon="/images/plus/plus_green.svg">
                   요구사항 추가
                 </Button>

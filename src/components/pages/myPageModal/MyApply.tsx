@@ -24,24 +24,7 @@ const MyApply = () => {
       project: '프로젝트 이름이시다.',
       application: '승인 완료',
       recruitment: '모집중',
-    },
-    {
-      number: 1,
-      project: '프로젝트 이름이시다.',
-      application: '승인 완료',
-      recruitment: '모집중',
-    },
-    {
-      number: 1,
-      project: '프로젝트 이름이시다.',
-      application: '승인 완료',
-      recruitment: '모집중',
-    },
-    {
-      number: 1,
-      project: '프로젝트 이름이시다.',
-      application: '승인 완료',
-      recruitment: '모집중',
+      status: '대기',
     },
   ];
 
@@ -73,7 +56,10 @@ const MyApply = () => {
             <li className="date">{content.project}</li>
             <li className="status">{content.application}</li>
             <li className="project">{content.recruitment}</li>
-            <span className="apply-status">지원 취소</span>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 4 }}>
+              <li className="apply-status">{content.status}</li>
+              <span style={{ color: color.gray.white, textAlign: 'center', fontSize: 12, textDecorationLine: 'underline', fontWeight: 400 }}>지원취소</span>
+            </div>
           </ul>
         ))}
       </TableContent>

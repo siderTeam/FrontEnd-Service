@@ -12,6 +12,10 @@ import { useQuery } from '@tanstack/react-query';
 import { rest } from '@/api/rest';
 import { getUserInfo } from '@/api/auth/api';
 import useChangeInputs from '@/hook/useChangeInputs';
+import { formatForPositionCode } from 'public/lib/formatForEnum';
+import useHandleModal from '@/hook/useHandleModal';
+import PositionModal from '@/components/PositionModal/PositionModal';
+import { OPTION_TYPE } from '@/components/SelectBox/SelectBox';
 
 const initialInputs = {
   username: '',
@@ -24,6 +28,8 @@ const initialInputs = {
 
 const MyPage = () => {
   const { inputs, setInputs, onChange } = useChangeInputs(initialInputs);
+  const { handleModal, handleModalClose, visible } = useHandleModal(false);
+  const [positionCodeList, setPositionCodeList] = useState<OPTION_TYPE[]>([]);
   const [textareaCount, setTextareaCount] = useState(0);
 
   const { data } = useQuery({
@@ -42,7 +48,17 @@ const MyPage = () => {
         introduction: data.introduction,
       });
     }
-  });
+  }, [data]);
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+
+    onChange(e);
+  };
 
   const onTextareaHandler = (e: any) => {
     const { value, maxLength } = e.target;
@@ -53,22 +69,36 @@ const MyPage = () => {
     setTextareaCount(e.target.value.length);
   };
 
+  const handleClickChoice = (callback: OPTION_TYPE[], type?: 'position') => {
+    if (type) {
+      setPositionCodeList(callback as OPTION_TYPE[]);
+      handleModalClose();
+    }
+  };
+
   return (
     <Container>
       <>
-        <MyProfile style={{ marginBottom: '40px' }} />
+        <MyProfile style={{ marginBottom: '40px' }} name={inputs.name} career={inputs.career} position={formatForPositionCode(inputs.positionCode)} />
         <div className="input-wrap">
           <Label label="이름" require="*">
-            <Input size="medium" style={{ marginTop: '4px' }} disabled onChange={onChange} value={inputs.name} name="name" />
+            <Input size="medium" style={{ marginTop: '4px' }} disabled onChange={handleChange} value={inputs.name} name="name" />
           </Label>
           <Label label="연차" require="*">
-            <Input size="medium" style={{ marginTop: '4px' }} type="number" onChange={onChange} value={inputs.career} name="career" />
+            <Input size="medium" style={{ marginTop: '4px' }} type="number" onChange={handleChange} value={inputs.career} name="career" />
           </Label>
           <Label label="닉네임" require="*">
-            <Input size="medium" style={{ marginTop: '4px' }} onChange={onChange} value={inputs.nickname} name="nickname" />
+            <Input size="medium" style={{ marginTop: '4px' }} onChange={handleChange} value={inputs.nickname} name="nickname" />
           </Label>
           <Label label="포지션" require="*">
-            <Input size="medium" style={{ marginTop: '4px' }} onChange={onChange} value={inputs.positionCode} name="positionCode" />
+            <Input
+              size="medium"
+              style={{ marginTop: '4px' }}
+              onChange={handleChange}
+              value={positionCodeList.map((item) => item.label).join(', ')}
+              name="positionCode"
+              onClick={handleModal}
+            />
           </Label>
         </div>
 
@@ -96,6 +126,7 @@ const MyPage = () => {
           저장
         </Button>
       </div>
+      <PositionModal visible={visible} onClose={handleModalClose} onClickChoice={handleClickChoice} />
     </Container>
   );
 };
