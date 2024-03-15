@@ -49,10 +49,14 @@ const SelectBox = <T,>({
     }
   };
 
+  const handleBlur = () => {
+    setVisible(false);
+  };
+
   const selected = options.filter((option) => option.value === value);
 
   return (
-    <Container onClick={handleClickSelect}>
+    <Container onClick={handleClickSelect} tabIndex={0} onBlur={handleBlur}>
       <StyledSelect size={size} selectedType={selectedType} optionType={optionType} text={text} value={value} name={name} style={style}>
         <div className={selected.length === 0 ? 'value' : 'choice-value'}>{selected[0].label}</div>
         {selectedType === 'disabled' ? (
@@ -77,11 +81,10 @@ const SelectBox = <T,>({
 export default SelectBox;
 const SIZE_TYPE = {
   ['small']: {
-    width: '120px',
-    height: '32px',
+    width: '111px',
     padding: '6px 10px 6px 16px',
-
-    color: 'white',
+    fontSize: '14px',
+    color: color.gray.white,
   },
 };
 
@@ -124,6 +127,8 @@ const OPTIONS_TYPE = {
 };
 
 const Container = styled.div`
+  display: flex;
+  flex: 1;
   position: relative;
   cursor: pointer;
 `;
@@ -133,13 +138,12 @@ const StyledSelect = styled.div<any>`
   ${({ size }) => SIZE_TYPE[size as 'small']}
   
   display: flex;
-  width: 120px;
-  padding: 6px 10px 6px 16px;
   align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  border-radius: 8px;
+  font-weight: 400;
   box-sizing: border-box;
+  border-radius: 6px;
+
+  color: ${color.gray.white};
 
   .value {
     width: 100%;
@@ -154,7 +158,6 @@ const StyledSelect = styled.div<any>`
     display: flex;
     align-items: center;
     color: ${({ value }) => (!!value ? color.gray.white : color.gray.gray7)};
-    font-weight: bold;
   }
 `;
 
@@ -162,18 +165,24 @@ const OptionWrapper = styled.ul<any>`
   ${({ optionType }) => OPTIONS_TYPE[optionType as 'placeholder']}
 
   position: absolute;
+  top: 33px;
   box-sizing: border-box;
-  border-radius: 8px;
+  border-radius: 6px;
 
   z-index: 3;
 
   overflow: hidden;
+
+  &:first-child {
+    border-radius: 6px 6px 0 0;
+  }
 
   li {
     ${({ size }) => SIZE_TYPE[size as 'small']}
 
     display: flex;
     padding: 6px 16px;
+    height: 30px;
     justify-content: center;
     align-items: center;
     gap: 10px;
