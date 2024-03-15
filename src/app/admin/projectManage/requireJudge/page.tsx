@@ -47,6 +47,10 @@ const Page = () => {
       accessorKey: 'status',
       header: '심사현황',
     },
+    {
+      accessorKey: 'status',
+      header: '심사현황',
+    },
   ];
 
   const handleClickReset = () => {
