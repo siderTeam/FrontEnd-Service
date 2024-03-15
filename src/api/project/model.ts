@@ -21,7 +21,17 @@ export type PROJECT_RESPONSE = {
   name: string;
   recruitStartDate: string;
   recruitEndDate: string;
-  content: string;
   deposit: number;
   count: number;
+  view: number;
+  createdDate: string;
+};
+
+export type PROJECT_REQUEST = {
+  keyword: string;
+  positionCode: number[];
+  skillCode: number[];
+  status: number;
+  page: number;
+  size: number;
 };
