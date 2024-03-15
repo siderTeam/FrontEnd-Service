@@ -208,7 +208,9 @@ const Page = () => {
             <div style={{ display: 'flex' }}>
               <div className="wrap" style={{ flex: 1 }}>
                 <div className="title">모집 마감일</div>
-                <Calender onChange={onChangeDate} date={date.end} type="end" />
+                <div className="calender-style">
+                  <Calender onChange={onChangeDate} date={date.end} type="end" />
+                </div>
               </div>
 
               <div className="wrap" style={{ flex: 1 }}>
@@ -379,6 +381,18 @@ const CommonInfo = styled.div`
     color: ${color.gray.gray5};
     font-size: 16px;
     font-weight: 400;
+  }
+  .calender-style {
+    width: 265px;
+    height: 32px;
+    border: 1px solid ${color.gray.gray6};
+    border-radius: 6px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
