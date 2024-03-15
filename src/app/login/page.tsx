@@ -7,11 +7,12 @@ import { useState } from 'react';
 import Input from '@/components/Input/Input';
 import Button from '@/components/Button/Button';
 import Link from 'next/link';
-import { USER_SIGNIN_REQUEST } from '@/api/model';
+
 import { getAccessToken, postUserSignIn } from '@/api/api';
 import { useMutation } from '@tanstack/react-query';
 import { setCookie } from 'public/lib/util';
 import { useRouter } from 'next/navigation';
+import { USER_SIGNIN_REQUEST } from '@/api/auth/model';
 
 const Page = () => {
   const route = useRouter();
@@ -92,11 +93,11 @@ const Page = () => {
           <div className="find">계정정보 찾기</div>
         </div>
         <div className="buttonWrap">
-          <Button size="large" mode="primary" onClick={() => mutate(form)}>
+          <Button size="large" variant="primary" onClick={() => mutate(form)}>
             로그인
           </Button>
           <Link href="/signUp">
-            <Button size="large" mode="secondary">
+            <Button size="large" variant="secondary">
               회원가입
             </Button>
           </Link>

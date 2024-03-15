@@ -15,9 +15,12 @@ import { useRef, useState } from 'react';
 import { useObserver } from '@/hook/useObserver';
 import { useQuery } from '@tanstack/react-query';
 import { rest } from '@/api/rest';
-import { increaseProjectView, getProjectDetail } from '@/api/projectDetail/api';
+import { useParams } from 'next/navigation';
+import { getProjectDetail, increaseProjectView } from '@/api/project/api';
 
 const Page = () => {
+  const { postId } = useParams();
+
   const titleRef = useRef<HTMLDivElement>(null);
   const [isFocused, setIsfocused] = useState('first');
   const router = [
@@ -54,13 +57,13 @@ const Page = () => {
   //프로젝트 단건 조회
   const { data, refetch } = useQuery({
     queryKey: [rest.get.projectDetail],
-    queryFn: () => getProjectDetail(64),
+    queryFn: () => getProjectDetail(postId as unknown as number),
   });
 
   //프로젝트 조회수 올리기(조회수 증가 로직 구현 필요)
   const projectView = useQuery({
     queryKey: [rest.get.increaseProjectView],
-    queryFn: () => increaseProjectView(64),
+    queryFn: () => increaseProjectView(postId as unknown as number),
   });
 
   const onScroll = (refcurrent: React.RefObject<HTMLDivElement>, name: string) => {
@@ -95,7 +98,7 @@ const Page = () => {
       </div>
       <div className="project-container">
         <div ref={router[0].observe} />
-        <ProjectTitle element={titleRef} data={data} />
+        <ProjectTitle element={titleRef} data={data} postId={postId as unknown as number} />
         <RecruitInfo data={data} />
         <ProjectInfo content={data?.content || ''} />
         <FunctionInfo element={router[1].observe} data={data} />

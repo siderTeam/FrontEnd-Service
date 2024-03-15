@@ -13,9 +13,10 @@ import { formatForProjectStatus } from 'public/lib/formatForEnum';
 type Props = {
   element: any;
   data?: PROJECT_DETAIL_RESPONSE;
+  postId: number;
 };
 
-const ProjectTitle = ({ element, data }: Props) => {
+const ProjectTitle = ({ element, data, postId }: Props) => {
   const [applyModal, setApplyModal] = useState(false);
   const [applyStatusModal, setApplyStatusModal] = useState(false);
 
@@ -31,8 +32,8 @@ const ProjectTitle = ({ element, data }: Props) => {
 
   return (
     <>
-      <Apply visible={applyModal} onClose={handleCloseApplyModal} />
-      <ApplyStatusContainer visible={applyStatusModal} onClose={handleCloseApplyStatusModal} />
+      <Apply visible={applyModal} onClose={handleCloseApplyModal} postId={postId} />
+      <ApplyStatusContainer postId={postId} visible={applyStatusModal} onClose={handleCloseApplyStatusModal} />
       <Container ref={element}>
         <div className="header">
           <div className="before">
@@ -47,7 +48,7 @@ const ProjectTitle = ({ element, data }: Props) => {
         <div className="title-wrap top">
           <div className="info">
             <span>{data?.createUser.nickname}</span>
-            <span>{data?.createdDate.replace(/-/g, '.').slice(0, 10)}</span>
+            <span>{data?.createdDate?.replace(/-/g, '.').slice(0, 10)}</span>
             <span className="status">{data && formatForProjectStatus(data?.status)}</span>
           </div>
           <div className="seen">

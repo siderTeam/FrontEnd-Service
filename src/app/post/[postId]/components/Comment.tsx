@@ -3,10 +3,10 @@
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Image from 'next/image';
-import { PROJECT_DETAIL_RESPONSE } from '@/api/projectDetail/model';
 import TextArea from '@/components/TextArea/TextArea';
 import Button from '@/components/Button/Button';
 import { useState } from 'react';
+import { PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
 
 type Props = {
   data: PROJECT_DETAIL_RESPONSE['projectReplies'][0];
@@ -50,10 +50,10 @@ const Comment = ({ data }: Props) => {
           <Image src={'/images/user_profile_dummy.svg'} alt="profile" width={40} height={40} />
           <div>
             <div className="info">
-              <span className="name">홍길동</span>
-              <span className="position">프론트엔드</span>
+              <span className="name">{data?.member.nickname}</span>
+              <span className="position">{data?.member.position.name}</span>
             </div>
-            <div className="date">8888.88.88 88:88:88</div>
+            <div className="date">{data?.createdDate?.replace(/-/g, '.').replace('T', ' ')}</div>
           </div>
         </div>
         <div className="update">

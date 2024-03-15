@@ -1,6 +1,5 @@
 'use client';
 
-import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Modal from '@/components/Modal/Modal';
 import { useEffect, useState } from 'react';
@@ -10,9 +9,10 @@ import ApplyUserDetail from './ApplyUserDetail';
 type ModalProps = {
   visible: boolean;
   onClose: () => void;
+  postId: number;
 };
 
-const ApplyStatusContainer = ({ visible, onClose }: ModalProps) => {
+const ApplyStatusContainer = ({ visible, onClose, postId }: ModalProps) => {
   const [currentContent, setCurrentContent] = useState('status');
 
   const handleClick = () => {
@@ -39,7 +39,7 @@ const ApplyStatusContainer = ({ visible, onClose }: ModalProps) => {
       visible={visible}
       onClose={onClose}
     >
-      {currentContent === 'status' && <ApplyStatus onClick={handleClick} />}
+      {currentContent === 'status' && <ApplyStatus postId={postId} onClick={handleClick} />}
       {currentContent === 'detail' && <ApplyUserDetail />}
     </Modal>
   );

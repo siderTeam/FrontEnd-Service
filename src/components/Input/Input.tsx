@@ -142,6 +142,7 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  box-sizing: border-box;
 
   .suffix {
     position: absolute;

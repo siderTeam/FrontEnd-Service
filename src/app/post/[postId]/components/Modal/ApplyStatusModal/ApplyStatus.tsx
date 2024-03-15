@@ -4,13 +4,26 @@ import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import UserCard from '@/components/UserCard/UserCard';
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { rest } from '@/api/rest';
+import { PROJECT_REQUIRE_JOIN_STATUS } from 'public/lib/enum';
+import { getApplyProjectUser } from '@/api/project/api';
 
 type props = {
   onClick: () => void;
+  postId: number;
 };
 
-const ApplyStatus = ({ onClick }: props) => {
+const STATUS_APPROVED = PROJECT_REQUIRE_JOIN_STATUS.APPROVED;
+const STATUS_REJECTED = PROJECT_REQUIRE_JOIN_STATUS.REJECTED;
+
+const ApplyStatus = ({ onClick, postId }: props) => {
   const [selectMenu, setSelectMenu] = useState<string>('all');
+
+  const { data } = useQuery({
+    queryKey: [rest.get.applyProjectUser],
+    queryFn: () => getApplyProjectUser(postId), //수정필요
+  });
 
   //포지션 필터 onClick
   const handleMenuClick = (value: string) => {
@@ -24,15 +37,25 @@ const ApplyStatus = ({ onClick }: props) => {
         <span className={selectMenu === 'all' ? 'active' : ''} onClick={() => handleMenuClick('all')}>
           전체보기
         </span>
-        <span className={selectMenu === 'sucess' ? 'active' : ''} onClick={() => handleMenuClick('sucess')}>
+        <span className={selectMenu === 'disapprove' ? 'active' : ''} onClick={() => handleMenuClick('disapprove')}>
           미승인된 유저만 보기
         </span>
-        <span className={selectMenu === 'error' ? 'active' : ''} onClick={() => handleMenuClick('error')}>
+        <span className={selectMenu === 'approve' ? 'active' : ''} onClick={() => handleMenuClick('approve')}>
           승인된 유저만 보기
         </span>
       </div>
       <div className="modal-content">
-        <UserCard src="/images/user_profile_dummy.svg" name="박봉팔" position="Front-end Developer" userid="test88" onClick={onClick} />
+        {data?.map((item) => (
+          <UserCard
+            key={item.id}
+            src="/images/user_profile_dummy.svg"
+            name="박봉팔"
+            position="Front-end Developer"
+            userid="test88"
+            onClick={onClick}
+            varient={item.status === STATUS_APPROVED ? 'success' : item.status === STATUS_REJECTED ? 'error' : 'primary'}
+          />
+        ))}
       </div>
     </Container>
   );

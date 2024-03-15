@@ -69,7 +69,7 @@ const Page = () => {
   const [requirements, setRequirements] = useState<{ content: string; point: number }[]>(initialParams.requiredContentsList);
 
   const handleAddRequirement = () => {
-    if (requirements.length < 7) {
+    if (requirements.length < 10) {
       setRequirements([...requirements, { content: '', point: '' as unknown as number }]);
     }
   };
@@ -208,7 +208,9 @@ const Page = () => {
             <div style={{ display: 'flex' }}>
               <div className="wrap" style={{ flex: 1 }}>
                 <div className="title">모집 마감일</div>
-                <Calender onChange={onChangeDate} date={date.end} type="end" />
+                <div className="calender-style">
+                  <Calender onChange={onChangeDate} date={date.end} type="end" />
+                </div>
               </div>
 
               <div className="wrap" style={{ flex: 1 }}>
@@ -294,7 +296,7 @@ const Page = () => {
               ))}
             </div>
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
-              {requirements.length < 7 && (
+              {requirements.length < 10 && (
                 <Button size="medium" variant="secondary" onClick={handleAddRequirement} leftIcon="/images/plus/plus_green.svg">
                   요구사항 추가
                 </Button>
@@ -379,6 +381,18 @@ const CommonInfo = styled.div`
     color: ${color.gray.gray5};
     font-size: 16px;
     font-weight: 400;
+  }
+  .calender-style {
+    width: 265px;
+    height: 32px;
+    border: 1px solid ${color.gray.gray6};
+    border-radius: 6px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 

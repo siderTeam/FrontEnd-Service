@@ -1,4 +1,4 @@
-import { POSITION_CODE } from "public/lib/enum";
+import { POSITION_CODE } from 'public/lib/enum';
 
 export interface SIGN_UP_REQUEST {
   username: string;
@@ -48,4 +48,16 @@ export type USER_RESUME_RESPONSE = {
 
 export type USER_ID_RESPONSE = {
   id: string;
+};
+
+export type USER_INFO_RESPONSE = {
+  id: number;
+  username: string;
+  user: boolean;
+  name: string;
+  nickname: string;
+  career: number;
+  introduction: string;
+  phone: string;
+  positionCode: number;
 };
