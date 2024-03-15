@@ -125,17 +125,16 @@ const Container = styled.div`
     padding: 10px 16px;
     position: absolute;
     top: -6px;
-    left: -64px;
+    left: -133px;
     width: 265px;
     box-sizing: border-box;
 
     font-family: 'Spoqa Han Sans Neo';
-    border: none;
     border-radius: 0px 0px 6px 6px;
-    border-right: 1px solid ${color.gray.gray6};
-    border-bottom: 1px solid ${color.gray.gray6};
-    border-left: 1px solid ${color.gray.gray6};
-    background: var(--Fill, linear-gradient(144deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(2, 6, 13, 0.5));
+    border: 1px solid ${color.gray.gray6};
+
+    /* background: var(--Fill, linear-gradient(144deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(2, 6, 13, 0.5)); */
+    background: ${color.gray.black};
 
     color: ${color.gray.white};
 
