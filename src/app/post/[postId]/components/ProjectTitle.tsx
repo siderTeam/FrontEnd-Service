@@ -13,9 +13,10 @@ import { formatForProjectStatus } from 'public/lib/formatForEnum';
 type Props = {
   element: any;
   data?: PROJECT_DETAIL_RESPONSE;
+  postId: number;
 };
 
-const ProjectTitle = ({ element, data }: Props) => {
+const ProjectTitle = ({ element, data, postId }: Props) => {
   const [applyModal, setApplyModal] = useState(false);
   const [applyStatusModal, setApplyStatusModal] = useState(false);
 
@@ -31,7 +32,7 @@ const ProjectTitle = ({ element, data }: Props) => {
 
   return (
     <>
-      <Apply visible={applyModal} onClose={handleCloseApplyModal} />
+      <Apply visible={applyModal} onClose={handleCloseApplyModal} postId={postId} />
       <ApplyStatusContainer visible={applyStatusModal} onClose={handleCloseApplyStatusModal} />
       <Container ref={element}>
         <div className="header">
