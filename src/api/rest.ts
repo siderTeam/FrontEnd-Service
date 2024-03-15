@@ -4,6 +4,7 @@ export const rest = {
     code: '/code',
     resume: '/resume',
     userId: '/user/id',
+    userInfo: '/user',
 
     auditList: '/admin/project/audit',
     completionList: '/admin/project',

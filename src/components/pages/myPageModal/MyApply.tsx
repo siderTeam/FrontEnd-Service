@@ -8,13 +8,15 @@ import { rest } from '@/api/rest';
 import { getResume } from '@/api/api';
 
 const MyApply = () => {
-  const [page, setPage] = useState(1);
-  const items = 12;
-
+  const [filterType, setFilterType] = useState('전체');
   // const resumeData = useQuery({
   //   queryKey: [rest.get.resume],
   //   queryFn: getResume,
   // });
+
+  const handleFilterClick = (type: string) => {
+    setFilterType(type);
+  };
 
   const resumeData = [
     {
@@ -43,28 +45,35 @@ const MyApply = () => {
     },
   ];
 
-  const handlePageChange = (page) => {
-    setPage(page);
-  };
-
   return (
     <Container>
+      <div className="filter-wrap">
+        <div className={filterType === '전체' ? 'choice' : 'basic'} onClick={() => handleFilterClick('전체')}>
+          전체보기
+        </div>
+        <div className={filterType === '대기' ? 'choice' : 'basic'} onClick={() => handleFilterClick('대기')}>
+          대기상태 프로젝트만 보기
+        </div>
+        <div className={filterType === '승인' ? 'choice' : 'basic'} onClick={() => handleFilterClick('승인')}>
+          승인된 프로젝트만 보기
+        </div>
+      </div>
       <TableHeader>
         <div className="number">No.</div>
+        <div className="date">지원일시</div>
+        <div className="status">진행상태</div>
         <div className="project">프로젝트 명</div>
-        <div className="application">지원 현황</div>
-        <div className="recruitment">모집 현황</div>
-        <div className="cancel">지원 취소</div>
+        <div className="apply-status">지원 현황</div>
       </TableHeader>
       <TableContent>
-        {resumeData?.slice(items * (page - 1), items * (page - 1) + items).map((content, index) => (
+        {resumeData?.map((content, index) => (
           <ul>
             {/* <li className='number'>{(page - 1) * items + index + 1}</li> */}
             <li className="number">{content.number}</li>
-            <li className="project">{content.project}</li>
-            <li className="application">{content.application}</li>
-            <li className="recruitment">{content.recruitment}</li>
-            <span className="cancel">지원 취소</span>
+            <li className="date">{content.project}</li>
+            <li className="status">{content.application}</li>
+            <li className="project">{content.recruitment}</li>
+            <span className="apply-status">지원 취소</span>
           </ul>
         ))}
       </TableContent>
@@ -86,17 +95,38 @@ const Container = styled.div`
   padding-left: 70px;
 
   background: ${color.gray.black};
+
+  .filter-wrap {
+    display: flex;
+    gap: 18px;
+    margin-top: 60px;
+  }
+
+  .basic {
+    color: ${color.gray.gray5};
+    font-size: 16px;
+    font-weight: 400;
+
+    cursor: pointer;
+  }
+  .choice {
+    color: ${color.brand.brandMain};
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+  }
 `;
 
 const TableHeader = styled.div`
   display: grid;
-  grid-template-columns: 120px 1fr 120px 120px 120px;
+  grid-template-columns: 60px 110px 140px 1fr 120px;
 
   height: 40px;
   background: none;
   border-bottom: 1px solid ${color.gray.white};
 
-  margin-top: 70px;
+  margin-top: 30px;
   margin-bottom: 20px;
 
   color: ${color.gray.white};
@@ -108,9 +138,9 @@ const TableHeader = styled.div`
 
   .number,
   .project,
-  .application,
-  .recruitment,
-  .cancel {
+  .date,
+  .status,
+  .apply-status {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -124,7 +154,7 @@ const TableContent = styled.div`
 
   ul {
     display: grid;
-    grid-template-columns: 120px 1fr 120px 120px 120px;
+    grid-template-columns: 60px 110px 140px 1fr 120px;
 
     height: 52px;
     border-radius: 8px;
@@ -137,23 +167,22 @@ const TableContent = styled.div`
     font-size: 14px;
     font-weight: 400;
 
-    /* Transition for smooth hover effect */
-    transition: background-position 0.5s ease; /* 애니메이션 추가 */
+    transition: background-position 0.3s ease;
 
     &:hover {
       border-radius: 8px;
       border: 1px solid ${color.gray.white};
-      background: linear-gradient(92deg, rgba(255, 255, 255, 0.1) 38.9%, rgba(0, 0, 0, 0) 62.68%), rgba(2, 6, 13, 0.5);
+      background: linear-gradient(92deg, rgba(255, 255, 255, 0.15) 38.9%, rgba(0, 0, 0, 0) 62.68%), rgba(2, 6, 13, 0.5);
 
-      background-size: 400% 400%; /* 배경 크기 증가 */
-      background-position: 50% 0; /* 그라디언트 위치를 오른쪽 끝으로 이동 */
+      background-size: 400% 400%;
+      background-position: 50% 0;
     }
 
     .number,
     .project,
-    .application,
-    .recruitment,
-    .cancel {
+    .date,
+    .status,
+    .apply-status {
       display: flex;
       justify-content: center;
       align-items: center;

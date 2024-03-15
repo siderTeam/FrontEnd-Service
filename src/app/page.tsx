@@ -44,7 +44,7 @@ const Page = () => {
     queryFn: getProject,
   });
 
-  const handleFilterClick = (type: any) => {
+  const handleFilterClick = (type: string) => {
     setFilterType(type);
   };
 
@@ -84,7 +84,7 @@ const Page = () => {
 
       <div className="title">프로젝트</div>
       <FilterWrap>
-        <div className="buttonWrap">
+        <div className="filter-wrap">
           <div className={filterType === 'all' ? 'choice' : 'basic'} onClick={() => handleFilterClick('all')}>
             전체
           </div>
@@ -175,7 +175,7 @@ const FilterWrap = styled.div`
   justify-content: space-between;
   margin-bottom: 36px;
 
-  .buttonWrap {
+  .filter-wrap {
     display: inline-flex;
     align-items: center;
     gap: 8px;

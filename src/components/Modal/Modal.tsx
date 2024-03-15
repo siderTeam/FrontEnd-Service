@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 const Modal = ({ visible, onClose, children, style }: ModalProps) => {
   return (
-    <Container visible={visible} onClick={onClose}>
+    <Container visible={visible}>
       <Content style={style} onClick={(e) => e.stopPropagation()}>
         <div onClick={onClose} className="close">
           <Image width={14} height={14} src="/images/x/x_white.svg" alt="close" />
