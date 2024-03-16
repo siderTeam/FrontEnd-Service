@@ -3,11 +3,12 @@
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import UserCard from '@/components/UserCard/UserCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { rest } from '@/api/rest';
 import { PROJECT_REQUIRE_JOIN_STATUS } from 'public/lib/enum';
 import { getApplyProjectUser } from '@/api/project/api';
+import { APPLY_PROJECT_USER_RESPONSE } from '@/api/project/model';
 
 type props = {
   onClick: () => void;
@@ -19,14 +20,26 @@ const STATUS_REJECTED = PROJECT_REQUIRE_JOIN_STATUS.REJECTED;
 
 const ApplyStatus = ({ onClick, postId }: props) => {
   const [selectMenu, setSelectMenu] = useState<string>('all');
+  const [userData, setUserData] = useState<APPLY_PROJECT_USER_RESPONSE>();
 
   const { data } = useQuery({
     queryKey: [rest.get.applyProjectUser],
-    queryFn: () => getApplyProjectUser(postId), //수정필요
+    queryFn: () => getApplyProjectUser(postId),
   });
+
+  useEffect(() => {
+    setUserData(data);
+  }, [data]);
 
   //포지션 필터 onClick
   const handleMenuClick = (value: string) => {
+    if (value === 'all') {
+      setUserData(data);
+    } else if (value === 'disapprove') {
+      setUserData(data?.filter((item) => item.status !== STATUS_APPROVED) as APPLY_PROJECT_USER_RESPONSE);
+    } else if (value === 'approve') {
+      setUserData(data?.filter((item) => item.status === STATUS_APPROVED) as APPLY_PROJECT_USER_RESPONSE);
+    }
     setSelectMenu(value);
   };
 
@@ -45,12 +58,12 @@ const ApplyStatus = ({ onClick, postId }: props) => {
         </span>
       </div>
       <div className="modal-content">
-        {data?.map((item) => (
+        {userData?.map((item) => (
           <UserCard
             key={item.id}
             src="/images/user_profile_dummy.svg"
-            name="박봉팔"
-            position="Front-end Developer"
+            name={item.createUser.nickname}
+            position={item.createUser.position.name}
             userid="test88"
             onClick={onClick}
             varient={item.status === STATUS_APPROVED ? 'success' : item.status === STATUS_REJECTED ? 'error' : 'primary'}

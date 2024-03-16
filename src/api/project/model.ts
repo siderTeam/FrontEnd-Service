@@ -158,5 +158,19 @@ export type APPLY_PROJECT_USER_RESPONSE = [
       positionCode: number;
     };
     status: PROJECT_REQUIRE_JOIN_STATUS;
+    createUser: {
+      nickname: string;
+      position: {
+        id: number;
+        name: string;
+      };
+      career: number;
+      memberSkillList: {
+        skillCode: number;
+        name: string;
+        imageName: string;
+      }[];
+      introduction: string;
+    };
   },
 ];
