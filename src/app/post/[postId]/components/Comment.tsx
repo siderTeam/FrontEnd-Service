@@ -8,7 +8,7 @@ import Button from '@/components/Button/Button';
 import { useState } from 'react';
 import { PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
 import { useMutation } from '@tanstack/react-query';
-import { updateReply } from '@/api/project/api';
+import { deleteReply, updateReply } from '@/api/project/api';
 
 type Props = {
   data: PROJECT_DETAIL_RESPONSE['projectReplies'][0];
@@ -21,7 +21,8 @@ const Comment = ({ data, refetch }: Props) => {
   const [isEdit, setIsEdit] = useState(false);
   const [disabled, setDisabled] = useState(true);
 
-  const { mutate } = useMutation({
+  //댓글 수정 API
+  const { mutate: updateMutate } = useMutation({
     mutationFn: () => updateReply(data.id, { content: inputTextarea }),
     onSuccess: async (data) => {
       if (data.result === true) {
@@ -30,7 +31,23 @@ const Comment = ({ data, refetch }: Props) => {
       } else {
         alert('댓글 수정 실패');
       }
+      refetch();
+    },
+    onError: () => {
+      console.error('실패');
+    },
+  });
 
+  //댓글 삭제 API
+  const { mutate: deleteMutate } = useMutation({
+    mutationFn: deleteReply,
+    onSuccess: async (data) => {
+      if (data.result === true) {
+        alert('댓글 삭제 성공!');
+        setIsEdit(false);
+      } else {
+        alert('댓글 삭제 실패');
+      }
       refetch();
     },
     onError: () => {
@@ -89,8 +106,8 @@ const Comment = ({ data, refetch }: Props) => {
           </div>
         </div>
         <div className="update">
-          <Image src={'/images/edit/edit_gray6.svg'} alt="edit" width={15} height={15} onClick={() => setIsEdit(true)} style={{ cursor: 'pointer' }} />
-          <Image src={'/images/trash/trash_gray6.svg'} alt="delete" width={13} height={15} style={{ cursor: 'pointer' }} />
+          <StyledImage src={'/images/edit/edit_gray6.svg'} alt="edit" width={15} height={15} onClick={() => setIsEdit(true)} />
+          <StyledImage src={'/images/trash/trash_gray6.svg'} alt="delete" width={13} height={15} onClick={() => deleteMutate(data.id)} />
         </div>
       </div>
       {isEdit ? (
@@ -107,7 +124,7 @@ const Comment = ({ data, refetch }: Props) => {
             <Button size="tiny" variant="secondary" onClick={() => handleCancelReplyUpdate()}>
               취소
             </Button>
-            <Button size="tiny" disabled={disabled} onClick={() => mutate()}>
+            <Button size="tiny" disabled={disabled} onClick={() => updateMutate()}>
               완료
             </Button>
           </div>
@@ -183,4 +200,8 @@ const Container = styled.div`
   .comment {
     margin-left: 50px;
   }
+`;
+
+const StyledImage = styled(Image)`
+  cursor: pointer;
 `;

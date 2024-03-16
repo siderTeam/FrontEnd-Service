@@ -49,6 +49,13 @@ export const updateReply = async (replyId: number, params: REPLY_REQUEST) => {
   return response.data;
 };
 
+//프로젝트 댓글 삭제
+export const deleteReply = async (replyId: number) => {
+  const response = await API.delete(`${rest.delete.deleteReply}/${replyId}`);
+
+  return response.data;
+}
+
 //프로젝트 지원
 export const applyProject = async (params: APPLY_PROJECT_REQUEST) => {
   const response = await API.post(`${rest.post.applyProject}`, params);

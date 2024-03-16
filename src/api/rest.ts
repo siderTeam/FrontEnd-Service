@@ -26,6 +26,8 @@ export const rest = {
   put: {
     updateReply: '/reply',
   },
-  delete: {},
+  delete: {
+    deleteReply: '/reply',
+  },
   patch: {},
 };
