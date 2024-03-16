@@ -21,7 +21,6 @@ export const postCreateProject = async (params: CREATE_PROJECT_REQUEST) => {
   return response.data;
 };
 
-
 //프로젝트 단건 조회
 export const getProjectDetail = async (projectId: number): Promise<PROJECT_DETAIL_RESPONSE> => {
   const response = await API.get(`${rest.get.projectDetail}/${projectId}`);
@@ -39,6 +38,13 @@ export const increaseProjectView = async (projectId: number) => {
 //프로젝트 댓글 작성
 export const createReply = async (projectId: number, params: REPLY_REQUEST) => {
   const response = await API.post(`${rest.post.createReply}/${projectId}`, params);
+
+  return response.data;
+};
+
+//프로젝트 댓글 수정
+export const updateReply = async (replyId: number, params: REPLY_REQUEST) => {
+  const response = await API.put(`${rest.put.updateReply}/${replyId}`, params);
 
   return response.data;
 };

@@ -23,7 +23,9 @@ export const rest = {
     createReply: '/reply/project',
     applyProject: '/join',
   },
-  put: {},
+  put: {
+    updateReply: '/reply',
+  },
   delete: {},
   patch: {},
 };

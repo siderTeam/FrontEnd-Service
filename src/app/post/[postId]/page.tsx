@@ -11,7 +11,7 @@ import LeaderInfo from './components/LeaderInfo';
 import CommentWrite from './components/CommentWrite';
 import Comment from './components/Comment';
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import { useObserver } from '@/hook/useObserver';
 import { useQuery } from '@tanstack/react-query';
 import { rest } from '@/api/rest';
@@ -105,10 +105,10 @@ const Page = () => {
         <DeadlineInfo element={router[2].observe} data={data} />
         <LeaderInfo element={router[3].observe} data={data} />
         <CommentWrite refetch={refetch} replyCount={data?.projectReplies.length || 0} projectId={data?.id || 0} />
-        {data?.projectReplies.map((reply, index) => (
-          <div key={index}>
-            <Comment data={reply} />
-          </div>
+        {data?.projectReplies.map((reply) => (
+          <Fragment key={reply.id}>
+            <Comment data={reply} refetch={refetch} />
+          </Fragment>
         ))}
       </div>
     </Container>
