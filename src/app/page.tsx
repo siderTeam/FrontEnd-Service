@@ -6,7 +6,7 @@ import Card from '@/components/Card/Card';
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import SelectInput from '@/components/SelectInput/SelectInput';
 import Image from 'next/image';
 import { postProject } from '@/api/project/api';
@@ -16,46 +16,41 @@ import { OPTION_TYPE } from '@/components/SelectBox/SelectBox';
 import SkillModal, { SKILL_TYPE } from '@/components/SkillModal/SkillModal';
 import { PROJECT_REQUEST } from '@/api/project/model';
 import { PROJECT_STATUS } from 'public/lib/enum';
-
-const SEARCH_ARRAY = [
-  {
-    label: '제목',
-    value: 1,
-  },
-  {
-    label: '내용',
-    value: 2,
-  },
-  {
-    label: '제목+내용',
-    value: 3,
-  },
-];
+import useChangeInput from '@/hook/useChangeInput';
 
 const initialParams = {
-  page: 1,
-  size: 20,
-  keyword: null,
-  positionCode: null,
-  skillCode: null,
+  keyword: '',
+  positionCode: [],
+  skillCode: [],
   status: null,
 };
 
 const Page = () => {
-  const [params, setParams] = useState(initialParams);
+  const [params, setParams] = useState<PROJECT_REQUEST>(initialParams);
   const [filterType, setFilterType] = useState('all');
-  const [select, setSelect] = useState('제목');
   const { handleModal, handleModalClose, visible } = useHandleModal(false);
   const { handleModal: handleSkillModal, handleModalClose: handleModalCloseSkill, visible: skillModalVisible } = useHandleModal(false);
   const [positionCodeList, setPositionCodeList] = useState<OPTION_TYPE[]>([]);
   const [skillList, setSkillList] = useState<SKILL_TYPE[]>([]);
+  const { input, setInput, onChange } = useChangeInput('');
 
   const { data } = useQuery({
     queryKey: [rest.post.project, params],
     queryFn: ({ queryKey }) => postProject(queryKey[1] as unknown as PROJECT_REQUEST),
   });
 
+  const handleSearchKeyword = () => {
+    setParams({
+      ...params,
+      keyword: input,
+    });
+  };
+
   const handleFilterClick = (type: string) => {
+    if (type === 'all') {
+      setSkillList([]);
+      setPositionCodeList([]);
+    }
     setFilterType(type);
     setParams(initialParams);
   };
@@ -70,36 +65,24 @@ const Page = () => {
 
   const handleClickChoice = (callback: OPTION_TYPE[] | SKILL_TYPE[], type?: 'skill' | 'position') => {
     if (type === 'skill') {
-      setSkillList(callback as SKILL_TYPE[]);
+      const selectedSkills = callback as SKILL_TYPE[];
+      setSkillList(selectedSkills);
       handleModalCloseSkill();
+      setParams({
+        ...params,
+        skillCode: selectedSkills.map((skill) => skill.id),
+      });
       setFilterType(type);
     } else if (type === 'position') {
-      setPositionCodeList(callback as OPTION_TYPE[]);
+      const selectedPositions = callback as OPTION_TYPE[];
+      setPositionCodeList(selectedPositions);
       handleModalClose();
+      setParams({
+        ...params,
+        positionCode: selectedPositions.map((position) => position.value),
+      });
       setFilterType(type);
     }
-  };
-
-  useEffect(() => {
-    if (skillList.length > 0) {
-      setParams({
-        ...params,
-        skillCode: skillList[0].id,
-      });
-    }
-  }, [skillList]);
-
-  useEffect(() => {
-    if (positionCodeList.length > 0) {
-      setParams({
-        ...params,
-        positionCode: positionCodeList[0].value,
-      });
-    }
-  }, [positionCodeList]);
-
-  const handleJobSelectChange = (name: string, value: string) => {
-    setSelect(value);
   };
 
   return (
@@ -107,14 +90,6 @@ const Page = () => {
       <div className="banner">배너</div>
 
       <div className="title">새로 등록된 프로젝트</div>
-
-      <CardContainer>
-        <Imsi>
-          {data?.map((item) => (
-            <Card key={item.id} id={item.id} title={item.name} startDate={item.recruitStartDate} endDate={item.recruitEndDate} deposit={item.deposit} />
-          ))}
-        </Imsi>
-      </CardContainer>
 
       <div className="title">프로젝트</div>
       <FilterWrap>
@@ -125,7 +100,7 @@ const Page = () => {
           <div className={filterType === 'recruiting' ? 'choice' : 'basic'} onClick={() => handleRecruitingClick('recruiting')}>
             모집중인 프로젝트만 보기
           </div>
-          <div className={filterType === 'position' ? 'choice' : 'basic'} onClick={handleModal}>
+          <div className={positionCodeList.length !== 0 ? 'choice' : 'basic'} onClick={handleModal}>
             {positionCodeList.length === 0
               ? '포지션'
               : positionCodeList
@@ -134,7 +109,7 @@ const Page = () => {
                   .slice(0, 10) + '...'}
             <Image src="/images/arrow/arrow_down.svg" width={16} height={16} alt="arrow" />
           </div>
-          <div className={filterType === 'skill' ? 'choice' : 'basic'} onClick={handleSkillModal}>
+          <div className={skillList.length !== 0 ? 'choice' : 'basic'} onClick={handleSkillModal}>
             {skillList.length === 0
               ? '스킬'
               : skillList
@@ -146,17 +121,26 @@ const Page = () => {
           </div>
         </div>
 
-        <SelectInput options={SEARCH_ARRAY} name="select" onChange={handleJobSelectChange} value={select} placeholder={select} />
+        <SelectInput name="input" onChange={onChange} value={input} onClick={handleSearchKeyword} />
       </FilterWrap>
       <CardContainer>
         <Imsi>
           {data?.map((item) => (
-            <Card key={item.id} id={item.id} title={item.name} startDate={item.recruitStartDate} endDate={item.recruitEndDate} deposit={item.deposit} />
+            <Card
+              key={item.id}
+              id={item.id}
+              title={item.name}
+              startDate={item.recruitStartDate}
+              endDate={item.recruitEndDate}
+              deposit={item.deposit}
+              skillCodeList={item.skillCodeList}
+              createUser={item.createUser}
+            />
           ))}
         </Imsi>
       </CardContainer>
-      <PositionModal visible={visible} onClose={handleModalClose} onClickChoice={handleClickChoice} />
-      <SkillModal visible={skillModalVisible} onClose={handleModalCloseSkill} onClickChoice={handleClickChoice} />
+      <PositionModal visible={visible} onClose={handleModalClose} onClickChoice={handleClickChoice} positionCodeList={positionCodeList} />
+      <SkillModal visible={skillModalVisible} onClose={handleModalCloseSkill} onClickChoice={handleClickChoice} skillList={skillList} />
     </Container>
   );
 };
