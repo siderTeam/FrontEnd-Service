@@ -10,6 +10,8 @@ import Input from '@/components/Input/Input';
 import { useMutation } from '@tanstack/react-query';
 import { applyProject } from '@/api/project/api';
 import { APPLY_PROJECT_REQUEST } from '@/api/project/model';
+import { getUserInfo } from '@/store/auth.store';
+import { formatForPositionCode } from 'public/lib/formatForEnum';
 
 type ModalProps = {
   visible: boolean;
@@ -75,7 +77,7 @@ const Apply = ({ visible, onClose, postId }: ModalProps) => {
         <div className="modal-content">
           <div>
             <span className="subtitle">포지션</span>
-            <Input value={'프론트엔드 개발자'} name="position" disabled style={{ width: '100%', height: 32 }} />
+            <Input value={formatForPositionCode(getUserInfo().positionCode)} name="position" disabled style={{ width: '100%', height: 32 }} />
           </div>
           <div>
             <span className="subtitle">스킬</span>
