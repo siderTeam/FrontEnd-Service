@@ -1,6 +1,5 @@
 export const rest = {
   get: {
-    project: '/project/list',
     code: '/code',
     resume: '/resume',
     userId: '/user/id',
@@ -23,6 +22,8 @@ export const rest = {
     createProject: '/project',
     createReply: '/reply/project',
     applyProject: '/join',
+    project: '/project/list',
+    signOut: '/user/signOut'
   },
   put: {
     updateReply: '/reply',

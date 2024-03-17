@@ -13,6 +13,7 @@ import { useMutation } from '@tanstack/react-query';
 import { setCookie } from 'public/lib/util';
 import { useRouter } from 'next/navigation';
 import { USER_SIGNIN_REQUEST } from '@/api/auth/model';
+import { useAuthStore } from '@/store/auth.store';
 
 const Page = () => {
   const route = useRouter();
@@ -36,13 +37,23 @@ const Page = () => {
     setIsChecked(!isChecked);
   };
 
+  const { setIsLogin, setUserInfo } = useAuthStore((state) => {
+    return {
+      setIsLogin: state.setIsLogin,
+      setUserInfo: state.setUserInfo,
+    };
+  });
+
   const { mutate } = useMutation({
     mutationFn: postUserSignIn,
     onSuccess: async (data) => {
       if (data.result === true) {
         await getAccessToken()
           .then((res) => {
+            setUserInfo(res.data);
             setCookie('accessToken', res.data.accessToken);
+
+            setIsLogin(true);
           })
           .then(() => {
             route.push('/');
@@ -53,6 +64,7 @@ const Page = () => {
           password: true,
         });
       } else if (data.result === false) {
+        setIsLogin(false);
         setStatus({
           showErrorText: true,
           username: false,

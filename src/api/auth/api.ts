@@ -15,3 +15,11 @@ export const getUserInfo = async (): Promise<USER_INFO_RESPONSE> => {
 
   return response.data.data;
 };
+
+
+// 로그아웃
+export const signOut = async (): Promise<USER_INFO_RESPONSE> => {
+  const response = await API.post(rest.post.signOut);
+
+  return response.data.data;
+};

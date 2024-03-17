@@ -8,14 +8,12 @@ import Label from '@/components/Label/Label';
 import TextArea from '@/components/TextArea/TextArea';
 import MyProfile from '@/components/MyProfile/MyProfile';
 import Button from '@/components/Button/Button';
-import { useQuery } from '@tanstack/react-query';
-import { rest } from '@/api/rest';
-import { getUserInfo } from '@/api/auth/api';
 import useChangeInputs from '@/hook/useChangeInputs';
 import { formatForPositionCode } from 'public/lib/formatForEnum';
 import useHandleModal from '@/hook/useHandleModal';
 import PositionModal from '@/components/PositionModal/PositionModal';
 import { OPTION_TYPE } from '@/components/SelectBox/SelectBox';
+import { getUserInfo } from '@/store/auth.store';
 
 const initialInputs = {
   username: '',
@@ -32,10 +30,7 @@ const MyPage = () => {
   const [positionCodeList, setPositionCodeList] = useState<OPTION_TYPE[]>([]);
   const [textareaCount, setTextareaCount] = useState(0);
 
-  const { data } = useQuery({
-    queryKey: [rest.get.userInfo],
-    queryFn: getUserInfo,
-  });
+  const data = getUserInfo();
 
   useEffect(() => {
     if (data) {
