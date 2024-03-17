@@ -3,7 +3,7 @@ import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 import { ModalPageProps } from '@/types/types';
 import { color } from '@/styles/color';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { POSITION_SKILLS } from 'public/static/common';
 import Image from 'next/image';
 
@@ -13,11 +13,16 @@ export type SKILL_TYPE = {
   imageName: string;
 };
 
-const SkillModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { onClickChoice: (callback: SKILL_TYPE[], type: 'skill') => void }) => {
-  const [activePosition, setActivePosition] = useState<keyof typeof POSITION_SKILLS>('전체');
+type Props = {
+  onClickChoice: (callback: SKILL_TYPE[], type: 'skill') => void;
+  skillList: SKILL_TYPE[];
+};
+
+const SkillModal = ({ visible, onClose, onClickChoice, skillList }: ModalPageProps & Props) => {
+  const [activeSkill, setActiveSkill] = useState<keyof typeof POSITION_SKILLS>('전체');
   const [checked, setChecked] = useState<SKILL_TYPE[]>([]);
 
-  const handleChangeChceck = (skill: SKILL_TYPE) => {
+  const handleChangeCheck = (skill: SKILL_TYPE) => {
     setChecked((prev) => {
       const checkedValue = prev.map((item) => item.id);
 
@@ -30,8 +35,12 @@ const SkillModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { onCl
   };
 
   const handleClickMenu = (skill: keyof typeof POSITION_SKILLS) => {
-    setActivePosition(skill);
+    setActiveSkill(skill);
   };
+
+  useEffect(() => {
+    setChecked(skillList);
+  }, [skillList]);
 
   return (
     <Modal
@@ -55,7 +64,7 @@ const SkillModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { onCl
         <Content>
           <LeftSection>
             {Object.keys(POSITION_SKILLS).map((route) => {
-              const isActive = activePosition === route;
+              const isActive = activeSkill === route;
               return (
                 <div key={route} style={isActive ? { display: 'flex', gap: '8px', alignItems: 'center' } : { marginLeft: '10px' }}>
                   {isActive && <div style={{ width: '2px', height: '20px', background: color.brand.brandMain }} />}
@@ -69,12 +78,12 @@ const SkillModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { onCl
           <div style={{ width: '1px', height: '316px', background: color.gray.gray6 }} />
           <RightSection>
             <div className="grid">
-              {POSITION_SKILLS[activePosition].map((skill) => (
+              {POSITION_SKILLS[activeSkill].map((skill) => (
                 <Fragment key={skill.id}>
                   <Image src={`/images/skillIcons/${skill.imageName}.svg`} width={24} height={24} alt="skill" />
                   <div
                     style={{ color: checked.map((item) => item.id).includes(skill.id) ? color.brand.brandMain : color.gray.white, cursor: 'pointer' }}
-                    onClick={() => handleChangeChceck(skill)}
+                    onClick={() => handleChangeCheck(skill)}
                     className="label"
                   >
                     {skill.name}

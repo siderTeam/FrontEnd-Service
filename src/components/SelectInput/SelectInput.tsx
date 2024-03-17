@@ -1,65 +1,28 @@
 import Image from 'next/image';
-import SelectBox from '../SelectBox/SelectBox';
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 
-import { useState } from 'react';
-
 export type SelectInputProps<T> = {
-  options: { label: string; value: T | any }[];
   value?: string;
   name: string;
-  onChange?: (name: string, value: T | any) => void;
+  onChange?: (e: any, type?: string) => void;
   style?: React.CSSProperties;
-  optionStyle?: React.CSSProperties;
-  placeholder?: string;
+  onClick?: () => void;
 };
 
-const SelectInput = <T,>({ value, name, style, options, onChange, placeholder }: SelectInputProps<T>) => {
-  const [visible, setVisible] = useState(false);
-
-  const handleClickSelect = (e: any) => {
-    setVisible(!visible);
-  };
-
-  const handleClick = (value: T) => {
-    if (onChange) {
-      onChange(name as string, value);
-      setVisible(false);
-    }
-  };
-
-  const selected = options.filter((option) => option.value === value);
-
+const SelectInput = <T,>({ value, onChange, onClick }: SelectInputProps<T>) => {
   return (
     <Container>
       <div className="select-input-wrap">
-        <div className="select">
-          <SelectStyle value={value} name={name} style={style}>
-            <div className={selected.length === 0 ? 'value' : 'choice-value'}>{selected.length === 0 ? placeholder : selected[0].label}</div>
-          </SelectStyle>
-
-          {visible && (
-            <OptionWrapper>
-              {options?.map((option) => (
-                <li onClick={() => handleClick(option.value)} key={option.value} value={option.label}>
-                  {option.label}
-                </li>
-              ))}
-            </OptionWrapper>
-          )}
-        </div>
+        <input className="input" placeholder="프로젝트 검색 ㄱ?" value={value} onChange={onChange} />
         <Image
-          src="/images/icons/ArrowDown_green.svg"
-          alt="arrow"
-          width={14}
-          height={8}
-          style={{ marginLeft: '8px', cursor: 'pointer' }}
-          onClick={handleClickSelect}
+          src="/images/icons/Magnification_green.svg"
+          alt="magnification"
+          width={20}
+          height={20}
+          style={{ marginLeft: '0px', cursor: 'pointer' }}
+          onClick={onClick}
         />
-
-        <input className="input" placeholder="프로젝트 검색 ㄱ?" />
-        <Image src="/images/icons/Magnification_green.svg" alt="magnification" width={20} height={20} style={{ marginLeft: '10px', cursor: 'pointer' }} />
       </div>
     </Container>
   );
@@ -95,9 +58,9 @@ const Container = styled.div`
       outline: none;
       border: none;
       background: none;
-      margin-left: 16px;
+      margin: 0 16px;
 
-      width: 250px;
+      width: 370px;
 
       color: ${color.gray.white};
 

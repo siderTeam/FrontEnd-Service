@@ -314,8 +314,8 @@ const Page = () => {
           등록
         </Button>
       </div>
-      <PositionModal visible={visible} onClose={handleModalClose} onClickChoice={handleClickChoice} />
-      <SkillModal visible={skillModalVisbile} onClose={handleModalCloseSkill} onClickChoice={handleClickChoice} />
+      <PositionModal visible={visible} onClose={handleModalClose} onClickChoice={handleClickChoice} positionCodeList={positionCodeList} />
+      <SkillModal visible={skillModalVisbile} onClose={handleModalCloseSkill} onClickChoice={handleClickChoice} skillList={skillList} />
     </Container>
   );
 };

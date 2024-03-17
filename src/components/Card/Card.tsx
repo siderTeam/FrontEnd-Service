@@ -4,9 +4,15 @@ import styled from '@emotion/styled';
 import Image from 'next/image';
 import Profile from '../Profile/Profile';
 import { black } from '@/styles/color';
-import { PROJECT_RESPONSE } from '@/api/project/model';
+import { PROJECT_DETAIL_CREATE_USER } from '@/api/project/model';
 
 const color = ['red', 'yellow', 'purple', 'green', 'blue'];
+
+type skillCodeType = {
+  skillCode: number;
+  name: string;
+  imageName: string;
+};
 
 export type CardProps = {
   title: string;
@@ -15,9 +21,11 @@ export type CardProps = {
   deposit: number;
   children?: any;
   style?: React.CSSProperties;
+  skillCodeList: skillCodeType[];
+  createUser: PROJECT_DETAIL_CREATE_USER;
 };
 
-const ProjectCard = ({ title, startDate, endDate, deposit, style }: CardProps) => {
+const ProjectCard = ({ title, startDate, endDate, deposit, skillCodeList, createUser, style }: CardProps) => {
   const cardColor = color[Math.floor(Math.random() * color.length)];
 
   return (
@@ -25,7 +33,9 @@ const ProjectCard = ({ title, startDate, endDate, deposit, style }: CardProps) =
       <CardWrap>
         <div className="subTitle">모집 마감일 {endDate}</div>
         <div className="skillWrap">
-          <Image src={'/images/skillIcons/figma.svg'} alt="profile" width={32} height={32} />
+          {skillCodeList.map((item) => (
+            <Image src={`/images/skillIcons/${item.imageName}.svg`} alt="profile" width={32} height={32} />
+          ))}
         </div>
         <h1 className="title">{title}</h1>
         <SubInfo>
@@ -40,7 +50,7 @@ const ProjectCard = ({ title, startDate, endDate, deposit, style }: CardProps) =
             <div className="deposit">{deposit.toLocaleString()}원</div>
           </div>
         </SubInfo>
-        <Profile />
+        <Profile name={createUser.nickname} career={createUser.career} positionName={createUser.position.name} />
       </CardWrap>
       <div className={`${cardColor} effect`} />
     </Container>

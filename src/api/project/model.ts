@@ -1,7 +1,6 @@
 import { POSITION_CODE } from 'public/lib/enum';
 import { PROJECT_REQUIRE_JOIN_STATUS, PROJECT_STATUS } from 'public/lib/enum';
 
-
 export type CREATE_PROJECT_REQUEST = {
   count: number;
   connect: string;
@@ -25,20 +24,68 @@ export type PROJECT_RESPONSE = {
   recruitEndDate: string;
   deposit: number;
   count: number;
+  connect: string;
+  skillCodeList: {
+    skillCode: number;
+    name: string;
+    imageName: string;
+  }[];
+  content: string;
+  positionCodeList: {
+    codeGroup: {
+      id: number;
+      name: string;
+    };
+    name: string;
+  }[];
+  audit: {
+    project: {
+      id: number;
+      name: string;
+      recruitStartDate: string;
+      recruitEndDate: string;
+      deposit: number;
+      count: number;
+      view: number;
+      createdDate: string;
+    };
+    detailList: PROJECT_DETAIL_LIST[];
+    week: number;
+    reason: string;
+  };
+  createUser: {
+    id: number;
+    loginId: string;
+    nickname: string;
+    position: {
+      id: number;
+      name: string;
+    };
+    career: number;
+    memberSkillList: {
+      skillCode: number;
+      name: string;
+      imageName: string;
+    }[];
+    introduction: string;
+  };
+  projectReplies: [];
+  status: number;
   view: number;
   createdDate: string;
+};
+
+export type PROJECT_DETAIL_LIST = {
+  point: number;
+  contents: string;
 };
 
 export type PROJECT_REQUEST = {
   keyword: string;
   positionCode: number[];
   skillCode: number[];
-  status: number;
-  page: number;
-  size: number;
+  status: number | null;
 };
-
-
 
 export type PROJECT_DETAIL_RESPONSE = {
   id: number;
@@ -83,45 +130,11 @@ export type PROJECT_DETAIL_RESPONSE = {
     week: number;
     reason: string;
   };
-  createUser: {
-    nickname: string;
-    position: {
-      id: number;
-      name: string;
-    };
-    career: number;
-    memberSkillList: [
-      {
-        skillCode: number;
-        name: string;
-        imageName: string;
-      },
-    ];
-    introduction: string;
-  };
+  createUser: PROJECT_DETAIL_CREATE_USER;
   projectReplies: {
+    content: string;
+    reReplyList: {
       content: string;
-      reReplyList: {
-          content: string;
-          member: {
-            nickname: string;
-            position: {
-              id: number;
-              name: string;
-            };
-            career: number;
-            memberSkillList: 
-              {
-                skillCode: number;
-                name: string;
-                imageName: string;
-              }[],
-            
-            introduction: string;
-          };
-          createdDate: string;
-        }[],
-      
       member: {
         nickname: string;
         position: {
@@ -129,21 +142,47 @@ export type PROJECT_DETAIL_RESPONSE = {
           name: string;
         };
         career: number;
-        memberSkillList: 
-          {
-            skillCode: number;
-            name: string;
-            imageName: string;
-          }[],
-        
+        memberSkillList: {
+          skillCode: number;
+          name: string;
+          imageName: string;
+        }[];
+
         introduction: string;
       };
       createdDate: string;
-    }[],
-  
+    }[];
+
+    member: {
+      nickname: string;
+      position: {
+        id: number;
+        name: string;
+      };
+      career: number;
+      memberSkillList: {
+        skillCode: number;
+        name: string;
+        imageName: string;
+      }[];
+
+      introduction: string;
+    };
+    createdDate: string;
+  }[];
+
   status: PROJECT_STATUS;
   createdDate: string;
   view: number;
+};
+
+export type PROJECT_DETAIL_CREATE_USER = {
+  nickname: string;
+  position: {
+    id: number;
+    name: string;
+  };
+  career: number;
 };
 
 export type REPLY_REQUEST = {

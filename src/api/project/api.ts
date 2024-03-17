@@ -12,7 +12,7 @@ import {
 
 //프로젝트 가져오기
 export const postProject = async (params: PROJECT_REQUEST): Promise<PROJECT_RESPONSE[]> => {
-  const response = await API.post(`${rest.post.project}`, { params });
+  const response = await API.post(`${rest.post.project}`, params);
 
   return response.data.data.content;
 };
