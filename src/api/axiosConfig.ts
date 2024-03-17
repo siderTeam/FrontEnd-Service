@@ -57,6 +57,7 @@ API.interceptors.response.use(
     // 리프레쉬 만료 코드
     if (status === 406) {
       userSignOut();
+      alert("로그인 세션이 만료되었습니다.")
     }
 
     return Promise.reject(error);

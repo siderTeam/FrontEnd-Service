@@ -7,6 +7,7 @@ import { getUserInfo } from '@/api/auth/api';
 import { rest } from '@/api/rest';
 import { usePathname, useRouter } from 'next/navigation';
 import { guestRoute } from '@/hook/usePermission';
+import { getCookie } from 'cookies-next';
 
 const RootProvider = ({ children }: any) => {
   const [rendered, setRendered] = useState(false);
@@ -19,10 +20,11 @@ const RootProvider = ({ children }: any) => {
     setRendered(true);
   }, []);
 
-  const { setIsLogin, setUserInfo } = useAuthStore((state) => {
+  const { setIsLogin, setUserInfo, isLogin } = useAuthStore((state) => {
     return {
       setUserInfo: state.setUserInfo,
       setIsLogin: state.setIsLogin,
+      isLogin: state.isLogin
     };
   });
 
@@ -34,16 +36,23 @@ const RootProvider = ({ children }: any) => {
 
   // 유저 정보 담기
   useEffect(() => {
-    if (data) {
-      setUserInfo(data);
-      setIsLogin(true);
+    const accesToken = getCookie('accessToken');
+    if (!!accesToken) {
+      if (data) {
+        setUserInfo(data);
+        setIsLogin(true);
+      }
+      if (error) {
+        alert('로그인 세션이 만료되었습니다.');
+        handleSignOut();
+        route.push('/');
+      }
     }
-    if (error) {
-      alert('로그인 세션이 만료되었습니다.');
-      handleSignOut();
-      route.push('/');
-    }
-  }, [data, error]);
+  }, [data, error, getCookie('accessToken')]);
+
+  console.log("isLogin", isLogin)
+
+  
 
   return rendered && <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 };

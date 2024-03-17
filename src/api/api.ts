@@ -24,8 +24,12 @@ export const userSignOut = async () => {
 };
 
 //엑세스 토큰 발급
-export const getAccessToken = async () => {
-  const response = await API.post(`${rest.post.getAccessToken}`);
+export const getAccessToken = async (refershToken?: string) => {
+  const response = await API.post(`${rest.post.getAccessToken}`, undefined,{
+    headers: {
+      Authorization: refershToken ? `Bearer ${refershToken}` : undefined 
+    }
+  });
 
   return response.data;
 };

@@ -47,10 +47,12 @@ const Page = () => {
   const { mutate } = useMutation({
     mutationFn: postUserSignIn,
     onSuccess: async (data) => {
+      setCookie('refreshToken', data.data);
       if (data.result === true) {
-        await getAccessToken()
+        await getAccessToken(data.data)
           .then((res) => {
             setUserInfo(res.data);
+            
             setCookie('accessToken', res.data.accessToken);
 
             setIsLogin(true);

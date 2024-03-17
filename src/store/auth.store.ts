@@ -36,6 +36,7 @@ export const useAuthStore = create<Type>()(
       signOut: async () => {
         await signOut();
         deleteCookie('accessToken');
+        deleteCookie('refreshToken');
         return set({ userInfo: initialUserInfo, isLogin: false });
       },
     }),
