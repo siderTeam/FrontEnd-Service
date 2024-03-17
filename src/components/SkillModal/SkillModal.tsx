@@ -3,7 +3,7 @@ import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 import { ModalPageProps } from '@/types/types';
 import { color } from '@/styles/color';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { POSITION_SKILLS } from 'public/static/common';
 import Image from 'next/image';
 
@@ -70,17 +70,16 @@ const SkillModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { onCl
           <RightSection>
             <div className="grid">
               {POSITION_SKILLS[activePosition].map((skill) => (
-                <>
+                <Fragment key={skill.id}>
                   <Image src={`/images/skillIcons/${skill.imageName}.svg`} width={24} height={24} alt="skill" />
                   <div
                     style={{ color: checked.map((item) => item.id).includes(skill.id) ? color.brand.brandMain : color.gray.white, cursor: 'pointer' }}
                     onClick={() => handleChangeChceck(skill)}
-                    key={skill.id}
                     className="label"
                   >
                     {skill.name}
                   </div>
-                </>
+                </Fragment>
               ))}
             </div>
           </RightSection>
