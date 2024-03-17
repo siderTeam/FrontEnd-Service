@@ -53,16 +53,16 @@ const Page = () => {
     },
   ];
 
-  //프로젝트 단건 조회
-  const { data, refetch } = useQuery({
-    queryKey: [rest.get.projectDetail],
-    queryFn: () => getProjectDetail(postId as unknown as number),
-  });
-
   //프로젝트 조회수 올리기(조회수 증가 로직 구현 필요)
   const projectView = useQuery({
     queryKey: [rest.get.increaseProjectView],
     queryFn: () => increaseProjectView(postId as unknown as number),
+  });
+
+  //프로젝트 단건 조회
+  const { data, refetch } = useQuery({
+    queryKey: [rest.get.projectDetail],
+    queryFn: () => getProjectDetail(postId as unknown as number),
   });
 
   const onScroll = (refcurrent: React.RefObject<HTMLDivElement>, name: string) => {
