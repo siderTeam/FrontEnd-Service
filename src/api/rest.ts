@@ -12,6 +12,7 @@ export const rest = {
     projectDetail: '/project/detail',
     increaseProjectView: '/project/view',
     applyProjectUser: '/join/project',
+    applyProjectUserDetail: '/join',
   },
   post: {
     userSignIn: '/user/signIn',

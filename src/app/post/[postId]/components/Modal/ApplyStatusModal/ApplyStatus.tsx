@@ -11,7 +11,7 @@ import { getApplyProjectUser } from '@/api/project/api';
 import { APPLY_PROJECT_USER_RESPONSE } from '@/api/project/model';
 
 type props = {
-  onClick: () => void;
+  onClick: (joinId: number) => void;
   postId: number;
 };
 
@@ -65,7 +65,7 @@ const ApplyStatus = ({ onClick, postId }: props) => {
             name={item.createUser.nickname}
             position={item.createUser.position.name}
             userid="test88"
-            onClick={onClick}
+            onClick={() => onClick(item.id)}
             varient={item.status === STATUS_APPROVED ? 'success' : item.status === STATUS_REJECTED ? 'error' : 'primary'}
           />
         ))}

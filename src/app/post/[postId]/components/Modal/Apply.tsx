@@ -20,7 +20,7 @@ type ModalProps = {
 const Apply = ({ visible, onClose, postId }: ModalProps) => {
   const [disabled, setDisabled] = useState(true);
   const [form, setForm] = useState<APPLY_PROJECT_REQUEST>({
-    projectId: postId, //수정필요
+    projectId: postId,
     content: '',
   });
 

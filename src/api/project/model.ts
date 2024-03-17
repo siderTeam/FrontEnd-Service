@@ -174,3 +174,35 @@ export type APPLY_PROJECT_USER_RESPONSE = [
     };
   },
 ];
+
+export type APPLY_PROJECT_USER_DETAIL_RESPONSE = {
+  id: number;
+  resumeSelectResult: {
+    id: number;
+    contents: string;
+    career: number;
+    skillCodeList: [
+      {
+        skillCode: number;
+        name: string;
+        imageName: string;
+      },
+    ];
+    positionCode: number;
+  };
+  status: PROJECT_REQUIRE_JOIN_STATUS;
+  createUser: {
+    nickname: string;
+    position: {
+      id: number;
+      name: string;
+    };
+    career: number;
+    memberSkillList: {
+      skillCode: number;
+      name: string;
+      imageName: string;
+    }[];
+    introduction: string;
+  };
+};

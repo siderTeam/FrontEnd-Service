@@ -1,6 +1,6 @@
 import { API } from '../axiosConfig';
 import { rest } from '../rest';
-import { APPLY_PROJECT_REQUEST, APPLY_PROJECT_USER_RESPONSE, CREATE_PROJECT_REQUEST, PROJECT_DETAIL_RESPONSE, PROJECT_RESPONSE, REPLY_REQUEST } from './model';
+import { APPLY_PROJECT_REQUEST, APPLY_PROJECT_USER_DETAIL_RESPONSE, APPLY_PROJECT_USER_RESPONSE, CREATE_PROJECT_REQUEST, PROJECT_DETAIL_RESPONSE, PROJECT_RESPONSE, REPLY_REQUEST } from './model';
 
 //프로젝트 가져오기
 export const getProject = async (): Promise<PROJECT_RESPONSE[]> => {
@@ -54,7 +54,7 @@ export const deleteReply = async (replyId: number) => {
   const response = await API.delete(`${rest.delete.deleteReply}/${replyId}`);
 
   return response.data;
-}
+};
 
 //프로젝트 지원
 export const applyProject = async (params: APPLY_PROJECT_REQUEST) => {
@@ -66,6 +66,13 @@ export const applyProject = async (params: APPLY_PROJECT_REQUEST) => {
 //프로젝트별 전체 참가 신청 조회
 export const getApplyProjectUser = async (projectId: number): Promise<APPLY_PROJECT_USER_RESPONSE> => {
   const response = await API.get(`${rest.get.applyProjectUser}/${projectId}`);
+
+  return response.data.data;
+};
+
+//프로젝트별 참가 신청 조회 상세
+export const getApplyProjectUserDetail = async(joinId: number): Promise<APPLY_PROJECT_USER_DETAIL_RESPONSE> => {
+  const response = await API.get(`${rest.get.applyProjectUserDetail}/${joinId}`);
 
   return response.data.data;
 };
