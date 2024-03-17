@@ -1,16 +1,23 @@
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 
-const Profile = ({ onClick }: { onClick?: () => void }) => {
+type UserType = {
+  career: number;
+  name: string;
+  positionName: string;
+  onClick?: () => void;
+};
+
+const Profile = ({ name, career, positionName, onClick }: UserType) => {
   return (
     <Container onClick={onClick}>
       <img src="/images/profile_dummy.svg" />
 
       <ProfileWrap>
-        <div className="name">박봉팔</div>
+        <div className="name">{name}</div>
         <PositionWrap>
-          <div className="year">8년차</div>
-          <div className="position">front-endddddd</div>
+          <div className="year">{career}년차</div>
+          <div className="position">{positionName}</div>
         </PositionWrap>
       </ProfileWrap>
     </Container>

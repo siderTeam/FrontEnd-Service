@@ -4,11 +4,16 @@ import Modal from '../Modal/Modal';
 import { ModalPageProps } from '@/types/types';
 import { color } from '@/styles/color';
 import Checkbox from '../Checkbox/Checkbox';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { POSITION_CODE_ARRAY } from 'public/static/requireJudge/static';
 import { OPTION_TYPE } from '../SelectBox/SelectBox';
 
-const PositionModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { onClickChoice: (callback: OPTION_TYPE[], type: 'position') => void }) => {
+type Props = {
+  onClickChoice: (callback: OPTION_TYPE[], type: 'position') => void;
+  positionCodeList: OPTION_TYPE[];
+};
+
+const PositionModal = ({ visible, onClose, onClickChoice, positionCodeList }: ModalPageProps & Props) => {
   const [checked, setChecked] = useState<OPTION_TYPE[]>([]);
 
   const handleChangeCheck = (e: any, position: OPTION_TYPE) => {
@@ -22,6 +27,12 @@ const PositionModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { o
       }
     });
   };
+
+  useEffect(() => {
+    if (positionCodeList) {
+      setChecked(positionCodeList);
+    }
+  }, [positionCodeList]);
 
   return (
     <>
@@ -43,16 +54,20 @@ const PositionModal = ({ visible, onClose, onClickChoice }: ModalPageProps & { o
         <Container>
           <div className="title">포지션</div>
           <div className="position-wrap">
-            {POSITION_CODE_ARRAY.map((position) => (
-              <div className="position" key={position.value}>
-                <Checkbox
-                  onChange={(e) => handleChangeCheck(e, position)}
-                  name={position.label}
-                  text={position.label}
-                  labelStyle={{ color: color.gray.white, fontSize: '24px', fontWeight: 400 }}
-                />
-              </div>
-            ))}
+            {POSITION_CODE_ARRAY.map((position) => {
+              const checkedValue = checked.map((item) => item.value);
+              return (
+                <div className="position" key={position.value}>
+                  <Checkbox
+                    onChange={(e) => handleChangeCheck(e, position)}
+                    name={position.label}
+                    text={position.label}
+                    labelStyle={{ color: color.gray.white, fontSize: '24px', fontWeight: 400 }}
+                    checked={checkedValue.includes(position.value)}
+                  />
+                </div>
+              );
+            })}
           </div>
           <div className="button-wrap">
             <Button onClick={() => onClickChoice(checked, 'position')} size="medium" variant="primary">
