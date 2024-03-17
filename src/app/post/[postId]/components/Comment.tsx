@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
 import { useMutation } from '@tanstack/react-query';
 import { deleteReply, updateReply } from '@/api/project/api';
+import { getUserInfo } from '@/store/auth.store';
 
 type Props = {
   data: PROJECT_DETAIL_RESPONSE['projectReplies'][0];
@@ -16,6 +17,7 @@ type Props = {
 };
 
 const Comment = ({ data, refetch }: Props) => {
+  const identification = getUserInfo().id === data.member.id;
   const [textCount, setTextCount] = useState(data.content.length);
   const [inputTextarea, setInputTextarea] = useState(data.content);
   const [isEdit, setIsEdit] = useState(false);
@@ -26,7 +28,7 @@ const Comment = ({ data, refetch }: Props) => {
     mutationFn: () => updateReply(data.id, { content: inputTextarea }),
     onSuccess: async (data) => {
       if (data.result === true) {
-        alert('댓글 수정 성공!');
+        alert('수정이 완료되었습니다.');
         setIsEdit(false);
       } else {
         alert('댓글 수정 실패');
@@ -43,7 +45,7 @@ const Comment = ({ data, refetch }: Props) => {
     mutationFn: deleteReply,
     onSuccess: async (data) => {
       if (data.result === true) {
-        alert('댓글 삭제 성공!');
+        alert('삭제가 완료되었습니다.');
         setIsEdit(false);
       } else {
         alert('댓글 삭제 실패');
@@ -92,8 +94,15 @@ const Comment = ({ data, refetch }: Props) => {
     setIsEdit(false);
   };
 
+  //댓글 삭제
+  const handleDeleteReply = () => {
+    if (confirm('삭제하시겠습니까?')) {
+      deleteMutate(data.id);
+    }
+  };
+
   return (
-    <Container>
+    <Container style={{ background: identification ? color.gray.gray9 : color.gray.black }}>
       <div className="top">
         <div className="profile">
           <Image src={'/images/user_profile_dummy.svg'} alt="profile" width={40} height={40} />
@@ -105,10 +114,12 @@ const Comment = ({ data, refetch }: Props) => {
             <div className="date">{data?.createdDate?.replace(/-/g, '.').replace('T', ' ')}</div>
           </div>
         </div>
-        <div className="update">
-          <StyledImage src={'/images/edit/edit_gray6.svg'} alt="edit" width={15} height={15} onClick={() => setIsEdit(true)} />
-          <StyledImage src={'/images/trash/trash_gray6.svg'} alt="delete" width={13} height={15} onClick={() => deleteMutate(data.id)} />
-        </div>
+        {identification && (
+          <div className="update">
+            <StyledImage src={'/images/edit/edit_gray6.svg'} alt="edit" width={15} height={15} onClick={() => setIsEdit(true)} />
+            <StyledImage src={'/images/trash/trash_gray6.svg'} alt="delete" width={13} height={15} onClick={handleDeleteReply} />
+          </div>
+        )}
       </div>
       {isEdit ? (
         <div>

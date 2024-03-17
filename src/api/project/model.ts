@@ -81,6 +81,7 @@ export type PROJECT_DETAIL_RESPONSE = {
     reason: string;
   };
   createUser: {
+    id: number;
     nickname: string;
     position: {
       id: number;
@@ -120,6 +121,7 @@ export type PROJECT_DETAIL_RESPONSE = {
     }[];
 
     member: {
+      id: number;
       nickname: string;
       position: {
         id: number;
