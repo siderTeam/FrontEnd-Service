@@ -23,10 +23,11 @@ export const rest = {
     createReply: '/reply/project',
     applyProject: '/join',
     project: '/project/list',
-    signOut: '/user/signOut'
+    signOut: '/user/signOut',
   },
   put: {
     updateReply: '/reply',
+    updateJoinStatus: '/join',
   },
   delete: {
     deleteReply: '/reply',

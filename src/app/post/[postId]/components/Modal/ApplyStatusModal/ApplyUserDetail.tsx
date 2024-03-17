@@ -7,9 +7,9 @@ import TextArea from '@/components/TextArea/TextArea';
 import Button from '@/components/Button/Button';
 import CompanionReason from './CompanionReason';
 import { Fragment, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { rest } from '@/api/rest';
-import { getApplyProjectUserDetail } from '@/api/project/api';
+import { getApplyProjectUserDetail, updateJoinProjectStatus } from '@/api/project/api';
 import { formatForProjectJoinStatus } from 'public/lib/formatForEnum';
 import { PROJECT_REQUIRE_JOIN_STATUS } from 'public/lib/enum';
 
@@ -25,13 +25,35 @@ const STATUS_APPROVED = PROJECT_REQUIRE_JOIN_STATUS.APPROVED;
 const ApplyUserDetail = ({ joinId, onClick }: props) => {
   const [Modal, setModal] = useState(false);
 
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: [rest.get.applyProjectUserDetail],
     queryFn: () => getApplyProjectUserDetail(joinId),
   });
 
+  const { mutate } = useMutation({
+    mutationFn: updateJoinProjectStatus,
+    onSuccess: async (data) => {
+      if (data.result === true) {
+        alert('성공!');
+      } else {
+        alert('실패');
+      }
+      refetch();
+    },
+    onError: () => {
+      console.error('실패');
+    },
+  });
+
   const handleModal = () => {
     setModal(false);
+  };
+
+  //프로젝트 참가 상태 수정
+  const handleUpdateJoinStatus = (text: string, status: PROJECT_REQUIRE_JOIN_STATUS) => {
+    if (confirm(`${text} 하시겠습니까?`)) {
+      mutate({ projectJoinId: joinId, statusCode: status });
+    }
   };
 
   return (
@@ -83,7 +105,7 @@ const ApplyUserDetail = ({ joinId, onClick }: props) => {
               <Button variant="error" onClick={() => setModal(true)}>
                 반려
               </Button>
-              <Button>승인</Button>
+              <Button onClick={() => handleUpdateJoinStatus('승인', STATUS_APPROVED)}>승인</Button>
             </>
           )}
           {data?.status === STATUS_REJECTED && <Button variant="error_secondary">반려취소</Button>}
