@@ -44,7 +44,7 @@ API.interceptors.response.use(
     } = error;
     // 어세스토큰이 만료 되었고 리프레쉬토큰이 살아있을 때 리프레쉬를 이용해서 accessToken 을 발급 받는 로직 부재
 
-    if (status === 401) {
+    if (status === 403) {
       const response = await getAccessToken();
 
       if (response.data.choooooooo___Biiiiiiiiiii___Sang) {

@@ -111,7 +111,7 @@ const Page = () => {
       <CardContainer>
         <Imsi>
           {data?.map((item) => (
-            <Card key={item.id} title={item.name} startDate={item.recruitStartDate} endDate={item.recruitEndDate} deposit={item.deposit} />
+            <Card key={item.id} id={item.id} title={item.name} startDate={item.recruitStartDate} endDate={item.recruitEndDate} deposit={item.deposit} />
           ))}
         </Imsi>
       </CardContainer>
@@ -151,7 +151,7 @@ const Page = () => {
       <CardContainer>
         <Imsi>
           {data?.map((item) => (
-            <Card key={item.id} title={item.name} startDate={item.recruitStartDate} endDate={item.recruitEndDate} deposit={item.deposit} />
+            <Card key={item.id} id={item.id} title={item.name} startDate={item.recruitStartDate} endDate={item.recruitEndDate} deposit={item.deposit} />
           ))}
         </Imsi>
       </CardContainer>

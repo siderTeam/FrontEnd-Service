@@ -22,6 +22,7 @@ export const rest = {
     createReply: '/reply/project',
     applyProject: '/join',
     project: '/project/list',
+    signOut: '/user/signOut'
   },
   put: {},
   delete: {},

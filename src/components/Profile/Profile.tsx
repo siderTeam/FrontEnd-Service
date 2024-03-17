@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 
-const Profile = () => {
+const Profile = ({ onClick }: { onClick?: () => void }) => {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <img src="/images/profile_dummy.svg" />
 
       <ProfileWrap>
@@ -24,6 +24,7 @@ const Container = styled.div`
   width: 220px;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
 
   .name {
     color: ${color.gray.gray4};
