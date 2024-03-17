@@ -64,7 +64,7 @@ const ApplyStatus = ({ onClick, postId }: props) => {
             src="/images/user_profile_dummy.svg"
             name={item.createUser.nickname}
             position={item.createUser.position.name}
-            userid="test88"
+            userid={item.createUser.loginId}
             onClick={() => onClick(item.id)}
             varient={item.status === STATUS_APPROVED ? 'success' : item.status === STATUS_REJECTED ? 'error' : 'primary'}
           />

@@ -70,7 +70,6 @@ const ApplyUserDetail = ({ joinId, onClick }: props) => {
                   {item.name}
                 </Fragment>
               ))}
-              MySQL
             </div>
           </div>
         </InfoWrap>

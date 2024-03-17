@@ -170,6 +170,7 @@ export type APPLY_PROJECT_USER_RESPONSE = [
     status: PROJECT_REQUIRE_JOIN_STATUS;
     createUser: {
       nickname: string;
+      loginId: string;
       position: {
         id: number;
         name: string;

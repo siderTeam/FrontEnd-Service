@@ -33,7 +33,7 @@ const ProjectTitle = ({ element, data, postId }: Props) => {
   return (
     <>
       <Apply visible={applyModal} onClose={handleCloseApplyModal} postId={postId} />
-      <ApplyStatusContainer postId={postId} visible={applyStatusModal} onClose={handleCloseApplyStatusModal} />
+      {applyStatusModal && <ApplyStatusContainer postId={postId} visible={applyStatusModal} onClose={handleCloseApplyStatusModal} />}
       <Container ref={element}>
         <div className="header">
           <div className="before">
