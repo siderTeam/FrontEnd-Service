@@ -20,7 +20,6 @@ import { getProjectDetail, increaseProjectView } from '@/api/project/api';
 
 const Page = () => {
   const { postId } = useParams();
-
   const titleRef = useRef<HTMLDivElement>(null);
   const [isFocused, setIsfocused] = useState('first');
   const router = [
@@ -102,7 +101,7 @@ const Page = () => {
         <RecruitInfo data={data} />
         <ProjectInfo content={data?.content || ''} />
         <FunctionInfo element={router[1].observe} data={data} />
-        <DeadlineInfo element={router[2].observe} data={data} />
+        <DeadlineInfo element={router[2].observe} data={data} postId={postId as unknown as number} />
         <LeaderInfo element={router[3].observe} data={data} />
         <CommentWrite refetch={refetch} replyCount={data?.projectReplies.length || 0} projectId={data?.id || 0} />
         {data?.projectReplies.map((reply) => (

@@ -4,16 +4,17 @@ import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Image from 'next/image';
 import Button from '@/components/Button/Button';
-import { PROJECT_DETAIL_RESPONSE } from '@/api/projectDetail/model';
 import Apply from './Modal/Apply';
 import { useState } from 'react';
+import { PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
 
 type Props = {
   element: any;
   data: PROJECT_DETAIL_RESPONSE | undefined;
+  postId: number;
 };
 
-const DeadlineInfo = ({ element, data }: Props) => {
+const DeadlineInfo = ({ element, data, postId }: Props) => {
   const [applyModal, setApplyModal] = useState(false);
   //남은기간 계산
   const today = new Date();
@@ -28,7 +29,7 @@ const DeadlineInfo = ({ element, data }: Props) => {
 
   return (
     <>
-      <Apply visible={applyModal} onClose={handleCloseApplyModal} />
+      <Apply visible={applyModal} onClose={handleCloseApplyModal} postId={postId} />
       <Container ref={element}>
         <div className="subtitle">
           <Image src={'/images/calendar/calendar_gray5.svg'} alt="calendar" width={20} height={20} />

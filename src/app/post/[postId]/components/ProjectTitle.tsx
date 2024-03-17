@@ -7,8 +7,8 @@ import Image from 'next/image';
 import Button from '@/components/Button/Button';
 import Apply from './Modal/Apply';
 import ApplyStatusContainer from './Modal/ApplyStatusModal/ApplyStatusContainer';
-import { PROJECT_DETAIL_RESPONSE } from '@/api/projectDetail/model';
 import { formatForProjectStatus } from 'public/lib/formatForEnum';
+import { PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
 
 type Props = {
   element: any;
