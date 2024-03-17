@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import SelectInput from '@/components/SelectInput/SelectInput';
 import Image from 'next/image';
-import { getProject } from '@/api/project/api';
+import { postProject } from '@/api/project/api';
 import PositionModal from '@/components/PositionModal/PositionModal';
 import useHandleModal from '@/hook/useHandleModal';
 import { OPTION_TYPE } from '@/components/SelectBox/SelectBox';
@@ -51,8 +51,8 @@ const Page = () => {
   const [skillList, setSkillList] = useState<SKILL_TYPE[]>([]);
 
   const { data } = useQuery({
-    queryKey: [rest.get.project, params],
-    queryFn: ({ queryKey }) => getProject(queryKey[1] as unknown as PROJECT_REQUEST),
+    queryKey: [rest.post.project, params],
+    queryFn: ({ queryKey }) => postProject(queryKey[1] as unknown as PROJECT_REQUEST),
   });
 
   const handleFilterClick = (type: string) => {
