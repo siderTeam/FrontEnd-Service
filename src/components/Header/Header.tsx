@@ -22,7 +22,7 @@ const Header = () => {
       <MyPageContainer visible={modal} onClose={handleCloseModal} />
       <Image src="/images/Logo.svg" alt="로고" className="logo" width={167} height={58} onClick={() => route.push('/')} style={{ cursor: 'pointer' }} />
       <div className="profile-wrap">
-        <Link href="post">
+        <Link href="/post">
           <Button leftIcon="/images/etc/editor_black.svg" size="medium" variant="primary">
             모집글 작성
           </Button>
