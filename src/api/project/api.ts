@@ -2,6 +2,7 @@ import { API } from '../axiosConfig';
 import { rest } from '../rest';
 import {
   APPLY_PROJECT_REQUEST,
+  APPLY_PROJECT_USER_DETAIL_RESPONSE,
   APPLY_PROJECT_USER_RESPONSE,
   CREATE_PROJECT_REQUEST,
   PROJECT_DETAIL_RESPONSE,
@@ -45,6 +46,20 @@ export const createReply = async (projectId: number, params: REPLY_REQUEST) => {
   return response.data;
 };
 
+//프로젝트 댓글 수정
+export const updateReply = async (replyId: number, params: REPLY_REQUEST) => {
+  const response = await API.put(`${rest.put.updateReply}/${replyId}`, params);
+
+  return response.data;
+};
+
+//프로젝트 댓글 삭제
+export const deleteReply = async (replyId: number) => {
+  const response = await API.delete(`${rest.delete.deleteReply}/${replyId}`);
+
+  return response.data;
+};
+
 //프로젝트 지원
 export const applyProject = async (params: APPLY_PROJECT_REQUEST) => {
   const response = await API.post(`${rest.post.applyProject}`, params);
@@ -55,6 +70,13 @@ export const applyProject = async (params: APPLY_PROJECT_REQUEST) => {
 //프로젝트별 전체 참가 신청 조회
 export const getApplyProjectUser = async (projectId: number): Promise<APPLY_PROJECT_USER_RESPONSE> => {
   const response = await API.get(`${rest.get.applyProjectUser}/${projectId}`);
+
+  return response.data.data;
+};
+
+//프로젝트별 참가 신청 조회 상세
+export const getApplyProjectUserDetail = async(joinId: number): Promise<APPLY_PROJECT_USER_DETAIL_RESPONSE> => {
+  const response = await API.get(`${rest.get.applyProjectUserDetail}/${joinId}`);
 
   return response.data.data;
 };

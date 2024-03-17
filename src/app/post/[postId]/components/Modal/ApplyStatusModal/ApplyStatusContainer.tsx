@@ -14,9 +14,17 @@ type ModalProps = {
 
 const ApplyStatusContainer = ({ visible, onClose, postId }: ModalProps) => {
   const [currentContent, setCurrentContent] = useState('status');
+  const [joinId, setJoinId] = useState(0);
 
-  const handleClick = () => {
+  //지원자 현황 → 지원자 정보
+  const handleStatusClick = (joinId: number) => {
+    setJoinId(joinId);
     setCurrentContent('detail');
+  };
+
+  //지원자 정보 → 지원자 현황(뒤로가기)
+  const handleUserDetailClick = () => {
+    setCurrentContent('status');
   };
 
   useEffect(() => {
@@ -39,8 +47,8 @@ const ApplyStatusContainer = ({ visible, onClose, postId }: ModalProps) => {
       visible={visible}
       onClose={onClose}
     >
-      {currentContent === 'status' && <ApplyStatus postId={postId} onClick={handleClick} />}
-      {currentContent === 'detail' && <ApplyUserDetail />}
+      {currentContent === 'status' && <ApplyStatus postId={postId} onClick={handleStatusClick} />}
+      {currentContent === 'detail' && <ApplyUserDetail joinId={joinId} onClick={handleUserDetailClick} />}
     </Modal>
   );
 };

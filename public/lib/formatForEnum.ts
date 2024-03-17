@@ -1,4 +1,4 @@
-import { POSITION_CODE, PROJECT_STATUS } from './enum';
+import { POSITION_CODE, PROJECT_REQUIRE_JOIN_STATUS, PROJECT_STATUS } from './enum';
 
 /**
  * [프로젝트 상태]
@@ -52,3 +52,22 @@ export const formatForPositionCode = (status: POSITION_CODE): string => {
 
   return returnStatus.get(status) ?? '';
 };
+
+  /**
+   * [프로젝트 가입 신청 승인 상태]
+   * 대기 37,
+   * 반려 38,
+   * 승인 39,
+   * 취소 40,
+   */
+
+export const formatForProjectJoinStatus = (status: PROJECT_REQUIRE_JOIN_STATUS): string => {
+  const returnStatus = new Map([
+    [PROJECT_REQUIRE_JOIN_STATUS.WAITING, '대기'],
+    [PROJECT_REQUIRE_JOIN_STATUS.REJECTED, '반려'],
+    [PROJECT_REQUIRE_JOIN_STATUS.APPROVED, '승인'],
+    [PROJECT_REQUIRE_JOIN_STATUS.CANCELED, '취소'],
+  ]);
+  
+  return returnStatus.get(status) ?? '';
+}
