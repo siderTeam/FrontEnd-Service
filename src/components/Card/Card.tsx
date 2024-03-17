@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Profile from '../Profile/Profile';
 import { black } from '@/styles/color';
 import { PROJECT_DETAIL_CREATE_USER } from '@/api/project/model';
+import { PROJECT_RESPONSE } from '@/api/project/model';
+import Link from 'next/link';
 
 const color = ['red', 'yellow', 'purple', 'green', 'blue'];
 
@@ -23,37 +25,40 @@ export type CardProps = {
   style?: React.CSSProperties;
   skillCodeList: skillCodeType[];
   createUser: PROJECT_DETAIL_CREATE_USER;
+  id: number;
 };
 
-const ProjectCard = ({ title, startDate, endDate, deposit, skillCodeList, createUser, style }: CardProps) => {
+const ProjectCard = ({ title, startDate, endDate, deposit, skillCodeList, createUser, style, id }: CardProps) => {
   const cardColor = color[Math.floor(Math.random() * color.length)];
 
   return (
-    <Container className={cardColor}>
-      <CardWrap>
-        <div className="subTitle">모집 마감일 {endDate}</div>
-        <div className="skillWrap">
-          {skillCodeList.map((item) => (
-            <Image src={`/images/skillIcons/${item.imageName}.svg`} alt="profile" width={32} height={32} />
-          ))}
-        </div>
-        <h1 className="title">{title}</h1>
-        <SubInfo>
-          <div className="info">
-            <div className="subTitle">프로젝트 기간</div>
-            <div className="projectDate">
-              {startDate?.replace(/-/g, '.')}~{endDate?.replace(/-/g, '.')}
+    <Link href={`/post/${id}`}>
+      <Container className={cardColor}>
+        <CardWrap>
+          <div className="subTitle">모집 마감일 {endDate}</div>
+          <div className="skillWrap">
+            {skillCodeList.map((item) => (
+              <Image src={`/images/skillIcons/${item.imageName}.svg`} alt="profile" width={32} height={32} />
+            ))}
+          </div>
+          <h1 className="title">{title}</h1>
+          <SubInfo>
+            <div className="info">
+              <div className="subTitle">프로젝트 기간</div>
+              <div className="projectDate">
+                {startDate?.replace(/-/g, '.')}~{endDate?.replace(/-/g, '.')}
+              </div>
             </div>
-          </div>
-          <div className="info">
-            <div className="subTitle">보증금</div>
-            <div className="deposit">{deposit.toLocaleString()}원</div>
-          </div>
-        </SubInfo>
-        <Profile name={createUser.nickname} career={createUser.career} positionName={createUser.position.name} />
-      </CardWrap>
-      <div className={`${cardColor} effect`} />
-    </Container>
+            <div className="info">
+              <div className="subTitle">보증금</div>
+              <div className="deposit">{deposit.toLocaleString()}원</div>
+            </div>
+          </SubInfo>
+          <Profile name={createUser.nickname} career={createUser.career} positionName={createUser.position.name} />
+        </CardWrap>
+        <div className={`${cardColor} effect`} />
+      </Container>
+    </Link>
   );
 };
 

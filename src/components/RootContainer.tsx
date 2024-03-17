@@ -2,8 +2,8 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-
 import RootHeader from './RootHeader';
+import RootProvider from './RootProvider';
 
 const RootContainer = ({ children }: any) => {
   const [rendered, setRendered] = useState(false);
@@ -12,12 +12,13 @@ const RootContainer = ({ children }: any) => {
   useEffect(() => {
     setRendered(true);
   }, []);
-
   return (
     rendered && (
       <QueryClientProvider client={queryClient}>
-        <RootHeader />
-        {children}
+        <RootProvider>
+          <RootHeader />
+          {children}
+        </RootProvider>
       </QueryClientProvider>
     )
   );

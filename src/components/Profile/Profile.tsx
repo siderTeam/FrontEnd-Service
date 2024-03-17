@@ -5,11 +5,12 @@ type UserType = {
   career: number;
   name: string;
   positionName: string;
+  onClick?: () => void;
 };
 
-const Profile = ({ name, career, positionName }: UserType) => {
+const Profile = ({ name, career, positionName, onClick }: UserType) => {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <img src="/images/profile_dummy.svg" />
 
       <ProfileWrap>
@@ -30,6 +31,7 @@ const Container = styled.div`
   width: 220px;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
 
   .name {
     color: ${color.gray.gray4};

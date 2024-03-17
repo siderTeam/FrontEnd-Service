@@ -105,6 +105,12 @@ const Page = () => {
   });
 
   const handleClickPost = () => {
+    const totalPoint = requirements.reduce((acc, obj) => Number(acc) + Number(obj.point), 0);
+
+    if (totalPoint !== 100) {
+      alert('요구사항 점수는 총 100점 이어야 합니다.');
+      return;
+    }
     const params = {
       ...inputs,
       positionCodeList: positionCodeList.map((item) => item.value),
@@ -314,8 +320,8 @@ const Page = () => {
           등록
         </Button>
       </div>
-      <PositionModal visible={visible} onClose={handleModalClose} onClickChoice={handleClickChoice} positionCodeList={positionCodeList} />
-      <SkillModal visible={skillModalVisbile} onClose={handleModalCloseSkill} onClickChoice={handleClickChoice} skillList={skillList} />
+      {visible && <PositionModal visible={visible} onClose={handleModalClose} onClickChoice={handleClickChoice} positionCodeList={positionCodeList} />}
+      {visible && <SkillModal visible={skillModalVisbile} onClose={handleModalCloseSkill} onClickChoice={handleClickChoice} skillList={skillList} />}
     </Container>
   );
 };

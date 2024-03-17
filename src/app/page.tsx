@@ -5,7 +5,7 @@ import Card from '@/components/Card/Card';
 
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import SelectInput from '@/components/SelectInput/SelectInput';
 import Image from 'next/image';
@@ -91,14 +91,6 @@ const Page = () => {
 
       <div className="title">새로 등록된 프로젝트</div>
 
-      <CardContainer>
-        {/* <Imsi>
-          {data?.map((item) => (
-            <Card key={item.id} title={item.name} startDate={item.recruitStartDate} endDate={item.recruitEndDate} deposit={item.deposit} />
-          ))}
-        </Imsi> */}
-      </CardContainer>
-
       <div className="title">프로젝트</div>
       <FilterWrap>
         <div className="filter-wrap">
@@ -136,6 +128,7 @@ const Page = () => {
           {data?.map((item) => (
             <Card
               key={item.id}
+              id={item.id}
               title={item.name}
               startDate={item.recruitStartDate}
               endDate={item.recruitEndDate}

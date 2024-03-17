@@ -116,7 +116,7 @@ export type PROJECT_DETAIL_RESPONSE = {
     project: {
       id: number;
       name: string;
-      recruitStartDate: string[];
+      recruitStartDate: string;
       recruitEndDate: string;
       deposit: number;
       count: number;
@@ -132,6 +132,7 @@ export type PROJECT_DETAIL_RESPONSE = {
   };
   createUser: PROJECT_DETAIL_CREATE_USER;
   projectReplies: {
+    id: number;
     content: string;
     reReplyList: {
       content: string;
@@ -211,5 +212,52 @@ export type APPLY_PROJECT_USER_RESPONSE = [
       positionCode: number;
     };
     status: PROJECT_REQUIRE_JOIN_STATUS;
+    createUser: {
+      nickname: string;
+      loginId: string;
+      position: {
+        id: number;
+        name: string;
+      };
+      career: number;
+      memberSkillList: {
+        skillCode: number;
+        name: string;
+        imageName: string;
+      }[];
+      introduction: string;
+    };
   },
 ];
+
+export type APPLY_PROJECT_USER_DETAIL_RESPONSE = {
+  id: number;
+  resumeSelectResult: {
+    id: number;
+    contents: string;
+    career: number;
+    skillCodeList: [
+      {
+        skillCode: number;
+        name: string;
+        imageName: string;
+      },
+    ];
+    positionCode: number;
+  };
+  status: PROJECT_REQUIRE_JOIN_STATUS;
+  createUser: {
+    nickname: string;
+    position: {
+      id: number;
+      name: string;
+    };
+    career: number;
+    memberSkillList: {
+      skillCode: number;
+      name: string;
+      imageName: string;
+    }[];
+    introduction: string;
+  };
+};
