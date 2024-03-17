@@ -1,7 +1,6 @@
 import { POSITION_CODE } from 'public/lib/enum';
 import { PROJECT_REQUIRE_JOIN_STATUS, PROJECT_STATUS } from 'public/lib/enum';
 
-
 export type CREATE_PROJECT_REQUEST = {
   count: number;
   connect: string;
@@ -38,8 +37,6 @@ export type PROJECT_REQUEST = {
   size: number;
 };
 
-
-
 export type PROJECT_DETAIL_RESPONSE = {
   id: number;
   name: string;
@@ -69,7 +66,7 @@ export type PROJECT_DETAIL_RESPONSE = {
     project: {
       id: number;
       name: string;
-      recruitStartDate: string[];
+      recruitStartDate: string;
       recruitEndDate: string;
       deposit: number;
       count: number;
@@ -100,28 +97,10 @@ export type PROJECT_DETAIL_RESPONSE = {
     introduction: string;
   };
   projectReplies: {
+    id: number;
+    content: string;
+    reReplyList: {
       content: string;
-      reReplyList: {
-          content: string;
-          member: {
-            nickname: string;
-            position: {
-              id: number;
-              name: string;
-            };
-            career: number;
-            memberSkillList: 
-              {
-                skillCode: number;
-                name: string;
-                imageName: string;
-              }[],
-            
-            introduction: string;
-          };
-          createdDate: string;
-        }[],
-      
       member: {
         nickname: string;
         position: {
@@ -129,18 +108,35 @@ export type PROJECT_DETAIL_RESPONSE = {
           name: string;
         };
         career: number;
-        memberSkillList: 
-          {
-            skillCode: number;
-            name: string;
-            imageName: string;
-          }[],
-        
+        memberSkillList: {
+          skillCode: number;
+          name: string;
+          imageName: string;
+        }[];
+
         introduction: string;
       };
       createdDate: string;
-    }[],
-  
+    }[];
+
+    member: {
+      nickname: string;
+      position: {
+        id: number;
+        name: string;
+      };
+      career: number;
+      memberSkillList: {
+        skillCode: number;
+        name: string;
+        imageName: string;
+      }[];
+
+      introduction: string;
+    };
+    createdDate: string;
+  }[];
+
   status: PROJECT_STATUS;
   createdDate: string;
   view: number;
@@ -172,5 +168,52 @@ export type APPLY_PROJECT_USER_RESPONSE = [
       positionCode: number;
     };
     status: PROJECT_REQUIRE_JOIN_STATUS;
+    createUser: {
+      nickname: string;
+      loginId: string;
+      position: {
+        id: number;
+        name: string;
+      };
+      career: number;
+      memberSkillList: {
+        skillCode: number;
+        name: string;
+        imageName: string;
+      }[];
+      introduction: string;
+    };
   },
 ];
+
+export type APPLY_PROJECT_USER_DETAIL_RESPONSE = {
+  id: number;
+  resumeSelectResult: {
+    id: number;
+    contents: string;
+    career: number;
+    skillCodeList: [
+      {
+        skillCode: number;
+        name: string;
+        imageName: string;
+      },
+    ];
+    positionCode: number;
+  };
+  status: PROJECT_REQUIRE_JOIN_STATUS;
+  createUser: {
+    nickname: string;
+    position: {
+      id: number;
+      name: string;
+    };
+    career: number;
+    memberSkillList: {
+      skillCode: number;
+      name: string;
+      imageName: string;
+    }[];
+    introduction: string;
+  };
+};

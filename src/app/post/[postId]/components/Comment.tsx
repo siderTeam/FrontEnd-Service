@@ -7,16 +7,53 @@ import TextArea from '@/components/TextArea/TextArea';
 import Button from '@/components/Button/Button';
 import { useState } from 'react';
 import { PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
+import { useMutation } from '@tanstack/react-query';
+import { deleteReply, updateReply } from '@/api/project/api';
 
 type Props = {
   data: PROJECT_DETAIL_RESPONSE['projectReplies'][0];
+  refetch: () => void;
 };
 
-const Comment = ({ data }: Props) => {
+const Comment = ({ data, refetch }: Props) => {
   const [textCount, setTextCount] = useState(data.content.length);
   const [inputTextarea, setInputTextarea] = useState(data.content);
   const [isEdit, setIsEdit] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+
+  //댓글 수정 API
+  const { mutate: updateMutate } = useMutation({
+    mutationFn: () => updateReply(data.id, { content: inputTextarea }),
+    onSuccess: async (data) => {
+      if (data.result === true) {
+        alert('댓글 수정 성공!');
+        setIsEdit(false);
+      } else {
+        alert('댓글 수정 실패');
+      }
+      refetch();
+    },
+    onError: () => {
+      console.error('실패');
+    },
+  });
+
+  //댓글 삭제 API
+  const { mutate: deleteMutate } = useMutation({
+    mutationFn: deleteReply,
+    onSuccess: async (data) => {
+      if (data.result === true) {
+        alert('댓글 삭제 성공!');
+        setIsEdit(false);
+      } else {
+        alert('댓글 삭제 실패');
+      }
+      refetch();
+    },
+    onError: () => {
+      console.error('실패');
+    },
+  });
 
   //textarea onChange
   const handleTextChange = (e: any) => {
@@ -24,6 +61,11 @@ const Comment = ({ data }: Props) => {
       handleTextCount(e);
     }
     setInputTextarea(e.target.value);
+
+    //댓글 수정 안한경우
+    if (e.target.value === data.content) {
+      setDisabled(true);
+    }
   };
 
   //textarea 글자 수 카운트
@@ -36,11 +78,18 @@ const Comment = ({ data }: Props) => {
     setTextCount(e.target.value.length);
 
     //댓글 작성 버튼 active(2글자 이상)
-    if (value.length >= 2) {
-      setIsActive(false);
+    if (value.trim().length >= 2) {
+      setDisabled(false);
     } else {
-      setIsActive(true);
+      setDisabled(true);
     }
+  };
+
+  //댓글 수정 취소
+  const handleCancelReplyUpdate = () => {
+    setInputTextarea(data.content);
+    setTextCount(data.content.length);
+    setIsEdit(false);
   };
 
   return (
@@ -57,8 +106,8 @@ const Comment = ({ data }: Props) => {
           </div>
         </div>
         <div className="update">
-          <Image src={'/images/edit/edit_gray6.svg'} alt="edit" width={15} height={15} onClick={() => setIsEdit(true)} style={{ cursor: 'pointer' }} />
-          <Image src={'/images/trash/trash_gray6.svg'} alt="delete" width={13} height={15} style={{ cursor: 'pointer' }} />
+          <StyledImage src={'/images/edit/edit_gray6.svg'} alt="edit" width={15} height={15} onClick={() => setIsEdit(true)} />
+          <StyledImage src={'/images/trash/trash_gray6.svg'} alt="delete" width={13} height={15} onClick={() => deleteMutate(data.id)} />
         </div>
       </div>
       {isEdit ? (
@@ -72,10 +121,10 @@ const Comment = ({ data }: Props) => {
             maxLength={200}
           />
           <div className="button">
-            <Button size="tiny" variant="secondary" onClick={() => setIsEdit(false)}>
+            <Button size="tiny" variant="secondary" onClick={() => handleCancelReplyUpdate()}>
               취소
             </Button>
-            <Button size="tiny" disabled={isActive}>
+            <Button size="tiny" disabled={disabled} onClick={() => updateMutate()}>
               완료
             </Button>
           </div>
@@ -151,4 +200,8 @@ const Container = styled.div`
   .comment {
     margin-left: 50px;
   }
+`;
+
+const StyledImage = styled(Image)`
+  cursor: pointer;
 `;

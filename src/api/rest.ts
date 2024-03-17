@@ -11,6 +11,7 @@ export const rest = {
     projectDetail: '/project/detail',
     increaseProjectView: '/project/view',
     applyProjectUser: '/join/project',
+    applyProjectUserDetail: '/join',
   },
   post: {
     userSignIn: '/user/signIn',
@@ -24,7 +25,11 @@ export const rest = {
     project: '/project/list',
     signOut: '/user/signOut'
   },
-  put: {},
-  delete: {},
+  put: {
+    updateReply: '/reply',
+  },
+  delete: {
+    deleteReply: '/reply',
+  },
   patch: {},
 };

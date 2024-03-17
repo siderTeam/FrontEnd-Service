@@ -3,7 +3,7 @@
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Image from 'next/image';
-import { PROJECT_DETAIL_RESPONSE } from '@/api/projectDetail/model';
+import { PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
 
 type Props = {
   element: any;

@@ -3,7 +3,8 @@
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Image from 'next/image';
-import { PROJECT_DETAIL_RESPONSE } from '@/api/projectDetail/model';
+import { PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
+import { Fragment } from 'react';
 
 type Props = {
   data: PROJECT_DETAIL_RESPONSE | undefined;
@@ -24,19 +25,19 @@ const RecruitInfo = ({ data }: Props) => {
       <div className="title">모집 포지션</div>
       <div className="content">
         {data?.positionCodeList.map((position, index) => (
-          <span key={position.name}>
+          <Fragment key={position.name}>
             {index > 0 && ', '}
             {position.name}
-          </span>
+          </Fragment>
         ))}
       </div>
       <div className="title">스킬</div>
       <div className="content">
         {data?.skillCodeList.map((skill, index) => (
-          <span key={skill.skillCode}>
+          <Fragment key={skill.skillCode}>
             {index > 0 && ', '}
             {skill.name}
-          </span>
+          </Fragment>
         ))}
       </div>
       <div className="title">모집 마감일</div>
