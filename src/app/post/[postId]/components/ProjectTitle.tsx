@@ -9,6 +9,8 @@ import Apply from './Modal/Apply';
 import ApplyStatusContainer from './Modal/ApplyStatusModal/ApplyStatusContainer';
 import { formatForProjectStatus } from 'public/lib/formatForEnum';
 import { PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
+import { getUserInfo } from '@/store/auth.store';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   element: any;
@@ -17,6 +19,8 @@ type Props = {
 };
 
 const ProjectTitle = ({ element, data, postId }: Props) => {
+  const router = useRouter();
+  const identification = getUserInfo().id === data?.createUser.id;
   const [applyModal, setApplyModal] = useState(false);
   const [applyStatusModal, setApplyStatusModal] = useState(false);
 
@@ -30,20 +34,29 @@ const ProjectTitle = ({ element, data, postId }: Props) => {
     setApplyStatusModal(false);
   };
 
+  //모집마강
+  const handleRecruitStatus = () => {
+    if (confirm('모집을 마감하고 요구사항 심사를 진행하시겠습니까?\n(심사 결과는 영업일 기준 3일 이내로 완료됩니다.)')) {
+      console.log('마감');
+    }
+  };
+
   return (
     <>
       <Apply visible={applyModal} onClose={handleCloseApplyModal} postId={postId} />
       {applyStatusModal && <ApplyStatusContainer postId={postId} visible={applyStatusModal} onClose={handleCloseApplyStatusModal} />}
       <Container ref={element}>
         <div className="header">
-          <div className="before">
+          <div className="before" onClick={() => router.back()}>
             <Image src={'/images/arrow/arrow_left_gray6.svg'} alt="arrow" width={5} height={9} />
             <span>이전 페이지로</span>
           </div>
-          <div className="edit">
-            <Image src={'/images/edit/edit_gray6.svg'} alt="edit" width={22} height={22} />
-            <Image src={'/images/trash/trash_gray6.svg'} alt="trash" width={20} height={22} />
-          </div>
+          {identification && (
+            <div className="edit">
+              <StyledImage src={'/images/edit/edit_gray6.svg'} alt="edit" width={22} height={22} />
+              <StyledImage src={'/images/trash/trash_gray6.svg'} alt="trash" width={20} height={22} />
+            </div>
+          )}
         </div>
         <div className="title-wrap top">
           <div className="info">
@@ -59,10 +72,16 @@ const ProjectTitle = ({ element, data, postId }: Props) => {
         <div className="title-wrap">
           <h1 className="project-title">{data?.name}</h1>
           <div className="button">
-            <Button variant="secondary" onClick={() => setApplyStatusModal(true)}>
-              지원현황
-            </Button>
-            <Button onClick={() => setApplyModal(true)}>지원하기</Button>
+            {identification ? (
+              <>
+                <Button variant="secondary" onClick={() => setApplyStatusModal(true)}>
+                  지원현황
+                </Button>
+                <Button onClick={handleRecruitStatus}>모집마감</Button>
+              </>
+            ) : (
+              <Button onClick={() => setApplyModal(true)}>지원하기</Button>
+            )}
           </div>
         </div>
       </Container>
@@ -92,6 +111,7 @@ const Container = styled.div`
   .before {
     display: flex;
     align-items: center;
+    cursor: pointer;
 
     span {
       color: ${color.gray.gray6};
@@ -164,4 +184,8 @@ const Container = styled.div`
       gap: 8px;
     }
   }
+`;
+
+const StyledImage = styled(Image)`
+  cursor: pointer;
 `;

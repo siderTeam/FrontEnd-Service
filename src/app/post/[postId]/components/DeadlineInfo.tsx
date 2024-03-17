@@ -7,6 +7,8 @@ import Button from '@/components/Button/Button';
 import Apply from './Modal/Apply';
 import { useState } from 'react';
 import { PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
+import { getUserInfo } from '@/store/auth.store';
+import ApplyStatusContainer from './Modal/ApplyStatusModal/ApplyStatusContainer';
 
 type Props = {
   element: any;
@@ -15,6 +17,7 @@ type Props = {
 };
 
 const DeadlineInfo = ({ element, data, postId }: Props) => {
+  const identification = getUserInfo().id === data?.createUser.id;
   const [applyModal, setApplyModal] = useState(false);
   //남은기간 계산
   const today = new Date();
@@ -22,7 +25,7 @@ const DeadlineInfo = ({ element, data, postId }: Props) => {
   let period = endDate.getTime() - today.getTime();
   period = period < 0 ? 0 : Math.ceil(period / (1000 * 60 * 60 * 24));
 
-  //지원하기 모달
+  //지원하기 / 지원현황 모달
   const handleCloseApplyModal = () => {
     setApplyModal(false);
   };
@@ -30,6 +33,7 @@ const DeadlineInfo = ({ element, data, postId }: Props) => {
   return (
     <>
       <Apply visible={applyModal} onClose={handleCloseApplyModal} postId={postId} />
+      {applyModal && <ApplyStatusContainer postId={postId} visible={applyModal} onClose={handleCloseApplyModal} />}
       <Container ref={element}>
         <div className="subtitle">
           <Image src={'/images/calendar/calendar_gray5.svg'} alt="calendar" width={20} height={20} />
@@ -50,7 +54,13 @@ const DeadlineInfo = ({ element, data, postId }: Props) => {
               <span>{data?.recruitEndDate.replace(/-/g, '.')}</span>
             </div>
           </div>
-          <Button onClick={() => setApplyModal(true)}>지원하기</Button>
+          {identification ? (
+            <Button variant="secondary" onClick={() => setApplyModal(true)}>
+              지원현황
+            </Button>
+          ) : (
+            <Button onClick={() => setApplyModal(true)}>지원하기</Button>
+          )}
         </div>
       </Container>
     </>

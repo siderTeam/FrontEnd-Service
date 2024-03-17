@@ -155,6 +155,7 @@ export type PROJECT_DETAIL_RESPONSE = {
     }[];
 
     member: {
+      id: number;
       nickname: string;
       position: {
         id: number;
@@ -178,12 +179,19 @@ export type PROJECT_DETAIL_RESPONSE = {
 };
 
 export type PROJECT_DETAIL_CREATE_USER = {
+  id: number;
   nickname: string;
   position: {
     id: number;
     name: string;
   };
   career: number;
+  memberSkillList: {
+    skillCode: number;
+    name: string;
+    imageName: string;
+  }[];
+  introduction: string;
 };
 
 export type REPLY_REQUEST = {
@@ -260,4 +268,9 @@ export type APPLY_PROJECT_USER_DETAIL_RESPONSE = {
     }[];
     introduction: string;
   };
+};
+
+export type JOIN_PROJECT_STATUS_REQUEST = {
+  projectJoinId: number;
+  statusCode: PROJECT_REQUIRE_JOIN_STATUS;
 };

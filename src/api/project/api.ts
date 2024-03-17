@@ -5,6 +5,7 @@ import {
   APPLY_PROJECT_USER_DETAIL_RESPONSE,
   APPLY_PROJECT_USER_RESPONSE,
   CREATE_PROJECT_REQUEST,
+  JOIN_PROJECT_STATUS_REQUEST,
   PROJECT_DETAIL_RESPONSE,
   PROJECT_REQUEST,
   PROJECT_RESPONSE,
@@ -75,8 +76,15 @@ export const getApplyProjectUser = async (projectId: number): Promise<APPLY_PROJ
 };
 
 //프로젝트별 참가 신청 조회 상세
-export const getApplyProjectUserDetail = async(joinId: number): Promise<APPLY_PROJECT_USER_DETAIL_RESPONSE> => {
+export const getApplyProjectUserDetail = async (joinId: number): Promise<APPLY_PROJECT_USER_DETAIL_RESPONSE> => {
   const response = await API.get(`${rest.get.applyProjectUserDetail}/${joinId}`);
 
   return response.data.data;
+};
+
+//프로젝트 참가 상태 수정
+export const updateJoinProjectStatus = async (params: JOIN_PROJECT_STATUS_REQUEST) => {
+  const response = await API.put(`${rest.put.updateJoinStatus}`, params);
+
+  return response.data;
 };

@@ -8,6 +8,8 @@ import Button from '@/components/Button/Button';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { createReply } from '@/api/project/api';
+import { getIsLogin } from '@/store/auth.store';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   replyCount: number;
@@ -16,6 +18,7 @@ type Props = {
 };
 
 const CommentWrite = ({ replyCount, projectId, refetch }: Props) => {
+  const route = useRouter();
   const [textCount, setTextCount] = useState(0);
   const [inputTextarea, setInputTextarea] = useState('');
   const [isActive, setIsActive] = useState(true);
@@ -24,13 +27,15 @@ const CommentWrite = ({ replyCount, projectId, refetch }: Props) => {
     mutationFn: () => createReply(projectId, { content: inputTextarea }),
     onSuccess: async (data) => {
       if (data.result === true) {
-        alert('댓글 작성 성공!');
+        alert('등록이 완료되었습니다.');
       } else {
         alert('댓글 작성 실패');
       }
 
       refetch();
       setInputTextarea('');
+      setTextCount(0);
+      setIsActive(true);
     },
     onError: () => {
       console.error('실패');
@@ -62,6 +67,15 @@ const CommentWrite = ({ replyCount, projectId, refetch }: Props) => {
     }
   };
 
+  //비회원 댓글 작성 시
+  const handleReplyClick = () => {
+    if (getIsLogin() === false) {
+      if (confirm('로그인 후 이용하실 수 있습니다.\n로그인 페이지로 이동하시겠습니까?')) {
+        route.push('/login');
+      }
+    }
+  };
+
   return (
     <Container>
       <div className="subtitle">
@@ -76,6 +90,7 @@ const CommentWrite = ({ replyCount, projectId, refetch }: Props) => {
         placeholder="댓글을 입력하세요. (최소 2글자 이상)"
         textareaCount={textCount}
         maxLength={200}
+        onClick={handleReplyClick}
       />
       <div className="button">
         <Button disabled={isActive} leftIcon="/images/edit/edit_black.svg" iconStyle={{ width: 16, height: 16 }} onClick={() => mutate()}>
