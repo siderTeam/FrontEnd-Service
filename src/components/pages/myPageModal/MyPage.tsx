@@ -121,7 +121,7 @@ const MyPage = () => {
           저장
         </Button>
       </div>
-      <PositionModal visible={visible} onClose={handleModalClose} onClickChoice={handleClickChoice} />
+      <PositionModal visible={visible} onClose={handleModalClose} onClickChoice={handleClickChoice} positionCodeList={positionCodeList} />
     </Container>
   );
 };
