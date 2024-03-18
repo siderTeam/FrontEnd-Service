@@ -7,10 +7,10 @@ import Input from '@/components/Input/Input';
 import useChangeInput from '@/hook/useChangeInput';
 import useChangeSelect from '@/hook/useChangeSelect';
 import { SIGN_UP_REQUEST } from '@/api/auth/model';
-import { POSITION_CODE } from 'public/enum';
 import SelectBox from '@/components/SelectBox/SelectBox';
 import { POSITION_CODE_ARRAY } from 'public/static/requireJudge/static';
 import { useEffect, useState } from 'react';
+import { POSITION_CODE } from 'public/lib/enum';
 
 interface Props {
   onClick: (callback: Callback) => void;
@@ -33,8 +33,8 @@ const ThirdContent = ({ onClick }: Props) => {
     { label: '포지션', value: null },
     ...POSITION_CODE_ARRAY.map((item) => {
       return {
-        label: item.name,
-        value: item.id,
+        label: item.label,
+        value: item.value,
       };
     }),
   ];

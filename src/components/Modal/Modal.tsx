@@ -19,7 +19,7 @@ const Modal = ({ visible, onClose, children, style }: ModalProps) => {
 
 export default Modal;
 
-const Container = styled.div<{ visible: boolean }>`
+const Container = styled.div<{ visible?: boolean }>`
   position: fixed;
   left: 0px;
   top: 0px;

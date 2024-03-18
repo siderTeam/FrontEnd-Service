@@ -32,7 +32,7 @@ const DepositStatus = ({ visible, onClose }: ModalProps) => {
         <div className="subtext">프로젝트 참여자의 보증금 납입현황을 확인합니다.</div>
         <div className="modal-content">
           <div className="content">
-            <Profile />
+            {/* <Profile /> */}
             <div className="info">
               <div className="title">납부금액</div>
               <div className="pay">888,888원</div>

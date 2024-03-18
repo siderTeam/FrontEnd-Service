@@ -1,17 +1,16 @@
 import styled from "@emotion/styled";
 
 import Label from "../Label/Label";
-import SelectBox from "../SelectBox/SelectBox";
+import SelectBox, { SelectBoxProps } from "../SelectBox/SelectBox";
 
 import {
-  SelectBoxProps,
   LABELINPUT_STYLE_PROPS,
   LabelProps,
 } from "@/types/types";
 
 type LabelSelectProps = {
   labelOption: LabelProps;
-  selectOption: SelectBoxProps;
+  selectOption: SelectBoxProps<{ label: string; value: string}>;
   location?: "left" | "top";
   style?: React.CSSProperties;
 };

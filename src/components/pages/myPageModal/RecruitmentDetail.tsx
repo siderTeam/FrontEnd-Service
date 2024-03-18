@@ -2,7 +2,6 @@
 
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
-import Modal from '@/components/Modal/Modal';
 import Input from '@/components/Input/Input';
 import TextArea from '@/components/TextArea/TextArea';
 import Button from '@/components/Button/Button';
@@ -12,7 +11,7 @@ import MyProfile from '@/components/MyProfile/MyProfile';
 const RecruitmentDetail = () => {
   return (
     <Container>
-      <MyProfile style={{ marginTop: '60px', marginBottom: '40px' }} />
+      <MyProfile name="test" career={99} position='test'  style={{ marginTop: '60px', marginBottom: '40px' }} />
 
       <div className="wrap">
         <Label label="한 줄 소개">
