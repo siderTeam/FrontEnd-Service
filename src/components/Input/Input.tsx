@@ -84,7 +84,7 @@ const Input = ({
         ref={ref}
         {...rest}
       />
-      {icon && <Image src={icon} width={16} height={16} alt="icon" className="icon" onClick={onClickIcon} />}
+      {icon && <Image src={icon} width={16} height={16} alt="icon" className="icon" onClick={onClick} />}
 
       {suffix && <div className="suffix">{suffix}</div>}
       {subText && <SubText color={status}>{subText}</SubText>}

@@ -23,6 +23,7 @@ import Calender from '@/components/Calendar/Calender';
 import useChangeSelect from '@/hook/useChangeSelect';
 import { MONTH } from 'public/static/requireJudge/static';
 import { format } from 'date-fns';
+import { useRouter } from 'next/navigation';
 
 const initialParams: CREATE_PROJECT_REQUEST = {
   count: '' as unknown as number,
@@ -59,8 +60,9 @@ const initialInputs = {
 };
 
 const Page = () => {
+  const route = useRouter();
   const { handleModal, handleModalClose, visible } = useHandleModal(false);
-  const { handleModal: handleSkillModal, handleModalClose: handleModalCloseSkill, visible: skillModalVisbile } = useHandleModal(false);
+  const { handleModal: handleSkillModal, handleModalClose: handleModalCloseSkill, visible: skillModalVisible } = useHandleModal(false);
 
   const { inputs, onChange, setInputs } = useChangeInputs(initialInputs);
   const { select, onChange: onChangeSelect } = useChangeSelect(1);
@@ -97,6 +99,9 @@ const Page = () => {
     onSuccess: async (data) => {
       if (data.result === true) {
         console.log('성공');
+        const id = data.data;
+        route.push(`/post/${id}`);
+        alert('프로젝트가 정상적으로 등록 되었습니다.');
       }
     },
     onError: () => {
@@ -107,10 +112,17 @@ const Page = () => {
   const handleClickPost = () => {
     const totalPoint = requirements.reduce((acc, obj) => Number(acc) + Number(obj.point), 0);
 
-    if (totalPoint !== 100) {
+    if (inputs.count < 2) {
+      alert('모집 인원은 2명 이상 20명 이하 이어야 합니다.');
+      return;
+    } else if (inputs.name.length < 5) {
+      alert('프로젝트 명은 5글자 이상 50글자 이하로 작성해주세요.');
+      return;
+    } else if (totalPoint !== 100) {
       alert('요구사항 점수는 총 100점 이어야 합니다.');
       return;
     }
+
     const params = {
       ...inputs,
       positionCodeList: positionCodeList.map((item) => item.value),
@@ -321,7 +333,7 @@ const Page = () => {
         </Button>
       </div>
       {visible && <PositionModal visible={visible} onClose={handleModalClose} onClickChoice={handleClickChoice} positionCodeList={positionCodeList} />}
-      {visible && <SkillModal visible={skillModalVisbile} onClose={handleModalCloseSkill} onClickChoice={handleClickChoice} skillList={skillList} />}
+      {skillModalVisible && <SkillModal visible={skillModalVisible} onClose={handleModalCloseSkill} onClickChoice={handleClickChoice} skillList={skillList} />}
     </Container>
   );
 };
