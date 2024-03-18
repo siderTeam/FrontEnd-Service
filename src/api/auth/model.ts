@@ -61,3 +61,9 @@ export type USER_INFO_RESPONSE = {
   phone: string;
   positionCode: number;
 };
+
+export type USER_INFO_HEADER_RESPONSE = {
+  name: string;
+  career: number;
+  positionCode: number;
+};
