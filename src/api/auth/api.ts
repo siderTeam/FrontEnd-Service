@@ -16,12 +16,6 @@ export const getUserInfo = async (): Promise<USER_INFO_RESPONSE> => {
   return response.data.data;
 };
 
-export const getUserInfoHeader = async (): Promise<USER_INFO_HEADER_RESPONSE> => {
-  const response = await API.get(rest.get.userInfo);
-
-  return response.data.data;
-};
-
 // 로그아웃
 export const signOut = async (): Promise<USER_INFO_RESPONSE> => {
   const response = await API.post(rest.post.signOut);
