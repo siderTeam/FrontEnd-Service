@@ -31,6 +31,7 @@ export const rest = {
   },
   delete: {
     deleteReply: '/reply',
+    deleteProject: '/project',
   },
   patch: {},
 };

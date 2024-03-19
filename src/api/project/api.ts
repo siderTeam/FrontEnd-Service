@@ -26,6 +26,13 @@ export const postCreateProject = async (params: CREATE_PROJECT_REQUEST) => {
   return response.data;
 };
 
+//모집글 삭제
+export const deleteProject = async (projectId: number) => {
+  const response = await API.delete(`${rest.delete.deleteProject}/${projectId}`);
+
+  return response.data;
+}
+
 //프로젝트 단건 조회
 export const getProjectDetail = async (projectId: number): Promise<PROJECT_DETAIL_RESPONSE> => {
   const response = await API.get(`${rest.get.projectDetail}/${projectId}`);

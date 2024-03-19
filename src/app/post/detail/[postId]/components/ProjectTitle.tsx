@@ -11,6 +11,8 @@ import { formatForProjectStatus } from 'public/lib/formatForEnum';
 import { PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
 import { getUserInfo } from '@/store/auth.store';
 import { useRouter } from 'next/navigation';
+import { useMutation } from '@tanstack/react-query';
+import { deleteProject } from '@/api/project/api';
 
 type Props = {
   element: any;
@@ -24,6 +26,22 @@ const ProjectTitle = ({ element, data, postId }: Props) => {
   const [applyModal, setApplyModal] = useState(false);
   const [applyStatusModal, setApplyStatusModal] = useState(false);
 
+  const { mutate } = useMutation({
+    mutationFn: deleteProject,
+    onSuccess: async (data) => {
+      if (data.result === true) {
+        alert('모집글이 삭제되었습니다.');
+
+        router.push('/');
+      } else {
+        alert('모집글 삭제 실패');
+      }
+    },
+    onError: () => {
+      console.error('실패');
+    }
+  })
+
   //지원하기 모달
   const handleCloseApplyModal = () => {
     setApplyModal(false);
@@ -34,10 +52,17 @@ const ProjectTitle = ({ element, data, postId }: Props) => {
     setApplyStatusModal(false);
   };
 
-  //모집마강
+  //모집마감
   const handleRecruitStatus = () => {
     if (confirm('모집을 마감하시겠습니까?')) {
       console.log('마감');
+    }
+  };
+
+  //모집글 삭제
+  const handleDeleteProject = () => {
+    if (confirm('모집글을 삭제하시겠습니까?')) {
+      mutate(postId);
     }
   };
 
@@ -54,7 +79,7 @@ const ProjectTitle = ({ element, data, postId }: Props) => {
           {identification && (
             <div className="edit">
               <StyledImage src={'/images/edit/edit_gray6.svg'} alt="edit" width={22} height={22} />
-              <StyledImage src={'/images/trash/trash_gray6.svg'} alt="trash" width={20} height={22} />
+              <StyledImage src={'/images/trash/trash_gray6.svg'} alt="trash" width={20} height={22} onClick={handleDeleteProject} />
             </div>
           )}
         </div>
