@@ -60,10 +60,10 @@ export type USER_INFO_RESPONSE = {
   introduction: string;
   phone: string;
   positionCode: number;
+  skillCodeList: number[];
 };
 
 export type USER_INFO_UPDATE_REQUEST = {
-  id: number;
   nickname: string;
   career: number;
   positionCode: number;

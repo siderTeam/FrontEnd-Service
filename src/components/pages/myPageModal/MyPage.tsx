@@ -13,21 +13,11 @@ import { formatForPositionCode } from 'public/lib/formatForEnum';
 import useHandleModal from '@/hook/useHandleModal';
 import PositionModal from '@/components/PositionModal/PositionModal';
 import { OPTION_TYPE } from '@/components/SelectBox/SelectBox';
-import { getUserInfo } from '@/store/auth.store';
+import { getUserInfo, useAuthStore } from '@/store/auth.store';
 import { useMutation } from '@tanstack/react-query';
 import { updateUserInfo } from '@/api/auth/api';
 
-const initialParams = {
-  id: 0,
-  nickname: '',
-  career: 0,
-  positionCode: 0,
-  skillCodeList: [],
-  introduction: '',
-};
-
 const initialInputs = {
-  id: 0,
   nickname: '',
   career: 0,
   positionCode: 0,
@@ -35,22 +25,26 @@ const initialInputs = {
 };
 
 const MyPage = () => {
-  const data = getUserInfo();
-
-  const [params, setParams] = useState(initialParams);
   const { inputs, setInputs, onChange } = useChangeInputs(initialInputs);
   const [textArea, setTextArea] = useState('');
   const [textareaCount, setTextareaCount] = useState(0);
   const { handleModal, handleModalClose, visible } = useHandleModal(false);
   const [positionCodeList, setPositionCodeList] = useState<OPTION_TYPE[]>([]);
 
-  console.log('params', params);
+  const data = getUserInfo();
+
+  console.log('data', data);
+
+  const { setUserInfo } = useAuthStore((state) => {
+    return {
+      setUserInfo: state.setUserInfo,
+    };
+  });
 
   useEffect(() => {
     if (data) {
       setInputs({
         ...inputs,
-        id: data.id,
         career: data.career,
         nickname: data.nickname,
         positionCode: data.positionCode,
@@ -90,9 +84,16 @@ const MyPage = () => {
 
   const { mutate } = useMutation({
     mutationFn: updateUserInfo,
-    onSuccess: async (data) => {
-      if (data.result === true) {
-        console.log('성공');
+    onSuccess: async (_data) => {
+      if (_data.result === true) {
+        setUserInfo({
+          ...data,
+          nickname: inputs.nickname,
+          career: inputs.career,
+          positionCode: inputs.positionCode,
+          skillCodeList: inputs.skillCodeList,
+          introduction: textArea,
+        });
       }
     },
     onError: () => {
@@ -101,10 +102,7 @@ const MyPage = () => {
   });
 
   const handleMutate = () => {
-    // setParams();
-
     mutate({
-      id: inputs.id,
       nickname: inputs.nickname,
       career: inputs.career,
       positionCode: inputs.positionCode,
