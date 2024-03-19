@@ -4,6 +4,7 @@ import {
   APPLY_PROJECT_REQUEST,
   APPLY_PROJECT_USER_DETAIL_RESPONSE,
   APPLY_PROJECT_USER_RESPONSE,
+  CHECK_JOIN_PROJECT,
   CREATE_PROJECT_REQUEST,
   JOIN_PROJECT_STATUS_REQUEST,
   PROJECT_DETAIL_RESPONSE,
@@ -31,7 +32,7 @@ export const deleteProject = async (projectId: number) => {
   const response = await API.delete(`${rest.delete.deleteProject}/${projectId}`);
 
   return response.data;
-}
+};
 
 //프로젝트 단건 조회
 export const getProjectDetail = async (projectId: number): Promise<PROJECT_DETAIL_RESPONSE> => {
@@ -94,4 +95,11 @@ export const updateJoinProjectStatus = async (params: JOIN_PROJECT_STATUS_REQUES
   const response = await API.put(`${rest.put.updateJoinStatus}`, params);
 
   return response.data;
+};
+
+//프로젝트 지원여부(로그인 한 유저 대상)
+export const getCheckJoinProject = async (projectId: number): Promise<CHECK_JOIN_PROJECT> => {
+  const response = await API.get(`${rest.get.checkJoinProject}/${projectId}`);
+
+  return response.data.data;
 };

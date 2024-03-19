@@ -16,7 +16,8 @@ import { useObserver } from '@/hook/useObserver';
 import { useQuery } from '@tanstack/react-query';
 import { rest } from '@/api/rest';
 import { useParams } from 'next/navigation';
-import { getProjectDetail, increaseProjectView } from '@/api/project/api';
+import { getCheckJoinProject, getProjectDetail, increaseProjectView } from '@/api/project/api';
+import { getIsLogin } from '@/store/auth.store';
 
 const Page = () => {
   const { postId } = useParams();
@@ -27,6 +28,13 @@ const Page = () => {
   const projectView = useQuery({
     queryKey: [rest.get.increaseProjectView],
     queryFn: () => increaseProjectView(postId as unknown as number),
+  });
+
+  //프로젝트 지원 여부(로그인 한 경우만)
+  const { data: checkJoinProject } = useQuery({
+    queryKey: [rest.get.checkJoinProject],
+    queryFn: () => getCheckJoinProject(postId as unknown as number),
+    enabled: getIsLogin(),
   });
 
   //프로젝트 단건 조회

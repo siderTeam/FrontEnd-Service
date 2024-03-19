@@ -274,3 +274,8 @@ export type JOIN_PROJECT_STATUS_REQUEST = {
   projectJoinId: number;
   statusCode: PROJECT_REQUIRE_JOIN_STATUS;
 };
+
+export type CHECK_JOIN_PROJECT = {
+  isRequestJoined: boolean; //프로젝트 지원 여부
+  isJoinedProject: boolean; //프로젝트 맴버 여부
+};
