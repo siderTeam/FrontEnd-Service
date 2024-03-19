@@ -17,7 +17,7 @@ import { useQuery } from '@tanstack/react-query';
 import { rest } from '@/api/rest';
 import { useParams } from 'next/navigation';
 import { getCheckJoinProject, getProjectDetail, increaseProjectView } from '@/api/project/api';
-import { getIsLogin } from '@/store/auth.store';
+import { getIsLogin, getUserInfo } from '@/store/auth.store';
 
 const Page = () => {
   const { postId } = useParams();
@@ -30,17 +30,17 @@ const Page = () => {
     queryFn: () => increaseProjectView(postId as unknown as number),
   });
 
-  //프로젝트 지원 여부(로그인 한 경우만)
-  const { data: checkJoinProject } = useQuery({
-    queryKey: [rest.get.checkJoinProject],
-    queryFn: () => getCheckJoinProject(postId as unknown as number),
-    enabled: getIsLogin(),
+  //프로젝트 단건 조회
+  const { data, refetch, isSuccess } = useQuery({
+    queryKey: [rest.get.projectDetail, postId, postId],
+    queryFn: () => getProjectDetail(postId as unknown as number),
   });
 
-  //프로젝트 단건 조회
-  const { data, refetch } = useQuery({
-    queryKey: [rest.get.projectDetail],
-    queryFn: () => getProjectDetail(postId as unknown as number),
+  //프로젝트 지원 여부(로그인 한 경우 + 모집글 작성자가 아닌 경우)
+  const { data: checkJoinProject, refetch: checkJoinRefetch } = useQuery({
+    queryKey: [rest.get.checkJoinProject],
+    queryFn: () => getCheckJoinProject(postId as unknown as number),
+    enabled: isSuccess && getIsLogin() && getUserInfo().id !== data.createUser.id,
   });
 
   const router = [
@@ -106,7 +106,13 @@ const Page = () => {
       </div>
       <div className="project-container">
         <div ref={router[0].observe} />
-        <ProjectTitle element={titleRef} data={data} postId={postId as unknown as number} />
+        <ProjectTitle
+          element={titleRef}
+          data={data}
+          postId={postId as unknown as number}
+          checkJoin={checkJoinProject}
+          checkJoinRefetch={checkJoinRefetch}
+        />
         <RecruitInfo data={data} />
         <ProjectInfo content={data?.content || ''} />
         <FunctionInfo element={router[1].observe} data={data} />

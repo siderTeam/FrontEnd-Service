@@ -8,8 +8,8 @@ import Button from '@/components/Button/Button';
 import Apply from './Modal/Apply';
 import ApplyStatusContainer from './Modal/ApplyStatusModal/ApplyStatusContainer';
 import { formatForProjectStatus } from 'public/lib/formatForEnum';
-import { PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
-import { getUserInfo } from '@/store/auth.store';
+import { CHECK_JOIN_PROJECT, PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
+import { getIsLogin, getUserInfo } from '@/store/auth.store';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import { deleteProject } from '@/api/project/api';
@@ -18,10 +18,12 @@ type Props = {
   element: any;
   data?: PROJECT_DETAIL_RESPONSE;
   postId: number;
+  checkJoin?: CHECK_JOIN_PROJECT;
+  checkJoinRefetch: () => void;
 };
 
-const ProjectTitle = ({ element, data, postId }: Props) => {
-  const router = useRouter();
+const ProjectTitle = ({ element, data, postId, checkJoin, checkJoinRefetch }: Props) => {
+  const route = useRouter();
   const identification = getUserInfo().id === data?.createUser.id;
   const [applyModal, setApplyModal] = useState(false);
   const [applyStatusModal, setApplyStatusModal] = useState(false);
@@ -32,15 +34,15 @@ const ProjectTitle = ({ element, data, postId }: Props) => {
       if (data.result === true) {
         alert('모집글이 삭제되었습니다.');
 
-        router.push('/');
+        route.push('/');
       } else {
         alert('모집글 삭제 실패');
       }
     },
     onError: () => {
       console.error('실패');
-    }
-  })
+    },
+  });
 
   //지원하기 모달
   const handleCloseApplyModal = () => {
@@ -66,13 +68,31 @@ const ProjectTitle = ({ element, data, postId }: Props) => {
     }
   };
 
+  //지원하기
+  const handleApply = () => {
+    if (getIsLogin()) {
+      setApplyModal(true);
+    } else {
+      if (confirm('로그인 후 이용하실 수 있습니다.\n로그인 페이지로 이동하시겠습니까?')) {
+        route.push('/login');
+      }
+    }
+  };
+
+  //지원 취소
+  const handleCancelApply = () => {
+    if (confirm('해당 프로젝트 지원을 취소하시겠습니까?')) {
+      console.log('취소');
+    }
+  };
+
   return (
     <>
-      <Apply visible={applyModal} onClose={handleCloseApplyModal} postId={postId} />
+      <Apply visible={applyModal} onClose={handleCloseApplyModal} postId={postId} checkJoinRefetch={checkJoinRefetch} />
       {applyStatusModal && <ApplyStatusContainer postId={postId} visible={applyStatusModal} onClose={handleCloseApplyStatusModal} />}
       <Container ref={element}>
         <div className="header">
-          <div className="before" onClick={() => router.back()}>
+          <div className="before" onClick={() => route.back()}>
             <Image src={'/images/arrow/arrow_left_gray6.svg'} alt="arrow" width={5} height={9} />
             <span>이전 페이지로</span>
           </div>
