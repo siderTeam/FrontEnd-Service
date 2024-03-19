@@ -24,7 +24,7 @@ const RootProvider = ({ children }: any) => {
     return {
       setUserInfo: state.setUserInfo,
       setIsLogin: state.setIsLogin,
-      isLogin: state.isLogin
+      isLogin: state.isLogin,
     };
   });
 
@@ -36,12 +36,13 @@ const RootProvider = ({ children }: any) => {
 
   // 유저 정보 담기
   useEffect(() => {
-    const accesToken = getCookie('accessToken');
-    if (!!accesToken) {
+    const accessToken = getCookie('accessToken');
+    if (!!accessToken) {
       if (data) {
         setUserInfo(data);
         setIsLogin(true);
       }
+
       if (error) {
         alert('로그인 세션이 만료되었습니다.');
         handleSignOut();
@@ -49,10 +50,6 @@ const RootProvider = ({ children }: any) => {
       }
     }
   }, [data, error, getCookie('accessToken')]);
-
-  console.log("isLogin", isLogin)
-
-  
 
   return rendered && <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 };

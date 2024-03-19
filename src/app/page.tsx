@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import SelectInput from '@/components/SelectInput/SelectInput';
 import Image from 'next/image';
-import { postProject } from '@/api/project/api';
+import { getProjectOrderBy, postProject } from '@/api/project/api';
 import PositionModal from '@/components/PositionModal/PositionModal';
 import useHandleModal from '@/hook/useHandleModal';
 import { OPTION_TYPE } from '@/components/SelectBox/SelectBox';
@@ -25,6 +25,12 @@ const initialParams = {
   status: null,
 };
 
+const initialOrderByParams = {
+  orderBy: 'createDate',
+  size: 4,
+  sort: 1,
+};
+
 const Page = () => {
   const [params, setParams] = useState<PROJECT_REQUEST>(initialParams);
   const [filterType, setFilterType] = useState('all');
@@ -32,11 +38,18 @@ const Page = () => {
   const { handleModal: handleSkillModal, handleModalClose: handleModalCloseSkill, visible: skillModalVisible } = useHandleModal(false);
   const [positionCodeList, setPositionCodeList] = useState<OPTION_TYPE[]>([]);
   const [skillList, setSkillList] = useState<SKILL_TYPE[]>([]);
-  const { input, setInput, onChange } = useChangeInput('');
+  const { input, onChange } = useChangeInput('');
 
-  const { data } = useQuery({
+  const projectList = useQuery({
     queryKey: [rest.post.project, params],
     queryFn: ({ queryKey }) => postProject(queryKey[1] as unknown as PROJECT_REQUEST),
+  });
+
+  const orderByProject = useQuery({
+    queryKey: [rest.get.projectOrderBy, initialOrderByParams],
+    queryFn: () => {
+      return getProjectOrderBy(initialOrderByParams);
+    },
   });
 
   const handleSearchKeyword = () => {
@@ -91,7 +104,26 @@ const Page = () => {
 
       <div className="title">새로 등록된 프로젝트</div>
 
-      <div className="title">프로젝트</div>
+      <CardContainer>
+        <Imsi>
+          {orderByProject.data?.map((item) => (
+            <Card
+              key={item.id}
+              id={item.id}
+              title={item.name}
+              startDate={item.recruitStartDate}
+              endDate={item.recruitEndDate}
+              deposit={item.deposit}
+              skillCodeList={item.skillCodeList}
+              createUser={item.createUser}
+            />
+          ))}
+        </Imsi>
+      </CardContainer>
+
+      <div className="title" style={{ marginTop: 76 }}>
+        프로젝트
+      </div>
       <FilterWrap>
         <div className="filter-wrap">
           <div className={filterType === 'all' ? 'choice' : 'basic'} onClick={() => handleFilterClick('all')}>
@@ -125,7 +157,7 @@ const Page = () => {
       </FilterWrap>
       <CardContainer>
         <Imsi>
-          {data?.map((item) => (
+          {projectList.data?.map((item) => (
             <Card
               key={item.id}
               id={item.id}

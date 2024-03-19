@@ -7,7 +7,7 @@ export type CREATE_PROJECT_REQUEST = {
   positionCodeList: POSITION_CODE[] | null;
   skillCodeList: number[];
   recruitEndDate: string;
-  month: number;
+  week: number;
   deposit: number;
   requiredContentsList: {
     content: string;
@@ -279,4 +279,10 @@ export type CHECK_JOIN_PROJECT = {
   isRequestJoined: boolean; //프로젝트 지원 여부
   isJoinedProject: boolean; //프로젝트 맴버 여부
   joinStatus: PROJECT_REQUIRE_JOIN_STATUS;
+}
+
+export type PROJECT_ORDER_BY_REQUEST = {
+  orderBy: string;
+  size: number;
+  sort: number;
 };

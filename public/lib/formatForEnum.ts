@@ -43,8 +43,8 @@ export const formatForProjectStatus = (status: PROJECT_STATUS): string => {
 
 export const formatForPositionCode = (status: POSITION_CODE): string => {
   const returnStatus = new Map([
-    [POSITION_CODE.DESIGN, '디자이너'],
-    [POSITION_CODE.FRONT, '프론트엔드'],
+    [POSITION_CODE.DESIGN, '디자인'],
+    [POSITION_CODE.FRONT, '프론트'],
     [POSITION_CODE.BACKEND, '백엔드'],
     [POSITION_CODE.SERVER, '서버/인프라'],
     [POSITION_CODE.ETC, '기타'],
@@ -53,13 +53,13 @@ export const formatForPositionCode = (status: POSITION_CODE): string => {
   return returnStatus.get(status) ?? '';
 };
 
-  /**
-   * [프로젝트 가입 신청 승인 상태]
-   * 대기 37,
-   * 반려 38,
-   * 승인 39,
-   * 취소 40,
-   */
+/**
+ * [프로젝트 가입 신청 승인 상태]
+ * 대기 37,
+ * 반려 38,
+ * 승인 39,
+ * 취소 40,
+ */
 
 export const formatForProjectJoinStatus = (status: PROJECT_REQUIRE_JOIN_STATUS): string => {
   const returnStatus = new Map([
@@ -68,6 +68,6 @@ export const formatForProjectJoinStatus = (status: PROJECT_REQUIRE_JOIN_STATUS):
     [PROJECT_REQUIRE_JOIN_STATUS.APPROVED, '승인'],
     [PROJECT_REQUIRE_JOIN_STATUS.CANCELED, '취소'],
   ]);
-  
+
   return returnStatus.get(status) ?? '';
-}
+};

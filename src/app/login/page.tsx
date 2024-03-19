@@ -14,6 +14,7 @@ import { setCookie } from 'public/lib/util';
 import { useRouter } from 'next/navigation';
 import { USER_SIGNIN_REQUEST } from '@/api/auth/model';
 import { useAuthStore } from '@/store/auth.store';
+import { getUserInfo } from '@/api/auth/api';
 
 const Page = () => {
   const route = useRouter();
@@ -51,8 +52,6 @@ const Page = () => {
       if (data.result === true) {
         await getAccessToken(data.data)
           .then((res) => {
-            setUserInfo(res.data);
-            
             setCookie('accessToken', res.data.accessToken);
 
             setIsLogin(true);
@@ -60,6 +59,11 @@ const Page = () => {
           .then(() => {
             route.push('/');
           });
+
+        await getUserInfo().then((res) => {
+          setUserInfo(res);
+        });
+
         setStatus({
           showErrorText: true,
           username: true,

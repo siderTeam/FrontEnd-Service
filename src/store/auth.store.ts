@@ -22,6 +22,7 @@ export const initialUserInfo = {
   introduction: '',
   phone: '',
   positionCode: 0,
+  skillCodeList: [0],
 };
 
 export type USER_STORE_PERSIST = (config: StateCreator<Type>, options: PersistOptions<Type>) => StateCreator<Type>;

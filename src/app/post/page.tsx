@@ -31,7 +31,7 @@ const initialParams: CREATE_PROJECT_REQUEST = {
   positionCodeList: [],
   skillCodeList: [],
   recruitEndDate: '',
-  month: '' as unknown as number,
+  week: '' as unknown as number,
   deposit: '' as unknown as number,
   requiredContentsList: [
     {
@@ -100,7 +100,7 @@ const Page = () => {
       if (data.result === true) {
         console.log('성공');
         const id = data.data;
-        route.push(`/post/${id}`);
+        route.push(`/post/detail/${id}`);
         alert('프로젝트가 정상적으로 등록 되었습니다.');
       }
     },
@@ -128,7 +128,7 @@ const Page = () => {
       positionCodeList: positionCodeList.map((item) => item.value),
       skillCodeList: skillList.map((item) => item.id),
       recruitEndDate: format(date.end, 'yyyy-MM-dd'),
-      month: select,
+      week: select,
       requiredContentsList: requirements,
     };
 
@@ -233,7 +233,14 @@ const Page = () => {
 
               <div className="wrap" style={{ flex: 1 }}>
                 <div className="title">진행 기간</div>
-                <SelectBox optionStyle={{ width: '100%' }} style={{ width: '100%' }} options={MONTH} onChange={onChangeSelect} value={select} />
+                <SelectBox
+                  optionStyle={{ width: 242, height: 33 }}
+                  optionWrapperStyle={{ top: 32 }}
+                  style={{ width: '100%', height: 33 }}
+                  options={MONTH}
+                  onChange={onChangeSelect}
+                  value={select}
+                />
               </div>
             </div>
             <div className="wrap">

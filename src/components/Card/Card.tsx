@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Profile from '../Profile/Profile';
 import { black } from '@/styles/color';
 import { PROJECT_DETAIL_CREATE_USER } from '@/api/project/model';
-import { PROJECT_RESPONSE } from '@/api/project/model';
 import Link from 'next/link';
 
 const color = ['red', 'yellow', 'purple', 'green', 'blue'];
@@ -23,7 +22,7 @@ export type CardProps = {
   deposit: number;
   children?: any;
   style?: React.CSSProperties;
-  skillCodeList: skillCodeType[];
+  skillCodeList?: skillCodeType[];
   createUser: PROJECT_DETAIL_CREATE_USER;
   id: number;
 };
@@ -37,8 +36,8 @@ const ProjectCard = ({ title, startDate, endDate, deposit, skillCodeList, create
         <CardWrap>
           <div className="subTitle">모집 마감일 {endDate}</div>
           <div className="skillWrap">
-            {skillCodeList.map((item, index) => (
-              <Image key={`${item.name}_${index}`} src={`/images/skillIcons/${item.imageName}.svg`} alt="profile" width={32} height={32} />
+            {skillCodeList?.map((item, index) => (
+              <Image src={`/images/skillIcons/${item.imageName}.svg`} alt="profile" width={32} height={32} key={`${item.name}_${index}`} />
             ))}
           </div>
           <h1 className="title">{title}</h1>
