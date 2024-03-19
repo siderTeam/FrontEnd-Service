@@ -5,13 +5,53 @@ import { color } from '@/styles/color';
 import Modal from '@/components/Modal/Modal';
 import TextArea from '@/components/TextArea/TextArea';
 import Button from '@/components/Button/Button';
+import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { updateJoinProjectStatus } from '@/api/project/api';
+import { PROJECT_REQUIRE_JOIN_STATUS } from 'public/lib/enum';
 
 type ModalProps = {
   visible: boolean;
   onClose: () => void;
+  joinId: number;
+  refetch: () => void;
 };
 
-const CompanionReason = ({ visible, onClose }: ModalProps) => {
+const CompanionReason = ({ visible, onClose, joinId, refetch }: ModalProps) => {
+  const [inputTextarea, setInputTextarea] = useState('');
+
+  const { mutate } = useMutation({
+    mutationFn: updateJoinProjectStatus,
+    onSuccess: async (data) => {
+      if (data.result === true) {
+        alert('반려처리가 완료됐습니다.');
+      } else {
+        alert('실패');
+      }
+      setInputTextarea('');
+      onClose();
+      refetch();
+    },
+    onError: () => {
+      console.error('실패');
+    },
+  });
+
+  const handleTextareaChange = (e: any) => {
+    setInputTextarea(e.target.value);
+  };
+
+  const handleClick = () => {
+    if (inputTextarea.length <= 0) {
+      alert('반려사유를 입력해주세요.');
+      return;
+    }
+
+    if (confirm('반려하시겠습니까?')) {
+      mutate({ projectJoinId: joinId, statusCode: PROJECT_REQUIRE_JOIN_STATUS.REJECTED });
+    }
+  };
+
   return (
     <Modal
       style={{
@@ -30,9 +70,11 @@ const CompanionReason = ({ visible, onClose }: ModalProps) => {
     >
       <Container>
         <div className="modal-title">반려 사유 입력</div>
-        <TextArea style={{ width: '100%', height: 60 }} />
+        <TextArea style={{ width: '100%', height: 60 }} value={inputTextarea} onChange={handleTextareaChange} placeholder="반려사유를 입력하세요." />
         <div className="button">
-          <Button variant="error">반려</Button>
+          <Button variant="error" onClick={handleClick}>
+            반려
+          </Button>
         </div>
       </Container>
     </Modal>
