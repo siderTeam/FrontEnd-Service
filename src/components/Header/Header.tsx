@@ -45,18 +45,28 @@ const Header = () => {
             </Button>
           </Link>
         )}
-
-        <Profile
-          onClick={() => setModal(true)}
-          career={data?.career as unknown as number}
-          positionName={formatForPositionCode(data?.positionCode as unknown as number)}
-          name={data?.name as unknown as string}
-        />
+        {isLogin && (
+          <Profile
+            onClick={() => setModal(true)}
+            career={data?.career as unknown as number}
+            positionName={formatForPositionCode(data?.positionCode as unknown as number)}
+            name={data?.name as unknown as string}
+          />
+        )}
 
         {modal && <MyPageContainer visible={modal} onClose={handleCloseModal} />}
-        <Image src="/images/icons/Person_white.svg" alt="myPage" width={24} height={24} onClick={() => setModal(true)} style={{ cursor: 'pointer' }} />
+        {isLogin && (
+          <Image src="/images/icons/Person_white.svg" alt="myPage" width={24} height={24} onClick={() => setModal(true)} style={{ cursor: 'pointer' }} />
+        )}
+        {isLogin && <Image onClick={handleClickLogout} src="/images/icons/On_white.svg" alt="logout" width={24} height={24} style={{ cursor: 'pointer' }} />}
 
-        <Image onClick={handleClickLogout} src="/images/icons/On_white.svg" alt="logout" width={24} height={24} style={{ cursor: 'pointer' }} />
+        {!isLogin && (
+          <Link href="/login">
+            <Button leftIcon="/images/on/On_black.svg" size="medium" variant="primary">
+              로그인
+            </Button>
+          </Link>
+        )}
       </div>
     </StyledHeader>
   );
