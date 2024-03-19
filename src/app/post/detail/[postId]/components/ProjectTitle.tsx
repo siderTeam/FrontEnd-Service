@@ -36,7 +36,7 @@ const ProjectTitle = ({ element, data, postId }: Props) => {
 
   //모집마강
   const handleRecruitStatus = () => {
-    if (confirm('모집을 마감하고 요구사항 심사를 진행하시겠습니까?\n(심사 결과는 영업일 기준 3일 이내로 완료됩니다.)')) {
+    if (confirm('모집을 마감하시겠습니까?')) {
       console.log('마감');
     }
   };
