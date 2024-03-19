@@ -121,7 +121,9 @@ const Page = () => {
         </Imsi>
       </CardContainer>
 
-      <div className="title">프로젝트</div>
+      <div className="title" style={{ marginTop: 76 }}>
+        프로젝트
+      </div>
       <FilterWrap>
         <div className="filter-wrap">
           <div className={filterType === 'all' ? 'choice' : 'basic'} onClick={() => handleFilterClick('all')}>
