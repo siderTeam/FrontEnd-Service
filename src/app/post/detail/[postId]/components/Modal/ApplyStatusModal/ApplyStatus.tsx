@@ -17,6 +17,7 @@ type props = {
 
 const STATUS_APPROVED = PROJECT_REQUIRE_JOIN_STATUS.APPROVED;
 const STATUS_REJECTED = PROJECT_REQUIRE_JOIN_STATUS.REJECTED;
+const STATUS_CANCELED = PROJECT_REQUIRE_JOIN_STATUS.CANCELED;
 
 const ApplyStatus = ({ onClick, postId }: props) => {
   const [selectMenu, setSelectMenu] = useState<string>('all');
@@ -28,15 +29,15 @@ const ApplyStatus = ({ onClick, postId }: props) => {
   });
 
   useEffect(() => {
-    setUserData(data);
+    setUserData(data?.filter((item) => item.status !== STATUS_CANCELED) as APPLY_PROJECT_USER_RESPONSE);
   }, [data]);
 
   //포지션 필터 onClick
   const handleMenuClick = (value: string) => {
     if (value === 'all') {
-      setUserData(data);
+      setUserData(data?.filter((item) => item.status !== STATUS_CANCELED) as APPLY_PROJECT_USER_RESPONSE);
     } else if (value === 'disapprove') {
-      setUserData(data?.filter((item) => item.status !== STATUS_APPROVED) as APPLY_PROJECT_USER_RESPONSE);
+      setUserData(data?.filter((item) => item.status !== STATUS_APPROVED && item.status !== STATUS_CANCELED) as APPLY_PROJECT_USER_RESPONSE);
     } else if (value === 'approve') {
       setUserData(data?.filter((item) => item.status === STATUS_APPROVED) as APPLY_PROJECT_USER_RESPONSE);
     }

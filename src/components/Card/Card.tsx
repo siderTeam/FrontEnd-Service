@@ -31,7 +31,7 @@ const ProjectCard = ({ title, startDate, endDate, deposit, skillCodeList, create
   const cardColor = color[Math.floor(Math.random() * color.length)];
 
   return (
-    <Link href={`/post/${id}`}>
+    <Link href={`/post/detail/${id}`}>
       <Container className={cardColor}>
         <CardWrap>
           <div className="subTitle">모집 마감일 {endDate}</div>

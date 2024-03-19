@@ -7,7 +7,6 @@ import Input from '@/components/Input/Input';
 import useChangeInput from '@/hook/useChangeInput';
 import useChangeSelect from '@/hook/useChangeSelect';
 import { SIGN_UP_REQUEST } from '@/api/auth/model';
-
 import SelectBox from '@/components/SelectBox/SelectBox';
 import { POSITION_CODE_ARRAY } from 'public/static/requireJudge/static';
 import { useEffect, useState } from 'react';

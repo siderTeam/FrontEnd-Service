@@ -30,10 +30,11 @@ const Apply = ({ visible, onClose, postId }: ModalProps) => {
     mutationFn: applyProject,
     onSuccess: async (data) => {
       if (data.result === true) {
-        alert('지원 성공!');
+        alert('프로젝트에 지원하였습니다.');
       } else {
         alert('지원 실패');
       }
+      onClose();
     },
     onError: () => {
       console.error('실패');

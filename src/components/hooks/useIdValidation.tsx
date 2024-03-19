@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
-export const useIdValidation = (idCheckData, username) => {
+export const useIdValidation = (idCheckData: any, username: string) => {
   const [idConfirmText, setIdConfirmText] = useState("");
 
   useEffect(() => {
-    const validateUsername = (username) => {
+    const validateUsername = (username: string) => {
       return username.toLowerCase().match(/^[a-z0-9]{4,12}$/);
     };
     const isIdValid = validateUsername(username);

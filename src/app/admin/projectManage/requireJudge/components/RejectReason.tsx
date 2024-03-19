@@ -2,10 +2,12 @@ import Button from '@/components/Button/Button';
 import Modal from '@/components/Modal/Modal';
 import TextArea from '@/components/TextArea/TextArea';
 import { color } from '@/styles/color';
+import { ModalProps } from '@/types/types';
 import styled from '@emotion/styled';
 
+
 //반려 사유 기입 모달
-const RejectReason = ({ visible, onClose }) => {
+const RejectReason = ({ visible, onClose }: ModalProps) => {
   return (
     <>
       <Modal
@@ -27,10 +29,10 @@ const RejectReason = ({ visible, onClose }) => {
           <div className="title">반려사유 기입</div>
           <TextArea style={{ height: 212 }} />
           <div className="button-wrap">
-            <Button size="small" mode="secondary">
+            <Button size="small" variant="secondary">
               이전
             </Button>
-            <Button size="small" mode="primary">
+            <Button size="small" variant="primary">
               저장
             </Button>
           </div>

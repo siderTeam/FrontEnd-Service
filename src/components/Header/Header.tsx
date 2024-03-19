@@ -11,8 +11,8 @@ import Link from 'next/link';
 import { getIsLogin, handleSignOut } from '@/store/auth.store';
 import { useQuery } from '@tanstack/react-query';
 import { rest } from '@/api/rest';
-import { getUserInfo } from '@/api/auth/api';
 import { formatForPositionCode } from 'public/lib/formatForEnum';
+import { getUserInfo } from '@/api/auth/api';
 
 const Header = () => {
   const route = useRouter();

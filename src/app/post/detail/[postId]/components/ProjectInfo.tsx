@@ -29,8 +29,5 @@ const Container = styled.div`
 
   .introduction {
     margin: 0 12px 0 11px;
-
-    font-size: 18px;
-    font-weight: 500;
   }
 `;
