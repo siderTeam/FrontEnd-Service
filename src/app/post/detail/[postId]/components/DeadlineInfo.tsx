@@ -33,7 +33,7 @@ const DeadlineInfo = ({ element, data, postId }: Props) => {
   return (
     <>
       <Apply visible={applyModal} onClose={handleCloseApplyModal} postId={postId} />
-      {applyModal && <ApplyStatusContainer postId={postId} visible={applyModal} onClose={handleCloseApplyModal} />}
+      {identification && applyModal && <ApplyStatusContainer postId={postId} visible={applyModal} onClose={handleCloseApplyModal} />}
       <Container ref={element}>
         <div className="subtitle">
           <Image src={'/images/calendar/calendar_gray5.svg'} alt="calendar" width={20} height={20} />
