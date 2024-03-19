@@ -11,8 +11,7 @@ import Link from 'next/link';
 import { getIsLogin, handleSignOut } from '@/store/auth.store';
 import { useQuery } from '@tanstack/react-query';
 import { rest } from '@/api/rest';
-import { USER_INFO_RESPONSE } from '@/api/auth/model';
-import { getUserInfo, getUserInfoHeader } from '@/api/auth/api';
+import { getUserInfo } from '@/api/auth/api';
 import { formatForPositionCode } from 'public/lib/formatForEnum';
 
 const Header = () => {
@@ -32,7 +31,7 @@ const Header = () => {
 
   const { data } = useQuery({
     queryKey: [rest.get.userInfo],
-    queryFn: () => getUserInfoHeader(),
+    queryFn: () => getUserInfo(),
   });
 
   return (

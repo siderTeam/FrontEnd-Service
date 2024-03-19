@@ -7,10 +7,11 @@ import Input from '@/components/Input/Input';
 import useChangeInput from '@/hook/useChangeInput';
 import useChangeSelect from '@/hook/useChangeSelect';
 import { SIGN_UP_REQUEST } from '@/api/auth/model';
-import { POSITION_CODE } from 'public/enum';
+
 import SelectBox from '@/components/SelectBox/SelectBox';
 import { POSITION_CODE_ARRAY } from 'public/static/requireJudge/static';
 import { useEffect, useState } from 'react';
+import { POSITION_CODE } from 'public/lib/enum';
 
 interface Props {
   onClick: (callback: Callback) => void;
@@ -19,32 +20,32 @@ interface Props {
 type Callback = Pick<SIGN_UP_REQUEST, 'positionCode' | 'career'>;
 
 const ThirdContent = ({ onClick }: Props) => {
-  const { input, onChange } = useChangeInput('');
+  const { input, onChange, setInput } = useChangeInput('');
   const { select, onChange: onChangeSelect } = useChangeSelect(null);
-  const [ disabled, setDisabled ] = useState(true);
+  const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    if(!!select && !!input) {
-      setDisabled(false)
+    if (!!select) {
+      setDisabled(false);
     }
-  }, [select, input])
+  }, [select, input]);
 
   const positionOption = [
-    { label: '포지션', value: null },
     ...POSITION_CODE_ARRAY.map((item) => {
       return {
-        label: item.name,
-        value: item.id,
+        label: item.label,
+        value: item.value,
       };
     }),
   ];
 
-  const handleclickNext = () => {
+  const handleClickNext = () => {
     onClick({
       positionCode: select as unknown as POSITION_CODE,
       career: Number(input),
     });
   };
+
   return (
     <SignupContainer>
       <div className="complete-bar">
@@ -62,14 +63,18 @@ const ThirdContent = ({ onClick }: Props) => {
         placeholder="포지션"
         onChange={onChangeSelect}
         options={positionOption}
-        style={{ width: '100%', height: 56 }}
+        style={{ width: '100%', borderRadius: 12, height: 56 }}
+        optionStyle={{ width: '100%', height: 56 }}
+        optionWrapperStyle={{ width: '100%', borderRadius: 12 }}
       />
-      <Input onChange={onChange} placeholder="연차" name="carear" type="number" size="full" style={{ marginTop: 12 }} />
-
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: 12 }}>
+        <Input onChange={onChange} placeholder="연차" name="career" type="number" size="full" containerStyle={{ flex: 1 }} value={input} />
+        <div style={{ color: color.gray.gray6, fontSize: 20 }}>년차</div>
+      </div>
       <div className="complete-text">거의 다 왔어요!</div>
 
       <div className="button-wrapper">
-        <Button disabled={disabled} variant="primary" onClick={handleclickNext} style={{ width: '100%' }}>
+        <Button disabled={disabled} variant="primary" onClick={handleClickNext} style={{ width: '100%' }}>
           다음
         </Button>
       </div>
