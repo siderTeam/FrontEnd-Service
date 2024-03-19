@@ -58,7 +58,7 @@ const Header = () => {
         {isLogin && (
           <Image src="/images/icons/Person_white.svg" alt="myPage" width={24} height={24} onClick={() => setModal(true)} style={{ cursor: 'pointer' }} />
         )}
-        {isLogin && <Image onClick={handleClickLogout} src="/images/icons/On_white.svg" alt="logout" width={24} height={24} style={{ cursor: 'pointer' }} />}
+        {isLogin && <Image onClick={handleClickLogout} src="/images/on/On_white.svg" alt="logout" width={24} height={24} style={{ cursor: 'pointer' }} />}
 
         {!isLogin && (
           <Link href="/login">

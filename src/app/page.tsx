@@ -14,7 +14,7 @@ import PositionModal from '@/components/PositionModal/PositionModal';
 import useHandleModal from '@/hook/useHandleModal';
 import { OPTION_TYPE } from '@/components/SelectBox/SelectBox';
 import SkillModal, { SKILL_TYPE } from '@/components/SkillModal/SkillModal';
-import { PROJECT_ORDER_BY_REQUEST, PROJECT_REQUEST } from '@/api/project/model';
+import { PROJECT_REQUEST } from '@/api/project/model';
 import { PROJECT_STATUS } from 'public/lib/enum';
 import useChangeInput from '@/hook/useChangeInput';
 

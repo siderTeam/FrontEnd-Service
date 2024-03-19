@@ -7,7 +7,7 @@ export type CREATE_PROJECT_REQUEST = {
   positionCodeList: POSITION_CODE[] | null;
   skillCodeList: number[];
   recruitEndDate: string;
-  month: number;
+  week: number;
   deposit: number;
   requiredContentsList: {
     content: string;
