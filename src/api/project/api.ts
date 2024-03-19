@@ -7,6 +7,7 @@ import {
   CREATE_PROJECT_REQUEST,
   JOIN_PROJECT_STATUS_REQUEST,
   PROJECT_DETAIL_RESPONSE,
+  PROJECT_ORDER_BY_REQUEST,
   PROJECT_REQUEST,
   PROJECT_RESPONSE,
   REPLY_REQUEST,
@@ -17,6 +18,13 @@ export const postProject = async (params: PROJECT_REQUEST): Promise<PROJECT_RESP
   const response = await API.post(`${rest.post.project}`, params);
 
   return response.data.data.content;
+};
+
+//프로젝트 정렬
+export const getProjectOrderBy = async ({ orderBy, size, sort }: PROJECT_ORDER_BY_REQUEST): Promise<PROJECT_RESPONSE[]> => {
+  const response = await API.get(`${rest.get.projectOrderBy}?orderBy=${orderBy}&size=${size}&sort=${sort}`);
+
+  return response.data.data;
 };
 
 //모집글 등록

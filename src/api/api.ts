@@ -1,6 +1,6 @@
 import { rest } from './rest';
 import { API } from './axiosConfig';
-import { USER_RESUME_RESPONSE, USER_SIGNIN_REQUEST, USER_SIGNUP_REQUEST, CODE_RESPONSE } from './auth/model';
+import { USER_RESUME_RESPONSE, USER_SIGNIN_REQUEST, USER_SIGNUP_REQUEST, CODE_RESPONSE, USER_INFO_UPDATE_REQUEST } from './auth/model';
 
 //코드 가져오기
 export const getCode = async (groupId: number, depth: number): Promise<CODE_RESPONSE[]> => {
@@ -24,11 +24,11 @@ export const userSignOut = async () => {
 };
 
 //엑세스 토큰 발급
-export const getAccessToken = async (refershToken?: string) => {
-  const response = await API.post(`${rest.post.getAccessToken}`, undefined,{
+export const getAccessToken = async (refreshToken?: string) => {
+  const response = await API.post(`${rest.post.getAccessToken}`, undefined, {
     headers: {
-      Authorization: refershToken ? `Bearer ${refershToken}` : undefined 
-    }
+      Authorization: refreshToken ? `Bearer ${refreshToken}` : undefined,
+    },
   });
 
   return response.data;

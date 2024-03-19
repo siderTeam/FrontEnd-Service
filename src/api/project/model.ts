@@ -274,3 +274,9 @@ export type JOIN_PROJECT_STATUS_REQUEST = {
   projectJoinId: number;
   statusCode: PROJECT_REQUIRE_JOIN_STATUS;
 };
+
+export type PROJECT_ORDER_BY_REQUEST = {
+  orderBy: string;
+  size: number;
+  sort: number;
+};

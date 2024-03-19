@@ -12,6 +12,7 @@ export const rest = {
     increaseProjectView: '/project/view',
     applyProjectUser: '/join/project',
     applyProjectUserDetail: '/join',
+    projectOrderBy: '/project/order-by',
   },
   post: {
     userSignIn: '/user/signIn',
@@ -28,6 +29,7 @@ export const rest = {
   put: {
     updateReply: '/reply',
     updateJoinStatus: '/join',
+    updateUserInfo: '/user',
   },
   delete: {
     deleteReply: '/reply',

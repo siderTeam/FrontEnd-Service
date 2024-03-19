@@ -62,8 +62,11 @@ export type USER_INFO_RESPONSE = {
   positionCode: number;
 };
 
-export type USER_INFO_HEADER_RESPONSE = {
-  name: string;
+export type USER_INFO_UPDATE_REQUEST = {
+  id: number;
+  nickname: string;
   career: number;
   positionCode: number;
+  skillCodeList: number[];
+  introduction: string;
 };

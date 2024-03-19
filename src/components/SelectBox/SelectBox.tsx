@@ -22,6 +22,7 @@ export type SelectBoxProps<T> = SELECTBOX_STYLE_PROPS & {
   style?: React.CSSProperties;
   optionStyle?: React.CSSProperties;
   placeholder?: string;
+  optionWrapperStyle?: React.CSSProperties;
 };
 
 const SelectBox = <T,>({
@@ -35,6 +36,8 @@ const SelectBox = <T,>({
   onChange,
   style,
   optionStyle,
+  placeholder,
+  optionWrapperStyle,
 }: SelectBoxProps<T>) => {
   const [visible, setVisible] = useState(false);
 
@@ -58,7 +61,7 @@ const SelectBox = <T,>({
   return (
     <Container onClick={handleClickSelect} tabIndex={0} onBlur={handleBlur}>
       <StyledSelect size={size} selectedType={selectedType} optionType={optionType} text={text} value={value} name={name} style={style}>
-        <div className={selected.length === 0 ? 'value' : 'choice-value'}>{selected[0].label}</div>
+        <div className={selected.length === 0 ? 'choice-value' : 'value'}>{selected.length === 0 ? placeholder : selected[0].label}</div>
         {selectedType === 'disabled' ? (
           <Image src="/images/arrow/arrow_down_gray9.svg" width={16} height={16} alt="arrow" style={{ cursor: 'pointer' }} />
         ) : (
@@ -66,7 +69,7 @@ const SelectBox = <T,>({
         )}
       </StyledSelect>
       {visible && (
-        <OptionWrapper style={style} size={size} selectedType={selectedType} optionType={optionType}>
+        <OptionWrapper style={optionWrapperStyle} size={size} selectedType={selectedType} optionType={optionType}>
           {options?.map((option, index) => (
             <li onClick={() => handleClick(option.value)} style={optionStyle} key={`${option.value}_${index}`} value={option.label}>
               {option.label}
@@ -165,7 +168,7 @@ const OptionWrapper = styled.ul<any>`
   ${({ optionType }) => OPTIONS_TYPE[optionType as 'placeholder']}
 
   position: absolute;
-  top: 33px;
+  top: 55px;
   box-sizing: border-box;
   border-radius: 6px;
 
@@ -182,7 +185,6 @@ const OptionWrapper = styled.ul<any>`
 
     display: flex;
     padding: 6px 16px;
-    height: 30px;
     justify-content: center;
     align-items: center;
     gap: 10px;

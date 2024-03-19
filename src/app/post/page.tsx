@@ -233,7 +233,14 @@ const Page = () => {
 
               <div className="wrap" style={{ flex: 1 }}>
                 <div className="title">진행 기간</div>
-                <SelectBox optionStyle={{ width: '100%' }} style={{ width: '100%' }} options={MONTH} onChange={onChangeSelect} value={select} />
+                <SelectBox
+                  optionStyle={{ width: 242, height: 33 }}
+                  optionWrapperStyle={{ top: 32 }}
+                  style={{ width: '100%', height: 33 }}
+                  options={MONTH}
+                  onChange={onChangeSelect}
+                  value={select}
+                />
               </div>
             </div>
             <div className="wrap">
