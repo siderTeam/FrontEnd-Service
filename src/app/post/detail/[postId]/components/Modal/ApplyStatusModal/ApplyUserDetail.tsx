@@ -58,7 +58,7 @@ const ApplyUserDetail = ({ joinId, onClick }: props) => {
 
   return (
     <>
-      <CompanionReason visible={Modal} onClose={handleModal} />
+      <CompanionReason visible={Modal} onClose={handleModal} joinId={joinId} refetch={refetch} />
       <Container>
         <div className="back" onClick={onClick}>
           <Image src={'/images/arrow/arrow_left_gray6.svg'} alt="arrow" width={12} height={12} />
@@ -108,8 +108,16 @@ const ApplyUserDetail = ({ joinId, onClick }: props) => {
               <Button onClick={() => handleUpdateJoinStatus('승인', STATUS_APPROVED)}>승인</Button>
             </>
           )}
-          {data?.status === STATUS_REJECTED && <Button variant="error_secondary">반려취소</Button>}
-          {data?.status === STATUS_APPROVED && <Button variant="secondary">승인취소</Button>}
+          {data?.status === STATUS_REJECTED && (
+            <Button variant="error_secondary" onClick={() => handleUpdateJoinStatus('반려취소', STATUS_WAITING)}>
+              반려취소
+            </Button>
+          )}
+          {data?.status === STATUS_APPROVED && (
+            <Button variant="secondary" onClick={() => handleUpdateJoinStatus('승인취소', STATUS_WAITING)}>
+              승인취소
+            </Button>
+          )}
         </div>
       </Container>
     </>

@@ -8,21 +8,41 @@ import Button from '@/components/Button/Button';
 import Apply from './Modal/Apply';
 import ApplyStatusContainer from './Modal/ApplyStatusModal/ApplyStatusContainer';
 import { formatForProjectStatus } from 'public/lib/formatForEnum';
-import { PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
-import { getUserInfo } from '@/store/auth.store';
+import { CHECK_JOIN_PROJECT, PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
+import { getIsLogin, getUserInfo } from '@/store/auth.store';
 import { useRouter } from 'next/navigation';
+import { useMutation } from '@tanstack/react-query';
+import { deleteProject } from '@/api/project/api';
 
 type Props = {
   element: any;
   data?: PROJECT_DETAIL_RESPONSE;
   postId: number;
+  checkJoin?: CHECK_JOIN_PROJECT;
+  checkJoinRefetch: () => void;
 };
 
-const ProjectTitle = ({ element, data, postId }: Props) => {
-  const router = useRouter();
+const ProjectTitle = ({ element, data, postId, checkJoin, checkJoinRefetch }: Props) => {
+  const route = useRouter();
   const identification = getUserInfo().id === data?.createUser.id;
   const [applyModal, setApplyModal] = useState(false);
   const [applyStatusModal, setApplyStatusModal] = useState(false);
+
+  const { mutate } = useMutation({
+    mutationFn: deleteProject,
+    onSuccess: async (data) => {
+      if (data.result === true) {
+        alert('모집글이 삭제되었습니다.');
+
+        route.push('/');
+      } else {
+        alert('모집글 삭제 실패');
+      }
+    },
+    onError: () => {
+      console.error('실패');
+    },
+  });
 
   //지원하기 모달
   const handleCloseApplyModal = () => {
@@ -34,27 +54,52 @@ const ProjectTitle = ({ element, data, postId }: Props) => {
     setApplyStatusModal(false);
   };
 
-  //모집마강
+  //모집마감
   const handleRecruitStatus = () => {
     if (confirm('모집을 마감하시겠습니까?')) {
       console.log('마감');
     }
   };
 
+  //모집글 삭제
+  const handleDeleteProject = () => {
+    if (confirm('모집글을 삭제하시겠습니까?')) {
+      mutate(postId);
+    }
+  };
+
+  //지원하기
+  const handleApply = () => {
+    if (getIsLogin()) {
+      setApplyModal(true);
+    } else {
+      if (confirm('로그인 후 이용하실 수 있습니다.\n로그인 페이지로 이동하시겠습니까?')) {
+        route.push('/login');
+      }
+    }
+  };
+
+  //지원 취소
+  const handleCancelApply = () => {
+    if (confirm('해당 프로젝트 지원을 취소하시겠습니까?')) {
+      console.log('취소');
+    }
+  };
+
   return (
     <>
-      <Apply visible={applyModal} onClose={handleCloseApplyModal} postId={postId} />
+      <Apply visible={applyModal} onClose={handleCloseApplyModal} postId={postId} checkJoinRefetch={checkJoinRefetch} />
       {applyStatusModal && <ApplyStatusContainer postId={postId} visible={applyStatusModal} onClose={handleCloseApplyStatusModal} />}
       <Container ref={element}>
         <div className="header">
-          <div className="before" onClick={() => router.back()}>
+          <div className="before" onClick={() => route.back()}>
             <Image src={'/images/arrow/arrow_left_gray6.svg'} alt="arrow" width={5} height={9} />
             <span>이전 페이지로</span>
           </div>
           {identification && (
             <div className="edit">
               <StyledImage src={'/images/edit/edit_gray6.svg'} alt="edit" width={22} height={22} />
-              <StyledImage src={'/images/trash/trash_gray6.svg'} alt="trash" width={20} height={22} />
+              <StyledImage src={'/images/trash/trash_gray6.svg'} alt="trash" width={20} height={22} onClick={handleDeleteProject} />
             </div>
           )}
         </div>

@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Button from '@/components/Button/Button';
 import Apply from './Modal/Apply';
 import { useState } from 'react';
-import { PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
+import { CHECK_JOIN_PROJECT, PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
 import { getUserInfo } from '@/store/auth.store';
 import ApplyStatusContainer from './Modal/ApplyStatusModal/ApplyStatusContainer';
 
@@ -14,9 +14,11 @@ type Props = {
   element: any;
   data: PROJECT_DETAIL_RESPONSE | undefined;
   postId: number;
+  checkJoin?: CHECK_JOIN_PROJECT;
+  checkJoinRefetch: () => void;
 };
 
-const DeadlineInfo = ({ element, data, postId }: Props) => {
+const DeadlineInfo = ({ element, data, postId, checkJoin, checkJoinRefetch }: Props) => {
   const identification = getUserInfo().id === data?.createUser.id;
   const [applyModal, setApplyModal] = useState(false);
   //남은기간 계산
@@ -32,7 +34,7 @@ const DeadlineInfo = ({ element, data, postId }: Props) => {
 
   return (
     <>
-      <Apply visible={applyModal} onClose={handleCloseApplyModal} postId={postId} />
+      <Apply visible={applyModal} onClose={handleCloseApplyModal} postId={postId} checkJoinRefetch={checkJoinRefetch} />
       {identification && applyModal && <ApplyStatusContainer postId={postId} visible={applyModal} onClose={handleCloseApplyModal} />}
       <Container ref={element}>
         <div className="subtitle">

@@ -43,7 +43,7 @@ const RecruitInfo = ({ data }: Props) => {
       <div className="title">모집 마감일</div>
       <div className="content">{data?.recruitEndDate.replace(/-/g, '.')}</div>
       <div className="title">진행 기간</div>
-      <div className="content">{data?.audit.week}개월 (888일)</div>
+      <div className="content">{data?.audit.week}주</div>
       <div className="title">보증금 (1인)</div>
       <div className="content">{data?.deposit.toLocaleString()}원</div>
     </Container>

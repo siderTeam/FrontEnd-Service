@@ -17,9 +17,10 @@ type ModalProps = {
   visible: boolean;
   onClose: () => void;
   postId: number;
+  checkJoinRefetch: () => void;
 };
 
-const Apply = ({ visible, onClose, postId }: ModalProps) => {
+const Apply = ({ visible, onClose, postId, checkJoinRefetch }: ModalProps) => {
   const [disabled, setDisabled] = useState(true);
   const [form, setForm] = useState<APPLY_PROJECT_REQUEST>({
     projectId: postId,
@@ -35,6 +36,7 @@ const Apply = ({ visible, onClose, postId }: ModalProps) => {
         alert('지원 실패');
       }
       onClose();
+      checkJoinRefetch();
     },
     onError: () => {
       console.error('실패');
