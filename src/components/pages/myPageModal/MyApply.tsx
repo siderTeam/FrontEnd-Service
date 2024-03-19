@@ -49,8 +49,8 @@ const MyApply = () => {
         <div className="apply-status">지원 현황</div>
       </TableHeader>
       <TableContent>
-        {resumeData?.map((content, index) => (
-          <ul>
+        {resumeData?.map((content) => (
+          <ul key={content.number}>
             {/* <li className='number'>{(page - 1) * items + index + 1}</li> */}
             <li className="number">{content.number}</li>
             <li className="date">{content.project}</li>

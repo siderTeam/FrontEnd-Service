@@ -1,8 +1,16 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { AlertProps } from '@/types/types';
 import { color } from '@/styles/color';
+
+export type AlertProps = {
+  visible?: boolean;
+  onClick?: () => void;
+  children?: any;
+  style?: React.CSSProperties;
+  text?: string;
+  subText?: string;
+};
 
 const Alert = ({ visible, onClick, children, style, text, subText }: AlertProps) => {
   return (
@@ -20,7 +28,7 @@ const Alert = ({ visible, onClick, children, style, text, subText }: AlertProps)
 
 export default Alert;
 
-const Container = styled.div<{ visible: boolean }>`
+const Container = styled.div<AlertProps>`
   position: fixed;
   left: 0px;
   top: 0px;
@@ -55,7 +63,7 @@ const MainText = styled.div`
   margin-bottom: 20px;
 `;
 
-const SubText = styled.div<{ subText: string }>`
+const SubText = styled.div<AlertProps>`
   display: ${({ subText }) => (subText ? 'flex' : 'none')};
   justify-content: center;
 

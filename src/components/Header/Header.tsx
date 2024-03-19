@@ -9,6 +9,10 @@ import Button from '../Button/Button';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getIsLogin, handleSignOut } from '@/store/auth.store';
+import { useQuery } from '@tanstack/react-query';
+import { rest } from '@/api/rest';
+import { formatForPositionCode } from 'public/lib/formatForEnum';
+import { getUserInfo } from '@/api/auth/api';
 
 const Header = () => {
   const route = useRouter();
@@ -25,6 +29,11 @@ const Header = () => {
     route.push('/');
   };
 
+  const { data } = useQuery({
+    queryKey: [rest.get.userInfo],
+    queryFn: () => getUserInfo(),
+  });
+
   return (
     <StyledHeader>
       <Image src="/images/Logo.svg" alt="로고" className="logo" width={167} height={58} onClick={() => route.push('/')} style={{ cursor: 'pointer' }} />
@@ -37,7 +46,12 @@ const Header = () => {
           </Link>
         )}
 
-        <Profile onClick={() => setModal(true)} />
+        <Profile
+          onClick={() => setModal(true)}
+          career={data?.career as unknown as number}
+          positionName={formatForPositionCode(data?.positionCode as unknown as number)}
+          name={data?.name as unknown as string}
+        />
 
         {modal && <MyPageContainer visible={modal} onClose={handleCloseModal} />}
         <Image src="/images/icons/Person_white.svg" alt="myPage" width={24} height={24} onClick={() => setModal(true)} style={{ cursor: 'pointer' }} />

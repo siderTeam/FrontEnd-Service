@@ -37,8 +37,8 @@ const ProjectCard = ({ title, startDate, endDate, deposit, skillCodeList, create
         <CardWrap>
           <div className="subTitle">모집 마감일 {endDate}</div>
           <div className="skillWrap">
-            {skillCodeList.map((item) => (
-              <Image src={`/images/skillIcons/${item.imageName}.svg`} alt="profile" width={32} height={32} />
+            {skillCodeList.map((item, index) => (
+              <Image key={`${item.name}_${index}`} src={`/images/skillIcons/${item.imageName}.svg`} alt="profile" width={32} height={32} />
             ))}
           </div>
           <h1 className="title">{title}</h1>
