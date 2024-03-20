@@ -1,4 +1,4 @@
-import { DEPOSIT_STATUS, POSITION_CODE, PROJECT_REQUIRE_JOIN_STATUS, PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS, PROJECT_STATUS } from "public/lib/enum";
+import { DEPOSIT_STATUS, POSITION_CODE, PROJECT_REQUIRE_JOIN_STATUS, PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS, PROJECT_STATUS } from 'public/lib/enum';
 
 export const PROJECT_REQUIRE_JUDGE_OPTION = [
   {
@@ -66,8 +66,8 @@ export const PROJECT_STATUS_ARRAY = [
     label: '요구사항 심사중',
   },
   {
-    value: PROJECT_STATUS.REQUIREMENT_ASSESSMENT_REJECTED,
-    label: '요구사항 반려',
+    value: PROJECT_STATUS.DEPOSIT_WAITING,
+    label: '입금 대기중',
   },
   {
     value: PROJECT_STATUS.WAITING_TO_START,
@@ -82,16 +82,16 @@ export const PROJECT_STATUS_ARRAY = [
     label: '중도 종결',
   },
   {
+    value: PROJECT_STATUS.ASSESSMENT_IN_PROGRESS,
+    label: '준공 심사중',
+  },
+  {
     value: PROJECT_STATUS.SUBMISSION_COMPLETED,
     label: '제출완료',
   },
   {
-    value: PROJECT_STATUS.ASSESSMENT_IN_PROGRESS,
-    label: '심사중',
-  },
-  {
     value: PROJECT_STATUS.ASSESSMENT_COMPLETED,
-    label: '심사완료',
+    label: '준공 심사완료',
   },
   {
     value: PROJECT_STATUS.DEPOSIT_PERIOD_EXPIRED,
@@ -109,15 +109,15 @@ export const PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS_ARRAY = [
   },
   {
     value: PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS.WAITING,
-    label: '대기',
+    label: '요구사항 심사중',
   },
   {
     value: PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS.REJECTED,
-    label: '반려',
+    label: '요구사항 심사 반려',
   },
   {
     value: PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS.APPROVED,
-    label: '승인',
+    label: '요구사항 심사 승인 / 보증금 입금 대기',
   },
 ];
 
@@ -169,14 +169,12 @@ export const DEPOSIT_STATUS_ARRAY = [
   },
 ];
 
-
-
 /**
  * [개월]
  */
-export const MONTH = [1,2,3,4,5,6,7,8,9,10,11,12].map((item) => {
+export const MONTH = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item) => {
   return {
     label: `${item}개월`,
-    value: item
-  }
-})
+    value: item,
+  };
+});
