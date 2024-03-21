@@ -2,42 +2,79 @@
 
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { rest } from '@/api/rest';
-import { getResume } from '@/api/api';
+import { deleteRecruitment, getRecruitStatus } from '@/api/project/api';
+import { formatForProjectJoinStatus, formatForProjectStatus } from 'public/lib/formatForEnum';
+import { RECRUIT_STATUS_LIST_RESPONSE } from '@/api/project/model';
+import { PROJECT_REQUIRE_JOIN_STATUS } from 'public/lib/enum';
+import { format } from 'date-fns';
+import { useRouter } from 'next/navigation';
 
-const MyApply = () => {
+const STATUS_WAITING = PROJECT_REQUIRE_JOIN_STATUS.WAITING;
+const STATUS_APPROVED = PROJECT_REQUIRE_JOIN_STATUS.APPROVED;
+
+type Props = {
+  onClose: () => void;
+};
+
+const MyApply = ({ onClose }: Props) => {
+  const route = useRouter();
   const [filterType, setFilterType] = useState('전체');
-  // const resumeData = useQuery({
-  //   queryKey: [rest.get.resume],
-  //   queryFn: getResume,
-  // });
+  const [userData, setUserData] = useState<RECRUIT_STATUS_LIST_RESPONSE[]>();
 
-  const handleFilterClick = (type: string) => {
-    setFilterType(type);
+  const { data, refetch } = useQuery({
+    queryKey: [rest.get.recruitStatus],
+    queryFn: getRecruitStatus,
+  });
+
+  const { mutate } = useMutation({
+    mutationFn: deleteRecruitment,
+    onSuccess: async (data) => {
+      if (data.result === true) {
+        console.log('성공');
+      }
+      refetch();
+    },
+  });
+
+  useEffect(() => {
+    setUserData(data?.filter((item) => item) as unknown as RECRUIT_STATUS_LIST_RESPONSE[]);
+  }, [data]);
+
+  const handleMenuClick = (value: string) => {
+    if (value === '전체') {
+      setUserData(data?.filter((item) => item) as unknown as RECRUIT_STATUS_LIST_RESPONSE[]);
+    } else if (value === '대기') {
+      setUserData(data?.filter((item) => item.status == STATUS_WAITING) as unknown as RECRUIT_STATUS_LIST_RESPONSE[]);
+    } else if (value === '승인') {
+      setUserData(data?.filter((item) => item.status === STATUS_APPROVED) as unknown as RECRUIT_STATUS_LIST_RESPONSE[]);
+    }
+    setFilterType(value);
   };
 
-  const resumeData = [
-    {
-      number: 1,
-      project: '프로젝트 이름이시다.',
-      application: '승인 완료',
-      recruitment: '모집중',
-      status: '대기',
-    },
-  ];
+  const handleRecruitCancel = (id: number) => {
+    if (confirm('프로젝트 지원을 취소하시겠습니까?')) {
+      mutate(id);
+    }
+  };
+
+  const handleClickProject = (id: number) => {
+    route.push(`/post/detail/${id}`);
+    onClose();
+  };
 
   return (
     <Container>
       <div className="filter-wrap">
-        <div className={filterType === '전체' ? 'choice' : 'basic'} onClick={() => handleFilterClick('전체')}>
+        <div className={filterType === '전체' ? 'choice' : 'basic'} onClick={() => handleMenuClick('전체')}>
           전체보기
         </div>
-        <div className={filterType === '대기' ? 'choice' : 'basic'} onClick={() => handleFilterClick('대기')}>
+        <div className={filterType === '대기' ? 'choice' : 'basic'} onClick={() => handleMenuClick('대기')}>
           대기상태 프로젝트만 보기
         </div>
-        <div className={filterType === '승인' ? 'choice' : 'basic'} onClick={() => handleFilterClick('승인')}>
+        <div className={filterType === '승인' ? 'choice' : 'basic'} onClick={() => handleMenuClick('승인')}>
           승인된 프로젝트만 보기
         </div>
       </div>
@@ -49,16 +86,29 @@ const MyApply = () => {
         <div className="apply-status">지원 현황</div>
       </TableHeader>
       <TableContent>
-        {resumeData?.map((content) => (
-          <ul key={content.number}>
-            {/* <li className='number'>{(page - 1) * items + index + 1}</li> */}
-            <li className="number">{content.number}</li>
-            <li className="date">{content.project}</li>
-            <li className="status">{content.application}</li>
-            <li className="project">{content.recruitment}</li>
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 4 }}>
-              <li className="apply-status">{content.status}</li>
-              <span style={{ color: color.gray.white, textAlign: 'center', fontSize: 12, textDecorationLine: 'underline', fontWeight: 400 }}>지원취소</span>
+        {userData?.map((content, index) => (
+          <ul key={content.id}>
+            <li className="number">{index + 1}</li>
+            <li className="date">{format(content.createdDate, 'yyyy.MM.dd HH:mm:ss')}</li>
+            <li className="status">{formatForProjectStatus(content.project.status)}</li>
+            <li className="project" onClick={() => handleClickProject(content.project.id)}>
+              {content.project.name}
+            </li>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 8 }}>
+              <li
+                className="apply-status"
+                style={{ color: `${content.status === 38 ? color.secondary.error_1 : content.status === 39 ? color.brand.brandMain : color.gray.white}` }}
+              >
+                {formatForProjectJoinStatus(content.status)}
+              </li>
+              {content.status !== 38 && (
+                <span
+                  style={{ color: color.gray.white, textAlign: 'center', fontSize: 12, textDecorationLine: 'underline', fontWeight: 400, cursor: 'pointer' }}
+                  onClick={() => handleRecruitCancel(content.id)}
+                >
+                  지원취소
+                </span>
+              )}
             </div>
           </ul>
         ))}
@@ -174,12 +224,16 @@ const TableContent = styled.div`
       align-items: center;
     }
 
-    .application {
-      color: ${color.secondary.positive_1};
+    .date {
+      line-height: normal;
+    }
+    .project {
+      text-decoration-line: underline;
+      cursor: pointer;
+    }
 
-      text-align: center;
-      font-size: 14px;
-      font-weight: 400;
+    .apply-status {
+      font-weight: 700;
     }
 
     .cancel {

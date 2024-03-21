@@ -33,8 +33,6 @@ const MyPage = () => {
 
   const data = getUserInfo();
 
-  console.log('data', data);
-
   const { setUserInfo } = useAuthStore((state) => {
     return {
       setUserInfo: state.setUserInfo,

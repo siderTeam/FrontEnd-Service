@@ -11,6 +11,7 @@ import {
   PROJECT_ORDER_BY_REQUEST,
   PROJECT_REQUEST,
   PROJECT_RESPONSE,
+  RECRUIT_STATUS_LIST_RESPONSE,
   REPLY_REQUEST,
 } from './model';
 
@@ -110,4 +111,18 @@ export const getCheckJoinProject = async (projectId: number): Promise<CHECK_JOIN
   const response = await API.get(`${rest.get.checkJoinProject}/${projectId}`);
 
   return response.data.data;
+};
+
+//프로젝트 지원 현황(내가 지원한 프로젝트 리스트)
+export const getRecruitStatus = async (): Promise<RECRUIT_STATUS_LIST_RESPONSE[]> => {
+  const response = await API.get(`${rest.get.recruitStatus}`);
+
+  return response.data.data;
+};
+
+//프로젝트 지원 취소(내가 지원한 프로젝트 취소)
+export const deleteRecruitment = async (projectId: number) => {
+  const response = await API.delete(`${rest.delete.deleteRecruitment}/${projectId}`);
+
+  return response.data;
 };
