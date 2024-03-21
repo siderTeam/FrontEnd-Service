@@ -18,7 +18,6 @@ export enum POSITION_CODE {
  * [프로젝트 상태]
  * 모집중 19,
  * 모집완료 20,
- * 요구사항 심사중 21
  * 입금 대기중  22,
  * 진행 대기 23,
  * 진행중 24,
@@ -27,11 +26,11 @@ export enum POSITION_CODE {
  * 제출완료 27,
  * 준공 심사완료 28,
  * 입금 기간 초과 41,
+ * 프로젝트 종료 21,
  */
 export enum PROJECT_STATUS {
   RECRUITING = 19,
   RECRUITMENT_COMPLETED = 20,
-  REQUIREMENT_ASSESSMENT_IN_PROGRESS = 21,
   DEPOSIT_WAITING = 22,
   WAITING_TO_START = 23,
   IN_PROGRESS = 24,
@@ -40,6 +39,7 @@ export enum PROJECT_STATUS {
   SUBMISSION_COMPLETED = 27,
   ASSESSMENT_COMPLETED = 28,
   DEPOSIT_PERIOD_EXPIRED = 41,
+  PROJECT_END = 21,
 }
 
 /**
