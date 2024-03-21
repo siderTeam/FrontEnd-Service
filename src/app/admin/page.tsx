@@ -1,78 +1,118 @@
 'use client';
 
-import styled from '@emotion/styled';
 import { color } from '@/styles/color';
-import Image from 'next/image';
-import Input from '@/components/Input/Input';
-import Checkbox from '@/components/Checkbox/Checkbox';
-import Button from '@/components/Button/Button';
-
+import styled from '@emotion/styled';
 import { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
-import { getAccessToken, postUserSignIn } from '@/api/api';
-import { setCookie } from 'public/lib/util';
-import { useRouter } from 'next/navigation';
+
+import Calendar from '@/components/Calendar/DateRangePicker';
+import Alert from '@/components/Alert/Alert';
+import Button from '@/components/Button/Button';
+import Table from '@/components/Table/Table';
+import { ColumnDef } from '@tanstack/react-table';
+import WaitingReview from './dashBoard/components/WaitingReview';
+
+interface imsiType {
+  number: number;
+  name: string;
+  deposit: string;
+  status: string;
+}
 
 const Page = () => {
-  const route = useRouter();
-  const [isChecked, setIsChecked] = useState(false);
-  const [usernameColor, setUsernameColor] = useState('placeholder');
-  const [passwordColor, setPasswordColor] = useState('placeholder');
-  const [form, setForm] = useState({
-    username: '',
-    password: '',
-  });
+  const [visible, setVisible] = useState(false);
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-    if (name === 'username') {
-      setUsernameColor(value.length !== 0 ? 'filled' : 'placeholder');
-    } else if (name === 'password') {
-      setPasswordColor(value.length !== 0 ? 'filled' : 'placeholder');
-    }
+  const handleAlert = () => {
+    setVisible(true);
   };
 
-  const handleChecked = () => {
-    setIsChecked(!isChecked);
-  };
+  const resumeData = [
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
 
-  const { mutate } = useMutation({
-    mutationFn: postUserSignIn,
-    onSuccess: async (data) => {
-      if (data.result === true) {
-        await getAccessToken()
-          .then((res) => {
-            setCookie('accessToken', res.data.accessToken);
-          })
-          .then(() => {
-            route.push('/admin/dashBoard');
-          });
-      } else if (data.result === false) {
-        setUsernameColor('failed');
-        setPasswordColor('failed');
-      }
+      deposit: '88만원',
+      status: '모집중',
     },
-    onError: () => {
-      console.log('실패');
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
+
+      deposit: '88만원',
+      status: '모집중',
     },
-  });
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
+
+      deposit: '88만원',
+      status: '모집완료',
+    },
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
+
+      deposit: '88만원',
+      status: '모집중',
+    },
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
+
+      deposit: '88만원',
+      status: '모집완료',
+    },
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
+
+      deposit: '88만원',
+      status: '모집완료',
+    },
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
+
+      deposit: '88만원',
+      status: '모집중',
+    },
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
+
+      deposit: '88만원',
+      status: '모집완료',
+    },
+    {
+      number: 1,
+      name: '프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트프로젝트',
+      deposit: '88만원',
+      status: '모집중',
+    },
+  ];
+
+  const column: ColumnDef<imsiType>[] = [
+    { id: 'No.', header: 'No.', accessorKey: 'number', size: 40 },
+    { id: 'name', header: '프로젝트 명', accessorKey: 'name', size: 300 },
+    { id: 'deposit', header: '결제 일자', accessorKey: 'deposit' },
+    { id: 'status', header: '결제 금액', accessorKey: 'name' },
+  ];
 
   return (
     <Container>
-      <Image src="/images/admin_logo.svg" width={133} height={37} alt="logo" />
-      <div className="inputWrap">
-        <Input size="large" placeholder="아이디" name="username" onChange={handleChange} />
-        <Input size="large" placeholder="비밀번호" name="password" onChange={handleChange} type="password" />
-        <div className="save">
-          <Checkbox type={isChecked ? 'checked' : 'unchecked'} className="checkbox" text="아이디 저장" checked={isChecked} onClick={handleChecked} />
+      <div style={{ display: 'flex', gap: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="graph-wrap">전체 회원 수</div>
+          <div className="graph-wrap">금일 방문자 수</div>
         </div>
-      </div>
 
-      <div className="buttonWrap">
-        <Button size="large" variant="primary" onClick={() => mutate(form)}>
-          로그인
-        </Button>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="list-wrap">
+            <Table columns={column} data={resumeData} />
+          </div>
+          <div className="list-wrap">
+            <WaitingReview />
+          </div>
+        </div>
       </div>
     </Container>
   );
@@ -81,47 +121,27 @@ const Page = () => {
 export default Page;
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  padding-left: 374px;
+  margin-top: 20px;
 
-  min-height: 100vh;
+  .graph-wrap {
+    width: 625px;
+    height: 333px;
 
-  gap: 50px;
-
-  .inputWrap {
-    display: flex;
-    flex-direction: column;
-
-    gap: 10px;
-
-    margin-bottom: 8.5px;
-    box-sizing: border-box;
-    position: relative;
-
-    .error-text {
-      color: ${color.secondary.error_1};
-
-      font-size: 14px;
-
-      font-weight: 300;
-
-      position: absolute;
-      top: -25px;
-    }
+    border-radius: 16px;
+    border: 1px solid var(--Stroke, rgba(255, 255, 255, 0.67));
+    background: var(--Fill, linear-gradient(144deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(2, 6, 13, 0.5));
   }
-  .save {
-    width: 100%;
-    display: flex;
-    justify-content: start;
-  }
-  .buttonWrap {
-    display: flex;
-    flex-direction: column;
 
-    gap: 8px;
+  .list-wrap {
+    width: 931px;
+    height: 484px;
+
+    border-radius: 16px;
+    border: 1px solid var(--Stroke, rgba(255, 255, 255, 0.67));
+    background: var(--Fill, linear-gradient(144deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(2, 6, 13, 0.5));
+
+    padding: 20px 30px;
+
+    overflow: hidden;
   }
 `;
