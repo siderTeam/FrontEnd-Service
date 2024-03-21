@@ -34,6 +34,7 @@ const Comment = ({ data, refetch }: Props) => {
         alert('댓글 수정 실패');
       }
       refetch();
+      setDisabled(true);
     },
     onError: () => {
       console.error('실패');
