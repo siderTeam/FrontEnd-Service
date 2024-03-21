@@ -50,18 +50,20 @@ const Page = () => {
     onSuccess: async (data) => {
       setCookie('refreshToken', data.data);
       if (data.result === true) {
-        await getAccessToken(data.data)
-          .then((res) => {
-            setCookie('accessToken', res.data.accessToken);
+        await getAccessToken(data.data).then((res) => {
+          setCookie('accessToken', res.data.accessToken);
 
-            setIsLogin(true);
-          })
-          .then(() => {
-            route.push('/');
-          });
+          setIsLogin(true);
+        });
 
         await getUserInfo().then((res) => {
           setUserInfo(res);
+
+          if (res.user === true) {
+            route.push('/');
+          } else if (res.user === false) {
+            route.push('/admin');
+          }
         });
 
         setStatus({

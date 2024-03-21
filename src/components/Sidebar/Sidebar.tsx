@@ -5,11 +5,12 @@ import { color } from '@/styles/color';
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { handleSignOut } from '@/store/auth.store';
 
 const router = [
   {
-    path: '/dashBoard',
+    path: '/',
     label: '대시보드',
     iconPath: 'home',
     activeIconPath: 'home_green',
@@ -21,13 +22,13 @@ const router = [
     activeIconPath: 'setting_green',
   },
   {
-    path: '/memberManage',
+    path: '/userManage',
     label: '회원관리',
     iconPath: 'people',
     activeIconPath: '/people_green',
     subMenu: [
       {
-        path: '/memberList',
+        path: '/userList',
         label: '회원 목록',
       },
     ],
@@ -62,6 +63,7 @@ const router = [
 
 const AdminSidebar = () => {
   const path = usePathname();
+  const route = useRouter();
   const [activeMenu, setActiveMenu] = useState(path);
   const [openMenu, setOpenMenu] = useState(path);
 
@@ -74,20 +76,27 @@ const AdminSidebar = () => {
     setOpenMenu(path);
   };
 
+  const handleClickLogout = async () => {
+    await handleSignOut();
+    route.push('/');
+  };
+
   return (
     <Container>
       <div className="wrap">
-        <Link href={'/admin/dashboard'}>
+        <Link href={'/admin'}>
           <Image className="logo" src={'/images/logo.svg'} alt="logo" width={133} height={46} />
         </Link>
 
         <MenuContainer>
           {router.map((item) => {
             const { subMenu } = item;
-            const isActive = path.includes(item.path);
+            const isActive = item.path === '/' ? path === '/admin' : path.includes(item.path);
             const openSub = openMenu.includes(item.path);
             const iconPath = `/images/etc/${isActive ? item.activeIconPath : item.iconPath}.svg`;
-            const arrowPath = `/images/arrow/${isActive ? (openSub ? 'arrow_up' : 'arrow_down') : openSub ? 'arrow_up' : 'arrow_down'}.svg`;
+            const arrowPath = `/images/arrow/${
+              isActive ? (openSub ? 'arrow_up_green' : 'arrow_down_green') : openSub ? 'arrow_up_white' : 'arrow_down_white'
+            }.svg`;
 
             return (
               <li
@@ -127,7 +136,7 @@ const AdminSidebar = () => {
           })}
         </MenuContainer>
       </div>
-      <div className="logout">
+      <div className="logout" onClick={handleClickLogout}>
         <Image src={'/images/etc/on_green.svg'} alt="logout" width={16} height={16} />
         <span>로그아웃</span>
       </div>
@@ -180,8 +189,6 @@ const Container = styled.div`
 `;
 
 const MenuContainer = styled.ul`
-  /* position: fixed;
-  top: 190px; */
   display: flex;
   justify-content: center;
   flex-direction: column;

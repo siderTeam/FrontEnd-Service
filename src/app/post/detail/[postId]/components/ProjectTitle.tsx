@@ -17,7 +17,7 @@ import { PROJECT_REQUIRE_JOIN_STATUS, PROJECT_STATUS } from 'public/lib/enum';
 
 const STATUS_RECRUITING = PROJECT_STATUS.RECRUITING;
 const STATUS_RECRUITMENT_COMPLETED = PROJECT_STATUS.RECRUITMENT_COMPLETED;
-const STATUS_REQUIREMENT_ASSESSMENT_IN_PROGRESS = PROJECT_STATUS.REQUIREMENT_ASSESSMENT_IN_PROGRESS;
+// const STATUS_REQUIREMENT_ASSESSMENT_IN_PROGRESS = PROJECT_STATUS.REQUIREMENT_ASSESSMENT_IN_PROGRESS;
 const STATUS_DEPOSIT_WAITING = PROJECT_STATUS.DEPOSIT_WAITING;
 const STATUS_WAITING_TO_START = PROJECT_STATUS.WAITING_TO_START;
 const STATUS_IN_PROGRESS = PROJECT_STATUS.IN_PROGRESS;
@@ -132,7 +132,7 @@ const ProjectTitle = ({ element, data, postId, checkJoin, checkJoinRefetch }: Pr
 
       if (
         data?.status === STATUS_RECRUITMENT_COMPLETED ||
-        data?.status === STATUS_REQUIREMENT_ASSESSMENT_IN_PROGRESS ||
+        // data?.status === STATUS_REQUIREMENT_ASSESSMENT_IN_PROGRESS ||
         data?.status === STATUS_DEPOSIT_WAITING
       ) {
         return <Button onClick={handleCancelApply}>지원 취소</Button>;
@@ -159,10 +159,10 @@ const ProjectTitle = ({ element, data, postId, checkJoin, checkJoinRefetch }: Pr
       return <Button onClick={handleRecruitAssessment}>요구사항 심사요청</Button>;
     }
 
-    //요구사항 심사중
-    if (data?.status === STATUS_REQUIREMENT_ASSESSMENT_IN_PROGRESS) {
-      return <Button disabled={true}>심사 진행중</Button>;
-    }
+    // //요구사항 심사중
+    // if (data?.status === STATUS_REQUIREMENT_ASSESSMENT_IN_PROGRESS) {
+    //   return <Button disabled={true}>심사 진행중</Button>;
+    // }
 
     //요구사항 반려
 
