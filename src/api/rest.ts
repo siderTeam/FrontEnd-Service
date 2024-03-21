@@ -14,6 +14,7 @@ export const rest = {
     applyProjectUserDetail: '/join',
     checkJoinProject: '/join/check',
     projectOrderBy: '/project/order-by',
+    recruitStatus: '/join',
   },
   post: {
     userSignIn: '/user/signIn',
@@ -35,6 +36,7 @@ export const rest = {
   delete: {
     deleteReply: '/reply',
     deleteProject: '/project',
+    deleteRecruitment: '/join',
   },
   patch: {},
 };

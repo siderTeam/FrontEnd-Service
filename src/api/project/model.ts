@@ -279,10 +279,21 @@ export type CHECK_JOIN_PROJECT = {
   isRequestJoined: boolean; //프로젝트 지원 여부
   isJoinedProject: boolean; //프로젝트 맴버 여부
   joinStatus: PROJECT_REQUIRE_JOIN_STATUS;
-}
+};
 
 export type PROJECT_ORDER_BY_REQUEST = {
   orderBy: string;
   size: number;
   sort: number;
+};
+
+export type RECRUIT_STATUS_LIST_RESPONSE = {
+  id: number;
+  createdDate: string;
+  project: {
+    id: number;
+    name: string;
+    status: number;
+  };
+  status: number;
 };
