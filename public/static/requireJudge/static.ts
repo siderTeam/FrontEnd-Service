@@ -62,8 +62,8 @@ export const PROJECT_STATUS_ARRAY = [
     label: '모집완료',
   },
   {
-    value: PROJECT_STATUS.REQUIREMENT_ASSESSMENT_IN_PROGRESS,
-    label: '요구사항 심사중',
+    value: PROJECT_STATUS.PROJECT_END,
+    label: '프로젝트 종료',
   },
   {
     value: PROJECT_STATUS.DEPOSIT_WAITING,
