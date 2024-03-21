@@ -4,7 +4,6 @@ import { POSITION_CODE, PROJECT_REQUIRE_JOIN_STATUS, PROJECT_STATUS } from './en
  * [프로젝트 상태]
  * 모집중 19,
  * 모집완료 20,
- * 요구사항 심사중 21,
  * 입금 대기중 22,
  * 진행 대기 23,
  * 진행중 24,
@@ -13,12 +12,12 @@ import { POSITION_CODE, PROJECT_REQUIRE_JOIN_STATUS, PROJECT_STATUS } from './en
  * 제출완료 27,
  * 준공 심사완료 28,
  * 입금 기간 초과 41,
+ * 프로젝트 종료 21,
  */
 export const formatForProjectStatus = (status: PROJECT_STATUS): string => {
   const returnStatus = new Map([
     [PROJECT_STATUS.RECRUITING, '모집중'],
     [PROJECT_STATUS.RECRUITMENT_COMPLETED, '모집완료'],
-    [PROJECT_STATUS.REQUIREMENT_ASSESSMENT_IN_PROGRESS, '요구사항 심사중'],
     [PROJECT_STATUS.DEPOSIT_WAITING, '입금 대기중'],
     [PROJECT_STATUS.WAITING_TO_START, '진행 대기'],
     [PROJECT_STATUS.IN_PROGRESS, '진행중'],
@@ -27,6 +26,7 @@ export const formatForProjectStatus = (status: PROJECT_STATUS): string => {
     [PROJECT_STATUS.SUBMISSION_COMPLETED, '제출완료'],
     [PROJECT_STATUS.ASSESSMENT_COMPLETED, '준공 심사완료'],
     [PROJECT_STATUS.DEPOSIT_PERIOD_EXPIRED, '입금 기간 초과'],
+    [PROJECT_STATUS.PROJECT_END, '프로젝트 종료'],
   ]);
 
   return returnStatus.get(status) ?? '';
