@@ -82,7 +82,7 @@ const MyPageContainer = ({ visible, onClose }: MyPageProps) => {
         </SiderBar>
         <Container>
           {activeMenu === 'MyPage' && <MyPage />}
-          {activeMenu === 'MyApply' && <MyApply />}
+          {activeMenu === 'MyApply' && <MyApply onClose={onClose} />}
           {activeMenu === 'Project' && <Project />}
         </Container>
       </div>

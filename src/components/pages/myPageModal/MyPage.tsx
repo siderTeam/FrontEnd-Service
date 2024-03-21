@@ -16,6 +16,8 @@ import { OPTION_TYPE } from '@/components/SelectBox/SelectBox';
 import { getUserInfo, useAuthStore } from '@/store/auth.store';
 import { useMutation } from '@tanstack/react-query';
 import { updateUserInfo } from '@/api/auth/api';
+import ChangePassword from './ChangePassword';
+import Image from 'next/image';
 
 const initialInputs = {
   nickname: '',
@@ -30,6 +32,7 @@ const MyPage = () => {
   const [textareaCount, setTextareaCount] = useState(0);
   const { handleModal, handleModalClose, visible } = useHandleModal(false);
   const [positionCodeList, setPositionCodeList] = useState<OPTION_TYPE[]>([]);
+  const [viewPassword, setViewPassword] = useState(false);
 
   const data = getUserInfo();
 
@@ -108,58 +111,74 @@ const MyPage = () => {
       introduction: textArea,
     });
   };
+
+  const handleChangePassword = () => {
+    setViewPassword(true);
+  };
   return (
-    <Container>
-      <>
-        <MyProfile style={{ marginBottom: '40px' }} name={data.name} career={inputs.career} position={formatForPositionCode(inputs.positionCode)} />
-        <div className="input-wrap">
-          <Label label="이름" require="*">
-            <Input size="medium" style={{ marginTop: '4px' }} disabled onChange={handleChange} value={data.name} name="name" />
-          </Label>
-          <Label label="연차" require="*">
-            <Input size="medium" style={{ marginTop: '4px' }} type="number" onChange={handleChange} value={inputs.career} name="career" />
-          </Label>
-          <Label label="닉네임" require="*">
-            <Input size="medium" style={{ marginTop: '4px' }} onChange={handleChange} value={inputs.nickname} name="nickname" />
-          </Label>
-          <Label label="포지션" require="*">
-            <Input
-              size="medium"
-              style={{ marginTop: '4px' }}
-              onChange={handleChange}
-              value={formatForPositionCode(inputs.positionCode)}
-              name="positionCode"
-              onClick={handleModal}
-            />
-          </Label>
+    <>
+      {viewPassword && (
+        <div style={{ display: 'flex', gap: 8, position: 'absolute', top: 40, left: 260, cursor: 'pointer' }} onClick={() => setViewPassword(false)}>
+          <Image src="/images/arrow/arrow_left_gray6.svg" width={16} height={16} alt="arrow" />
+          <div style={{ color: color.gray.gray6 }}>뒤로가기</div>
         </div>
+      )}
+      <Container>
+        {viewPassword === false ? (
+          <div>
+            <MyProfile style={{ marginBottom: '40px' }} name={data.name} career={inputs.career} position={formatForPositionCode(inputs.positionCode)} />
+            <div className="input-wrap">
+              <Label label="이름" require="*">
+                <Input size="medium" style={{ marginTop: '4px' }} disabled onChange={handleChange} value={data.name} name="name" />
+              </Label>
+              <Label label="연차" require="*">
+                <Input size="medium" style={{ marginTop: '4px' }} type="number" onChange={handleChange} value={inputs.career} name="career" />
+              </Label>
+              <Label label="닉네임" require="*">
+                <Input size="medium" style={{ marginTop: '4px' }} onChange={handleChange} value={inputs.nickname} name="nickname" />
+              </Label>
+              <Label label="포지션" require="*">
+                <Input
+                  size="medium"
+                  style={{ marginTop: '4px' }}
+                  onChange={handleChange}
+                  value={formatForPositionCode(inputs.positionCode)}
+                  name="positionCode"
+                  onClick={handleModal}
+                />
+              </Label>
+            </div>
 
-        <Label label="한 줄 소개" style={{ width: '100%', marginTop: '16px' }}>
-          <TextArea
-            size="full"
-            color="primary"
-            style={{ marginTop: '4px' }}
-            onChange={onTextareaHandler}
-            maxLength={100}
-            textareaCount={textareaCount}
-            value={textArea}
-            name="introduction"
-          />
-        </Label>
-      </>
+            <Label label="한 줄 소개" style={{ width: '100%', marginTop: '16px' }}>
+              <TextArea
+                size="full"
+                color="primary"
+                style={{ marginTop: '4px' }}
+                onChange={onTextareaHandler}
+                maxLength={100}
+                textareaCount={textareaCount}
+                value={textArea}
+                name="introduction"
+              />
+            </Label>
 
-      <div style={{ display: 'flex', justifyContent: 'end', marginTop: 20 }}>
-        <Button leftIcon="/images/lock/lock_green.svg" size="medium" variant="secondary">
-          비밀번호 변경
-        </Button>
-      </div>
-      <div className="button-wrap">
-        <Button size="medium" variant="primary" onClick={handleMutate}>
-          저장
-        </Button>
-      </div>
-      <PositionModal visible={visible} onClose={handleModalClose} onClickChoice={handleClickChoice} positionCodeList={positionCodeList} />
-    </Container>
+            <div style={{ display: 'flex', justifyContent: 'end', marginTop: 20 }}>
+              <Button leftIcon="/images/lock/lock_green.svg" size="medium" variant="secondary" onClick={handleChangePassword}>
+                비밀번호 변경
+              </Button>
+            </div>
+            <div className="button-wrap">
+              <Button size="medium" variant="primary" onClick={handleMutate}>
+                저장
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <ChangePassword />
+        )}
+        <PositionModal visible={visible} onClose={handleModalClose} onClickChoice={handleClickChoice} positionCodeList={positionCodeList} />
+      </Container>
+    </>
   );
 };
 

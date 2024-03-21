@@ -43,7 +43,7 @@ const Apply = ({ visible, onClose, postId, checkJoinRefetch }: ModalProps) => {
     },
   });
 
-  const handlChange = (e: any) => {
+  const handleChange = (e: any) => {
     const { value } = e.target;
 
     setForm({
@@ -88,7 +88,7 @@ const Apply = ({ visible, onClose, postId, checkJoinRefetch }: ModalProps) => {
           </div>
           <div>
             <span className="subtitle">지원 사유</span>
-            <TextArea value={form.content} onChange={handlChange} placeholder="지원 사유를 입력하세요." style={{ width: '100%', height: 180 }} />
+            <TextArea value={form.content} onChange={handleChange} placeholder="지원 사유를 입력하세요." style={{ width: '100%', height: 180 }} />
           </div>
         </div>
         <div className="button">
