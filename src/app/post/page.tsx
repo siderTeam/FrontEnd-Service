@@ -57,6 +57,7 @@ const initialInputs = {
   deposit: initialParams.deposit,
   name: initialParams.name,
   content: initialParams.content,
+  week: initialParams.week,
 };
 
 const Page = () => {
@@ -65,7 +66,6 @@ const Page = () => {
   const { handleModal: handleSkillModal, handleModalClose: handleModalCloseSkill, visible: skillModalVisible } = useHandleModal(false);
 
   const { inputs, onChange, setInputs } = useChangeInputs(initialInputs);
-  const { select, onChange: onChangeSelect } = useChangeSelect(1);
   const [positionCodeList, setPositionCodeList] = useState<OPTION_TYPE[]>([]);
   const [skillList, setSkillList] = useState<SKILL_TYPE[]>([]);
   const [requirements, setRequirements] = useState<{ content: string; point: number }[]>(initialParams.requiredContentsList);
@@ -128,7 +128,6 @@ const Page = () => {
       positionCodeList: positionCodeList.map((item) => item.value),
       skillCodeList: skillList.map((item) => item.id),
       recruitEndDate: format(date.end, 'yyyy-MM-dd'),
-      week: select,
       requiredContentsList: requirements,
     };
 
@@ -233,14 +232,10 @@ const Page = () => {
 
               <div className="wrap" style={{ flex: 1 }}>
                 <div className="title">진행 기간</div>
-                <SelectBox
-                  optionStyle={{ width: 242, height: 33 }}
-                  optionWrapperStyle={{ top: 32 }}
-                  style={{ width: '100%', height: 33 }}
-                  options={MONTH}
-                  onChange={onChangeSelect}
-                  value={select}
-                />
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px' }}>
+                  <Input name="week" size="small" style={{ width: 214 }} type="number" onChange={onChange} value={inputs.week} />
+                  <div style={{ color: color.gray.gray5 }}>주</div>
+                </div>
               </div>
             </div>
             <div className="wrap">
