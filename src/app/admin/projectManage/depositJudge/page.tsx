@@ -36,16 +36,40 @@ const Page = () => {
 
   const column: ColumnDef<DEPOSIT_JUDGE_LIST>[] = [
     {
-      accessorKey: 'id',
+      accessorKey: 'rowNum',
       header: 'No.',
     },
     {
-      accessorKey: 'name',
-      header: '이름',
+      accessorKey: 'date',
+      header: '제출일시',
     },
     {
-      accessorKey: 'week',
-      header: '날짜',
+      accessorKey: 'status',
+      header: '심사현황',
+    },
+    {
+      accessorKey: '',
+      header: '승인 일시',
+    },
+    {
+      accessorKey: '',
+      header: '반려이력',
+    },
+    {
+      accessorKey: 'name',
+      header: '프로젝트 명',
+    },
+    {
+      accessorKey: 'period',
+      header: '프로젝트 기간',
+    },
+    {
+      accessorKey: 'memberCount',
+      header: '구성인원',
+    },
+    {
+      accessorKey: '',
+      header: '요구사항 열람',
     },
   ];
 
