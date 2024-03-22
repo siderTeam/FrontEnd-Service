@@ -85,3 +85,38 @@ export enum DEPOSIT_STATUS {
   REFUND_WAITING = 46,
   REFUND_COMPLETED = 47,
 }
+
+/**
+ * 모집중 19,
+ * 모집완료 20,
+ * 입금 대기중  22,
+ * 진행 대기 23,
+ * 진행중 24,
+ * 중도 종결 25,
+ * 준공 심사중 26,
+ * 제출완료 27,
+ * 준공 심사완료 28,
+ * 입금 기간 초과 41,
+ * 프로젝트 종료 21,
+ * 요구사항 정의 중 32,
+ * 요구사항 심사중 33,
+ * 요구사항 심사 반려 34,
+ * 요구사항 심사 승인 / 보증금 입금 대기 35,
+ */
+export enum USER_ALL_STATUS {
+  RECRUITING = 19,
+  RECRUITMENT_COMPLETED = 20,
+  DEPOSIT_WAITING = 22,
+  WAITING_TO_START = 23,
+  IN_PROGRESS = 24,
+  PARTIAL_TERMINATION = 25,
+  ASSESSMENT_IN_PROGRESS = 26,
+  SUBMISSION_COMPLETED = 27,
+  ASSESSMENT_COMPLETED = 28,
+  DEPOSIT_PERIOD_EXPIRED = 41,
+  PROJECT_END = 21,
+  REQUIREMENT_DEFINITION_IN_PROGRESS = 32,
+  WAITING = 33,
+  REJECTED = 34,
+  APPROVED = 35,
+}
