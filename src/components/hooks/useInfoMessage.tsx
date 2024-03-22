@@ -16,7 +16,6 @@ const useInfoMessage = <T,>(defaultInfoMessage: TYPE<T>) => {
   const onChangeInfoMessage = <U,>(value: string, name: keyof T & string, params: U) => {
     const message = value?.length === 0 ? '' : defaultInfoMessage[name].validate(value, params, name).children;
     const isValidate = defaultInfoMessage[name].validate(value, params).status;
-    
 
     setInfoMessages({
       ...infoMessages,

@@ -34,6 +34,7 @@ export const rest = {
     updateReply: '/reply',
     updateJoinStatus: '/join',
     updateUserInfo: '/user',
+    changePassword: '/user/edit-password',
     updateProjectStatus: '/project/status',
   },
   delete: {

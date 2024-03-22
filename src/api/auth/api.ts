@@ -1,6 +1,6 @@
 import { API } from '../axiosConfig';
 import { rest } from '../rest';
-import { SIGN_UP_REQUEST, USER_INFO_RESPONSE, USER_INFO_UPDATE_REQUEST } from './model';
+import { SIGN_UP_REQUEST, USER_INFO_RESPONSE, USER_INFO_UPDATE_REQUEST, USER_PASSWORD_CHANGE_REQUEST } from './model';
 
 //회원가입
 export const postUserSignUp = async (params: SIGN_UP_REQUEST) => {
@@ -28,4 +28,11 @@ export const signOut = async (): Promise<USER_INFO_RESPONSE> => {
   const response = await API.post(rest.post.signOut);
 
   return response.data.data;
+};
+
+// 비밀번호 변경
+export const changePassword = async (params: USER_PASSWORD_CHANGE_REQUEST) => {
+  const response = await API.put(`${rest.put.changePassword}`, params);
+
+  return response.data;
 };
