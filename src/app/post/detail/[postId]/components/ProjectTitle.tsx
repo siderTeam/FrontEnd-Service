@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Button from '@/components/Button/Button';
 import Apply from './Modal/Apply';
 import ApplyStatusContainer from './Modal/ApplyStatusModal/ApplyStatusContainer';
-import { formatForProjectAllStatus } from 'public/lib/formatForEnum';
+import { formatForUserAllStatus } from 'public/lib/formatForEnum';
 import { CHECK_JOIN_PROJECT, PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
 import { getIsLogin, getUserInfo } from '@/store/auth.store';
 import { useRouter } from 'next/navigation';
@@ -293,7 +293,7 @@ const ProjectTitle = ({ element, data, postId, refetch, checkJoin, checkJoinRefe
           <div className="info">
             <span>{data?.createUser.nickname}</span>
             <span>{data?.createdDate?.replace(/-/g, '.').slice(0, 10)}</span>
-            <span className="status">{data && formatForProjectAllStatus(data?.status)}</span>
+            <span className="status">{data && formatForUserAllStatus(data?.status as number)}</span>
           </div>
           <div className="seen">
             <Image src={'/images/security/security_gray5.svg'} alt="security" width={12} height={7} />
