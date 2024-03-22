@@ -7,17 +7,20 @@ import Image from 'next/image';
 import Button from '@/components/Button/Button';
 import Apply from './Modal/Apply';
 import ApplyStatusContainer from './Modal/ApplyStatusModal/ApplyStatusContainer';
-import { formatForProjectStatus } from 'public/lib/formatForEnum';
+import { formatForUserAllStatus } from 'public/lib/formatForEnum';
 import { CHECK_JOIN_PROJECT, PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
 import { getIsLogin, getUserInfo } from '@/store/auth.store';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
-import { deleteProject } from '@/api/project/api';
-import { PROJECT_REQUIRE_JOIN_STATUS, PROJECT_STATUS } from 'public/lib/enum';
+import { deleteProject, updateProjectStatus } from '@/api/project/api';
+import { PROJECT_REQUIRE_JOIN_STATUS, PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS, PROJECT_STATUS } from 'public/lib/enum';
+import DepositStatus from './Modal/DepositStatus';
+import SubmitOutput from './Modal/SubmitOutput';
 
 const STATUS_RECRUITING = PROJECT_STATUS.RECRUITING;
 const STATUS_RECRUITMENT_COMPLETED = PROJECT_STATUS.RECRUITMENT_COMPLETED;
-// const STATUS_REQUIREMENT_ASSESSMENT_IN_PROGRESS = PROJECT_STATUS.REQUIREMENT_ASSESSMENT_IN_PROGRESS;
+const STATUS_REJECTED = PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS.REJECTED;
+const STATUS_WAITING = PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS.WAITING;
 const STATUS_DEPOSIT_WAITING = PROJECT_STATUS.DEPOSIT_WAITING;
 const STATUS_WAITING_TO_START = PROJECT_STATUS.WAITING_TO_START;
 const STATUS_IN_PROGRESS = PROJECT_STATUS.IN_PROGRESS;
@@ -26,6 +29,7 @@ const STATUS_ASSESSMENT_IN_PROGRESS = PROJECT_STATUS.ASSESSMENT_IN_PROGRESS;
 const STATUS_SUBMISSION_COMPLETED = PROJECT_STATUS.SUBMISSION_COMPLETED;
 const STATUS_ASSESSMENT_COMPLETED = PROJECT_STATUS.ASSESSMENT_COMPLETED;
 const STATUS_DEPOSIT_PERIOD_EXPIRED = PROJECT_STATUS.DEPOSIT_PERIOD_EXPIRED;
+const STATUS_PROJECT_END = PROJECT_STATUS.PROJECT_END;
 
 const JOIN_STATUS_REJECTED = PROJECT_REQUIRE_JOIN_STATUS.REJECTED;
 
@@ -33,17 +37,21 @@ type Props = {
   element: any;
   data?: PROJECT_DETAIL_RESPONSE;
   postId: number;
+  refetch: () => void;
   checkJoin?: CHECK_JOIN_PROJECT;
   checkJoinRefetch: () => void;
 };
 
-const ProjectTitle = ({ element, data, postId, checkJoin, checkJoinRefetch }: Props) => {
+const ProjectTitle = ({ element, data, postId, refetch, checkJoin, checkJoinRefetch }: Props) => {
   const route = useRouter();
   const identification = getUserInfo().id === data?.createUser.id;
   const [applyModal, setApplyModal] = useState(false);
   const [applyStatusModal, setApplyStatusModal] = useState(false);
+  const [depositStatusModal, setDepositStatusMoDal] = useState(false);
+  const [submitOutpusModal, setSubmitOutpuMoDal] = useState(false);
 
-  const { mutate } = useMutation({
+  //모집글 삭제
+  const { mutate: deleteProjectMutate } = useMutation({
     mutationFn: deleteProject,
     onSuccess: async (data) => {
       if (data.result === true) {
@@ -53,6 +61,22 @@ const ProjectTitle = ({ element, data, postId, checkJoin, checkJoinRefetch }: Pr
       } else {
         alert('모집글 삭제 실패');
       }
+    },
+    onError: () => {
+      console.error('실패');
+    },
+  });
+
+  //프로젝트 상태 변경
+  const { mutate: projectStatusMutate } = useMutation({
+    mutationFn: updateProjectStatus,
+    onSuccess: async (data) => {
+      if (data.result === true) {
+        alert('성공');
+      } else {
+        alert('실패');
+      }
+      refetch();
     },
     onError: () => {
       console.error('실패');
@@ -69,17 +93,27 @@ const ProjectTitle = ({ element, data, postId, checkJoin, checkJoinRefetch }: Pr
     setApplyStatusModal(false);
   };
 
+  //보증금현황 모달
+  const handleCloseDepositStatusModal = () => {
+    setDepositStatusMoDal(false);
+  };
+
+  //산출물 제출 모달
+  const handleCloseSubmitOutputModal = () => {
+    setSubmitOutpuMoDal(false);
+  };
+
   //모집마감
   const handleRecruitCompleted = () => {
     if (confirm('모집을 마감하시겠습니까?')) {
-      console.log('마감');
+      projectStatusMutate({ projectId: postId, statusId: STATUS_RECRUITMENT_COMPLETED });
     }
   };
 
   //모집글 삭제
   const handleDeleteProject = () => {
     if (confirm('모집글을 삭제하시겠습니까?')) {
-      mutate(postId);
+      deleteProjectMutate(postId);
     }
   };
 
@@ -103,8 +137,33 @@ const ProjectTitle = ({ element, data, postId, checkJoin, checkJoinRefetch }: Pr
 
   //요구사항 심사요청
   const handleRecruitAssessment = () => {
-    if (confirm('요구사항 심사를 진행하시겠습니까?\n(심사 결과는 영업일 기준 3일 이내로 완료됩니다.)')) {
-      alert('요구사항 심사는 영업일기준 3일 내로 완료됩니다.\n심사가 완료될때까지 프로젝트 정보 수정이 불가합니다.');
+    if (
+      confirm(
+        '요구사항 심사를 진행하시겠습니까?\n(심사 결과는 영업일 기준 3일 이내로 완료됩니다.\n심사가 완료될때까지 프로젝트 정보 수정 및 삭제가 불가합니다.)',
+      )
+    ) {
+      projectStatusMutate({ projectId: postId, statusId: STATUS_WAITING });
+    }
+  };
+
+  //프로젝트 취소
+  const handleProjectCancel = () => {
+    if (confirm('프로젝트를 취소하시겠습니까?')) {
+      projectStatusMutate({ projectId: postId, statusId: STATUS_PARTIAL_TERMINATION });
+    }
+  };
+
+  //프로젝트 시작
+  const handleProjectStart = () => {
+    if (confirm('프로젝트 시작을 하시겠습니까?')) {
+      projectStatusMutate({ projectId: postId, statusId: STATUS_IN_PROGRESS });
+    }
+  };
+
+  //준공 심사 요청
+  const handleAssessment = () => {
+    if (confirm('준공 심사는 영업일기준 3일 내로 완료됩니다.\n산출물은 sidego96@gmail.com 메일로 보내주세요.')) {
+      projectStatusMutate({ projectId: postId, statusId: STATUS_ASSESSMENT_IN_PROGRESS });
     }
   };
 
@@ -130,11 +189,7 @@ const ProjectTitle = ({ element, data, postId, checkJoin, checkJoinRefetch }: Pr
         return <Button onClick={() => console.log('환불 계좌 입력 클릭')}>환불 계좌 입력</Button>;
       }
 
-      if (
-        data?.status === STATUS_RECRUITMENT_COMPLETED ||
-        // data?.status === STATUS_REQUIREMENT_ASSESSMENT_IN_PROGRESS ||
-        data?.status === STATUS_DEPOSIT_WAITING
-      ) {
+      if (data?.status === STATUS_RECRUITMENT_COMPLETED || data?.status === STATUS_WAITING || data?.status === STATUS_DEPOSIT_WAITING) {
         return <Button onClick={handleCancelApply}>지원 취소</Button>;
       }
     }
@@ -159,50 +214,44 @@ const ProjectTitle = ({ element, data, postId, checkJoin, checkJoinRefetch }: Pr
       return <Button onClick={handleRecruitAssessment}>요구사항 심사요청</Button>;
     }
 
-    // //요구사항 심사중
-    // if (data?.status === STATUS_REQUIREMENT_ASSESSMENT_IN_PROGRESS) {
-    //   return <Button disabled={true}>심사 진행중</Button>;
-    // }
+    //요구사항 심사중
+    if (data?.status === STATUS_WAITING) {
+      return <Button disabled={true}>심사 진행중</Button>;
+    }
 
     //요구사항 반려
+    if (data?.status === STATUS_REJECTED) {
+      return <Button onClick={() => console.log('요구사항 수정')}>요구사항 수정</Button>;
+    }
 
     //입금 대기중
     if (data?.status === STATUS_DEPOSIT_WAITING) {
-      return <Button onClick={() => console.log('보증금 현황')}>보증금 현황</Button>;
+      return <Button onClick={() => setDepositStatusMoDal(true)}>보증금 현황</Button>;
     }
 
     //입금 기간 초과
     if (data?.status === STATUS_DEPOSIT_PERIOD_EXPIRED) {
-      return (
-        <>
-          <Button variant="secondary" onClick={() => console.log('입금기한 연장')}>
-            입금기한 연장
-          </Button>
-          <Button onClick={() => console.log('프로젝트 취소')}>프로젝트 취소</Button>
-        </>
-      );
+      return <Button onClick={handleProjectCancel}>프로젝트 취소</Button>;
     }
 
     //프로젝트 진행 대기
     if (data?.status === STATUS_WAITING_TO_START) {
-      return <Button onClick={() => console.log('프로젝트 시작')}>프로젝트 시작</Button>;
+      return <Button onClick={handleProjectStart}>프로젝트 시작</Button>;
     }
 
     //프로젝트 진행중
     if (data?.status === STATUS_IN_PROGRESS) {
-      return <Button onClick={() => console.log('준공 심사 요청')}>준공 심사 요청</Button>;
+      return <Button onClick={handleAssessment}>준공 심사 요청</Button>;
     }
 
     //준공 심사중
     if (data?.status === STATUS_ASSESSMENT_IN_PROGRESS) {
       return (
         <>
-          <Button variant="secondary" onClick={() => console.log('산출물 제출')}>
+          <Button variant="secondary" onClick={() => setSubmitOutpuMoDal(true)}>
             산출물 제출
           </Button>
-          <Button disabled={true} onClick={() => console.log('심사 진행중')}>
-            심사 진행중
-          </Button>
+          <Button disabled={true}>심사 진행중</Button>
         </>
       );
     }
@@ -217,6 +266,8 @@ const ProjectTitle = ({ element, data, postId, checkJoin, checkJoinRefetch }: Pr
     <>
       <Apply visible={applyModal} onClose={handleCloseApplyModal} postId={postId} checkJoinRefetch={checkJoinRefetch} />
       {applyStatusModal && <ApplyStatusContainer postId={postId} visible={applyStatusModal} onClose={handleCloseApplyStatusModal} />}
+      {depositStatusModal && <DepositStatus postId={postId} visible={depositStatusModal} onClose={handleCloseDepositStatusModal} />}
+      {submitOutpusModal && <SubmitOutput visible={submitOutpusModal} onClose={handleCloseSubmitOutputModal} />}
       <Container ref={element}>
         <div className="header">
           <div className="before" onClick={() => route.back()}>
@@ -225,8 +276,16 @@ const ProjectTitle = ({ element, data, postId, checkJoin, checkJoinRefetch }: Pr
           </div>
           {identification && (
             <div className="edit">
-              <StyledImage src={'/images/edit/edit_gray6.svg'} alt="edit" width={22} height={22} />
-              <StyledImage src={'/images/trash/trash_gray6.svg'} alt="trash" width={20} height={22} onClick={handleDeleteProject} />
+              {(data.status === STATUS_RECRUITING || data.status === STATUS_RECRUITMENT_COMPLETED) && (
+                <StyledImage src={'/images/edit/edit_gray6.svg'} alt="edit" width={22} height={22} />
+              )}
+              {(data.status === STATUS_RECRUITING ||
+                data.status === STATUS_RECRUITMENT_COMPLETED ||
+                data.status === STATUS_REJECTED ||
+                data.status === STATUS_DEPOSIT_WAITING ||
+                data.status === STATUS_DEPOSIT_PERIOD_EXPIRED) && (
+                <StyledImage src={'/images/trash/trash_gray6.svg'} alt="trash" width={20} height={22} onClick={handleDeleteProject} />
+              )}
             </div>
           )}
         </div>
@@ -234,7 +293,7 @@ const ProjectTitle = ({ element, data, postId, checkJoin, checkJoinRefetch }: Pr
           <div className="info">
             <span>{data?.createUser.nickname}</span>
             <span>{data?.createdDate?.replace(/-/g, '.').slice(0, 10)}</span>
-            <span className="status">{data && formatForProjectStatus(data?.status)}</span>
+            <span className="status">{data && formatForUserAllStatus(data?.status as number)}</span>
           </div>
           <div className="seen">
             <Image src={'/images/security/security_gray5.svg'} alt="security" width={12} height={7} />

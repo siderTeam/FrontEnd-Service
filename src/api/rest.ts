@@ -15,6 +15,7 @@ export const rest = {
     checkJoinProject: '/join/check',
     projectOrderBy: '/project/order-by',
     recruitStatus: '/join',
+    projectDepositDetail: '/deposit',
     projectMember: '/project_member/my',
   },
   post: {
@@ -33,6 +34,7 @@ export const rest = {
     updateReply: '/reply',
     updateJoinStatus: '/join',
     updateUserInfo: '/user',
+    updateProjectStatus: '/project/status',
   },
   delete: {
     deleteReply: '/reply',
