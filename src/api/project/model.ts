@@ -302,3 +302,21 @@ export type PROJECT_STATUS_REQUEST = {
   projectId: number;
   statusId: PROJECT_STATUS | PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS;
 };
+
+export type PROJECT_DEPOSIT_DETAIL_RESPONSE = {
+  rowNum: number;
+  id: number;
+  name: string;
+  depositStartDate: string;
+  depositEndDate: string;
+  memberCount: number;
+  paidMemberCount: number;
+  depositList: {
+    memberId: number;
+    memberPositionCode: number;
+    memberName: string;
+    depositId: number;
+    phone: string;
+    depositPrice: number;
+  }[];
+};
