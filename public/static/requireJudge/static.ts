@@ -178,3 +178,12 @@ export const MONTH = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item) => {
     value: item,
   };
 });
+
+/**
+ * [회원목록 검색어]
+ */
+export const USER_SEARCH = [
+  { value: 1, label: '아이디' },
+  { value: 2, label: '이름' },
+  { value: 3, label: '닉네임' },
+];

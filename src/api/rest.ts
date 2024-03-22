@@ -17,6 +17,8 @@ export const rest = {
     recruitStatus: '/join',
     projectDepositDetail: '/deposit',
     projectMember: '/project_member/my',
+
+    adminUserList: '/user/list',
   },
   post: {
     userSignIn: '/user/signIn',
