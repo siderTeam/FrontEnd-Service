@@ -47,6 +47,8 @@ const ChangePassword = () => {
         setInputs(initialInputs);
       } else if (data.message === '비밀번호가 일치하지 않습니다.') {
         alert('기존 비밀번호가 일치하지 않습니다.');
+      } else if (data.message === '이전 비빌번호와 같은 비밀번호로는 변경할 수 없습니다.') {
+        alert('이전 비밀번호와 같은 비밀번호로는 변경할 수 없습니다.');
       }
     },
   });
