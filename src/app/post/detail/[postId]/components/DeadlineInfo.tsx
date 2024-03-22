@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { CHECK_JOIN_PROJECT, PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
 import { getUserInfo } from '@/store/auth.store';
 import ApplyStatusContainer from './Modal/ApplyStatusModal/ApplyStatusContainer';
+import { PROJECT_STATUS } from 'public/lib/enum';
 
 type Props = {
   element: any;
@@ -44,7 +45,7 @@ const DeadlineInfo = ({ element, data, postId, checkJoin, checkJoinRefetch }: Pr
         <div className="deadline-wrap">
           <div className="count-wrap">
             <span>남은기간</span>
-            <span className="count">{period}일</span>
+            <span className="count">{data?.status === PROJECT_STATUS.RECRUITMENT_COMPLETED ? '모집마감' : `${period}일`}</span>
           </div>
           <div>
             <div className="date-wrap">

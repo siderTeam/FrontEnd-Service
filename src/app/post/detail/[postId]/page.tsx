@@ -106,8 +106,15 @@ const Page = () => {
       </div>
       <div className="project-container">
         <div ref={router[0].observe} />
-        <ProjectTitle element={titleRef} data={data} postId={postId as unknown as number} checkJoin={checkJoinProject} checkJoinRefetch={checkJoinRefetch} />
-        <RecruitInfo data={data} />
+        <ProjectTitle
+          element={titleRef}
+          data={data}
+          postId={postId as unknown as number}
+          refetch={refetch}
+          checkJoin={checkJoinProject}
+          checkJoinRefetch={checkJoinRefetch}
+        />
+        <RecruitInfo data={data} checkJoin={checkJoinProject} />
         <ProjectInfo content={data?.content || ''} />
         <FunctionInfo element={router[1].observe} data={data} />
         <DeadlineInfo

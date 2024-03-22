@@ -3,25 +3,35 @@
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Image from 'next/image';
-import { PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
+import { CHECK_JOIN_PROJECT, PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
 import { Fragment } from 'react';
+import { getUserInfo } from '@/store/auth.store';
+import { PROJECT_REQUIRE_JOIN_STATUS } from 'public/lib/enum';
 
 type Props = {
   data: PROJECT_DETAIL_RESPONSE | undefined;
+  checkJoin?: CHECK_JOIN_PROJECT;
 };
 
-const RecruitInfo = ({ data }: Props) => {
+const RecruitInfo = ({ data, checkJoin }: Props) => {
+  const identification = getUserInfo().id === data?.createUser.id;
+
   return (
     <Container>
       <div className="title">모집 인원</div>
       <div className="content">{data?.count}명</div>
-      <div className="title">연락방법</div>
-      <div className="content">
-        <div className="link">
-          {data?.connect}
-          <Image src={'/images/link/link_white.svg'} alt="link" width={14} height={14} />
-        </div>
-      </div>
+      {identification ||
+        (checkJoin?.isJoinedProject && checkJoin.joinStatus === PROJECT_REQUIRE_JOIN_STATUS.APPROVED && (
+          <>
+            <div className="title">연락방법</div>
+            <div className="content">
+              <div className="link">
+                {data?.connect}
+                <Image src={'/images/link/link_white.svg'} alt="link" width={14} height={14} />
+              </div>
+            </div>
+          </>
+        ))}
       <div className="title">모집 포지션</div>
       <div className="content">
         {data?.positionCodeList.map((position, index) => (
