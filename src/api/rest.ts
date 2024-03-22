@@ -32,6 +32,7 @@ export const rest = {
     updateReply: '/reply',
     updateJoinStatus: '/join',
     updateUserInfo: '/user',
+    updateProjectStatus: '/project/status',
   },
   delete: {
     deleteReply: '/reply',

@@ -1,4 +1,4 @@
-import { POSITION_CODE } from 'public/lib/enum';
+import { POSITION_CODE, PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS } from 'public/lib/enum';
 import { PROJECT_REQUIRE_JOIN_STATUS, PROJECT_STATUS } from 'public/lib/enum';
 
 export type CREATE_PROJECT_REQUEST = {
@@ -173,7 +173,7 @@ export type PROJECT_DETAIL_RESPONSE = {
     createdDate: string;
   }[];
 
-  status: PROJECT_STATUS;
+  status: PROJECT_STATUS | PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS;
   createdDate: string;
   view: number;
 };
@@ -296,4 +296,9 @@ export type RECRUIT_STATUS_LIST_RESPONSE = {
     status: number;
   };
   status: number;
+};
+
+export type PROJECT_STATUS_REQUEST = {
+  projectId: number;
+  statusId: PROJECT_STATUS | PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS;
 };
