@@ -7,6 +7,7 @@ import {
   CHECK_JOIN_PROJECT,
   CREATE_PROJECT_REQUEST,
   JOIN_PROJECT_STATUS_REQUEST,
+  PARTICIPATING_PROJECT_LIST_RESPONSE,
   PROJECT_DETAIL_RESPONSE,
   PROJECT_ORDER_BY_REQUEST,
   PROJECT_REQUEST,
@@ -139,6 +140,13 @@ export const deleteRecruitment = async (projectId: number) => {
 //프로젝트별 보증금 입금 현황
 export const getProjectDepositDetail = async (id: number): Promise<PROJECT_DEPOSIT_DETAIL_RESPONSE> => {
   const response = await API.get(`${rest.get.projectDepositDetail}/${id}`);
+
+  return response.data.data;
+};
+
+//내가 참여중인 프로젝트 가져오기
+export const getParticipatingProject = async (): Promise<PARTICIPATING_PROJECT_LIST_RESPONSE[]> => {
+  const response = await API.get(`${rest.get.projectMember}`);
 
   return response.data.data;
 };

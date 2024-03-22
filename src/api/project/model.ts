@@ -320,3 +320,35 @@ export type PROJECT_DEPOSIT_DETAIL_RESPONSE = {
     depositPrice: number;
   }[];
 };
+
+export type PARTICIPATING_PROJECT_LIST_RESPONSE = {
+  status: PROJECT_STATUS;
+  banned: boolean;
+  project: {
+    id: number;
+    name: string;
+    recruitStartDate: string;
+    recruitEndDate: string;
+    startDate: string | null;
+    endDate: string | null;
+    deposit: number;
+    count: number;
+    view: number;
+    createdDate: string;
+    status: number;
+  };
+  member: {
+    id: number;
+    loginId: string;
+    nickname: string;
+    position: {
+      id: number;
+      name: string;
+    };
+    career: number;
+    memberSkillList: [];
+    introduction: string;
+  };
+  deposit: { amount: number; bankName: null; bankNo: null; bankUserName: null; id: number; status: number } | null;
+  issuer: true;
+};

@@ -16,6 +16,7 @@ export const rest = {
     projectOrderBy: '/project/order-by',
     recruitStatus: '/join',
     projectDepositDetail: '/deposit',
+    projectMember: '/project_member/my',
   },
   post: {
     userSignIn: '/user/signIn',
