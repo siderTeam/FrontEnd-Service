@@ -112,7 +112,6 @@ const SignupContainer = styled.div`
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0) 100%);
 
     position: absolute;
-    /* overflow: hidden; */
     right: 120px;
     top: -50px;
     z-index: -1;

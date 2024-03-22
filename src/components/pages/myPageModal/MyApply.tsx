@@ -22,7 +22,7 @@ type Props = {
 const MyApply = ({ onClose }: Props) => {
   const route = useRouter();
   const [filterType, setFilterType] = useState('전체');
-  const [userData, setUserData] = useState<RECRUIT_STATUS_LIST_RESPONSE[]>();
+  const [applyData, setApplyData] = useState<RECRUIT_STATUS_LIST_RESPONSE[]>();
 
   const { data, refetch } = useQuery({
     queryKey: [rest.get.recruitStatus],
@@ -40,16 +40,16 @@ const MyApply = ({ onClose }: Props) => {
   });
 
   useEffect(() => {
-    setUserData(data?.filter((item) => item) as unknown as RECRUIT_STATUS_LIST_RESPONSE[]);
+    setApplyData(data?.filter((item) => item) as unknown as RECRUIT_STATUS_LIST_RESPONSE[]);
   }, [data]);
 
   const handleMenuClick = (value: string) => {
     if (value === '전체') {
-      setUserData(data?.filter((item) => item) as unknown as RECRUIT_STATUS_LIST_RESPONSE[]);
+      setApplyData(data?.filter((item) => item) as unknown as RECRUIT_STATUS_LIST_RESPONSE[]);
     } else if (value === '대기') {
-      setUserData(data?.filter((item) => item.status == STATUS_WAITING) as unknown as RECRUIT_STATUS_LIST_RESPONSE[]);
+      setApplyData(data?.filter((item) => item.status == STATUS_WAITING) as unknown as RECRUIT_STATUS_LIST_RESPONSE[]);
     } else if (value === '승인') {
-      setUserData(data?.filter((item) => item.status === STATUS_APPROVED) as unknown as RECRUIT_STATUS_LIST_RESPONSE[]);
+      setApplyData(data?.filter((item) => item.status === STATUS_APPROVED) as unknown as RECRUIT_STATUS_LIST_RESPONSE[]);
     }
     setFilterType(value);
   };
@@ -60,7 +60,7 @@ const MyApply = ({ onClose }: Props) => {
     }
   };
 
-  const handleClickProject = (id: number) => {
+  const handleClickProjectPost = (id: number) => {
     route.push(`/post/detail/${id}`);
     onClose();
   };
@@ -86,12 +86,12 @@ const MyApply = ({ onClose }: Props) => {
         <div className="apply-status">지원 현황</div>
       </TableHeader>
       <TableContent>
-        {userData?.map((content, index) => (
+        {applyData?.map((content, index) => (
           <ul key={content.id}>
             <li className="number">{index + 1}</li>
             <li className="date">{format(content.createdDate, 'yyyy.MM.dd HH:mm:ss')}</li>
             <li className="status">{formatForProjectStatus(content.project.status)}</li>
-            <li className="project" onClick={() => handleClickProject(content.project.id)}>
+            <li className="project" onClick={() => handleClickProjectPost(content.project.id)}>
               {content.project.name}
             </li>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 8 }}>

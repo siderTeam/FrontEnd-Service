@@ -2,10 +2,10 @@ import Modal from '@/components/Modal/Modal';
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import MyPage from './MyPage';
 import MyApply from './MyApply';
-import Project from './Proejct';
+import Project from './Project';
 
 interface MyPageProps {
   visible: boolean;
@@ -83,7 +83,7 @@ const MyPageContainer = ({ visible, onClose }: MyPageProps) => {
         <Container>
           {activeMenu === 'MyPage' && <MyPage />}
           {activeMenu === 'MyApply' && <MyApply onClose={onClose} />}
-          {activeMenu === 'Project' && <Project />}
+          {activeMenu === 'Project' && <Project onClose={onClose} />}
         </Container>
       </div>
     </Modal>
