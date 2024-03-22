@@ -139,7 +139,7 @@ const Page = () => {
                   .map((item) => item.label)
                   .join(', ')
                   .slice(0, 10) + '...'}
-            <Image src="/images/arrow/arrow_down.svg" width={16} height={16} alt="arrow" />
+            <Image src="/images/arrow/arrow_down_white.svg" width={16} height={16} alt="arrow" />
           </div>
           <div className={skillList.length !== 0 ? 'choice' : 'basic'} onClick={handleSkillModal}>
             {skillList.length === 0
@@ -149,7 +149,7 @@ const Page = () => {
                   .join(', ')
                   .slice(0, 30) + '...'}
 
-            <Image src="/images/arrow/arrow_down.svg" width={16} height={16} alt="arrow" />
+            <Image src="/images/arrow/arrow_down_white.svg" width={16} height={16} alt="arrow" />
           </div>
         </div>
 

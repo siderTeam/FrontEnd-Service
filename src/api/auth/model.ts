@@ -70,3 +70,8 @@ export type USER_INFO_UPDATE_REQUEST = {
   skillCodeList: number[];
   introduction: string;
 };
+
+export type USER_PASSWORD_CHANGE_REQUEST = {
+  beforePw: string;
+  newPw: string;
+};
