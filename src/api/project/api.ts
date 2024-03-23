@@ -138,8 +138,8 @@ export const deleteRecruitment = async (projectId: number) => {
 };
 
 //프로젝트별 보증금 입금 현황
-export const getProjectDepositDetail = async (id: number): Promise<PROJECT_DEPOSIT_DETAIL_RESPONSE> => {
-  const response = await API.get(`${rest.get.projectDepositDetail}/${id}`);
+export const getProjectDepositDetail = async (projectId: number): Promise<PROJECT_DEPOSIT_DETAIL_RESPONSE> => {
+  const response = await API.get(`${rest.get.projectDepositDetail}/${projectId}`);
 
   return response.data.data;
 };
