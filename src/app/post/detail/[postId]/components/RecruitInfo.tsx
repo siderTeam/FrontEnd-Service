@@ -15,13 +15,13 @@ type Props = {
 
 const RecruitInfo = ({ data, checkJoin }: Props) => {
   const identification = getUserInfo().id === data?.createUser.id;
+  const approveUser = checkJoin?.isJoinedProject && (checkJoin.joinStatus === PROJECT_REQUIRE_JOIN_STATUS.APPROVED);
 
   return (
     <Container>
       <div className="title">모집 인원</div>
       <div className="content">{data?.count}명</div>
-      {identification ||
-        (checkJoin?.isJoinedProject && checkJoin.joinStatus === PROJECT_REQUIRE_JOIN_STATUS.APPROVED && (
+      {(identification || approveUser) && (
           <>
             <div className="title">연락방법</div>
             <div className="content">
@@ -31,7 +31,7 @@ const RecruitInfo = ({ data, checkJoin }: Props) => {
               </div>
             </div>
           </>
-        ))}
+        )}
       <div className="title">모집 포지션</div>
       <div className="content">
         {data?.positionCodeList.map((position, index) => (
