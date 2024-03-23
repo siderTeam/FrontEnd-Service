@@ -1,20 +1,25 @@
 import styled from '@emotion/styled';
 import { color } from '@/styles/color';
+import Image from 'next/image';
 
 type UserType = {
   career: number;
   name: string;
   positionName: string;
   onClick?: () => void;
+  issuer?: boolean;
 };
 
-const Profile = ({ name, career, positionName, onClick }: UserType) => {
+const Profile = ({ name, career, positionName, onClick, issuer = false }: UserType) => {
   return (
     <Container onClick={onClick}>
-      <img src="/images/profile_dummy.svg" />
+      <Image src={'/images/profile_dummy.svg'} alt="profile" width={40} height={40} />
 
       <ProfileWrap>
-        <div className="name">{name}</div>
+        <NameWrap>
+          <div className="name">{name}</div>
+          {issuer && <Image src={'/images/star/star_green.svg'} alt="star" width={12} height={12} />}
+        </NameWrap>
         <PositionWrap>
           <div className="year">{career}년차</div>
           <div className="position">{positionName}</div>
@@ -79,4 +84,10 @@ const ProfileWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+`;
+
+const NameWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
 `;
