@@ -363,3 +363,22 @@ export type PARTICIPATING_PROJECT_LIST_RESPONSE = {
   deposit: { amount: number; bankName: null; bankNo: null; bankUserName: null; id: number; status: number } | null;
   issuer: true;
 };
+
+export type UPDATE_PROJECT_REQUEST = {
+  projectId: number;
+  name: string;
+  recruitEndDate: string;
+  content: string;
+  count: number;
+  deposit: number;
+  connect: string;
+  week: number;
+  positionCodeList: POSITION_CODE[] | null;
+  skillCodeList: number[];
+  requestedContentsEditPayloads: {
+    content: string;
+    point: number;
+    projectDetailId?: number;
+  }[];
+  editStatus: PROJECT_STATUS | PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS;
+};

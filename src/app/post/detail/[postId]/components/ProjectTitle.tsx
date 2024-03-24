@@ -229,7 +229,7 @@ const ProjectTitle = ({ element, data, postId, refetch, checkJoin, checkJoinRefe
 
     //요구사항 반려
     if (data?.status === STATUS_REJECTED) {
-      return <Button onClick={() => console.log('요구사항 수정')}>요구사항 수정</Button>;
+      return <Button onClick={() => route.push(`/post/edit/${data.id}`)}>요구사항 수정</Button>;
     }
 
     //입금 대기중
@@ -286,7 +286,7 @@ const ProjectTitle = ({ element, data, postId, refetch, checkJoin, checkJoinRefe
           {identification && (
             <div className="edit">
               {(data.status === STATUS_RECRUITING || data.status === STATUS_RECRUITMENT_COMPLETED) && (
-                <StyledImage src={'/images/edit/edit_gray6.svg'} alt="edit" width={22} height={22} />
+                <StyledImage src={'/images/edit/edit_gray6.svg'} alt="edit" width={22} height={22} onClick={() => route.push(`/post/edit/${data.id}`)} />
               )}
               {(data.status === STATUS_RECRUITING ||
                 data.status === STATUS_RECRUITMENT_COMPLETED ||
