@@ -263,6 +263,7 @@ export type APPLY_PROJECT_USER_DETAIL_RESPONSE = {
 export type JOIN_PROJECT_STATUS_REQUEST = {
   projectJoinId: number;
   statusCode: PROJECT_REQUIRE_JOIN_STATUS;
+  rejectReason?: string;
 };
 
 export type CHECK_JOIN_PROJECT = {

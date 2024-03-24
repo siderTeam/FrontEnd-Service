@@ -48,7 +48,7 @@ const CompanionReason = ({ visible, onClose, joinId, refetch }: ModalProps) => {
     }
 
     if (confirm('반려하시겠습니까?')) {
-      mutate({ projectJoinId: joinId, statusCode: PROJECT_REQUIRE_JOIN_STATUS.REJECTED });
+      mutate({ projectJoinId: joinId, statusCode: PROJECT_REQUIRE_JOIN_STATUS.REJECTED, rejectReason: inputTextarea });
     }
   };
 
