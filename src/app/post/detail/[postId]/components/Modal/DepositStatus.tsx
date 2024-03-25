@@ -47,7 +47,7 @@ const DepositStatus = ({ postId, visible, onClose }: ModalProps) => {
                   name={item.deposit.member.nickname}
                   career={item.deposit.member.career}
                   positionName={item.deposit.member.position.name}
-                  issuer={item.deposit.issuer}
+                  issuer={item.deposit.isIssuer}
                 />
                 <div className="info">
                   <div className="title">납부금액</div>

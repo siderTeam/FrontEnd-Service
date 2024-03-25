@@ -118,6 +118,7 @@ export type PROJECT_DETAIL_RESPONSE = {
       count: number;
     };
     detailList: {
+      id: number;
       point: number;
       contents: string;
     }[];
@@ -327,7 +328,7 @@ export type PROJECT_DEPOSIT_DETAIL_RESPONSE = {
         }[];
         introduction: string;
       };
-      issuer: boolean;
+      isIssuer: boolean;
     };
     depositPrice: number;
   }[];
@@ -379,7 +380,7 @@ export type UPDATE_PROJECT_REQUEST = {
   requestedContentsEditPayloads: {
     content: string;
     point: number;
-    projectDetailId?: number;
+    projectDetailId: number;
   }[];
   editStatus: PROJECT_STATUS | PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS;
 };
