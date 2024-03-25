@@ -45,7 +45,7 @@ const DeadlineInfo = ({ element, data, postId, checkJoin, checkJoinRefetch }: Pr
         <div className="deadline-wrap">
           <div className="count-wrap">
             <span>남은기간</span>
-            <span className="count">{data?.status === PROJECT_STATUS.RECRUITMENT_COMPLETED ? '모집마감' : `${period}일`}</span>
+            <span className="count">{data?.status === PROJECT_STATUS.RECRUITING ? `${period}일` : '모집마감'}</span>
           </div>
           <div>
             <div className="date-wrap">

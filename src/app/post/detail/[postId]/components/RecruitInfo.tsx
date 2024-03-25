@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import { color } from '@/styles/color';
 import Image from 'next/image';
 import { CHECK_JOIN_PROJECT, PROJECT_DETAIL_RESPONSE } from '@/api/project/model';
-import { Fragment } from 'react';
 import { getUserInfo } from '@/store/auth.store';
 import { PROJECT_REQUIRE_JOIN_STATUS } from 'public/lib/enum';
 
@@ -15,41 +14,43 @@ type Props = {
 
 const RecruitInfo = ({ data, checkJoin }: Props) => {
   const identification = getUserInfo().id === data?.createUser.id;
+  const approveUser = checkJoin?.isJoinedProject && checkJoin.joinStatus === PROJECT_REQUIRE_JOIN_STATUS.APPROVED;
+
+  //연락방법 클립보드 복사
+  const handleCopyConnectLink = async (text: string) => {
+    try {
+      navigator.clipboard.writeText(text);
+      alert('클립보드에 연락방법이 복사되었습니다.');
+    } catch (error) {
+      console.error(error, '복사 실패');
+    }
+  };
 
   return (
     <Container>
       <div className="title">모집 인원</div>
       <div className="content">{data?.count}명</div>
-      {identification ||
-        (checkJoin?.isJoinedProject && checkJoin.joinStatus === PROJECT_REQUIRE_JOIN_STATUS.APPROVED && (
-          <>
-            <div className="title">연락방법</div>
-            <div className="content">
-              <div className="link">
-                {data?.connect}
-                <Image src={'/images/link/link_white.svg'} alt="link" width={14} height={14} />
-              </div>
+      {(identification || approveUser) && (
+        <>
+          <div className="title">연락방법</div>
+          <div className="content">
+            <div className="link">
+              {data?.connect}
+              <StyledImage
+                src={'/images/link/link_white.svg'}
+                alt="link"
+                width={16}
+                height={16}
+                onClick={() => handleCopyConnectLink(data?.connect ? data?.connect : '')}
+              />
             </div>
-          </>
-        ))}
+          </div>
+        </>
+      )}
       <div className="title">모집 포지션</div>
-      <div className="content">
-        {data?.positionCodeList.map((position, index) => (
-          <Fragment key={position.name}>
-            {index > 0 && ', '}
-            {position.name}
-          </Fragment>
-        ))}
-      </div>
+      <div className="content">{data?.positionCodeList.map((position) => position.name).join(', ')}</div>
       <div className="title">스킬</div>
-      <div className="content">
-        {data?.skillCodeList.map((skill, index) => (
-          <Fragment key={skill.skillCode}>
-            {index > 0 && ', '}
-            {skill.name}
-          </Fragment>
-        ))}
-      </div>
+      <div className="content">{data?.skillCodeList.map((skill) => skill.name).join(', ')}</div>
       <div className="title">모집 마감일</div>
       <div className="content">{data?.recruitEndDate.replace(/-/g, '.')}</div>
       <div className="title">진행 기간</div>
@@ -87,4 +88,8 @@ const Container = styled.div`
       gap: 4px;
     }
   }
+`;
+
+const StyledImage = styled(Image)`
+  cursor: pointer;
 `;

@@ -16,11 +16,13 @@ import { deleteProject, updateProjectStatus } from '@/api/project/api';
 import { PROJECT_REQUIRE_JOIN_STATUS, PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS, PROJECT_STATUS } from 'public/lib/enum';
 import DepositStatus from './Modal/DepositStatus';
 import SubmitOutput from './Modal/SubmitOutput';
+import DepositRefund from './Modal/DepositRefund ';
 
 const STATUS_RECRUITING = PROJECT_STATUS.RECRUITING;
 const STATUS_RECRUITMENT_COMPLETED = PROJECT_STATUS.RECRUITMENT_COMPLETED;
-const STATUS_REJECTED = PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS.REJECTED;
 const STATUS_WAITING = PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS.WAITING;
+const STATUS_REJECTED = PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS.REJECTED;
+const STATUS_APPROVED = PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS.APPROVED;
 const STATUS_DEPOSIT_WAITING = PROJECT_STATUS.DEPOSIT_WAITING;
 const STATUS_WAITING_TO_START = PROJECT_STATUS.WAITING_TO_START;
 const STATUS_IN_PROGRESS = PROJECT_STATUS.IN_PROGRESS;
@@ -48,7 +50,8 @@ const ProjectTitle = ({ element, data, postId, refetch, checkJoin, checkJoinRefe
   const [applyModal, setApplyModal] = useState(false);
   const [applyStatusModal, setApplyStatusModal] = useState(false);
   const [depositStatusModal, setDepositStatusMoDal] = useState(false);
-  const [submitOutpusModal, setSubmitOutpuMoDal] = useState(false);
+  const [submitOutputModal, setSubmitOutputModal] = useState(false);
+  const [depositRefundModal, setDepositRefundModal] = useState(false);
 
   //모집글 삭제
   const { mutate: deleteProjectMutate } = useMutation({
@@ -100,7 +103,12 @@ const ProjectTitle = ({ element, data, postId, refetch, checkJoin, checkJoinRefe
 
   //산출물 제출 모달
   const handleCloseSubmitOutputModal = () => {
-    setSubmitOutpuMoDal(false);
+    setSubmitOutputModal(false);
+  };
+
+  //보증금 환급 모달
+  const handleCloseDepositRefundModal = () => {
+    setDepositRefundModal(false);
   };
 
   //모집마감
@@ -186,7 +194,7 @@ const ProjectTitle = ({ element, data, postId, refetch, checkJoin, checkJoinRefe
     //승인된 유저 + (준공 심사 완료 or 모집 완료 / 요구사항 심사중 / 입금 대기중)
     if (checkJoin?.isRequestJoined && checkJoin?.isJoinedProject) {
       if (data?.status === STATUS_ASSESSMENT_COMPLETED) {
-        return <Button onClick={() => console.log('환불 계좌 입력 클릭')}>환불 계좌 입력</Button>;
+        return <Button onClick={() => setDepositRefundModal(true)}>환불 계좌 입력</Button>;
       }
 
       if (data?.status === STATUS_RECRUITMENT_COMPLETED || data?.status === STATUS_WAITING || data?.status === STATUS_DEPOSIT_WAITING) {
@@ -221,11 +229,11 @@ const ProjectTitle = ({ element, data, postId, refetch, checkJoin, checkJoinRefe
 
     //요구사항 반려
     if (data?.status === STATUS_REJECTED) {
-      return <Button onClick={() => console.log('요구사항 수정')}>요구사항 수정</Button>;
+      return <Button onClick={() => route.push(`/post/edit/${data.id}`)}>요구사항 수정</Button>;
     }
 
     //입금 대기중
-    if (data?.status === STATUS_DEPOSIT_WAITING) {
+    if (data?.status === STATUS_APPROVED) {
       return <Button onClick={() => setDepositStatusMoDal(true)}>보증금 현황</Button>;
     }
 
@@ -248,7 +256,7 @@ const ProjectTitle = ({ element, data, postId, refetch, checkJoin, checkJoinRefe
     if (data?.status === STATUS_ASSESSMENT_IN_PROGRESS) {
       return (
         <>
-          <Button variant="secondary" onClick={() => setSubmitOutpuMoDal(true)}>
+          <Button variant="secondary" onClick={() => setSubmitOutputModal(true)}>
             산출물 제출
           </Button>
           <Button disabled={true}>심사 진행중</Button>
@@ -258,7 +266,7 @@ const ProjectTitle = ({ element, data, postId, refetch, checkJoin, checkJoinRefe
 
     //준공 완료
     if (data?.status === STATUS_ASSESSMENT_COMPLETED) {
-      return <Button onClick={() => console.log('환불 계좌 입력 클릭')}>환불 계좌 입력</Button>;
+      return <Button onClick={() => setDepositRefundModal(true)}>환불 계좌 입력</Button>;
     }
   }, [data?.status]);
 
@@ -267,7 +275,8 @@ const ProjectTitle = ({ element, data, postId, refetch, checkJoin, checkJoinRefe
       <Apply visible={applyModal} onClose={handleCloseApplyModal} postId={postId} checkJoinRefetch={checkJoinRefetch} />
       {applyStatusModal && <ApplyStatusContainer postId={postId} visible={applyStatusModal} onClose={handleCloseApplyStatusModal} />}
       {depositStatusModal && <DepositStatus postId={postId} visible={depositStatusModal} onClose={handleCloseDepositStatusModal} />}
-      {submitOutpusModal && <SubmitOutput visible={submitOutpusModal} onClose={handleCloseSubmitOutputModal} />}
+      {submitOutputModal && <SubmitOutput visible={submitOutputModal} onClose={handleCloseSubmitOutputModal} />}
+      {depositRefundModal && <DepositRefund visible={depositRefundModal} onClose={handleCloseDepositRefundModal} />}
       <Container ref={element}>
         <div className="header">
           <div className="before" onClick={() => route.back()}>
@@ -277,7 +286,7 @@ const ProjectTitle = ({ element, data, postId, refetch, checkJoin, checkJoinRefe
           {identification && (
             <div className="edit">
               {(data.status === STATUS_RECRUITING || data.status === STATUS_RECRUITMENT_COMPLETED) && (
-                <StyledImage src={'/images/edit/edit_gray6.svg'} alt="edit" width={22} height={22} />
+                <StyledImage src={'/images/edit/edit_gray6.svg'} alt="edit" width={22} height={22} onClick={() => route.push(`/post/edit/${data.id}`)} />
               )}
               {(data.status === STATUS_RECRUITING ||
                 data.status === STATUS_RECRUITMENT_COMPLETED ||

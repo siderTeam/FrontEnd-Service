@@ -21,7 +21,7 @@ const FunctionInfo = ({ element, data }: Props) => {
         {data?.audit.detailList.map((item, index) => (
           <div className="function" key={index}>
             <div className="require">
-              {index}. {item.contents}
+              {index + 1}. {item.contents}
             </div>
             <hr className="dash" />
             <span className="score">{item.point}점</span>
@@ -40,8 +40,7 @@ const Container = styled.div`
   padding: 44px 0 44px 0;
 
   .function-wrap {
-    margin-left: 12px;
-    width: 744px;
+    margin: 0px 12px;
 
     .function {
       display: flex;
@@ -54,13 +53,11 @@ const Container = styled.div`
     }
 
     .require {
-      max-width: 621px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      max-width: 800px;
 
       font-size: 18px;
       font-weight: 500;
+      line-height: normal;
     }
 
     .dash {
@@ -72,6 +69,7 @@ const Container = styled.div`
     .score {
       font-size: 18px;
       font-weight: 700;
+      white-space: nowrap;
     }
   }
 `;

@@ -6,7 +6,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 export type SELECTBOX_STYLE_PROPS = {
-  size?: 'small';
+  size?: 'small' | 'medium';
   selectedType?: 'placeholder' | 'selected' | 'active' | 'disabled';
   optionType?: 'placeholder' | 'selected' | 'active' | 'disabled';
   text?: 'full';
@@ -89,6 +89,12 @@ const SIZE_TYPE = {
     fontSize: '14px',
     color: color.gray.white,
   },
+  ['medium']: {
+    width: '120px',
+    padding: '8px 10px 8px 20px',
+    fontSize: '16px',
+    color: color.gray.white,
+  },
 };
 
 const SELECT_TYPE = {
@@ -130,8 +136,6 @@ const OPTIONS_TYPE = {
 };
 
 const Container = styled.div`
-  display: flex;
-  flex: 1;
   position: relative;
   cursor: pointer;
 `;
@@ -168,7 +172,6 @@ const OptionWrapper = styled.ul<any>`
   ${({ optionType }) => OPTIONS_TYPE[optionType as 'placeholder']}
 
   position: absolute;
-  top: 55px;
   box-sizing: border-box;
   border-radius: 6px;
 
@@ -183,6 +186,7 @@ const OptionWrapper = styled.ul<any>`
   li {
     ${({ size }) => SIZE_TYPE[size as 'small']}
 
+    height: 30px;
     display: flex;
     padding: 6px 16px;
     justify-content: center;

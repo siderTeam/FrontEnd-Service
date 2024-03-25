@@ -38,6 +38,7 @@ export const rest = {
     updateUserInfo: '/user',
     changePassword: '/user/edit-password',
     updateProjectStatus: '/project/status',
+    updateProject: '/project',
   },
   delete: {
     deleteReply: '/reply',

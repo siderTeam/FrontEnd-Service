@@ -16,6 +16,7 @@ import {
   PROJECT_STATUS_REQUEST,
   REPLY_REQUEST,
   PROJECT_DEPOSIT_DETAIL_RESPONSE,
+  UPDATE_PROJECT_REQUEST,
 } from './model';
 
 //프로젝트 가져오기
@@ -42,6 +43,13 @@ export const postCreateProject = async (params: CREATE_PROJECT_REQUEST) => {
 //프로젝트 삭제
 export const deleteProject = async (projectId: number) => {
   const response = await API.delete(`${rest.delete.deleteProject}/${projectId}`);
+
+  return response.data;
+};
+
+//프로젝트 수정
+export const updateProject = async (params: UPDATE_PROJECT_REQUEST) => {
+  const response = await API.put(`${rest.put.updateProject}`, params);
 
   return response.data;
 };
@@ -138,8 +146,8 @@ export const deleteRecruitment = async (projectId: number) => {
 };
 
 //프로젝트별 보증금 입금 현황
-export const getProjectDepositDetail = async (id: number): Promise<PROJECT_DEPOSIT_DETAIL_RESPONSE> => {
-  const response = await API.get(`${rest.get.projectDepositDetail}/${id}`);
+export const getProjectDepositDetail = async (projectId: number): Promise<PROJECT_DEPOSIT_DETAIL_RESPONSE> => {
+  const response = await API.get(`${rest.get.projectDepositDetail}/${projectId}`);
 
   return response.data.data;
 };

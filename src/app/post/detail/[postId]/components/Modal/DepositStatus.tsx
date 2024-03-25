@@ -40,21 +40,27 @@ const DepositStatus = ({ postId, visible, onClose }: ModalProps) => {
         <div className="modal-title">보증금 현황</div>
         <div className="subtext">프로젝트 참여자의 보증금 납입현황을 확인합니다.</div>
         <div className="modal-content">
-          {data && data.depositList.map((item) => (
-            <div className="content" key={item.depositId}>
-              <Profile name='홍길동' career={3} positionName='프론트' />
-              <div className="info">
-                <div className="title">납부금액</div>
-                <div className="pay">888,888원</div>
+          {data &&
+            data.depositList.map((item) => (
+              <div className="content" key={item.deposit.id}>
+                <Profile
+                  name={item.deposit.member.nickname}
+                  career={item.deposit.member.career}
+                  positionName={item.deposit.member.position.name}
+                  issuer={item.deposit.isIssuer}
+                />
+                <div className="info">
+                  <div className="title">납부금액</div>
+                  <div className="pay">{item.deposit.amount.toLocaleString()}원</div>
+                </div>
+                <div className="info">
+                  <div className="title">1인 보증금</div>
+                  <div className="pay">{item.depositPrice.toLocaleString()}원</div>
+                </div>
+                <span className="status">{item.deposit.status}</span>
               </div>
-              <div className="info">
-                <div className="title">1인 보증금</div>
-                <div className="pay">{item.depositPrice.toLocaleString()}원</div>
-              </div>
-              <span className="status">입금완료</span>
-            </div>
-          ))}
-          </div>
+            ))}
+        </div>
       </Container>
     </Modal>
   );

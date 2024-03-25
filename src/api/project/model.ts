@@ -1,4 +1,4 @@
-import { POSITION_CODE, PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS } from 'public/lib/enum';
+import { DEPOSIT_STATUS, POSITION_CODE, PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS } from 'public/lib/enum';
 import { PROJECT_REQUIRE_JOIN_STATUS, PROJECT_STATUS } from 'public/lib/enum';
 
 export type CREATE_PROJECT_REQUEST = {
@@ -95,23 +95,19 @@ export type PROJECT_DETAIL_RESPONSE = {
   deposit: number;
   count: number;
   connect: string;
-  skillCodeList: [
-    {
-      skillCode: number;
-      name: string;
-      imageName: string;
-    },
-  ];
+  skillCodeList: {
+    skillCode: number;
+    name: string;
+    imageName: string;
+  }[];
   content: string;
-  positionCodeList: [
-    {
-      codeGroup: {
-        id: number;
-        name: string;
-      };
+  positionCodeList: {
+    codeGroup: {
+      id: number;
       name: string;
-    },
-  ];
+    };
+    name: string;
+  }[];
   audit: {
     project: {
       id: number;
@@ -121,12 +117,11 @@ export type PROJECT_DETAIL_RESPONSE = {
       deposit: number;
       count: number;
     };
-    detailList: [
-      {
-        point: number;
-        contents: string;
-      },
-    ];
+    detailList: {
+      id: number;
+      point: number;
+      contents: string;
+    }[];
     week: number;
     reason: string;
   };
@@ -210,13 +205,11 @@ export type APPLY_PROJECT_USER_RESPONSE = [
       id: number;
       contents: string;
       career: number;
-      skillCodeList: [
-        {
-          skillCode: number;
-          name: string;
-          imageName: string;
-        },
-      ];
+      skillCodeList: {
+        skillCode: number;
+        name: string;
+        imageName: string;
+      }[];
       positionCode: number;
     };
     status: PROJECT_REQUIRE_JOIN_STATUS;
@@ -244,13 +237,11 @@ export type APPLY_PROJECT_USER_DETAIL_RESPONSE = {
     id: number;
     contents: string;
     career: number;
-    skillCodeList: [
-      {
-        skillCode: number;
-        name: string;
-        imageName: string;
-      },
-    ];
+    skillCodeList: {
+      skillCode: number;
+      name: string;
+      imageName: string;
+    }[];
     positionCode: number;
   };
   status: PROJECT_REQUIRE_JOIN_STATUS;
@@ -273,6 +264,7 @@ export type APPLY_PROJECT_USER_DETAIL_RESPONSE = {
 export type JOIN_PROJECT_STATUS_REQUEST = {
   projectJoinId: number;
   statusCode: PROJECT_REQUIRE_JOIN_STATUS;
+  rejectReason?: string;
 };
 
 export type CHECK_JOIN_PROJECT = {
@@ -312,11 +304,32 @@ export type PROJECT_DEPOSIT_DETAIL_RESPONSE = {
   memberCount: number;
   paidMemberCount: number;
   depositList: {
-    memberId: number;
-    memberPositionCode: number;
-    memberName: string;
-    depositId: number;
     phone: string;
+    deposit: {
+      id: number;
+      status: DEPOSIT_STATUS;
+      bankName: string;
+      bankNo: string;
+      bankUserName: string;
+      amount: number;
+      member: {
+        id: number;
+        loginId: string;
+        nickname: string;
+        position: {
+          id: number;
+          name: string;
+        };
+        career: number;
+        memberSkillList: {
+          skillCode: POSITION_CODE;
+          name: string;
+          imageName: string;
+        }[];
+        introduction: string;
+      };
+      isIssuer: boolean;
+    };
     depositPrice: number;
   }[];
 };
@@ -351,4 +364,23 @@ export type PARTICIPATING_PROJECT_LIST_RESPONSE = {
   };
   deposit: { amount: number; bankName: null; bankNo: null; bankUserName: null; id: number; status: number } | null;
   issuer: true;
+};
+
+export type UPDATE_PROJECT_REQUEST = {
+  projectId: number;
+  name: string;
+  recruitEndDate: string;
+  content: string;
+  count: number;
+  deposit: number;
+  connect: string;
+  week: number;
+  positionCodeList: POSITION_CODE[] | null;
+  skillCodeList: number[];
+  requestedContentsEditPayloads: {
+    content: string;
+    point: number;
+    projectDetailId: number;
+  }[];
+  editStatus: PROJECT_STATUS | PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS;
 };
