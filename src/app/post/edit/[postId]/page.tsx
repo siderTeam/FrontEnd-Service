@@ -9,7 +9,6 @@ import PositionModal from '@/components/PositionModal/PositionModal';
 import { OPTION_TYPE } from '@/components/SelectBox/SelectBox';
 import SkillModal, { SKILL_TYPE } from '@/components/SkillModal/SkillModal';
 import TextEditor from '@/components/TextEditor/TextEditor';
-import useChangeDateRange from '@/hook/useChangeDateRange';
 import useChangeInputs from '@/hook/useChangeInputs';
 import useHandleModal from '@/hook/useHandleModal';
 
@@ -66,9 +65,8 @@ const Page = () => {
   const { inputs, onChange, setInputs } = useChangeInputs(initialInputs);
   const [positionCodeList, setPositionCodeList] = useState<OPTION_TYPE[]>([]);
   const [skillList, setSkillList] = useState<SKILL_TYPE[]>([]);
-  const [requirements, setRequirements] = useState<{ content: string; point: number }[]>(initialParams.requestedContentsEditPayloads);
+  const [requirements, setRequirements] = useState<{ content: string; point: number; projectDetailId: number }[]>(initialParams.requestedContentsEditPayloads);
   const [recruitDate, setRecruitDate] = useState<Date>(new Date());
-  const { onChange: onChangeDate } = useChangeDateRange();
   const [isReject, setIsReject] = useState<boolean>(false);
 
   //프로젝트 단건 조회
@@ -129,6 +127,7 @@ const Page = () => {
         data.audit.detailList.map((detail) => ({
           content: detail.contents,
           point: detail.point,
+          projectDetailId: detail.id,
         })),
       );
       setIsReject(PROJECT_REQUIRE_JUDGE_PROGRESS_STATUS.REJECTED === data.status);
@@ -138,7 +137,7 @@ const Page = () => {
   //요구사항 추가
   const handleAddRequirement = () => {
     if (requirements.length < 10) {
-      setRequirements([...requirements, { content: '', point: '' as unknown as number }]);
+      setRequirements([...requirements, { content: '', point: '' as unknown as number, projectDetailId: 0 }]);
     }
   };
 
@@ -150,7 +149,7 @@ const Page = () => {
     if (type === 'content') {
       updatedRequirements[index].content = value;
     } else if (type === 'point') {
-      updatedRequirements[index].point = numberValue as unknown as number;
+      updatedRequirements[index].point = Number(numberValue);
     }
     setRequirements(updatedRequirements);
   };
@@ -183,6 +182,11 @@ const Page = () => {
         };
       });
     }
+  };
+
+  //모집기간 onchange
+  const handleChangeDate = (date: Date) => {
+    setRecruitDate(date);
   };
 
   //수정 버튼
@@ -286,7 +290,7 @@ const Page = () => {
               <div className="wrap" style={{ flex: 1 }}>
                 <div className="title">모집 마감일</div>
                 <div className="calender-style">
-                  <Calender onChange={onChangeDate} date={recruitDate} type="end" />
+                  <Calender onChange={handleChangeDate} date={recruitDate} type="end" />
                 </div>
               </div>
 
